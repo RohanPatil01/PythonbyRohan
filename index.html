@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PythonbyRohan:Learn Python the Right Way</title>
+  <meta name="description" content="Structured Python notes with examples, MCQs, practice tasks, and interview prep by Rohan Patil." />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>" />
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="PythonbyRohan:Learn Python the Right Way" />
+  <meta property="og:description" content="Structured Python notes, MCQs, practice tasks and interview prep by Rohan Patil. Free for everyone." />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://rohanpatil01.github.io/pynotes/" />
+  <meta name="twitter:card"       content="summary" />
+  <meta name="twitter:title"      content="PythonbyRohan:Learn Python the Right Way" />
+  <meta name="twitter:description" content="Structured Python notes, MCQs, practice tasks and interview prep by Rohan Patil." />
+
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    /* Home-page specific */
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 40px 36px;
+      position: relative; overflow: hidden;
+      margin-bottom: 24px;
+      box-shadow: inset 0 1px 0 var(--card-shine);
+    }
+    .hero-glow {
+      position:absolute; top:-80px; right:-80px;
+      width:320px; height:320px;
+      background:radial-gradient(circle, rgba(79,127,255,.1) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .hero-glow2 {
+      position:absolute; bottom:-50px; left:20%;
+      width:200px; height:200px;
+      background:radial-gradient(circle, rgba(52,211,153,.06) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .hero-snake {
+      position:absolute; right:36px; top:50%;
+      transform:translateY(-50%);
+      font-size:120px; opacity:.05;
+      pointer-events:none; user-select:none;
+    }
+    .hero-tag {
+      display:inline-flex; align-items:center; gap:6px;
+      background:rgba(79,127,255,.1);
+      border:1px solid rgba(79,127,255,.2);
+      color:var(--accent);
+      font-size:11px; font-weight:700;
+      padding:4px 12px; border-radius:20px;
+      margin-bottom:18px; letter-spacing:.05em;
+    }
+    .hero h1 {
+      font-family:var(--font-display);
+      font-size:clamp(26px,4vw,40px);
+      font-weight:800; line-height:1.12;
+      margin-bottom:14px; color:var(--text);
+    }
+    .hero h1 .hl { color:var(--accent); }
+    .hero p {
+      font-size:15px; color:var(--text2);
+      line-height:1.75; max-width:500px; margin-bottom:26px;
+    }
+    .hero-actions { display:flex; gap:10px; flex-wrap:wrap; }
+
+    /* Last visit banner */
+    .last-visit-banner {
+      display:none; align-items:center; justify-content:space-between;
+      background:rgba(79,127,255,.08);
+      border:1px solid rgba(79,127,255,.2);
+      border-radius:var(--radius);
+      padding:12px 18px; margin-bottom:20px;
+      font-size:13.5px; gap:12px; flex-wrap:wrap;
+    }
+    .last-visit-banner span { color:var(--text2); }
+    .last-visit-banner strong { color:var(--text); }
+
+    /* Streak */
+    .streak-section {
+      display:flex; align-items:center; gap:12px;
+      background:var(--card); border:1px solid var(--border);
+      border-radius:var(--radius-lg); padding:14px 20px;
+      margin-bottom:20px;
+      box-shadow:inset 0 1px 0 var(--card-shine);
+      flex-wrap:wrap;
+    }
+    .streak-label { font-size:13px; font-weight:700; color:var(--text2); white-space:nowrap; }
+    #streakDots   { display:flex; gap:5px; }
+    .streak-dot {
+      width:30px; height:30px; border-radius:7px;
+      background:var(--bg3); border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      font-size:10px; font-family:var(--font-mono);
+      color:var(--text3); transition:all .2s;
+    }
+    .streak-dot.done  { background:rgba(79,127,255,.15); border-color:rgba(79,127,255,.3); color:var(--accent); }
+    .streak-dot.today { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:700; }
+    .streak-msg { font-size:13px; color:var(--accent3); font-weight:700; white-space:nowrap; }
+
+    /* Stats */
+    .stats-grid {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:12px; margin-bottom:24px;
+    }
+    .stat-card {
+      background:var(--card); border:1px solid var(--border);
+      border-radius:var(--radius-lg); padding:18px 16px;
+      text-align:center;
+      transition:border-color .2s, transform .2s;
+      box-shadow:inset 0 1px 0 var(--card-shine);
+    }
+    .stat-card:hover { border-color:var(--border2); transform:translateY(-2px); }
+    .stat-icon  { font-size:20px; margin-bottom:6px; }
+    .stat-num   {
+      font-family:var(--font-display);
+      font-size:28px; font-weight:800; line-height:1; margin-bottom:4px;
+    }
+    .stat-label { font-size:11px; color:var(--text3); font-weight:600; letter-spacing:.03em; }
+
+    /* Quick links */
+    .quicklinks-grid {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:10px; margin-bottom:32px;
+    }
+    .quicklink-card {
+      background:var(--card); border:1px solid var(--border);
+      border-radius:var(--radius-lg); padding:18px 14px;
+      text-decoration:none; transition:all .2s;
+      display:flex; flex-direction:column;
+      align-items:center; gap:8px; text-align:center;
+      box-shadow:inset 0 1px 0 var(--card-shine);
+    }
+    .quicklink-card:hover { border-color:var(--accent); transform:translateY(-2px); }
+    .quicklink-icon { font-size:24px; }
+    .quicklink-name { font-size:13px; font-weight:700; color:var(--text); }
+    .quicklink-desc { font-size:11px; color:var(--text3); }
+
+    /* Featured */
+    .featured-grid {
+      display:grid; grid-template-columns:2fr 1fr;
+      gap:16px; margin-bottom:32px;
+    }
+    .featured-card {
+      background:linear-gradient(135deg, rgba(79,127,255,.08), rgba(52,211,153,.04));
+      border:1px solid rgba(79,127,255,.18);
+      border-radius:var(--radius-xl); padding:26px;
+      position:relative; overflow:hidden;
+    }
+    .featured-label {
+      font-size:10px; font-weight:700; letter-spacing:.12em;
+      text-transform:uppercase; color:var(--accent); margin-bottom:10px;
+    }
+    .featured-title {
+      font-family:var(--font-display);
+      font-size:20px; font-weight:800; margin-bottom:8px; color:var(--text);
+    }
+    .featured-desc { font-size:14px; color:var(--text2); line-height:1.7; margin-bottom:18px; }
+    .updates-card {
+      background:var(--card); border:1px solid var(--border);
+      border-radius:var(--radius-xl); padding:20px;
+      box-shadow:inset 0 1px 0 var(--card-shine);
+    }
+    .update-item {
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 0; border-bottom:1px solid var(--border);
+    }
+    .update-item:last-child { border-bottom:none; }
+    .update-dot { width:8px; height:8px; border-radius:50%; margin-top:5px; flex-shrink:0; }
+    .update-text { font-size:13px; color:var(--text2); line-height:1.5; }
+    .update-date { font-size:10px; color:var(--text3); font-family:var(--font-mono); margin-top:3px; }
+
+    /* Roadmap */
+    .roadmap-grid {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:12px; margin-bottom:32px;
+    }
+    .roadmap-card {
+      background:var(--card); border:1px solid var(--border);
+      border-radius:var(--radius-lg); padding:18px;
+      box-shadow:inset 0 1px 0 var(--card-shine);
+      transition:border-color .2s;
+    }
+    .roadmap-card:hover { border-color:var(--border2); }
+    .roadmap-phase {
+      font-size:10px; font-weight:700; letter-spacing:.1em;
+      text-transform:uppercase; margin-bottom:6px;
+    }
+    .roadmap-title { font-family:var(--font-display); font-size:15px; font-weight:800; margin-bottom:12px; }
+    .roadmap-items { list-style:none; }
+    .roadmap-items li {
+      font-size:13px; color:var(--text2);
+      padding:5px 0; border-bottom:1px solid var(--border);
+      display:flex; align-items:center; gap:8px;
+    }
+    .roadmap-items li:last-child { border-bottom:none; }
+    .roadmap-items li::before { content:'›'; color:var(--accent); font-size:14px; font-weight:700; }
+
+    /* Topic grid */
+    .topic-grid {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:10px; margin-bottom:32px;
+    }
+    .topic-card {
+      background:var(--card); border:1px solid var(--border);
+      border-radius:var(--radius); padding:15px 16px;
+      cursor:pointer; transition:all .22s ease;
+      text-decoration:none; display:block;
+      position:relative; overflow:hidden;
+      box-shadow:inset 0 1px 0 var(--card-shine);
+    }
+    .topic-card::before {
+      content:''; position:absolute;
+      left:0; top:0; bottom:0; width:3px;
+      background:var(--border2); transition:background .2s;
+    }
+    .topic-card:hover { border-color:var(--accent); transform:translateY(-2px); box-shadow:var(--shadow-sm); }
+    .topic-card:hover::before { background:var(--accent); }
+    .topic-card.done { border-color:rgba(52,211,153,.2); }
+    .topic-card.done::before { background:var(--green); }
+    .topic-num  { font-family:var(--font-mono); font-size:10px; color:var(--text3); margin-bottom:5px; }
+    .topic-name { font-size:13.5px; font-weight:700; color:var(--text); margin-bottom:8px; }
+
+    /* Phase sections */
+    .phase-section {
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: var(--card);
+      box-shadow: inset 0 1px 0 var(--card-shine);
+    }
+    .phase-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px; cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      transition: background .18s;
+      user-select: none;
+    }
+    .phase-header:hover { background: var(--bg3); }
+    .phase-header-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .phase-badge {
+      font-size: 10px; font-weight: 700; letter-spacing: .08em;
+      padding: 3px 10px; border-radius: 20px; border: 1px solid;
+    }
+    .phase-title { font-size: 13.5px; font-weight: 700; color: var(--text); }
+    .phase-count { font-size: 12px; color: var(--text3); font-family: var(--font-mono); }
+    .phase-arrow {
+      font-size: 18px; color: var(--text3);
+      transition: transform .25s; display: inline-block;
+      transform: rotate(90deg);
+    }
+    .phase-section.collapsed .phase-arrow { transform: rotate(0deg); }
+    .phase-body { padding: 14px; margin-bottom: 0; }
+    .phase-section.collapsed .phase-body { display: none; }
+
+    /* Responsive */
+    @media (max-width:900px) {
+      .stats-grid      { grid-template-columns:repeat(2,1fr); }
+      .topic-grid      { grid-template-columns:repeat(2,1fr); }
+      .roadmap-grid    { grid-template-columns:1fr 1fr; }
+      .quicklinks-grid { grid-template-columns:repeat(2,1fr); }
+      .featured-grid   { grid-template-columns:1fr; }
+    }
+    @media (max-width:560px) {
+      .topic-grid   { grid-template-columns:1fr; }
+      .roadmap-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+<script>(function(){try{if(JSON.parse(localStorage.getItem('pynotes_theme'))==='light')document.body.classList.add('light');}catch(e){}}());</script>
+
+<!-- Mobile overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="layout">
+
+  <!-- ══ SIDEBAR ══════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">Py</div>
+      <div>
+        <div class="logo-text">Python<span style="color:var(--purple);font-size:.85em;font-weight:700">byRohan</span></div>
+      </div>
+    </div>
+
+    <div class="sidebar-progress">
+      <div class="progress-meta">
+        <span>Overall Progress</span>
+        <span data-progress-count>0/29 topics</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
+    </div>
+
+    <div class="sidebar-label">Navigation</div>
+    <a href="index.html" class="nav-item active">
+      <span class="nav-num">🏠</span><span class="nav-dot active"></span>Home
+    </a>
+
+    <div class="sidebar-label">Core Python</div>
+
+    <a href="topics/python-basics.html" class="nav-item">
+      <span class="nav-num">01</span><span class="nav-dot" id="dot-python-basics"></span>Python Basics
+    </a>
+    <a href="topics/data-types.html" class="nav-item">
+      <span class="nav-num">02</span><span class="nav-dot" id="dot-data-types"></span>Data Types
+    </a>
+    <a href="topics/operators.html" class="nav-item">
+      <span class="nav-num">03</span><span class="nav-dot" id="dot-operators"></span>Operators
+    </a>
+    <a href="topics/conditionals.html" class="nav-item">
+      <span class="nav-num">04</span><span class="nav-dot" id="dot-conditionals"></span>Conditionals
+    </a>
+
+    <!-- Loops group -->
+    <div class="nav-group" data-group="loops">
+      <div class="nav-group-header">
+        <span class="nav-num">05</span>
+        <span class="nav-dot" id="dot-loops-for"></span>
+        Loops
+        <span class="nav-group-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <a href="topics/loops-for.html"   class="nav-sub-item" id="sub-loops-for">for Loop</a>
+        <a href="topics/loops-while.html" class="nav-sub-item" id="sub-loops-while">while Loop</a>
+      </div>
+    </div>
+
+    <!-- Strings group -->
+    <div class="nav-group" data-group="strings">
+      <div class="nav-group-header">
+        <span class="nav-num">06</span>
+        <span class="nav-dot" id="dot-strings-basics"></span>
+        Strings
+        <span class="nav-group-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <a href="topics/strings-basics.html"  class="nav-sub-item" id="sub-strings-basics">Basics</a>
+        <a href="topics/strings-methods.html" class="nav-sub-item" id="sub-strings-methods">Methods</a>
+      </div>
+    </div>
+
+    <a href="topics/lists.html" class="nav-item">
+      <span class="nav-num">07</span><span class="nav-dot" id="dot-lists"></span>Lists
+    </a>
+    <a href="topics/tuples.html" class="nav-item">
+      <span class="nav-num">08</span><span class="nav-dot" id="dot-tuples"></span>Tuples
+    </a>
+
+    <div class="sidebar-label">Intermediate</div>
+
+    <a href="topics/dictionaries.html" class="nav-item">
+      <span class="nav-num">09</span><span class="nav-dot" id="dot-dictionaries"></span>Dictionaries
+    </a>
+    <a href="topics/sets.html" class="nav-item">
+      <span class="nav-num">10</span><span class="nav-dot" id="dot-sets"></span>Sets
+    </a>
+
+    <!-- Functions group -->
+    <div class="nav-group" data-group="functions">
+      <div class="nav-group-header">
+        <span class="nav-num">11</span>
+        <span class="nav-dot" id="dot-functions-basics"></span>
+        Functions
+        <span class="nav-group-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <a href="topics/functions-basics.html"   class="nav-sub-item">Defining Functions</a>
+        <a href="topics/functions-advanced.html" class="nav-sub-item">Args, kwargs, Lambda</a>
+      </div>
+    </div>
+
+    <a href="topics/modules-packages.html" class="nav-item">
+      <span class="nav-num">12</span><span class="nav-dot" id="dot-modules-packages"></span>Modules &amp; Packages
+    </a>
+
+    <!-- File Handling group -->
+    <div class="nav-group" data-group="file-handling">
+      <div class="nav-group-header">
+        <span class="nav-num">13</span>
+        <span class="nav-dot" id="dot-file-handling-read"></span>
+        File Handling
+        <span class="nav-group-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <a href="topics/file-handling-read.html"  class="nav-sub-item">Reading Files</a>
+        <a href="topics/file-handling-write.html" class="nav-sub-item">Writing Files</a>
+      </div>
+    </div>
+
+    <!-- Exception Handling group -->
+    <div class="nav-group" data-group="exceptions">
+      <div class="nav-group-header">
+        <span class="nav-num">14</span>
+        <span class="nav-dot" id="dot-exceptions-basics"></span>
+        Exception Handling
+        <span class="nav-group-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <a href="topics/exceptions-basics.html"   class="nav-sub-item">Basics</a>
+        <a href="topics/exceptions-advanced.html" class="nav-sub-item">Advanced</a>
+      </div>
+    </div>
+
+    <!-- OOP group -->
+    <div class="nav-group" data-group="oop">
+      <div class="nav-group-header">
+        <span class="nav-num">15</span>
+        <span class="nav-dot" id="dot-oop-classes"></span>
+        OOP
+        <span class="nav-group-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <a href="topics/oop-classes.html"     class="nav-sub-item">Classes &amp; Objects</a>
+        <a href="topics/oop-inheritance.html" class="nav-sub-item">Inheritance</a>
+        <a href="topics/oop-advanced.html"    class="nav-sub-item">Advanced OOP</a>
+      </div>
+    </div>
+
+    <div class="sidebar-label">Advanced</div>
+
+    <a href="topics/iterators-generators.html" class="nav-item">
+      <span class="nav-num">16</span><span class="nav-dot" id="dot-iterators-generators"></span>Iterators &amp; Generators
+    </a>
+    <a href="topics/decorators.html" class="nav-item">
+      <span class="nav-num">17</span><span class="nav-dot" id="dot-decorators"></span>Decorators
+    </a>
+
+    <!-- NumPy group -->
+    <div class="nav-group" data-group="numpy">
+      <div class="nav-group-header">
+        <span class="nav-num">18</span>
+        <span class="nav-dot" id="dot-numpy-arrays"></span>
+        NumPy
+        <span class="nav-group-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <a href="topics/numpy-arrays.html"     class="nav-sub-item">Arrays</a>
+        <a href="topics/numpy-operations.html" class="nav-sub-item">Operations</a>
+      </div>
+    </div>
+
+    <!-- Pandas group -->
+    <div class="nav-group" data-group="pandas">
+      <div class="nav-group-header">
+        <span class="nav-num">19</span>
+        <span class="nav-dot" id="dot-pandas-series"></span>
+        Pandas
+        <span class="nav-group-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <a href="topics/pandas-series.html"    class="nav-sub-item">Series</a>
+        <a href="topics/pandas-dataframe.html" class="nav-sub-item">DataFrame</a>
+      </div>
+    </div>
+
+    <a href="topics/data-visualization.html" class="nav-item">
+      <span class="nav-num">20</span><span class="nav-dot" id="dot-data-visualization"></span>Data Visualization
+    </a>
+
+    <div class="sidebar-label">More</div>
+    <a href="projects/index.html"  class="nav-item"><span class="nav-num">📁</span><span class="nav-dot"></span>Projects</a>
+    <a href="interview/index.html" class="nav-item"><span class="nav-num">🎯</span><span class="nav-dot"></span>Interview Prep</a>
+    <a href="resources/index.html" class="nav-item"><span class="nav-num">📚</span><span class="nav-dot"></span>Resources</a>
+  </aside>
+
+  <!-- ══ MAIN ════════════════════════════════════════════ -->
+  <div class="main" id="main">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="sidebar-toggle btn btn-icon" id="sidebarToggle" title="Toggle sidebar">☰</button>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <span class="crumb-current">Home</span>
+        </nav>
+      </div>
+      <div class="topbar-right">
+        <div class="theme-toggle">
+          <span class="theme-icon">🌙</span>
+          <button class="toggle-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme (D)"></button>
+          <span class="theme-icon">☀️</span>
+        </div>
+        <a href="topics/python-basics.html" class="btn btn-primary btn-sm">Start Learning</a>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="content-area">
+
+      <!-- Last visit banner -->
+      <div class="last-visit-banner animate-fadeup" id="lastVisitBanner">
+        <span>Welcome back! Continue from <strong id="lastVisitName"></strong></span>
+        <a id="lastVisitLink" href="#" class="btn btn-primary btn-sm">Continue</a>
+      </div>
+
+      <!-- Hero -->
+      <section class="hero animate-fadeup">
+        <div class="hero-glow"></div>
+        <div class="hero-glow2"></div>
+        <div class="hero-snake">🐍</div>
+        <div class="hero-tag">Python Notes · Student Edition</div>
+        <h1>Learn Python<br><span class="hl">the right way.</span></h1>
+        <p>Structured notes, real-world examples, practice tasks, MCQs, and interview prep. Everything a student needs, all in one place. Free forever.</p>
+        <div class="hero-actions">
+          <a href="topics/python-basics.html" class="btn btn-primary">Start Learning</a>
+          <a href="#roadmap" class="btn">View Roadmap</a>
+          <a href="#topics"  class="btn">All Topics</a>
+        </div>
+      </section>
+
+      <!-- Streak -->
+      <div class="streak-section animate-fadeup delay-1">
+        <div class="streak-label">🔥 Streak</div>
+        <div id="streakDots"></div>
+        <div class="streak-msg"><span data-streak>0</span> day streak!</div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid animate-fadeup delay-2">
+        <div class="stat-card">
+          <div class="stat-icon">📚</div>
+          <div class="stat-num" style="color:var(--accent)">29</div>
+          <div class="stat-label">Total Topics</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">✅</div>
+          <div class="stat-num" style="color:var(--green)" data-completed-count>0</div>
+          <div class="stat-label">Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📊</div>
+          <div class="stat-num" style="color:var(--accent3)" data-progress-percent>0%</div>
+          <div class="stat-label">Progress</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-num" style="color:var(--accent2)" id="avgScore">--</div>
+          <div class="stat-label">Avg Quiz Score</div>
+        </div>
+      </div>
+
+      <!-- Search -->
+      <div class="search-wrap animate-fadeup delay-2" style="margin-bottom:24px">
+        <span class="search-icon">🔍</span>
+        <input id="globalSearch" type="text" placeholder="Search topics... (press / to focus)" aria-label="Search topics" />
+      </div>
+
+      <!-- Keyboard shortcuts -->
+      <div class="shortcut-hint animate-fadeup delay-2">
+        <span><kbd class="kbd">/</kbd> Search</span>
+        <span><kbd class="kbd">N</kbd> Next topic</span>
+        <span><kbd class="kbd">P</kbd> Prev topic</span>
+        <span><kbd class="kbd">B</kbd> Bookmark</span>
+        <span><kbd class="kbd">D</kbd> Dark / Light</span>
+      </div>
+
+      <!-- Featured -->
+      <div class="section-heading animate-fadeup delay-2">Featured</div>
+      <div class="featured-grid animate-fadeup delay-3">
+        <div class="featured-card">
+          <div class="featured-label">Start here</div>
+          <div class="featured-title">Python Basics</div>
+          <div class="featured-desc">Your gateway to programming. Learn syntax, variables, print statements, comments, and write your very first Python program. Explained like a teacher, not a textbook.</div>
+          <a href="topics/python-basics.html" class="btn btn-primary">Begin Topic</a>
+        </div>
+        <div class="updates-card">
+          <div class="section-heading" style="font-size:13px;margin-bottom:8px">Latest Updates</div>
+          <div class="update-item">
+            <div class="update-dot" style="background:var(--accent)"></div>
+            <div>
+              <div class="update-text">OOP chapter with diagrams and examples</div>
+              <div class="update-date">Coming soon</div>
+            </div>
+          </div>
+          <div class="update-item">
+            <div class="update-dot" style="background:var(--accent2)"></div>
+            <div>
+              <div class="update-text">NumPy and Pandas notes going live</div>
+              <div class="update-date">Coming soon</div>
+            </div>
+          </div>
+          <div class="update-item">
+            <div class="update-dot" style="background:var(--accent3)"></div>
+            <div>
+              <div class="update-text">Interview Q and A section launching</div>
+              <div class="update-date">Coming soon</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick links -->
+      <div class="section-heading animate-fadeup delay-3">Quick Access</div>
+      <div class="quicklinks-grid animate-fadeup delay-3">
+        <a href="projects/index.html"  class="quicklink-card"><div class="quicklink-icon">📁</div><div class="quicklink-name">Projects</div><div class="quicklink-desc">Beginner to Advanced</div></a>
+        <a href="interview/index.html" class="quicklink-card"><div class="quicklink-icon">🎯</div><div class="quicklink-name">Interview Prep</div><div class="quicklink-desc">Q and A + Coding problems</div></a>
+        <a href="resources/index.html" class="quicklink-card"><div class="quicklink-icon">📚</div><div class="quicklink-name">Resources</div><div class="quicklink-desc">Cheat sheets and references</div></a>
+        <a href="resources/index.html" class="quicklink-card"><div class="quicklink-icon">📋</div><div class="quicklink-name">Cheat Sheets</div><div class="quicklink-desc">Quick syntax reference</div></a>
+      </div>
+
+      <!-- Roadmap -->
+      <div id="roadmap" class="section-heading animate-fadeup delay-3">Learning Roadmap</div>
+      <div class="roadmap-grid animate-fadeup delay-3">
+        <div class="roadmap-card">
+          <div class="roadmap-phase" style="color:var(--green)">Phase 1 · Beginner</div>
+          <div class="roadmap-title">Core Python</div>
+          <ul class="roadmap-items">
+            <li>Python Basics</li>
+            <li>Data Types and Variables</li>
+            <li>Operators</li>
+            <li>Conditional Statements</li>
+            <li>Loops (for and while)</li>
+            <li>Strings</li>
+            <li>Lists and Tuples</li>
+          </ul>
+        </div>
+        <div class="roadmap-card">
+          <div class="roadmap-phase" style="color:var(--accent)">Phase 2 · Intermediate</div>
+          <div class="roadmap-title">Data Structures and Functions</div>
+          <ul class="roadmap-items">
+            <li>Dictionaries and Sets</li>
+            <li>Functions</li>
+            <li>Modules and Packages</li>
+            <li>File Handling</li>
+            <li>Exception Handling</li>
+            <li>OOP</li>
+          </ul>
+        </div>
+        <div class="roadmap-card">
+          <div class="roadmap-phase" style="color:var(--accent4)">Phase 3 · Advanced</div>
+          <div class="roadmap-title">Advanced and Libraries</div>
+          <ul class="roadmap-items">
+            <li>Iterators and Generators</li>
+            <li>Decorators</li>
+            <li>NumPy</li>
+            <li>Pandas</li>
+            <li>Data Visualization</li>
+            <li>Projects and Interview Prep</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- All Topics -->
+      <div id="topics" class="section-heading animate-fadeup delay-4">All Topics</div>
+
+      <!-- Phase 1 -->
+      <div class="phase-section animate-fadeup delay-4">
+        <div class="phase-header" onclick="this.parentElement.classList.toggle('collapsed')">
+          <div class="phase-header-left">
+            <span class="phase-badge" style="background:var(--green-bg);border-color:var(--green-border);color:var(--green)">Phase 1</span>
+            <span class="phase-title">Core Python · Beginner</span>
+            <span class="phase-count" id="phase1-count">0 / 10 done</span>
+          </div>
+          <span class="phase-arrow">›</span>
+        </div>
+        <div class="topic-grid phase-body">
+          <a href="topics/python-basics.html"    class="topic-card" data-searchable data-topic="python-basics"><div class="topic-num">01</div><div class="topic-name">Python Basics</div><span class="badge badge-gray" id="status-python-basics">Not Started</span></a>
+          <a href="topics/data-types.html"       class="topic-card" data-searchable data-topic="data-types"><div class="topic-num">02</div><div class="topic-name">Data Types and Variables</div><span class="badge badge-gray" id="status-data-types">Not Started</span></a>
+          <a href="topics/operators.html"        class="topic-card" data-searchable data-topic="operators"><div class="topic-num">03</div><div class="topic-name">Operators</div><span class="badge badge-gray" id="status-operators">Not Started</span></a>
+          <a href="topics/conditionals.html"     class="topic-card" data-searchable data-topic="conditionals"><div class="topic-num">04</div><div class="topic-name">Conditional Statements</div><span class="badge badge-gray" id="status-conditionals">Not Started</span></a>
+          <a href="topics/loops-for.html"        class="topic-card" data-searchable data-topic="loops-for"><div class="topic-num">05a</div><div class="topic-name">Loops: for Loop</div><span class="badge badge-gray" id="status-loops-for">Not Started</span></a>
+          <a href="topics/loops-while.html"      class="topic-card" data-searchable data-topic="loops-while"><div class="topic-num">05b</div><div class="topic-name">Loops: while Loop</div><span class="badge badge-gray" id="status-loops-while">Not Started</span></a>
+          <a href="topics/strings-basics.html"   class="topic-card" data-searchable data-topic="strings-basics"><div class="topic-num">06a</div><div class="topic-name">Strings: Basics</div><span class="badge badge-gray" id="status-strings-basics">Not Started</span></a>
+          <a href="topics/strings-methods.html"  class="topic-card" data-searchable data-topic="strings-methods"><div class="topic-num">06b</div><div class="topic-name">Strings: Methods</div><span class="badge badge-gray" id="status-strings-methods">Not Started</span></a>
+          <a href="topics/lists.html"            class="topic-card" data-searchable data-topic="lists"><div class="topic-num">07</div><div class="topic-name">Lists</div><span class="badge badge-gray" id="status-lists">Not Started</span></a>
+          <a href="topics/tuples.html"           class="topic-card" data-searchable data-topic="tuples"><div class="topic-num">08</div><div class="topic-name">Tuples</div><span class="badge badge-gray" id="status-tuples">Not Started</span></a>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="phase-section animate-fadeup delay-4">
+        <div class="phase-header" onclick="this.parentElement.classList.toggle('collapsed')">
+          <div class="phase-header-left">
+            <span class="phase-badge" style="background:rgba(79,127,255,.1);border-color:rgba(79,127,255,.2);color:var(--accent)">Phase 2</span>
+            <span class="phase-title">Data Structures and Functions · Intermediate</span>
+            <span class="phase-count" id="phase2-count">0 / 11 done</span>
+          </div>
+          <span class="phase-arrow">›</span>
+        </div>
+        <div class="topic-grid phase-body">
+          <a href="topics/dictionaries.html"         class="topic-card" data-searchable data-topic="dictionaries"><div class="topic-num">09</div><div class="topic-name">Dictionaries</div><span class="badge badge-gray" id="status-dictionaries">Not Started</span></a>
+          <a href="topics/sets.html"                 class="topic-card" data-searchable data-topic="sets"><div class="topic-num">10</div><div class="topic-name">Sets</div><span class="badge badge-gray" id="status-sets">Not Started</span></a>
+          <a href="topics/functions-basics.html"     class="topic-card" data-searchable data-topic="functions-basics"><div class="topic-num">11a</div><div class="topic-name">Functions: Basics</div><span class="badge badge-gray" id="status-functions-basics">Not Started</span></a>
+          <a href="topics/functions-advanced.html"   class="topic-card" data-searchable data-topic="functions-advanced"><div class="topic-num">11b</div><div class="topic-name">Functions: Advanced</div><span class="badge badge-gray" id="status-functions-advanced">Not Started</span></a>
+          <a href="topics/modules-packages.html"     class="topic-card" data-searchable data-topic="modules-packages"><div class="topic-num">12</div><div class="topic-name">Modules and Packages</div><span class="badge badge-gray" id="status-modules-packages">Not Started</span></a>
+          <a href="topics/file-handling-read.html"   class="topic-card" data-searchable data-topic="file-handling-read"><div class="topic-num">13a</div><div class="topic-name">File Handling: Reading</div><span class="badge badge-gray" id="status-file-handling-read">Not Started</span></a>
+          <a href="topics/file-handling-write.html"  class="topic-card" data-searchable data-topic="file-handling-write"><div class="topic-num">13b</div><div class="topic-name">File Handling: Writing</div><span class="badge badge-gray" id="status-file-handling-write">Not Started</span></a>
+          <a href="topics/exceptions-basics.html"    class="topic-card" data-searchable data-topic="exceptions-basics"><div class="topic-num">14a</div><div class="topic-name">Exception Handling: Basics</div><span class="badge badge-gray" id="status-exceptions-basics">Not Started</span></a>
+          <a href="topics/exceptions-advanced.html"  class="topic-card" data-searchable data-topic="exceptions-advanced"><div class="topic-num">14b</div><div class="topic-name">Exception Handling: Advanced</div><span class="badge badge-gray" id="status-exceptions-advanced">Not Started</span></a>
+          <a href="topics/oop-classes.html"          class="topic-card" data-searchable data-topic="oop-classes"><div class="topic-num">15a</div><div class="topic-name">OOP: Classes and Objects</div><span class="badge badge-gray" id="status-oop-classes">Not Started</span></a>
+          <a href="topics/oop-inheritance.html"      class="topic-card" data-searchable data-topic="oop-inheritance"><div class="topic-num">15b</div><div class="topic-name">OOP: Inheritance</div><span class="badge badge-gray" id="status-oop-inheritance">Not Started</span></a>
+          <a href="topics/oop-advanced.html"         class="topic-card" data-searchable data-topic="oop-advanced"><div class="topic-num">15c</div><div class="topic-name">OOP: Advanced</div><span class="badge badge-gray" id="status-oop-advanced">Not Started</span></a>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="phase-section animate-fadeup delay-4">
+        <div class="phase-header" onclick="this.parentElement.classList.toggle('collapsed')">
+          <div class="phase-header-left">
+            <span class="phase-badge" style="background:var(--purple-bg);border-color:var(--purple-border);color:var(--purple)">Phase 3</span>
+            <span class="phase-title">Advanced and Libraries</span>
+            <span class="phase-count" id="phase3-count">0 / 8 done</span>
+          </div>
+          <span class="phase-arrow">›</span>
+        </div>
+        <div class="topic-grid phase-body">
+          <a href="topics/iterators-generators.html" class="topic-card" data-searchable data-topic="iterators-generators"><div class="topic-num">16</div><div class="topic-name">Iterators and Generators</div><span class="badge badge-gray" id="status-iterators-generators">Not Started</span></a>
+          <a href="topics/decorators.html"           class="topic-card" data-searchable data-topic="decorators"><div class="topic-num">17</div><div class="topic-name">Decorators</div><span class="badge badge-gray" id="status-decorators">Not Started</span></a>
+          <a href="topics/numpy-arrays.html"         class="topic-card" data-searchable data-topic="numpy-arrays"><div class="topic-num">18a</div><div class="topic-name">NumPy: Arrays</div><span class="badge badge-gray" id="status-numpy-arrays">Not Started</span></a>
+          <a href="topics/numpy-operations.html"     class="topic-card" data-searchable data-topic="numpy-operations"><div class="topic-num">18b</div><div class="topic-name">NumPy: Operations</div><span class="badge badge-gray" id="status-numpy-operations">Not Started</span></a>
+          <a href="topics/pandas-series.html"        class="topic-card" data-searchable data-topic="pandas-series"><div class="topic-num">19a</div><div class="topic-name">Pandas: Series</div><span class="badge badge-gray" id="status-pandas-series">Not Started</span></a>
+          <a href="topics/pandas-dataframe.html"     class="topic-card" data-searchable data-topic="pandas-dataframe"><div class="topic-num">19b</div><div class="topic-name">Pandas: DataFrame</div><span class="badge badge-gray" id="status-pandas-dataframe">Not Started</span></a>
+          <a href="topics/data-visualization.html"   class="topic-card" data-searchable data-topic="data-visualization"><div class="topic-num">20</div><div class="topic-name">Data Visualization</div><span class="badge badge-gray" id="status-data-visualization">Not Started</span></a>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-brand">Python<span style="color:var(--purple)">byRohan</span> &copy; 2026 · Rohan Patil</div>
+      <div class="footer-links">
+        <a href="https://github.com/RohanPatil01" target="_blank" rel="noopener" class="footer-link">
+          <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/rohanpatil01" target="_blank" rel="noopener" class="footer-link">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://www.instagram.com/rohanjpatil01/" target="_blank" rel="noopener" class="footer-link">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          @rohanjpatil01
+        </a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const progress = Progress.getAll();
+    document.querySelectorAll('[data-topic]').forEach(card => {
+      const id   = card.dataset.topic;
+      const done = !!progress[id];
+      const statusEl = document.getElementById('status-' + id);
+      const dotEl    = document.getElementById('dot-' + id);
+      if (done) {
+        card.classList.add('done');
+        if (statusEl) { statusEl.textContent = 'Completed'; statusEl.className = 'badge badge-green'; }
+        if (dotEl)    dotEl.classList.add('done');
+      }
+    });
+    const avg = QuizScores.getAverage();
+    const el  = document.getElementById('avgScore');
+    if (el) el.textContent = avg ? avg + '%' : '--';
+
+    // Phase completion counts
+    const p1Topics = ['python-basics','data-types','operators','conditionals','loops-for','loops-while','strings-basics','strings-methods','lists','tuples'];
+    const p2Topics = ['dictionaries','sets','functions-basics','functions-advanced','modules-packages','file-handling-read','file-handling-write','exceptions-basics','exceptions-advanced','oop-classes','oop-inheritance','oop-advanced'];
+    const p3Topics = ['iterators-generators','decorators','numpy-arrays','numpy-operations','pandas-series','pandas-dataframe','data-visualization'];
+    [[p1Topics,'phase1-count'],[p2Topics,'phase2-count'],[p3Topics,'phase3-count']].forEach(([topics,id]) => {
+      const done = topics.filter(t => !!progress[t]).length;
+      const el = document.getElementById(id);
+      if (el) el.textContent = `${done} / ${topics.length} done`;
+    });
+  });
+</script>
+</body>
+</html>

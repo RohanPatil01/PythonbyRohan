@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operators | PythonbyRohan</title>
+  <meta name="description" content="Master Python operators: arithmetic, comparison, logical, assignment, identity, membership, bitwise, and operator precedence." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <style>
+    .topic-header{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:28px 32px;margin-bottom:22px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 var(--card-shine)}
+    .topic-header-glow{position:absolute;top:-60px;right:-60px;width:260px;height:260px;background:radial-gradient(circle,rgba(79,127,255,.1) 0%,transparent 70%);pointer-events:none}
+    .topic-header-glow2{position:absolute;bottom:-40px;left:10%;width:160px;height:160px;background:radial-gradient(circle,rgba(52,211,153,.06) 0%,transparent 70%);pointer-events:none}
+    .topic-phase{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+    .topic-title{font-family:var(--font-display);font-size:clamp(22px,3vw,34px);font-weight:800;line-height:1.15;color:var(--text);margin-bottom:10px}
+    .topic-desc{font-size:14.5px;color:var(--text2);line-height:1.75;max-width:620px;margin-bottom:18px}
+    .topic-meta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+    .meta-chip{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text3);font-weight:600}
+    .meta-dot{width:7px;height:7px;border-radius:50%}
+    .topic-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .cbox{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius-lg);padding:22px 24px;margin-bottom:18px;box-shadow:inset 0 1px 0 var(--card-shine)}
+    .cbox.green{border-left-color:var(--green)}
+    .cbox.amber{border-left-color:var(--amber)}
+    .cbox.purple{border-left-color:var(--purple)}
+    .cbox.pink{border-left-color:var(--accent4)}
+    .cbox.teal{border-left-color:var(--accent2)}
+    .cbox.dim{border-left-color:var(--text3)}
+    .cbox h3{font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px;line-height:1.3}
+    .cbox p{font-size:14.5px;color:var(--text2);line-height:1.85;margin-bottom:10px}
+    .cbox p:last-child{margin-bottom:0}
+    .cbox ul,.cbox ol{padding-left:20px;color:var(--text2);font-size:14.5px;line-height:2.1}
+    .cbox li{margin-bottom:2px}
+    .cbox strong{color:var(--text)}
+    .cbox code{font-family:var(--font-mono);font-size:13px;color:var(--accent);background:rgba(79,127,255,.08);padding:1px 6px;border-radius:4px}
+    .diagram-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px 20px;margin-bottom:18px;overflow-x:auto;box-shadow:inset 0 1px 0 var(--card-shine)}
+    .table-wrap{overflow-x:auto;margin:14px 0;border-radius:var(--radius);border:1px solid var(--border)}
+    .data-table{width:100%;border-collapse:collapse;font-size:13.5px;font-family:var(--font-body)}
+    .data-table th{background:var(--bg3);color:var(--text2);font-weight:700;padding:10px 14px;text-align:center;border-bottom:1px solid var(--border);white-space:nowrap}
+    .data-table th:first-child{text-align:left}
+    .data-table td{padding:9px 14px;text-align:center;border-bottom:1px solid var(--border);color:var(--text2)}
+    .data-table td:first-child{text-align:left;font-weight:600;color:var(--text);font-family:var(--font-mono);font-size:12.5px;font-variant-ligatures:none}
+    .data-table tr:last-child td{border-bottom:none}
+    .data-table tr:hover td{background:var(--bg3)}
+    /* Practice — shared styles in style.css */
+    .practice-body{font-size:14px;color:var(--text2);line-height:1.75}
+    .practice-hint{margin-top:12px;padding:10px 14px;background:var(--bg3);border-radius:7px;font-size:13px;color:var(--text3);display:none;line-height:1.6}
+    .hint-toggle{font-size:12px;color:var(--accent);background:none;border:none;font-family:var(--font-body);font-weight:700;padding:0;margin-top:10px;cursor:pointer;display:block}
+    .hint-toggle:hover{color:var(--accent-hover)}
+    .topic-nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0;margin-top:16px;border-top:1px solid var(--border);flex-wrap:wrap;gap:10px}
+    .example-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .example-title{font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--text)}
+    .callout-sc{background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--purple);border-radius:var(--radius-lg);padding:16px 20px;margin:14px 0;font-size:14px;color:var(--text2);line-height:1.8}
+    .callout-sc strong{color:var(--text)}
+    .sc-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+    .sc-row:last-child{border-bottom:none}
+    .sc-badge{font-family:var(--font-mono);font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:1px}
+    .sc-and{background:rgba(79,127,255,.15);color:var(--accent)}
+    .sc-or{background:rgba(245,158,11,.15);color:var(--amber)}
+    .sc-not{background:rgba(139,92,246,.15);color:var(--purple)}
+  </style>
+</head>
+<body>
+<script>(function(){try{if(JSON.parse(localStorage.getItem('pynotes_theme'))==='light')document.body.classList.add('light');}catch(e){}}());</script>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">Py</div>
+    <div><div class="logo-text">Python<span style="color:var(--purple);font-size:.85em;font-weight:700">byRohan</span></div></div>
+  </div>
+  <div class="sidebar-progress">
+    <div class="progress-meta"><span>Overall Progress</span><span data-progress-count>0/29 topics</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
+  </div>
+  <div class="sidebar-label">Navigation</div>
+  <a href="../index.html" class="nav-item"><span class="nav-num">🏠</span><span class="nav-dot"></span>Home</a>
+  <div class="sidebar-label">Core Python</div>
+  <a href="python-basics.html" class="nav-item"><span class="nav-num">01</span><span class="nav-dot" id="dot-python-basics"></span>Python Basics</a>
+  <a href="data-types.html" class="nav-item"><span class="nav-num">02</span><span class="nav-dot" id="dot-data-types"></span>Data Types</a>
+  <a href="operators.html" class="nav-item active"><span class="nav-num">03</span><span class="nav-dot active"></span>Operators</a>
+  <a href="conditionals.html" class="nav-item"><span class="nav-num">04</span><span class="nav-dot" id="dot-conditionals"></span>Conditionals</a>
+  <div class="nav-group" data-group="loops">
+    <div class="nav-group-header"><span class="nav-num">05</span><span class="nav-dot"></span>Loops<span class="nav-group-arrow">›</span></div>
+    <div class="nav-sub"><a href="loops-for.html" class="nav-sub-item">for Loop</a><a href="loops-while.html" class="nav-sub-item">while Loop</a></div>
+  </div>
+  <div class="nav-group" data-group="strings">
+    <div class="nav-group-header"><span class="nav-num">06</span><span class="nav-dot"></span>Strings<span class="nav-group-arrow">›</span></div>
+    <div class="nav-sub"><a href="strings-basics.html" class="nav-sub-item">Basics</a><a href="strings-methods.html" class="nav-sub-item">Methods</a></div>
+  </div>
+  <a href="lists.html" class="nav-item"><span class="nav-num">07</span><span class="nav-dot"></span>Lists</a>
+  <a href="tuples.html" class="nav-item"><span class="nav-num">08</span><span class="nav-dot"></span>Tuples</a>
+  <div class="sidebar-label">Intermediate</div>
+  <a href="dictionaries.html" class="nav-item"><span class="nav-num">09</span><span class="nav-dot"></span>Dictionaries</a>
+  <a href="sets.html" class="nav-item"><span class="nav-num">10</span><span class="nav-dot"></span>Sets</a>
+  <div class="nav-group" data-group="functions">
+    <div class="nav-group-header"><span class="nav-num">11</span><span class="nav-dot"></span>Functions<span class="nav-group-arrow">›</span></div>
+    <div class="nav-sub"><a href="functions-basics.html" class="nav-sub-item">Defining Functions</a><a href="functions-advanced.html" class="nav-sub-item">Args, kwargs, Lambda</a></div>
+  </div>
+  <a href="modules-packages.html" class="nav-item"><span class="nav-num">12</span><span class="nav-dot"></span>Modules &amp; Packages</a>
+  <div class="nav-group" data-group="file-handling">
+    <div class="nav-group-header"><span class="nav-num">13</span><span class="nav-dot"></span>File Handling<span class="nav-group-arrow">›</span></div>
+    <div class="nav-sub"><a href="file-handling-read.html" class="nav-sub-item">Reading Files</a><a href="file-handling-write.html" class="nav-sub-item">Writing Files</a></div>
+  </div>
+  <div class="nav-group" data-group="exceptions">
+    <div class="nav-group-header"><span class="nav-num">14</span><span class="nav-dot"></span>Exception Handling<span class="nav-group-arrow">›</span></div>
+    <div class="nav-sub"><a href="exceptions-basics.html" class="nav-sub-item">Basics</a><a href="exceptions-advanced.html" class="nav-sub-item">Advanced</a></div>
+  </div>
+  <div class="nav-group" data-group="oop">
+    <div class="nav-group-header"><span class="nav-num">15</span><span class="nav-dot"></span>OOP<span class="nav-group-arrow">›</span></div>
+    <div class="nav-sub"><a href="oop-classes.html" class="nav-sub-item">Classes &amp; Objects</a><a href="oop-inheritance.html" class="nav-sub-item">Inheritance</a><a href="oop-advanced.html" class="nav-sub-item">Advanced OOP</a></div>
+  </div>
+  <div class="sidebar-label">Advanced</div>
+  <a href="iterators-generators.html" class="nav-item"><span class="nav-num">16</span><span class="nav-dot"></span>Iterators &amp; Generators</a>
+  <a href="decorators.html" class="nav-item"><span class="nav-num">17</span><span class="nav-dot"></span>Decorators</a>
+  <div class="nav-group" data-group="numpy">
+    <div class="nav-group-header"><span class="nav-num">18</span><span class="nav-dot"></span>NumPy<span class="nav-group-arrow">›</span></div>
+    <div class="nav-sub"><a href="numpy-arrays.html" class="nav-sub-item">Arrays</a><a href="numpy-operations.html" class="nav-sub-item">Operations</a></div>
+  </div>
+  <div class="nav-group" data-group="pandas">
+    <div class="nav-group-header"><span class="nav-num">19</span><span class="nav-dot"></span>Pandas<span class="nav-group-arrow">›</span></div>
+    <div class="nav-sub"><a href="pandas-series.html" class="nav-sub-item">Series</a><a href="pandas-dataframe.html" class="nav-sub-item">DataFrame</a></div>
+  </div>
+  <a href="data-visualization.html" class="nav-item"><span class="nav-num">20</span><span class="nav-dot"></span>Data Visualization</a>
+  <div class="sidebar-label">More</div>
+  <a href="../projects/index.html" class="nav-item"><span class="nav-num">📁</span><span class="nav-dot"></span>Projects</a>
+  <a href="../interview/index.html" class="nav-item"><span class="nav-num">🎯</span><span class="nav-dot"></span>Interview Prep</a>
+  <a href="../resources/index.html" class="nav-item"><span class="nav-num">📚</span><span class="nav-dot"></span>Resources</a>
+</aside>
+
+<!-- MAIN -->
+<div class="main" id="main">
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="sidebar-toggle btn btn-icon" id="sidebarToggle">☰</button>
+      <nav class="breadcrumb">
+        <a href="../index.html">Home</a><span class="sep">›</span>
+        <span>Core Python</span><span class="sep">›</span>
+        <span class="crumb-current">Operators</span>
+      </nav>
+    </div>
+    <div class="topbar-right">
+      <div class="theme-toggle">
+        <span class="theme-icon">🌙</span>
+        <button class="toggle-btn" id="themeToggle" aria-label="Toggle theme"></button>
+        <span class="theme-icon">☀️</span>
+      </div>
+      <button class="btn complete-btn">Mark as Complete</button>
+    </div>
+  </header>
+
+  <main class="content-area">
+
+    <!-- TOPIC HEADER -->
+    <div class="topic-header animate-fadeup">
+      <div class="topic-header-glow"></div>
+      <div class="topic-header-glow2"></div>
+      <div class="topic-phase"><span class="badge badge-accent">Module 03</span>Core Python · Phase 1</div>
+      <div class="topic-title">Operators in Python</div>
+      <div class="topic-desc">Operators are the symbols that tell Python what to do with your data. From simple addition to comparing values and combining conditions, operators are everywhere in your code.</div>
+      <div class="topic-meta">
+        <div class="meta-chip"><div class="meta-dot" style="background:var(--green)"></div>Beginner</div>
+        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent3)"></div>~50 min read</div>
+        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent)"></div>10 practice tasks</div>
+        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent2)"></div>8 MCQs</div>
+        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent4)"></div>8 interview Qs</div>
+      </div>
+      <div class="topic-actions">
+        <button class="btn" data-bookmark="operators">🔖 Bookmark</button>
+        <a href="data-types.html" class="btn" id="prevTopicBtn">Prev: Data Types</a>
+        <a href="conditionals.html" class="btn" id="nextTopicBtn">Next: Conditionals</a>
+      </div>
+      <div class="diff-rating">
+        <span class="diff-rating-label">How was this topic?</span>
+        <button class="diff-btn" data-diff="easy">😊 Easy</button>
+        <button class="diff-btn" data-diff="medium">🤔 Medium</button>
+        <button class="diff-btn" data-diff="hard">😤 Hard</button>
+      </div>
+    </div>
+
+    <!-- Keyboard shortcuts hint -->
+    <div class="shortcut-hint animate-fadeup delay-1">
+      <span><kbd class="kbd">N</kbd> Next topic</span>
+      <span><kbd class="kbd">P</kbd> Prev topic</span>
+      <span><kbd class="kbd">B</kbd> Bookmark</span>
+      <span><kbd class="kbd">D</kbd> Dark / Light</span>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs-wrap animate-fadeup delay-1">
+      <button class="tab-btn active">📖 Notes</button>
+      <button class="tab-btn">💻 Examples</button>
+      <button class="tab-btn">✏️ Practice</button>
+      <button class="tab-btn">❓ MCQs</button>
+      <button class="tab-btn">🎯 Guess the Output</button>
+      <button class="tab-btn">🎤 Interview</button>
+      <button class="tab-btn">⚠️ Mistakes</button>
+      <button class="tab-btn">📋 Summary</button>
+    </div>
+
+    <!-- ═══════════════════════════════ TAB 1: NOTES ═══════════════════════════════ -->
+    <div class="tab-panel active animate-fadeup delay-2">
+
+      <div class="callout callout-tip" style="margin-bottom:18px">
+        <span class="callout-icon">💡</span>
+        <span>You know variables store data. Now let's actually <strong>do stuff</strong> with that data. Operators are just symbols that tell Python what to do: add these two numbers, check if this value is bigger, see if this item is in that list. You use them in literally every program you write.</span>
+      </div>
+
+      <!-- SVG DIAGRAM -->
+      <div class="diagram-wrap">
+        <div class="concept-type-label label-definition" style="margin-bottom:20px">Python Operators: Overview</div>
+        <svg viewBox="0 0 860 200" width="100%" style="max-width:860px;display:block;margin:0 auto;min-width:580px" aria-label="Python operators overview">
+          <rect x="305" y="8" width="210" height="38" rx="10" fill="var(--accent)" opacity=".92"/>
+          <text x="410" y="32" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Outfit,sans-serif">Python Operators</text>
+          <line x1="410" y1="46" x2="410" y2="68" stroke="var(--text3)" stroke-width="1.5"/>
+          <line x1="60" y1="68" x2="790" y2="68" stroke="var(--text3)" stroke-width="1.5"/>
+          <line x1="60"  y1="68" x2="60"  y2="86" stroke="var(--text3)" stroke-width="1.5"/>
+          <line x1="175" y1="68" x2="175" y2="86" stroke="var(--text3)" stroke-width="1.5"/>
+          <line x1="295" y1="68" x2="295" y2="86" stroke="var(--text3)" stroke-width="1.5"/>
+          <line x1="410" y1="68" x2="410" y2="86" stroke="var(--text3)" stroke-width="1.5"/>
+          <line x1="530" y1="68" x2="530" y2="86" stroke="var(--text3)" stroke-width="1.5"/>
+          <line x1="645" y1="68" x2="645" y2="86" stroke="var(--text3)" stroke-width="1.5"/>
+          <line x1="760" y1="68" x2="760" y2="86" stroke="var(--text3)" stroke-width="1.5"/>
+          <rect x="8"   y="86" width="104" height="36" rx="8" fill="var(--bg3)" stroke="var(--green)"   stroke-width="1.5"/>
+          <text x="60"  y="109" text-anchor="middle" fill="var(--green)"   font-size="11" font-weight="700" font-family="Outfit,sans-serif">Arithmetic</text>
+          <rect x="122" y="86" width="106" height="36" rx="8" fill="var(--bg3)" stroke="var(--accent)"  stroke-width="1.5"/>
+          <text x="175" y="109" text-anchor="middle" fill="var(--accent)"  font-size="11" font-weight="700" font-family="Outfit,sans-serif">Comparison</text>
+          <rect x="237" y="86" width="116" height="36" rx="8" fill="var(--bg3)" stroke="var(--accent3)" stroke-width="1.5"/>
+          <text x="295" y="109" text-anchor="middle" fill="var(--accent3)" font-size="11" font-weight="700" font-family="Outfit,sans-serif">Logical</text>
+          <rect x="355" y="86" width="110" height="36" rx="8" fill="var(--bg3)" stroke="var(--accent4)" stroke-width="1.5"/>
+          <text x="410" y="109" text-anchor="middle" fill="var(--accent4)" font-size="11" font-weight="700" font-family="Outfit,sans-serif">Assignment</text>
+          <rect x="472" y="86" width="116" height="36" rx="8" fill="var(--bg3)" stroke="var(--accent2)" stroke-width="1.5"/>
+          <text x="530" y="109" text-anchor="middle" fill="var(--accent2)" font-size="11" font-weight="700" font-family="Outfit,sans-serif">Identity</text>
+          <rect x="592" y="86" width="106" height="36" rx="8" fill="var(--bg3)" stroke="var(--purple)"  stroke-width="1.5"/>
+          <text x="645" y="109" text-anchor="middle" fill="var(--purple)"  font-size="11" font-weight="700" font-family="Outfit,sans-serif">Membership</text>
+          <rect x="706" y="86" width="108" height="36" rx="8" fill="var(--bg3)" stroke="var(--amber)"   stroke-width="1.5"/>
+          <text x="760" y="109" text-anchor="middle" fill="var(--amber)"   font-size="11" font-weight="700" font-family="Outfit,sans-serif">Bitwise</text>
+          <text x="60"  y="142" text-anchor="middle" fill="var(--text3)" font-size="10" font-family="Outfit,sans-serif">+ - * / // % **</text>
+          <text x="175" y="142" text-anchor="middle" fill="var(--text3)" font-size="10" font-family="Outfit,sans-serif">== != &gt; &lt; &gt;= &lt;=</text>
+          <text x="295" y="142" text-anchor="middle" fill="var(--text3)" font-size="10" font-family="Outfit,sans-serif">and  or  not</text>
+          <text x="410" y="142" text-anchor="middle" fill="var(--text3)" font-size="10" font-family="Outfit,sans-serif">= += -= *=  ...</text>
+          <text x="530" y="142" text-anchor="middle" fill="var(--text3)" font-size="10" font-family="Outfit,sans-serif">is   is not</text>
+          <text x="645" y="142" text-anchor="middle" fill="var(--text3)" font-size="10" font-family="Outfit,sans-serif">in   not in</text>
+          <text x="760" y="142" text-anchor="middle" fill="var(--text3)" font-size="10" font-family="Outfit,sans-serif">&amp; | ^ ~ &lt;&lt; &gt;&gt;</text>
+        </svg>
+      </div>
+
+      <!-- 1. ARITHMETIC -->
+      <div class="cbox green">
+        <h3>➕ Arithmetic Operators</h3>
+        <p>Most of these you already know from school. The only two that are new are <code>//</code> and <code>%</code>. They confuse almost every beginner at first, so let's go slow on those.</p>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Operator</th><th>Name</th><th>Input types</th><th>Output type</th><th>Example</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td>+</td><td>Addition</td><td>int / float</td><td>int or float</td><td>10 + 3</td><td>13</td></tr>
+              <tr><td>-</td><td>Subtraction</td><td>int / float</td><td>int or float</td><td>10 - 3</td><td>7</td></tr>
+              <tr><td>*</td><td>Multiplication</td><td>int / float</td><td>int or float</td><td>10 * 3</td><td>30</td></tr>
+              <tr><td>/</td><td>Division</td><td>int / float</td><td>always float</td><td>10 / 2</td><td>5.0</td></tr>
+              <tr><td>//</td><td>Floor Division</td><td>int / float</td><td>int (if both int)</td><td>10 // 3</td><td>3</td></tr>
+              <tr><td>%</td><td>Modulus</td><td>int / float</td><td>int or float</td><td>10 % 3</td><td>1</td></tr>
+              <tr><td>**</td><td>Exponent</td><td>int / float</td><td>int or float</td><td>2 ** 8</td><td>256</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-note" style="margin-top:14px">
+          <span class="callout-icon">🔍</span>
+          <span><strong>What does // actually do?</strong> Imagine you have 10 chocolates and 3 friends. You give each friend as many as possible equally. Each friend gets 3 chocolates (3 x 3 = 9). The 1 leftover chocolate is not shared. So <code>10 // 3 = 3</code>. The answer is always how many each person gets, never the leftover.</span>
+        </div>
+        <div class="callout callout-tip" style="margin-top:10px">
+          <span class="callout-icon">💡</span>
+          <span><strong>What does % actually do?</strong> Now flip it. Instead of asking "how many each?" you ask "how much is left over?" With 10 chocolates and 3 friends, 1 chocolate is left. So <code>10 % 3 = 1</code>. That leftover is all % cares about. Real use: <code>n % 2</code> tells you if a number is even (0 leftover) or odd (1 leftover).</span>
+        </div>
+        <div class="callout callout-warning" style="margin-top:10px">
+          <span class="callout-icon">⚠️</span>
+          <span><strong>Watch out: / always gives a decimal answer.</strong> Even <code>10 / 2</code> gives <code>5.0</code>, not <code>5</code>. If you want a whole number with no decimal point, use <code>//</code>.</span>
+        </div>
+      </div>
+
+      <!-- 2. COMPARISON -->
+      <div class="cbox">
+        <h3>⚖️ Comparison Operators</h3>
+        <p>These always answer a yes/no question. Is this bigger? Are these equal? The answer is always <code>True</code> or <code>False</code>. That's exactly what an <code>if</code> statement or <code>while</code> loop needs to decide what to do next.</p>
+        <div class="callout callout-tip" style="margin-bottom:12px">
+          <span class="callout-icon">💡</span>
+          <span><strong>The output is always True or False.</strong> So you can drop any comparison directly into an <code>if</code> or <code>while</code>: <code>if age >= 18:</code> or <code>while score &lt; 100:</code>. Python checks it and decides yes (True) or no (False).</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Operator</th><th>Meaning</th><th>Input types</th><th>Output type</th><th>Example</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td>==</td><td>Equal to</td><td>any</td><td>bool</td><td>5 == 5</td><td>True</td></tr>
+              <tr><td>!=</td><td>Not equal to</td><td>any</td><td>bool</td><td>5 != 3</td><td>True</td></tr>
+              <tr><td>></td><td>Greater than</td><td>int / float / str</td><td>bool</td><td>7 > 5</td><td>True</td></tr>
+              <tr><td><</td><td>Less than</td><td>int / float / str</td><td>bool</td><td>3 < 5</td><td>True</td></tr>
+              <tr><td>>=</td><td>Greater than or equal</td><td>int / float / str</td><td>bool</td><td>5 >= 5</td><td>True</td></tr>
+              <tr><td><=</td><td>Less than or equal</td><td>int / float / str</td><td>bool</td><td>4 <= 5</td><td>True</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout callout-warning" style="margin-top:12px">
+          <span class="callout-icon">⚠️</span>
+          <span><strong>= and == are completely different things.</strong> <code>=</code> puts a value into a variable: <code>x = 5</code>. <code>==</code> asks "are these two things equal?": <code>x == 5</code>. If you write <code>if x = 5:</code> Python throws an error immediately. Inside any condition, always use <code>==</code>.</span>
+        </div>
+        <p style="margin-top:12px"><strong>Bonus Python trick:</strong> You can write <code>0 &lt;= score &lt;= 100</code> directly, just like you'd write it in maths. In most other languages you'd have to write <code>score >= 0 and score &lt;= 100</code>. Python's version is shorter and easier to read.</p>
+      </div>
+
+      <!-- 3. LOGICAL -->
+      <div class="cbox amber">
+        <h3>🧠 Logical Operators</h3>
+        <p>Sometimes one condition is not enough. What if you need "age must be over 18 AND they must have a valid ID"? That's where logical operators come in. They let you connect multiple conditions into one.</p>
+        <div class="callout callout-tip" style="margin-bottom:12px">
+          <span class="callout-icon">💡</span>
+          <span><strong>These also give True or False as output.</strong> So you use them the same way as comparison operators: inside <code>if</code> and <code>while</code>. You'll often chain them: <code>if age >= 18 and has_id:</code> means both things must be true.</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Operator</th><th>Meaning</th><th>Input types</th><th>Output type</th><th>Example</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td>and</td><td>Both must be True</td><td>bool</td><td>bool</td><td>True and False</td><td>False</td></tr>
+              <tr><td>or</td><td>At least one True</td><td>bool</td><td>bool</td><td>True or False</td><td>True</td></tr>
+              <tr><td>not</td><td>Flips True to False</td><td>bool</td><td>bool</td><td>not True</td><td>False</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin-top:14px"><strong>Python stops checking early when it already knows the answer</strong></p>
+        <p>Here's something clever Python does. When you use <code>and</code> or <code>or</code>, Python doesn't always check both sides. If it can figure out the final answer from just the left side, it stops right there and skips the right side completely.</p>
+
+        <div class="callout-sc">
+          <div class="sc-row">
+            <span class="sc-badge sc-and">and</span>
+            <span>With <code>and</code>, BOTH sides must be <code>True</code> for the result to be <code>True</code>. So if the left side is already <code>False</code>, the answer is definitely <code>False</code> no matter what the right side says. Python skips the right side. Example: <code>False and some_function()</code> — Python never even calls <code>some_function()</code>.</span>
+          </div>
+          <div class="sc-row">
+            <span class="sc-badge sc-or">or</span>
+            <span>With <code>or</code>, just ONE side needs to be <code>True</code>. So if the left side is already <code>True</code>, the answer is definitely <code>True</code>. Python skips the right side. Example: <code>True or some_function()</code> — Python never calls <code>some_function()</code>.</span>
+          </div>
+          <div class="sc-row">
+            <span class="sc-badge sc-not">not</span>
+            <span><code>not</code> just flips the answer. <code>not True</code> becomes <code>False</code>. <code>not False</code> becomes <code>True</code>. It always checks what's after it, no skipping here.</span>
+          </div>
+        </div>
+
+        <p style="margin-top:14px"><strong>Why should you care about this?</strong></p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="cm"># Imagine user is None (no user logged in).</span>
+<span class="cm"># If we check user.name directly, Python crashes because None has no .name.</span>
+<span class="cm"># But the left side (user is not None) is False, so Python skips the right side.</span>
+<span class="cm"># No crash. This is a very common safety pattern.</span>
+<span class="kw">if</span> <span class="var">user</span> <span class="kw">is not</span> <span class="kw">None</span> <span class="kw">and</span> <span class="var">user</span>.name == <span class="str">"Rohan"</span>:
+    <span class="fn">print</span>(<span class="str">"Hello Rohan!"</span>)
+
+<span class="cm"># If input() gives back an empty string (user just pressed Enter),</span>
+<span class="cm"># the or kicks in and name becomes "Guest" instead.</span>
+<span class="var">name</span> = <span class="fn">input</span>(<span class="str">"Name: "</span>) <span class="kw">or</span> <span class="str">"Guest"</span></pre></div>
+      </div>
+
+      <!-- 4. ASSIGNMENT -->
+      <div class="cbox purple">
+        <h3>📌 Assignment Operators</h3>
+        <p>You already know <code>=</code>. The rest are just shortcuts. <code>score = score + 10</code> and <code>score += 10</code> do the exact same thing. The shortcut version just saves you from typing the variable name twice.</p>
+        <div class="callout callout-tip" style="margin-bottom:12px">
+          <span class="callout-icon">💡</span>
+          <span><strong>One thing to watch:</strong> <code>x /= 2</code> will always make x a decimal (float), even if the result is a whole number. That's because <code>/</code> always produces a float. All the other shortcuts keep the same type as the original value.</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Operator</th><th>Same as writing</th><th>Example (x = 10)</th><th>x becomes</th><th>Output type</th></tr></thead>
+            <tbody>
+              <tr><td>=</td><td>plain store</td><td>x = 10</td><td>10</td><td>int</td></tr>
+              <tr><td>+=</td><td>x = x + n</td><td>x += 5</td><td>15</td><td>int</td></tr>
+              <tr><td>-=</td><td>x = x - n</td><td>x -= 3</td><td>7</td><td>int</td></tr>
+              <tr><td>*=</td><td>x = x * n</td><td>x *= 2</td><td>20</td><td>int</td></tr>
+              <tr><td>/=</td><td>x = x / n</td><td>x /= 4</td><td>2.5</td><td>float</td></tr>
+              <tr><td>//=</td><td>x = x // n</td><td>x //= 3</td><td>3</td><td>int</td></tr>
+              <tr><td>%=</td><td>x = x % n</td><td>x %= 3</td><td>1</td><td>int</td></tr>
+              <tr><td>**=</td><td>x = x ** n</td><td>x **= 2</td><td>100</td><td>int</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>You'll use <code>+=</code> and <code>-=</code> constantly once you start writing loops. Every score counter, every total, every timer uses this pattern.</p>
+      </div>
+
+      <!-- 5. IDENTITY -->
+      <div class="cbox teal">
+        <h3>🔍 Identity Operators</h3>
+        <p>Here's the difference: <code>==</code> asks "do these two things have the same value?" while <code>is</code> asks "are these literally the same object?" Imagine printing two copies of the same document. The text on both copies is identical (<code>==</code> is True), but they are physically two different sheets of paper (<code>is</code> is False).</p>
+        <div class="callout callout-tip" style="margin-bottom:12px">
+          <span class="callout-icon">💡</span>
+          <span><strong>When do you actually use this?</strong> Almost only for checking <code>None</code>. When a function finds nothing to return, it returns <code>None</code>. You check it with <code>if result is None:</code>. That's the main real-world use.</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Operator</th><th>Meaning</th><th>Input types</th><th>Output type</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>is</td><td>Same object in memory?</td><td>any</td><td>bool</td><td>x is None</td></tr>
+              <tr><td>is not</td><td>Different object in memory?</td><td>any</td><td>bool</td><td>x is not None</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">a</span> = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]
+<span class="var">b</span> = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]
+<span class="fn">print</span>(<span class="var">a</span> == <span class="var">b</span>)   <span class="cm"># True: same values</span>
+<span class="fn">print</span>(<span class="var">a</span> <span class="kw">is</span> <span class="var">b</span>)   <span class="cm"># False: two separate lists in memory</span>
+
+<span class="var">c</span> = <span class="var">a</span>            <span class="cm"># c and a now point to the SAME list</span>
+<span class="fn">print</span>(<span class="var">a</span> <span class="kw">is</span> <span class="var">c</span>)   <span class="cm"># True: same object</span></pre></div>
+        <div class="callout callout-warning" style="margin-top:10px">
+          <span class="callout-icon">⚠️</span>
+          <span>Stick to <code>is</code> only when checking <code>None</code>, <code>True</code>, or <code>False</code>. For everything else, use <code>==</code>. Using <code>is</code> to compare numbers or strings can give you unexpected results depending on how Python stores them internally.</span>
+        </div>
+      </div>
+
+      <!-- 6. MEMBERSHIP -->
+      <div class="cbox pink">
+        <h3>🎯 Membership Operators</h3>
+        <p>These answer one simple question: "is this thing inside that collection?" You give it a value and a list (or string, or set), and it tells you yes or no. Very useful for things like checking if a username already exists, or if a word appears in a sentence.</p>
+        <div class="callout callout-tip" style="margin-bottom:12px">
+          <span class="callout-icon">💡</span>
+          <span><strong>The output is True or False</strong>, so you use it directly in <code>if</code> statements: <code>if city in trip_list:</code> or <code>while "quit" not in commands:</code>. Reads almost like plain English.</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Operator</th><th>Meaning</th><th>Input types</th><th>Output type</th><th>Example</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td>in</td><td>Value is present</td><td>any + sequence</td><td>bool</td><td>"Siddhesh" in friends</td><td>True/False</td></tr>
+              <tr><td>not in</td><td>Value is absent</td><td>any + sequence</td><td>bool</td><td>5 not in [1, 2, 3]</td><td>True</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">friends</span> = [<span class="str">"Siddhesh"</span>, <span class="str">"Sagar"</span>, <span class="str">"Rohan"</span>]
+<span class="fn">print</span>(<span class="str">"Siddhesh"</span> <span class="kw">in</span> <span class="var">friends</span>)     <span class="cm"># True</span>
+<span class="fn">print</span>(<span class="str">"Alice"</span> <span class="kw">not in</span> <span class="var">friends</span>)     <span class="cm"># True</span>
+
+<span class="cm"># Works on strings too — checks for substring</span>
+<span class="fn">print</span>(<span class="str">"chess"</span> <span class="kw">in</span> <span class="str">"I enjoy chess and travelling"</span>)  <span class="cm"># True</span></pre></div>
+      </div>
+
+      <!-- 7. BITWISE -->
+      <div class="cbox dim">
+        <h3>🔢 Bitwise Operators</h3>
+        <p>Every number in your computer is stored as 0s and 1s (binary). Bitwise operators work directly on those 0s and 1s instead of the number itself. As a beginner you won't need these much, but they appear in competitive programming, hardware projects, and NumPy.</p>
+        <div class="callout callout-note" style="margin-bottom:12px">
+          <span class="callout-icon">📝</span>
+          <span><strong>These only work on whole numbers (int)</strong> and they give back a whole number. Don't use them as conditions in <code>if</code> or <code>while</code>. They're a completely different tool from the logical operators.</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Operator</th><th>Name</th><th>Input types</th><th>Output type</th><th>Example</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td>&amp;</td><td>AND</td><td>int</td><td>int</td><td>5 &amp; 3</td><td>1</td></tr>
+              <tr><td>|</td><td>OR</td><td>int</td><td>int</td><td>5 | 3</td><td>7</td></tr>
+              <tr><td>^</td><td>XOR</td><td>int</td><td>int</td><td>5 ^ 3</td><td>6</td></tr>
+              <tr><td>~</td><td>NOT</td><td>int</td><td>int</td><td>~5</td><td>-6</td></tr>
+              <tr><td>&lt;&lt;</td><td>Left shift</td><td>int</td><td>int</td><td>5 &lt;&lt; 1</td><td>10</td></tr>
+              <tr><td>&gt;&gt;</td><td>Right shift</td><td>int</td><td>int</td><td>5 &gt;&gt; 1</td><td>2</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>5 in binary is <code>101</code>, 3 is <code>011</code>. Bitwise AND gives <code>001</code> = 1. Left shift by 1 is the same as multiplying by 2. Right shift divides by 2.</p>
+      </div>
+
+      <!-- 8. PRECEDENCE -->
+      <div class="cbox">
+        <h3>📐 Operator Precedence (BODMAS / PEMDAS in Python)</h3>
+        <p>Remember BODMAS from school? Python works the same way. When you write something like <code>2 + 3 * 4</code>, Python doesn't just go left to right. It follows a fixed order: some operators run before others. Here's the full order, from highest priority to lowest.</p>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Priority</th><th>Operator(s)</th><th>Category</th></tr></thead>
+            <tbody>
+              <tr><td>1 (highest)</td><td>( )</td><td>Parentheses: always first, same as BODMAS brackets</td></tr>
+              <tr><td>2</td><td>**</td><td>Exponentiation (the "O" in BODMAS / "E" in PEMDAS)</td></tr>
+              <tr><td>3</td><td>+x &nbsp; -x &nbsp; ~x</td><td>Unary: positive, negative, bitwise NOT on a single value</td></tr>
+              <tr><td>4</td><td>* &nbsp; / &nbsp; // &nbsp; %</td><td>Multiplication and Division</td></tr>
+              <tr><td>5</td><td>+ &nbsp; -</td><td>Addition and Subtraction</td></tr>
+              <tr><td>6</td><td>&lt;&lt; &nbsp; &gt;&gt;</td><td>Bitwise Shift</td></tr>
+              <tr><td>7</td><td>&amp;</td><td>Bitwise AND</td></tr>
+              <tr><td>8</td><td>^</td><td>Bitwise XOR</td></tr>
+              <tr><td>9</td><td>|</td><td>Bitwise OR</td></tr>
+              <tr><td>10</td><td>== &nbsp; != &nbsp; &gt; &nbsp; &lt; &nbsp; &gt;= &nbsp; &lt;= &nbsp; is &nbsp; is not &nbsp; in &nbsp; not in</td><td>Comparison, Identity, Membership</td></tr>
+              <tr><td>11</td><td>not</td><td>Logical NOT</td></tr>
+              <tr><td>12</td><td>and</td><td>Logical AND</td></tr>
+              <tr><td>13 (lowest)</td><td>or</td><td>Logical OR</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Simple rule:</strong> if you're ever unsure which part runs first, just wrap that part in parentheses. Parentheses always win. <code>2 + 3 * 4</code> gives 14, but <code>(2 + 3) * 4</code> gives 20. When in doubt, be explicit.</p>
+      </div>
+
+    </div><!-- end tab 1 -->
+
+    <!-- ═══════════════════════════════ TAB 2: EXAMPLES ═══════════════════════════════ -->
+    <div class="tab-panel">
+
+      <div class="cbox green" style="margin-bottom:18px">
+        <div class="example-header">
+          <div class="example-title">Example 1: Arithmetic: Score Calculator</div>
+          <span class="badge badge-green">Arithmetic</span>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="cm"># Chess tournament score calculator</span>
+<span class="var">wins</span>   = <span class="num">7</span>
+<span class="var">draws</span>  = <span class="num">3</span>
+<span class="var">losses</span> = <span class="num">2</span>
+
+<span class="var">points</span>      = <span class="var">wins</span> * <span class="num">1</span> + <span class="var">draws</span> * <span class="num">0.5</span>   <span class="cm"># 1 pt for win, 0.5 for draw</span>
+<span class="var">total_games</span> = <span class="var">wins</span> + <span class="var">draws</span> + <span class="var">losses</span>
+<span class="var">win_pct</span>     = (<span class="var">wins</span> / <span class="var">total_games</span>) * <span class="num">100</span>
+
+<span class="fn">print</span>(<span class="str">f"Points:       <span class="var">{points}</span>"</span>)          <span class="cm"># 8.5</span>
+<span class="fn">print</span>(<span class="str">f"Win %:        <span class="var">{win_pct:.1f}</span>%"</span>)    <span class="cm"># 58.3%</span>
+<span class="fn">print</span>(<span class="str">f"Games played: <span class="var">{total_games}</span>"</span>)     <span class="cm"># 12</span></pre></div>
+      </div>
+
+      <div class="cbox" style="margin-bottom:18px">
+        <div class="example-header">
+          <div class="example-title">Example 2: Floor Division and Modulo</div>
+          <span class="badge badge-accent">Arithmetic</span>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="cm"># Convert total seconds to minutes and seconds</span>
+<span class="var">total_seconds</span> = <span class="num">137</span>
+
+<span class="var">minutes</span> = <span class="var">total_seconds</span> // <span class="num">60</span>   <span class="cm"># How many full minutes?  2</span>
+<span class="var">seconds</span> = <span class="var">total_seconds</span>  % <span class="num">60</span>   <span class="cm"># Leftover seconds?       17</span>
+
+<span class="fn">print</span>(<span class="str">f"<span class="var">{total_seconds}</span>s = <span class="var">{minutes}</span>m <span class="var">{seconds}</span>s"</span>)  <span class="cm"># 137s = 2m 17s</span>
+
+<span class="cm"># Check even or odd using modulo</span>
+<span class="var">n</span> = <span class="num">42</span>
+<span class="fn">print</span>(<span class="str">"even"</span> <span class="kw">if</span> <span class="var">n</span> % <span class="num">2</span> == <span class="num">0</span> <span class="kw">else</span> <span class="str">"odd"</span>)   <span class="cm"># even</span></pre></div>
+      </div>
+
+      <div class="cbox amber" style="margin-bottom:18px">
+        <div class="example-header">
+          <div class="example-title">Example 3: Comparison and Logical Operators</div>
+          <span class="badge" style="background:rgba(245,158,11,.15);color:var(--amber)">Logical</span>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="cm"># Eligibility check for a travel trip</span>
+<span class="var">age</span>          = <span class="num">24</span>
+<span class="var">has_passport</span> = <span class="kw">True</span>
+<span class="var">balance</span>      = <span class="num">15000</span>
+
+<span class="var">can_travel</span> = <span class="var">age</span> >= <span class="num">18</span> <span class="kw">and</span> <span class="var">has_passport</span> <span class="kw">and</span> <span class="var">balance</span> >= <span class="num">10000</span>
+<span class="fn">print</span>(<span class="var">can_travel</span>)   <span class="cm"># True</span>
+
+<span class="cm"># OR: check if destination is on preferred list</span>
+<span class="var">destination</span> = <span class="str">"Japan"</span>
+<span class="var">ok</span> = <span class="var">destination</span> == <span class="str">"Japan"</span> <span class="kw">or</span> <span class="var">destination</span> == <span class="str">"Thailand"</span>
+<span class="fn">print</span>(<span class="var">ok</span>)    <span class="cm"># True</span>
+
+<span class="cm"># NOT: flip a condition</span>
+<span class="var">is_raining</span> = <span class="kw">False</span>
+<span class="fn">print</span>(<span class="kw">not</span> <span class="var">is_raining</span>)   <span class="cm"># True, good day to travel!</span></pre></div>
+      </div>
+
+      <div class="cbox purple" style="margin-bottom:18px">
+        <div class="example-header">
+          <div class="example-title">Example 4: Assignment Operators in a Loop</div>
+          <span class="badge" style="background:rgba(139,92,246,.15);color:var(--purple)">Assignment</span>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="cm"># Count down a chess timer</span>
+<span class="var">time_left</span> = <span class="num">300</span>   <span class="cm"># 300 seconds</span>
+<span class="var">time_left</span> -= <span class="num">15</span>   <span class="cm"># after move 1 → 285</span>
+<span class="var">time_left</span> -= <span class="num">22</span>   <span class="cm"># after move 2 → 263</span>
+<span class="var">time_left</span> -= <span class="num">8</span>    <span class="cm"># after move 3 → 255</span>
+<span class="fn">print</span>(<span class="var">time_left</span>)   <span class="cm"># 255</span>
+
+<span class="cm"># Track total distance on a road trip</span>
+<span class="var">distance</span>  = <span class="num">0</span>
+<span class="var">distance</span> += <span class="num">120</span>   <span class="cm"># Mumbai to Pune</span>
+<span class="var">distance</span> += <span class="num">850</span>   <span class="cm"># Pune to Goa</span>
+<span class="var">distance</span> *= <span class="num">2</span>     <span class="cm"># round trip</span>
+<span class="fn">print</span>(<span class="str">f"Total: <span class="var">{distance}</span> km"</span>)   <span class="cm"># Total: 1940 km</span></pre></div>
+      </div>
+
+      <div class="cbox teal" style="margin-bottom:18px">
+        <div class="example-header">
+          <div class="example-title">Example 5: Identity and Membership Operators</div>
+          <span class="badge" style="background:rgba(52,211,153,.15);color:var(--accent2)">Identity / Membership</span>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="cm"># Identity: the standard way to check for None</span>
+<span class="var">result</span> = <span class="kw">None</span>
+<span class="kw">if</span> <span class="var">result</span> <span class="kw">is</span> <span class="kw">None</span>:
+    <span class="fn">print</span>(<span class="str">"No result yet"</span>)
+
+<span class="cm"># Membership: check if a city is on the trip list</span>
+<span class="var">trip_cities</span> = [<span class="str">"Mumbai"</span>, <span class="str">"Goa"</span>, <span class="str">"Pune"</span>, <span class="str">"Manali"</span>]
+<span class="fn">print</span>(<span class="str">"Goa"</span>   <span class="kw">in</span>     <span class="var">trip_cities</span>)   <span class="cm"># True</span>
+<span class="fn">print</span>(<span class="str">"Delhi"</span> <span class="kw">not in</span> <span class="var">trip_cities</span>)   <span class="cm"># True</span>
+
+<span class="cm"># Membership on strings (substring check)</span>
+<span class="var">hobby</span> = <span class="str">"chess and travelling"</span>
+<span class="fn">print</span>(<span class="str">"chess"</span> <span class="kw">in</span> <span class="var">hobby</span>)             <span class="cm"># True</span></pre></div>
+      </div>
+
+      <div class="cbox dim" style="margin-bottom:18px">
+        <div class="example-header">
+          <div class="example-title">Example 6: Operator Precedence Gotchas</div>
+          <span class="badge" style="background:var(--bg3);color:var(--text3)">Precedence</span>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="fn">print</span>(<span class="num">2</span> + <span class="num">3</span> * <span class="num">4</span>)         <span class="cm"># 14, not 20 (* runs before +)</span>
+<span class="fn">print</span>(<span class="num">2</span> ** <span class="num">3</span> ** <span class="num">2</span>)       <span class="cm"># 512  (**  is right-to-left: 2**(3**2) = 2**9)</span>
+<span class="fn">print</span>(<span class="num">10</span> - <span class="num">4</span> - <span class="num">2</span>)        <span class="cm"># 4    (subtraction is left-to-right)</span>
+<span class="fn">print</span>(<span class="kw">not</span> <span class="kw">False</span> <span class="kw">or</span> <span class="kw">True</span>)  <span class="cm"># True (not runs before or)</span>
+
+<span class="cm"># Use parentheses to be explicit:</span>
+<span class="fn">print</span>((<span class="num">2</span> + <span class="num">3</span>) * <span class="num">4</span>)        <span class="cm"># 20 (now explicit)</span>
+
+<span class="cm"># Chained comparisons work natively in Python:</span>
+<span class="var">score</span> = <span class="num">85</span>
+<span class="fn">print</span>(<span class="num">80</span> <= <span class="var">score</span> <= <span class="num">90</span>)  <span class="cm"># True</span></pre></div>
+      </div>
+
+    </div><!-- end tab 2 -->
+
+    <!-- ═══════════════════════════════ TAB 3: PRACTICE ═══════════════════════════════ -->
+    <div class="tab-panel">
+
+      <div class="practice-section-header">
+        <div class="callout callout-tip" style="margin-bottom:0;flex:1">
+          <span class="callout-icon">✏️</span>
+          <span>Try each task in your Python environment. Click Show Hint if you get stuck, but try first!</span>
+        </div>
+        <div class="practice-progress-wrap">
+          <span class="practice-progress-label" id="pb-ops-label">0 / 10 done</span>
+          <div class="practice-progress-bar"><div class="practice-progress-fill" id="pb-ops-fill" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="practice-card diff-easy" data-practice-id="pb-ops-1">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">1</div><div class="practice-title">Basic Arithmetic</div></div>
+          <span class="badge badge-green">Easy</span>
+        </div>
+        <div class="practice-body">You travel from Mumbai to Goa (560 km) and back. Petrol costs Rs 100/litre and your bike gives 35 km/litre. Calculate total distance, litres needed (use <code>//</code> for whole litres), and total cost.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">Total distance = 560 * 2. Litres = total_distance // 35. Cost = litres * 100. Use % to find the remaining km after full litres.</div>
+      </div>
+
+      <div class="practice-card diff-easy" data-practice-id="pb-ops-2">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">2</div><div class="practice-title">Modulo Magic</div></div>
+          <span class="badge badge-green">Easy</span>
+        </div>
+        <div class="practice-body">Write code that takes any number and prints whether it is even or odd. Then extend it: print whether the number is divisible by 3, by 5, or by both.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">Use <code>n % 2 == 0</code> for even. Use <code>n % 3 == 0 and n % 5 == 0</code> for divisible by both.</div>
+      </div>
+
+      <div class="practice-card diff-easy" data-practice-id="pb-ops-3">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">3</div><div class="practice-title">Comparison Operators</div></div>
+          <span class="badge badge-green">Easy</span>
+        </div>
+        <div class="practice-body">Create variables for two students' CGPAs. Print: who has a higher CGPA, whether they are equal, and whether both have CGPA above 9.0.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">Use <code>&gt;</code>, <code>==</code>, and <code>and</code>. The result of a comparison is True/False, so you can print it directly.</div>
+      </div>
+
+      <div class="practice-card diff-easy" data-practice-id="pb-ops-4">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">4</div><div class="practice-title">Assignment Operators</div></div>
+          <span class="badge badge-green">Easy</span>
+        </div>
+        <div class="practice-body">Start with <code>score = 0</code>. Simulate 5 game rounds using <code>+=</code> and <code>-=</code>: +10, +15, -5, +20, -8. Print the score after each round.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">Write <code>score += 10</code>, then print, then <code>score += 15</code>, print, and so on. No loops needed yet.</div>
+      </div>
+
+      <div class="practice-card diff-easy" data-practice-id="pb-ops-5">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">5</div><div class="practice-title">Membership Operator</div></div>
+          <span class="badge badge-green">Easy</span>
+        </div>
+        <div class="practice-body">Create a list of your favourite travel destinations. Ask the user to enter a city name and check if it is in your list using <code>in</code>. Print an appropriate message.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">Use <code>city = input("Enter a city: ")</code> then <code>if city in destinations:</code></div>
+      </div>
+
+      <div class="practice-card diff-medium" data-practice-id="pb-ops-6">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">6</div><div class="practice-title">Logical Operators</div></div>
+          <span class="badge badge-amber">Medium</span>
+        </div>
+        <div class="practice-body">A chess tournament: a player qualifies if they have won more than 5 games <strong>or</strong> have a rating above 1800. Test three players with different win/rating combinations. Print whether each qualifies.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">Use <code>wins &gt; 5 or rating &gt; 1800</code> for each player. Store in a variable and print.</div>
+      </div>
+
+      <div class="practice-card diff-medium" data-practice-id="pb-ops-7">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">7</div><div class="practice-title">Identity vs Equality</div></div>
+          <span class="badge badge-amber">Medium</span>
+        </div>
+        <div class="practice-body">Create two lists with the same values. Use <code>==</code> and <code>is</code> to compare them. Then assign one list to a new variable and compare again. Explain in a comment why the results differ.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint"><code>a = [1,2,3]</code> and <code>b = [1,2,3]</code> are equal but not the same object. <code>c = a</code> makes c point to the same object as a.</div>
+      </div>
+
+      <div class="practice-card diff-medium" data-practice-id="pb-ops-8">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">8</div><div class="practice-title">Precedence</div></div>
+          <span class="badge badge-amber">Medium</span>
+        </div>
+        <div class="practice-body">Without running the code, predict the output of: <code>2 + 3 * 4 - 1</code>, <code>2 ** 2 ** 3</code>, <code>10 &gt; 5 and 3 &lt; 1 or True</code>. Then verify by running it.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">Answers: 13, 256, True. Walk through step by step: * before +/-, right-to-left ** gives 2**(2**3)=2**8=256, and before or.</div>
+      </div>
+
+      <div class="practice-card diff-medium" data-practice-id="pb-ops-9">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">9</div><div class="practice-title">Chained Comparison</div></div>
+          <span class="badge badge-amber">Medium</span>
+        </div>
+        <div class="practice-body">Write a program that checks if a temperature value (in degrees C) falls in the "comfortable" range of 20 to 30 degrees using Python's chained comparison syntax. Test with values 15, 25, and 35.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">Use <code>20 &lt;= temp &lt;= 30</code> directly. Python supports this natively.</div>
+      </div>
+
+      <div class="practice-card diff-challenge" data-practice-id="pb-ops-10">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">★</div><div class="practice-title">Mini Calculator</div></div>
+          <span class="badge badge-accent">Challenge</span>
+        </div>
+        <div class="practice-body">Build a mini calculator. Accept two numbers and an operator (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>//</code>, <code>%</code>, <code>**</code>) as input. Use <code>in</code> to validate the operator. Print the result or an error for invalid operators or division by zero.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">Use <code>op in ['+', '-', '*', '/', '//', '%', '**']</code> to validate. Use if/elif for each operation. Check <code>b == 0</code> before dividing.</div>
+      </div>
+
+      <script>
+      (function(){
+        var prefix = 'pb-ops-';
+        var cards = document.querySelectorAll('[data-practice-id^="' + prefix + '"]');
+        var total = cards.length;
+        function updateProgress(){
+          var done = document.querySelectorAll('[data-practice-id^="' + prefix + '"].done').length;
+          document.getElementById('pb-ops-label').textContent = done + ' / ' + total + ' done';
+          document.getElementById('pb-ops-fill').style.width = Math.round(done/total*100) + '%';
+        }
+        cards.forEach(function(c){
+          if(localStorage.getItem(c.dataset.practiceId)==='done') c.classList.add('done');
+        });
+        updateProgress();
+        document.addEventListener('practiceDoneChanged', updateProgress);
+      })();
+      </script>
+
+    </div><!-- end tab 3 -->
+
+    <!-- ═══════════════════════════════ TAB 4: MCQs ═══════════════════════════════ -->
+    <div class="tab-panel">
+
+      <div class="callout callout-tip" style="margin-bottom:20px">
+        <span class="callout-icon">📝</span>
+        <span>Answer all 8 questions first, then click Submit. Results are revealed all at once.</span>
+      </div>
+
+      <div class="mcq-wrap mcq-question"
+           data-difficulty="easy"
+           data-concept="floor-division"
+           data-explanation="// is floor division. It returns the integer quotient, dropping any decimal. 10 // 3 = 3 because 3 fits into 10 exactly 3 full times (3 x 3 = 9), with 1 left over which is discarded.">
+        <div class="mcq-num">Question 1 of 8</div>
+        <div class="mcq-q">What does <code style="font-family:var(--font-mono);color:var(--accent)">10 // 3</code> return?</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>3.33</div>
+        <div class="mcq-option" data-correct="true"><span class="mcq-label">B</span>3</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>4</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>3.0</div>
+      </div>
+
+      <div class="mcq-wrap mcq-question"
+           data-difficulty="easy"
+           data-concept="modulo"
+           data-explanation="The % operator returns the remainder after division. 10 = (3 x 3) + 1, so the remainder is 1. Think of it as: what is left over?">
+        <div class="mcq-num">Question 2 of 8</div>
+        <div class="mcq-q">What is the output of <code style="font-family:var(--font-mono);color:var(--accent)">10 % 3</code>?</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>3</div>
+        <div class="mcq-option" data-correct="true"><span class="mcq-label">B</span>1</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>0</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>3.33</div>
+      </div>
+
+      <div class="mcq-wrap mcq-question"
+           data-difficulty="easy"
+           data-concept="identity"
+           data-explanation="'is' checks identity: whether both variables point to the same object in memory. '==' checks value equality. They are different operations.">
+        <div class="mcq-num">Question 3 of 8</div>
+        <div class="mcq-q">Which operator checks if two variables point to the same object in memory?</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>==</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">B</span>===</div>
+        <div class="mcq-option" data-correct="true"><span class="mcq-label">C</span>is</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>eq</div>
+      </div>
+
+      <div class="mcq-wrap mcq-question"
+           data-difficulty="medium"
+           data-concept="precedence-logical"
+           data-explanation="'and' has higher precedence than 'or'. So Python evaluates (True and False) first = False, then (False or True) = True.">
+        <div class="mcq-num">Question 4 of 8</div>
+        <div class="mcq-q">What does <code style="font-family:var(--font-mono);color:var(--accent)">True and False or True</code> evaluate to?</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>False</div>
+        <div class="mcq-option" data-correct="true"><span class="mcq-label">B</span>True</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>None</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>Error</div>
+      </div>
+
+      <div class="mcq-wrap mcq-question"
+           data-difficulty="medium"
+           data-concept="exponentiation-associativity"
+           data-explanation="** is right-associative: evaluated right to left. So 2 ** 3 ** 2 = 2 ** (3 ** 2) = 2 ** 9 = 512, not (2 ** 3) ** 2 = 64.">
+        <div class="mcq-num">Question 5 of 8</div>
+        <div class="mcq-q">What is the result of <code style="font-family:var(--font-mono);color:var(--accent)">2 ** 3 ** 2</code>?</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>64</div>
+        <div class="mcq-option" data-correct="true"><span class="mcq-label">B</span>512</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>72</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>8</div>
+      </div>
+
+      <div class="mcq-wrap mcq-question"
+           data-difficulty="easy"
+           data-concept="augmented-assignment"
+           data-explanation="x += 5 is shorthand for x = x + 5. It adds 5 to the current value of x and stores the result back in x.">
+        <div class="mcq-num">Question 6 of 8</div>
+        <div class="mcq-q">If <code style="font-family:var(--font-mono);color:var(--accent)">x = 10</code>, what is x after <code style="font-family:var(--font-mono);color:var(--accent)">x += 5</code>?</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>10</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">B</span>5</div>
+        <div class="mcq-option" data-correct="true"><span class="mcq-label">C</span>15</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>50</div>
+      </div>
+
+      <div class="mcq-wrap mcq-question"
+           data-difficulty="easy"
+           data-concept="membership"
+           data-explanation="The 'in' operator checks for substring membership in strings. 'chess' appears inside 'I enjoy chess', so it returns True.">
+        <div class="mcq-num">Question 7 of 8</div>
+        <div class="mcq-q">What does <code style="font-family:var(--font-mono);color:var(--accent)">"chess" in "I enjoy chess"</code> return?</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>False</div>
+        <div class="mcq-option" data-correct="true"><span class="mcq-label">B</span>True</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>Error</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>None</div>
+      </div>
+
+      <div class="mcq-wrap mcq-question"
+           data-difficulty="medium"
+           data-concept="short-circuit"
+           data-explanation="Python uses short-circuit evaluation. With 'and', if the first operand is falsy (0 is falsy), the second is never evaluated. So 0 and (1/0) returns 0 without raising a ZeroDivisionError.">
+        <div class="mcq-num">Question 8 of 8</div>
+        <div class="mcq-q">What does <code style="font-family:var(--font-mono);color:var(--accent)">0 and (1/0)</code> return?</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>ZeroDivisionError</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">B</span>False</div>
+        <div class="mcq-option" data-correct="true"><span class="mcq-label">C</span>0</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>True</div>
+      </div>
+
+      <div class="mcq-submit-row">
+        <div id="mcqWarning" class="mcq-warning"></div>
+        <button class="btn btn-primary" id="mcqSubmitBtn">Submit Answers</button>
+      </div>
+      <div id="mcqResultDashboard" class="mcq-result-dashboard" style="display:none"></div>
+
+    </div><!-- end tab 4 -->
+
+    <!-- ═══════════════════════════════ TAB 5: GUESS THE OUTPUT ═══════════════════════════════ -->
+    <div class="tab-panel">
+
+      <div class="callout callout-tip" style="margin-bottom:18px">
+        <span class="callout-icon">🎯</span>
+        <span>Look at each code snippet and <strong>guess the output before revealing it</strong>. This is the best way to build real intuition for how operators work. No peeking!</span>
+      </div>
+
+      <style>
+        .gto-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:14px;box-shadow:inset 0 1px 0 var(--card-shine)}
+        .gto-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+        .gto-title{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--text)}
+        .gto-reveal-btn{font-size:12px;font-weight:700;font-family:var(--font-body);color:var(--accent);background:rgba(79,127,255,.1);border:1px solid rgba(79,127,255,.25);border-radius:6px;padding:5px 14px;cursor:pointer;transition:background .2s}
+        .gto-reveal-btn:hover{background:rgba(79,127,255,.2)}
+        .gto-answer{margin-top:12px;padding:12px 16px;background:var(--bg3);border-radius:8px;border-left:3px solid var(--green);display:none}
+        .gto-answer.visible{display:block}
+        .gto-answer-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+        .gto-output{font-family:var(--font-mono);font-size:13.5px;color:var(--text);white-space:pre;line-height:1.7}
+        .gto-explain{font-size:13px;color:var(--text2);line-height:1.7;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+      </style>
+
+      <!-- Q1 -->
+      <div class="gto-card">
+        <div class="gto-header">
+          <div class="gto-title">Snippet 1 <span class="badge badge-green" style="margin-left:8px">Arithmetic</span></div>
+          <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="fn">print</span>(<span class="num">10</span> / <span class="num">2</span>)
+<span class="fn">print</span>(<span class="num">10</span> // <span class="num">2</span>)
+<span class="fn">print</span>(<span class="num">10</span> % <span class="num">2</span>)</pre></div>
+        <div class="gto-answer">
+          <div class="gto-answer-label">Output</div>
+          <div class="gto-output">5.0
+5
+0</div>
+          <div class="gto-explain"><code>/</code> always gives a float, so <code>10 / 2</code> is <code>5.0</code> not <code>5</code>. <code>//</code> gives the whole number result: <code>5</code>. <code>%</code> gives the remainder: 2 fits 5 full times into 10, nothing left, so <code>0</code>.</div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="gto-card">
+        <div class="gto-header">
+          <div class="gto-title">Snippet 2 <span class="badge badge-green" style="margin-left:8px">Arithmetic</span></div>
+          <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="fn">print</span>(<span class="num">2</span> ** <span class="num">3</span> ** <span class="num">2</span>)
+<span class="fn">print</span>((<span class="num">2</span> ** <span class="num">3</span>) ** <span class="num">2</span>)</pre></div>
+        <div class="gto-answer">
+          <div class="gto-answer-label">Output</div>
+          <div class="gto-output">512
+64</div>
+          <div class="gto-explain"><code>**</code> is evaluated right to left. So <code>2 ** 3 ** 2</code> becomes <code>2 ** (3 ** 2)</code> = <code>2 ** 9</code> = <code>512</code>. With parentheses, <code>(2 ** 3) ** 2</code> = <code>8 ** 2</code> = <code>64</code>. See how parentheses completely change the answer!</div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="gto-card">
+        <div class="gto-header">
+          <div class="gto-title">Snippet 3 <span class="badge badge-green" style="margin-left:8px">Comparison</span></div>
+          <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">score</span> = <span class="num">85</span>
+<span class="fn">print</span>(<span class="num">80</span> <= <span class="var">score</span> <= <span class="num">90</span>)
+<span class="fn">print</span>(<span class="var">score</span> == <span class="num">85.0</span>)
+<span class="fn">print</span>(<span class="var">score</span> == <span class="str">"85"</span>)</pre></div>
+        <div class="gto-answer">
+          <div class="gto-answer-label">Output</div>
+          <div class="gto-output">True
+True
+False</div>
+          <div class="gto-explain">Chained comparison works perfectly. Python compares <code>85</code> with <code>85.0</code> by value, so that's <code>True</code>. But <code>85 == "85"</code> is <code>False</code> — an int and a string are never equal, even if they look the same.</div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="gto-card">
+        <div class="gto-header">
+          <div class="gto-title">Snippet 4 <span class="badge" style="background:rgba(245,158,11,.15);color:var(--amber);margin-left:8px">Logical</span></div>
+          <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="fn">print</span>(<span class="kw">True</span> <span class="kw">and</span> <span class="kw">False</span>)
+<span class="fn">print</span>(<span class="kw">True</span> <span class="kw">or</span> <span class="kw">False</span>)
+<span class="fn">print</span>(<span class="kw">not</span> <span class="kw">True</span> <span class="kw">or</span> <span class="kw">False</span>)
+<span class="fn">print</span>(<span class="kw">not</span> (<span class="kw">True</span> <span class="kw">or</span> <span class="kw">False</span>))</pre></div>
+        <div class="gto-answer">
+          <div class="gto-answer-label">Output</div>
+          <div class="gto-output">False
+True
+False
+False</div>
+          <div class="gto-explain">The tricky one is line 3. <code>not</code> has higher precedence than <code>or</code>, so it runs first: <code>not True</code> = <code>False</code>, then <code>False or False</code> = <code>False</code>. Line 4 puts parentheses around <code>or</code> so that runs first: <code>True or False</code> = <code>True</code>, then <code>not True</code> = <code>False</code>. Same answer, different logic.</div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="gto-card">
+        <div class="gto-header">
+          <div class="gto-title">Snippet 5 <span class="badge" style="background:rgba(245,158,11,.15);color:var(--amber);margin-left:8px">Short-circuit</span></div>
+          <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="fn">print</span>(<span class="num">0</span> <span class="kw">and</span> <span class="num">10</span> / <span class="num">0</span>)
+<span class="fn">print</span>(<span class="num">1</span> <span class="kw">or</span>  <span class="num">10</span> / <span class="num">0</span>)</pre></div>
+        <div class="gto-answer">
+          <div class="gto-answer-label">Output</div>
+          <div class="gto-output">0
+1</div>
+          <div class="gto-explain">Both lines would crash if Python evaluated <code>10 / 0</code>. But short-circuit saves us. In line 1, <code>0</code> is falsy, so <code>and</code> stops immediately and returns <code>0</code> without touching the right side. In line 2, <code>1</code> is truthy, so <code>or</code> stops immediately and returns <code>1</code>. Division by zero never happens.</div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="gto-card">
+        <div class="gto-header">
+          <div class="gto-title">Snippet 6 <span class="badge" style="background:rgba(139,92,246,.15);color:var(--purple);margin-left:8px">Assignment</span></div>
+          <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">x</span> = <span class="num">5</span>
+<span class="var">x</span> **= <span class="num">2</span>
+<span class="var">x</span> += <span class="num">1</span>
+<span class="var">x</span> //= <span class="num">2</span>
+<span class="fn">print</span>(<span class="var">x</span>)</pre></div>
+        <div class="gto-answer">
+          <div class="gto-answer-label">Output</div>
+          <div class="gto-output">13</div>
+          <div class="gto-explain">Step by step: <code>x = 5</code>, then <code>x **= 2</code> makes it <code>25</code>, then <code>x += 1</code> makes it <code>26</code>, then <code>x //= 2</code> gives <code>26 // 2 = 13</code>. Each operator updates x in place before the next line runs.</div>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="gto-card">
+        <div class="gto-header">
+          <div class="gto-title">Snippet 7 <span class="badge" style="background:rgba(52,211,153,.15);color:var(--accent2);margin-left:8px">Identity vs Equality</span></div>
+          <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">a</span> = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]
+<span class="var">b</span> = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]
+<span class="var">c</span> = <span class="var">a</span>
+<span class="fn">print</span>(<span class="var">a</span> == <span class="var">b</span>)
+<span class="fn">print</span>(<span class="var">a</span> <span class="kw">is</span> <span class="var">b</span>)
+<span class="fn">print</span>(<span class="var">a</span> <span class="kw">is</span> <span class="var">c</span>)</pre></div>
+        <div class="gto-answer">
+          <div class="gto-answer-label">Output</div>
+          <div class="gto-output">True
+False
+True</div>
+          <div class="gto-explain"><code>a</code> and <code>b</code> have the same values so <code>==</code> is <code>True</code>. But they're two separate list objects created independently, so <code>is</code> is <code>False</code>. <code>c = a</code> doesn't create a new list — it makes <code>c</code> point to the exact same list as <code>a</code>, so <code>a is c</code> is <code>True</code>.</div>
+        </div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="gto-card">
+        <div class="gto-header">
+          <div class="gto-title">Snippet 8 <span class="badge" style="background:rgba(236,72,153,.15);color:var(--accent4);margin-left:8px">Mixed Precedence</span></div>
+          <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="fn">print</span>(<span class="num">3</span> + <span class="num">4</span> * <span class="num">2</span>)
+<span class="fn">print</span>(<span class="num">10</span> > <span class="num">5</span> <span class="kw">and</span> <span class="num">3</span> < <span class="num">1</span>)
+<span class="fn">print</span>(<span class="num">10</span> > <span class="num">5</span> <span class="kw">or</span>  <span class="num">3</span> < <span class="num">1</span>)
+<span class="fn">print</span>(<span class="kw">not</span> <span class="num">10</span> > <span class="num">5</span>)</pre></div>
+        <div class="gto-answer">
+          <div class="gto-answer-label">Output</div>
+          <div class="gto-output">11
+False
+True
+False</div>
+          <div class="gto-explain">Line 1: <code>*</code> runs before <code>+</code>, so <code>4 * 2 = 8</code> first, then <code>3 + 8 = 11</code>. Line 2: both comparisons run first (<code>True and False</code>) giving <code>False</code>. Line 3: <code>True or False</code> gives <code>True</code>. Line 4: comparison runs before <code>not</code>, so <code>10 > 5 = True</code>, then <code>not True = False</code>.</div>
+        </div>
+      </div>
+
+    </div><!-- end tab 5: guess the output -->
+
+    <!-- ═══════════════════════════════ TAB 6: INTERVIEW ═══════════════════════════════ -->
+    <div class="tab-panel">
+
+      <div class="callout callout-tip" style="margin-bottom:18px">
+        <span class="callout-icon">🎤</span>
+        <span>These questions are commonly asked in Python interviews, especially in the first round. Click each question to expand the answer.</span>
+      </div>
+
+      <div class="section-heading" style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:0 0 10px">Beginner Level</div>
+
+      <!-- Q1 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q1. What is the difference between / and // in Python?</span>
+          <span class="badge badge-green">Beginner</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div><code>/</code> always gives a float. <code>//</code> is floor division: it drops the decimal and rounds down toward negative infinity.</div>
+            <div class="ia-body">
+              <ul>
+                <li><code>10 / 2</code> gives <code>5.0</code>, not <code>5</code>. The result is always a float, even when it divides evenly.</li>
+                <li><code>10 // 3</code> gives <code>3</code>. The decimal is dropped and the result rounds down.</li>
+              </ul>
+              <p>The "rounds down" part catches people off guard with negative numbers:</p>
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0;font-variant-ligatures:none">-7 // 2   # gives -4, not -3
+# because -3.5 rounded DOWN is -4 (toward negative infinity)</pre>
+            </div>
+            <div class="ia-trap">
+              <div class="ia-trap-label">Common trap</div>
+              Expecting <code>-7 // 2</code> to give <code>-3</code> because "drop the decimal". Python floors toward negative infinity, not toward zero. So the result is always the next lower integer.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q2. What does 10 % 3 return and why?</span>
+          <span class="badge badge-green">Beginner</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>It returns <code>1</code>. The <code>%</code> operator gives the remainder after integer division. 10 divided by 3 is 3 remainder 1.</div>
+            <div class="ia-body">
+              <p>The math: <code>10 = (3 x 3) + 1</code>, so the remainder is 1.</p>
+              <p>Practical uses of modulo:</p>
+              <ul>
+                <li>Even/odd check: <code>n % 2 == 0</code> is True for even numbers</li>
+                <li>Wrap around a range: <code>index % len(lst)</code> keeps an index in bounds</li>
+                <li>Time conversion: <code>total_seconds % 60</code> gives the leftover seconds</li>
+                <li>Every Nth item: <code>if i % 5 == 0:</code> triggers every 5 iterations</li>
+              </ul>
+            </div>
+            <div class="ia-key">
+              <div class="ia-key-label">⚡ Say it in an interview</div>
+              Modulo gives the remainder. The most common use cases are even/odd detection, cyclic indexing, and time/unit conversions.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q3. What are augmented assignment operators? Give two examples.</span>
+          <span class="badge badge-green">Beginner</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Augmented assignment operators do an operation and assign the result back in one step. <code>x += 5</code> is shorthand for <code>x = x + 5</code>.</div>
+            <div class="ia-body">
+              <p>Every arithmetic operator has an augmented version:</p>
+              <ul>
+                <li><code>x += 5</code> adds 5 to x</li>
+                <li><code>x -= 3</code> subtracts 3</li>
+                <li><code>x *= 2</code> multiplies by 2</li>
+                <li><code>x //= 4</code> floor divides by 4</li>
+                <li><code>x **= 2</code> squares x</li>
+                <li><code>x %= 3</code> replaces x with x mod 3</li>
+              </ul>
+              <p>They are especially common inside loops where you accumulate a running total or counter.</p>
+            </div>
+            <div class="ia-key">
+              <div class="ia-key-label">⚡ Note on mutability</div>
+              For mutable types like lists, <code>+=</code> modifies in place. For immutable types like int and str, it creates a new object and rebinds the variable. The behaviour looks the same from outside but is different internally.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q4. What will <code>not not True</code> evaluate to?</span>
+          <span class="badge badge-green">Beginner</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div><code>True</code>. Double negation cancels out. <code>not True</code> is <code>False</code>, then <code>not False</code> is <code>True</code>.</div>
+            <div class="ia-body">
+              <p>Step by step: <code>not not True</code> = <code>not False</code> = <code>True</code>.</p>
+              <p>This pattern is occasionally used to convert any truthy/falsy value to a strict boolean:</p>
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">not not []      # False  (empty list is falsy)
+not not [1, 2]  # True   (non-empty is truthy)</pre>
+              <p>That said, <code>bool(x)</code> is the cleaner way to do the same thing and is much easier to read.</p>
+            </div>
+            <div class="ia-trap">
+              <div class="ia-trap-label">Common trap</div>
+              Thinking <code>not not x</code> returns the original value. It returns a strict <code>True</code> or <code>False</code>, not the original object. Compare with <code>or</code>/<code>and</code>, which return the actual operand value.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-heading" style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:14px 0 10px">Intermediate Level</div>
+
+      <!-- Q5 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q5. What is the difference between == and is?</span>
+          <span class="badge badge-amber">Intermediate</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div><code>==</code> checks if two values are equal. <code>is</code> checks if two variables point to the exact same object in memory. They are not the same thing.</div>
+            <div class="ia-body">
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">a = [1, 2, 3]
+b = [1, 2, 3]
+
+a == b   # True  — same contents
+a is b   # False — different objects in memory
+
+c = a
+a is c   # True  — c points to the exact same object as a</pre>
+              <p><code>is</code> compares identity (memory address via <code>id()</code>). <code>==</code> compares value by calling the object's <code>__eq__</code> method.</p>
+            </div>
+            <div class="ia-key">
+              <div class="ia-key-label">⚡ Rule</div>
+              Use <code>is</code> only for <code>None</code>, <code>True</code>, and <code>False</code> (which are singletons). Use <code>==</code> for everything else. Writing <code>x is "hello"</code> may work sometimes but is not reliable.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q6. What is short-circuit evaluation in Python?</span>
+          <span class="badge badge-amber">Intermediate</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Python stops evaluating a logical expression the moment the result is certain. With <code>and</code>, a falsy left side skips the right. With <code>or</code>, a truthy left side skips the right.</div>
+            <div class="ia-body">
+              <ul>
+                <li><code>False and (any expression)</code>: the right side is never evaluated because the result is already False.</li>
+                <li><code>True or (any expression)</code>: the right side is never evaluated because the result is already True.</li>
+              </ul>
+              <p>This is used as a safety guard in real code:</p>
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">if user is not None and user.name == "Rohan":
+    # If user is None, the second check is never reached
+    # so no AttributeError is raised</pre>
+            </div>
+            <div class="ia-key">
+              <div class="ia-key-label">⚡ Say it in an interview</div>
+              Short-circuit evaluation means Python is lazy: it stops the moment the outcome is known. This is used for safety checks (guard clauses) and default value patterns like <code>name = input() or "Guest"</code>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q7. What is operator precedence? Give an example where it matters.</span>
+          <span class="badge badge-amber">Intermediate</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Operator precedence defines which operator runs first when multiple operators appear in one expression. Python follows BODMAS/PEMDAS, plus a defined order for logical operators.</div>
+            <div class="ia-body">
+              <p>Priority order (high to low): <code>**</code>, then unary <code>-</code>/<code>+</code>/<code>not</code>, then <code>* / // %</code>, then <code>+ -</code>, then comparison operators, then <code>not</code>, then <code>and</code>, then <code>or</code>.</p>
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0;font-variant-ligatures:none">2 + 3 * 4       # 14, not 20 (* runs before +)
+not False or True   # True, not False
+# because not binds tighter than or:
+# = (not False) or True = True or True = True</pre>
+            </div>
+            <div class="ia-key">
+              <div class="ia-key-label">⚡ Best practice</div>
+              When in doubt, use parentheses. They make the intent explicit, prevent bugs from precedence surprises, and make the code easier to read. Never rely on obscure precedence rules in production code.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-heading" style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:14px 0 10px">Advanced Level</div>
+
+      <!-- Q8 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q8. How does the <code>in</code> operator perform differently across data structures?</span>
+          <span class="badge badge-red">Advanced</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div><code>in</code> is O(n) for lists and tuples, O(1) for sets and dicts. The data structure you choose for membership checks has a huge performance impact.</div>
+            <div class="ia-body">
+              <ul>
+                <li><strong>list / tuple</strong>: scans from the beginning until it finds the item or reaches the end. O(n). Slow for large collections.</li>
+                <li><strong>set / dict</strong>: uses a hash table. Computes the hash, goes directly to the right bucket. O(1) average. Fast regardless of size.</li>
+                <li><strong>str</strong>: checks for a substring match, not a character. <code>"ell" in "hello"</code> is True. Time complexity is O(n*m) in the worst case.</li>
+              </ul>
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">items_list = list(range(1_000_000))
+items_set  = set(range(1_000_000))
+
+999999 in items_list  # slow — scans up to 1 million elements
+999999 in items_set   # fast — hash lookup</pre>
+            </div>
+            <div class="ia-key">
+              <div class="ia-key-label">⚡ Say it in an interview</div>
+              If you are doing repeated membership checks and performance matters, convert your list to a set first. The lookup goes from O(n) to O(1).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q9. Why does <code>0 and (1/0)</code> not raise a ZeroDivisionError?</span>
+          <span class="badge badge-red">Advanced</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Because of short-circuit evaluation. <code>0</code> is falsy, so Python already knows the <code>and</code> expression is False and never evaluates the right side at all.</div>
+            <div class="ia-body">
+              <p>With <code>and</code>: if the left operand is falsy, the result is definitely falsy. Python returns the left operand immediately and never touches the right side.</p>
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">0 and (1/0)   # returns 0, no error raised
+# (1/0) is never evaluated</pre>
+              <p>This is exactly why short-circuit evaluation is used as a safety guard. The dangerous or expensive operation on the right only runs when needed.</p>
+            </div>
+            <div class="ia-key">
+              <div class="ia-key-label">⚡ Say it in an interview</div>
+              Short-circuit means Python is lazy. With <code>and</code>, once the left side is falsy, the right side is skipped entirely. That is why guard patterns like <code>if lst and lst[0] == x</code> are safe even when lst is empty.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q10. What is the result of <code>-7 % 3</code> in Python, and why does it differ from C/Java?</span>
+          <span class="badge badge-red">Advanced</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Python gives <code>2</code>. C/Java give <code>-1</code>. The difference is which direction each language rounds: Python floors toward negative infinity, C/Java truncate toward zero.</div>
+            <div class="ia-body">
+              <p>Python's rule: the result of <code>a % b</code> always has the same sign as the <strong>divisor</strong> (b, the right-hand number).</p>
+              <p>C/Java rule: the result has the same sign as the <strong>dividend</strong> (a, the left-hand number).</p>
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0;font-variant-ligatures:none">-7 % 3 in Python:
+  -7 = (3 * -3) + 2   → remainder is 2  (positive, sign of divisor 3)
+
+-7 % 3 in C/Java:
+  -7 = (3 * -2) + -1  → remainder is -1 (negative, sign of dividend -7)</pre>
+            </div>
+            <div class="ia-key">
+              <div class="ia-key-label">⚡ Say it in an interview</div>
+              Python's modulo result always has the same sign as the divisor. This comes from using floor division internally. C/Java use truncation toward zero instead, giving a different sign for negative operands.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end tab 5 -->
+
+    <!-- ═══════════════════════════════ TAB 6: MISTAKES ═══════════════════════════════ -->
+    <div class="tab-panel">
+
+      <div class="callout callout-warning" style="margin-bottom:18px">
+        <span class="callout-icon">⚠️</span>
+        <span>These are the most common operator mistakes beginners make. Click each one to see the fix.</span>
+      </div>
+
+      <!-- MISTAKE 1 -->
+      <div class="mistake-accordion">
+        <div class="mistake-acc-header">
+          <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+            <span class="mistake-num">1</span>
+            <div class="mistake-acc-title" style="flex:1">Using <mark>=</mark> instead of <mark>==</mark> in a comparison</div>
+            <span class="err-badge err-syntax">SyntaxError</span>
+          </div>
+          <span class="mistake-acc-arrow">›</span>
+        </div>
+        <div class="mistake-acc-body">
+          <div class="mistake-why">
+            <strong>Why it happens:</strong> <code>=</code> is the <strong>assignment</strong> operator. <code>==</code> is the <strong>comparison</strong> operator. In most programming languages, confusing these only gives wrong results. In Python, using <code>=</code> inside an <code>if</code> condition is a <strong>SyntaxError</strong>, so Python actually catches it for you.
+          </div>
+          <div class="mistake-code-pair">
+            <div class="mistake-code-wrong">
+              <div class="mistake-code-label wrong">❌ Wrong</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="kw">if</span> <span class="var">score</span> <mark class="wrong-mark">=</mark> <span class="num">100</span>:
+    <span class="fn">print</span>(<span class="str">"Perfect!"</span>)</pre></div>
+              <div class="error-box">
+                <div class="error-box-label">Python says</div>
+                <pre>SyntaxError: invalid syntax
+(Maybe you meant '==' instead of '='?)</pre>
+              </div>
+            </div>
+            <div class="mistake-code-right">
+              <div class="mistake-code-label right">✅ Correct</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="kw">if</span> <span class="var">score</span> <mark class="fix-mark">==</mark> <span class="num">100</span>:
+    <span class="fn">print</span>(<span class="str">"Perfect!"</span>)</pre></div>
+            </div>
+          </div>
+          <div class="mistake-memory">
+            <div class="mistake-memory-label">🧠 Memory Trick</div>
+            <div class="mistake-memory-text">One equals sign is a command: "set this to that." Two equals signs is a question: "is this equal to that?" When you are asking a question inside an <code>if</code>, you always need the question form, which is <code>==</code>.</div>
+          </div>
+          <div class="mistake-key-rule">
+            <div class="mistake-key-rule-label">⚡ Key Rule</div>
+            <div class="mistake-key-rule-text"><code style="color:var(--red)">=</code> assigns a value. <code style="color:var(--green)">==</code> checks if two values are equal. Inside <code>if</code>, <code>while</code>, or any condition, always use <code>==</code>.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MISTAKE 2 -->
+      <div class="mistake-accordion">
+        <div class="mistake-acc-header">
+          <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+            <span class="mistake-num">2</span>
+            <div class="mistake-acc-title" style="flex:1">Using <mark>is</mark> instead of <mark>==</mark> to compare values</div>
+            <span class="err-badge err-logic">Logic Error</span>
+          </div>
+          <span class="mistake-acc-arrow">›</span>
+        </div>
+        <div class="mistake-acc-body">
+          <div class="mistake-why">
+            <strong>Why it happens:</strong> <code>is</code> checks if two variables point to the <strong>same object in memory</strong>, not if they have the same value. Python secretly caches small integers (-5 to 256), so <code>a is b</code> might return <code>True</code> for small numbers and <code>False</code> for large ones. Same value, different results: very confusing.
+          </div>
+          <div class="mistake-code-pair">
+            <div class="mistake-code-wrong">
+              <div class="mistake-code-label wrong">❌ Wrong for values</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">a</span> = <span class="num">1000</span>
+<span class="var">b</span> = <span class="num">1000</span>
+<span class="fn">print</span>(<span class="var">a</span> <mark class="wrong-mark"><span class="kw">is</span></mark> <span class="var">b</span>)</pre></div>
+              <div class="logic-box">
+                <div class="logic-box-label">Actual output</div>
+                <pre>False
+(same value, but different objects in memory!)</pre>
+              </div>
+            </div>
+            <div class="mistake-code-right">
+              <div class="mistake-code-label right">✅ Use == for value comparison</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">a</span> = <span class="num">1000</span>
+<span class="var">b</span> = <span class="num">1000</span>
+<span class="fn">print</span>(<span class="var">a</span> <mark class="fix-mark">==</mark> <span class="var">b</span>)  <span class="cm"># True (values match)</span>
+
+<span class="cm"># is is only for None, True, False</span>
+<span class="kw">if</span> <span class="var">x</span> <span class="kw">is</span> <span class="kw">None</span>: ...</pre></div>
+            </div>
+          </div>
+          <div class="mistake-memory">
+            <div class="mistake-memory-label">🧠 Memory Trick</div>
+            <div class="mistake-memory-text">Two identical twins look the same (==) but are not the same person (is). When you want to ask "do these have the same value?", use <code>==</code>. When you want to ask "are these literally the same object in memory?", use <code>is</code>.</div>
+          </div>
+          <div class="mistake-key-rule">
+            <div class="mistake-key-rule-label">⚡ Key Rule</div>
+            <div class="mistake-key-rule-text">Use <code style="color:var(--green)">==</code> to compare values. Reserve <code style="color:var(--accent)">is</code> only for <code>None</code>, <code>True</code>, and <code>False</code>. Never use <code>is</code> to compare numbers, strings, or lists.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MISTAKE 3 -->
+      <div class="mistake-accordion">
+        <div class="mistake-acc-header">
+          <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+            <span class="mistake-num">3</span>
+            <div class="mistake-acc-title" style="flex:1">Using <mark>//</mark> when you needed a decimal result</div>
+            <span class="err-badge err-logic">Logic Error</span>
+          </div>
+          <span class="mistake-acc-arrow">›</span>
+        </div>
+        <div class="mistake-acc-body">
+          <div class="mistake-why">
+            <strong>Why it happens:</strong> <code>//</code> is floor division: it throws away the decimal and gives only the whole number. If you accidentally type <code>//</code> instead of <code>/</code>, your averages, percentages, or rates will be silently wrong with no error thrown.
+          </div>
+          <div class="mistake-code-pair">
+            <div class="mistake-code-wrong">
+              <div class="mistake-code-label wrong">❌ Loses the decimal</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">avg</span> = <span class="num">7</span> <mark class="wrong-mark">//</mark> <span class="num">2</span>
+<span class="fn">print</span>(<span class="var">avg</span>)</pre></div>
+              <div class="logic-box">
+                <div class="logic-box-label">Actual output</div>
+                <pre>3
+(expected 3.5, got 3 — decimal silently dropped)</pre>
+              </div>
+            </div>
+            <div class="mistake-code-right">
+              <div class="mistake-code-label right">✅ Use / for decimal results</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">avg</span> = <span class="num">7</span> <mark class="fix-mark">/</mark> <span class="num">2</span>
+<span class="fn">print</span>(<span class="var">avg</span>)  <span class="cm"># 3.5</span>
+
+<span class="cm"># // is useful only when you want whole number</span>
+<span class="var">pages</span> = <span class="num">100</span> // <span class="num">3</span>  <span class="cm"># 33 full pages</span></pre></div>
+            </div>
+          </div>
+          <div class="mistake-memory">
+            <div class="mistake-memory-label">🧠 Memory Trick</div>
+            <div class="mistake-memory-text">One slash <code>/</code> is the normal road: it takes you all the way to the answer including the decimal. Two slashes <code>//</code> are a speed bump that stops you at the whole number and drops everything after. More slashes, less precision.</div>
+          </div>
+          <div class="mistake-key-rule">
+            <div class="mistake-key-rule-label">⚡ Key Rule</div>
+            <div class="mistake-key-rule-text"><code style="color:var(--green)">/</code> always gives a float (even 6/2 gives 3.0). <code style="color:var(--accent)">//</code> always drops the decimal. Use <code>/</code> for math, use <code>//</code> only when you deliberately want an integer result.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MISTAKE 4 -->
+      <div class="mistake-accordion">
+        <div class="mistake-acc-header">
+          <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+            <span class="mistake-num">4</span>
+            <div class="mistake-acc-title" style="flex:1">Forgetting <mark>operator precedence</mark></div>
+            <span class="err-badge err-logic">Logic Error</span>
+          </div>
+          <span class="mistake-acc-arrow">›</span>
+        </div>
+        <div class="mistake-acc-body">
+          <div class="mistake-why">
+            <strong>Why it happens:</strong> Python has a fixed order in which it evaluates operators, just like maths (BODMAS/PEMDAS). <code>**</code> runs before <code>*</code>, which runs before <code>+</code>. If you forget this, the expression gets calculated in an order you did not intend.
+          </div>
+          <div class="mistake-code-pair">
+            <div class="mistake-code-wrong">
+              <div class="mistake-code-label wrong">❌ Wrong assumption</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">val</span> = <span class="num">2</span> + <span class="num">3</span> <mark class="wrong-mark">**</mark> <span class="num">2</span>
+<span class="fn">print</span>(<span class="var">val</span>)</pre></div>
+              <div class="logic-box">
+                <div class="logic-box-label">Actual output</div>
+                <pre>11
+(** runs first: 3**2=9, then 2+9=11, not 25)</pre>
+              </div>
+            </div>
+            <div class="mistake-code-right">
+              <div class="mistake-code-label right">✅ Use parentheses to be explicit</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">val</span> = <mark class="fix-mark">(</mark><span class="num">2</span> + <span class="num">3</span><mark class="fix-mark">)</mark> ** <span class="num">2</span>
+<span class="fn">print</span>(<span class="var">val</span>)  <span class="cm"># 25</span></pre></div>
+            </div>
+          </div>
+          <div class="mistake-memory">
+            <div class="mistake-memory-label">🧠 Memory Trick</div>
+            <div class="mistake-memory-text">When in doubt, add parentheses. They cost nothing, make the code easier to read, and guarantee Python does exactly what you intended. Even if the order is correct without them, parentheses make your intent obvious.</div>
+          </div>
+          <div class="mistake-key-rule">
+            <div class="mistake-key-rule-label">⚡ Key Rule</div>
+            <div class="mistake-key-rule-text">Python's precedence order (high to low): <code style="color:var(--accent)">**</code> then <code style="color:var(--accent)">* / // %</code> then <code style="color:var(--accent)">+ -</code>. Use <code style="color:var(--green)">(parentheses)</code> whenever you mix operators to make the order explicit.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MISTAKE 5 -->
+      <div class="mistake-accordion">
+        <div class="mistake-acc-header">
+          <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+            <span class="mistake-num">5</span>
+            <div class="mistake-acc-title" style="flex:1">Using <mark>and</mark>/<mark>or</mark> instead of <mark>&amp;</mark>/<mark>|</mark> with NumPy</div>
+            <span class="err-badge err-syntax">ValueError</span>
+          </div>
+          <span class="mistake-acc-arrow">›</span>
+        </div>
+        <div class="mistake-acc-body">
+          <div class="mistake-why">
+            <strong>Why it happens:</strong> <code>and</code>/<code>or</code> are designed for single True/False values. NumPy arrays contain many values, and Python does not know which one to use for the boolean check. It raises a <strong>ValueError</strong>. The bitwise operators <code>&amp;</code> and <code>|</code> work element-by-element instead.
+          </div>
+          <div class="mistake-code-pair">
+            <div class="mistake-code-wrong">
+              <div class="mistake-code-label wrong">❌ Wrong with arrays</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="var">arr</span> = np.<span class="fn">array</span>([<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>])
+<span class="var">arr</span>[<span class="var">arr</span> > <span class="num">1</span> <mark class="wrong-mark"><span class="kw">and</span></mark> <span class="var">arr</span> < <span class="num">4</span>]</pre></div>
+              <div class="error-box">
+                <div class="error-box-label">Python says</div>
+                <pre>ValueError: The truth value of an array
+with more than one element is ambiguous.</pre>
+              </div>
+            </div>
+            <div class="mistake-code-right">
+              <div class="mistake-code-label right">✅ Use &amp; and | instead</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">arr</span>[(<span class="var">arr</span> > <span class="num">1</span>) <mark class="fix-mark">&</mark> (<span class="var">arr</span> < <span class="num">4</span>)]
+<span class="cm"># [2, 3] — works element by element</span></pre></div>
+            </div>
+          </div>
+          <div class="mistake-memory">
+            <div class="mistake-memory-label">🧠 Memory Trick</div>
+            <div class="mistake-memory-text"><code>and</code>/<code>or</code> are for humans making one decision. <code>&amp;</code>/<code>|</code> are for machines working on many values at once. NumPy is always working on many values, so always use the machine operators. Also: always wrap each condition in its own parentheses when using <code>&amp;</code>/<code>|</code>.</div>
+          </div>
+          <div class="mistake-key-rule">
+            <div class="mistake-key-rule-label">⚡ Key Rule</div>
+            <div class="mistake-key-rule-text">With NumPy and pandas: use <code style="color:var(--green)">&amp;</code> (and), <code style="color:var(--green)">|</code> (or), <code style="color:var(--green)">~</code> (not). Always wrap each condition in parentheses: <code style="color:var(--green)">(arr &gt; 1) &amp; (arr &lt; 4)</code>.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MISTAKE 6 -->
+      <div class="mistake-accordion">
+        <div class="mistake-acc-header">
+          <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+            <span class="mistake-num">6</span>
+            <div class="mistake-acc-title" style="flex:1"><mark>Modulo</mark> with negative numbers gives unexpected results</div>
+            <span class="err-badge err-logic">Logic Error</span>
+          </div>
+          <span class="mistake-acc-arrow">›</span>
+        </div>
+        <div class="mistake-acc-body">
+          <div class="mistake-why">
+            <strong>Why it happens:</strong> Python's <code>%</code> always returns a result with the <strong>same sign as the divisor</strong> (the number on the right). This is different from C, Java, and JavaScript where the result follows the sign of the dividend. If you came from another language, your intuition here will be wrong.
+          </div>
+          <div class="mistake-code-pair">
+            <div class="mistake-code-wrong">
+              <div class="mistake-code-label wrong">❌ Surprising results</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">print</span>(<mark class="wrong-mark">-<span class="num">7</span> % <span class="num">3</span></mark>)   <span class="cm"># expected -1, got 2</span>
+<span class="fn">print</span>(<mark class="wrong-mark"><span class="num">7</span> % -<span class="num">3</span></mark>)   <span class="cm"># expected 1, got -2</span></pre></div>
+              <div class="logic-box">
+                <div class="logic-box-label">Why Python gives 2</div>
+                <pre>Python floors towards negative infinity.
+-7 = (-3 * 3) + 2, so remainder is 2.</pre>
+              </div>
+            </div>
+            <div class="mistake-code-right">
+              <div class="mistake-code-label right">✅ Force positive remainder</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="cm"># If you always want a positive result:</span>
+<span class="fn">print</span>(<mark class="fix-mark"><span class="fn">abs</span>(</mark>-<span class="num">7</span> % <span class="num">3</span><mark class="fix-mark">)</mark>)   <span class="cm"># 2</span>
+<span class="fn">print</span>(<span class="fn">abs</span>(-<span class="num">7</span>) % <span class="num">3</span>)   <span class="cm"># 1 (negate first)</span></pre></div>
+            </div>
+          </div>
+          <div class="mistake-memory">
+            <div class="mistake-memory-label">🧠 Memory Trick</div>
+            <div class="mistake-memory-text">Remember: Python's modulo result borrows the sign from the <em>divisor</em> (right side). If the divisor is positive, the result is positive. If the divisor is negative, the result is negative. The left side does not decide.</div>
+          </div>
+          <div class="mistake-key-rule">
+            <div class="mistake-key-rule-label">⚡ Key Rule</div>
+            <div class="mistake-key-rule-text">Python's <code style="color:var(--accent)">%</code> result always has the same sign as the divisor. For a guaranteed positive remainder, apply <code style="color:var(--green)">abs()</code>, or negate the dividend before taking modulo: <code style="color:var(--green)">abs(n) % d</code>.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end tab 6 -->
+
+    <!-- ═══════════════════════════════ TAB 7: SUMMARY ═══════════════════════════════ -->
+    <div class="tab-panel">
+
+      <div class="section-heading">Key Takeaways</div>
+      <div class="summary-grid">
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">➕</span><span class="sp-title">Arithmetic</span><span class="sp-tag">7 operators</span></div>
+          <div class="sp-desc"><ul><li><code>/</code> always returns a float, even for whole results (6/2 = 3.0)</li><li><code>//</code> floor divides: drops the decimal, always gives int</li><li><code>%</code> gives remainder, <code>**</code> is exponent (not ^)</li></ul></div>
+          <div class="sp-code">10 / 3 = 3.333  |  10 // 3 = 3  |  10 % 3 = 1</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">⚖️</span><span class="sp-title">Comparison</span><span class="sp-tag">6 operators</span></div>
+          <div class="sp-desc"><ul><li>Always return True or False</li><li>Never mix up <code>=</code> (assign) and <code>==</code> (compare)</li><li>Chaining works: <code>0 &lt;= x &lt;= 100</code> is valid Python</li></ul></div>
+          <div class="sp-code">if 0 &lt;= score &lt;= 100:  # chained comparison</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">🧠</span><span class="sp-title">Logical</span><span class="sp-tag">and / or / not</span></div>
+          <div class="sp-desc"><ul><li>Combine conditions into one expression</li><li>Python short-circuits: stops early when result is clear</li><li><code>and</code> needs both True; <code>or</code> needs only one True</li></ul></div>
+          <div class="sp-code">if age >= 18 and has_id:  # both must be True</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">📌</span><span class="sp-title">Assignment shortcuts</span><span class="sp-tag">operators</span></div>
+          <div class="sp-desc"><ul><li><code>x += 5</code> is the same as <code>x = x + 5</code></li><li>Works with all arithmetic operators: <code>-=, *=, /=, **=</code>, etc.</li><li>Very common in loops and running totals</li></ul></div>
+          <div class="sp-code">score += 10  |  total *= 2  |  count -= 1</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">🔍</span><span class="sp-title">Identity</span><span class="sp-tag">is / is not</span></div>
+          <div class="sp-desc"><ul><li>Checks if two names point to the exact same object in memory</li><li>Use only for <code>None</code>, <code>True</code>, <code>False</code></li><li>Never use <code>is</code> to compare numbers or strings</li></ul></div>
+          <div class="sp-code">if result is None: ...  # correct use of is</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">🎯</span><span class="sp-title">Membership</span><span class="sp-tag">in / not in</span></div>
+          <div class="sp-desc"><ul><li>Checks if a value exists inside a sequence</li><li>Works on lists, tuples, strings, dicts, sets</li><li>O(1) for sets and dicts, O(n) for lists</li></ul></div>
+          <div class="sp-code">if "a" in my_list:  |  if key in my_dict:</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">📐</span><span class="sp-title">Precedence</span><span class="sp-tag">order of operations</span></div>
+          <div class="sp-desc"><ul><li>Same idea as BODMAS/PEMDAS but extended</li><li>Order: <code>**</code> then <code>* / // %</code> then <code>+ -</code> then comparisons then <code>not and or</code></li><li>When unsure, always add parentheses</li></ul></div>
+          <div class="sp-code">2 + 3 ** 2 = 11  |  (2+3) ** 2 = 25</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">🔢</span><span class="sp-title">Bitwise</span><span class="sp-tag">advanced</span></div>
+          <div class="sp-desc"><ul><li>Work on the binary (0s and 1s) representation of integers</li><li><code>&amp;</code> AND, <code>|</code> OR, <code>^</code> XOR, <code>~</code> NOT, <code>&lt;&lt;</code> left shift, <code>&gt;&gt;</code> right shift</li><li>Required when using NumPy/pandas filters instead of <code>and</code>/<code>or</code></li></ul></div>
+          <div class="sp-code">(arr > 1) &amp; (arr &lt; 4)  # NumPy filtering</div>
+        </div>
+
+      </div>
+
+      <div class="section-heading mt-3">Quick Pick</div>
+      <div class="qp-wrap">
+        <div class="qp-title">Situation → Best choice</div>
+        <div class="qp-row">
+          <div class="qp-situation">Divide and keep the decimal</div>
+          <div class="qp-answer"><code>/</code></div>
+        </div>
+        <div class="qp-row">
+          <div class="qp-situation">Divide and drop the decimal</div>
+          <div class="qp-answer"><code>//</code></div>
+        </div>
+        <div class="qp-row">
+          <div class="qp-situation">Check if two values are equal</div>
+          <div class="qp-answer"><code>==</code> (not <code>=</code>)</div>
+        </div>
+        <div class="qp-row">
+          <div class="qp-situation">Check if a variable has no value</div>
+          <div class="qp-answer"><code>x is None</code></div>
+        </div>
+        <div class="qp-row">
+          <div class="qp-situation">Check if item exists in a list</div>
+          <div class="qp-answer"><code>item in my_list</code></div>
+        </div>
+        <div class="qp-row">
+          <div class="qp-situation">Combine two conditions (both must be true)</div>
+          <div class="qp-answer"><code>cond1 and cond2</code></div>
+        </div>
+        <div class="qp-row" style="border-bottom:none">
+          <div class="qp-situation">Add to a variable in place</div>
+          <div class="qp-answer"><code>x += value</code></div>
+        </div>
+      </div>
+
+      <div class="section-heading mt-3">Cheat Sheet</div>
+      <div class="cs-tabs-wrap">
+        <div class="cs-tabs-bar">
+          <button class="cs-tab active" onclick="csTab(this,'cs-arith')">Arithmetic</button>
+          <button class="cs-tab" onclick="csTab(this,'cs-compare')">Comparison</button>
+          <button class="cs-tab" onclick="csTab(this,'cs-logical')">Logical</button>
+          <button class="cs-tab" onclick="csTab(this,'cs-assign')">Assignment</button>
+          <button class="cs-tab" onclick="csTab(this,'cs-identity')">Identity</button>
+          <button class="cs-tab" onclick="csTab(this,'cs-member')">Membership</button>
+        </div>
+        <div class="cs-panel active" id="cs-arith">
+          <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="num">10</span> + <span class="num">3</span>   <span class="cm"># 13      (add)</span>
+<span class="num">10</span> - <span class="num">3</span>   <span class="cm"># 7       (subtract)</span>
+<span class="num">10</span> * <span class="num">3</span>   <span class="cm"># 30      (multiply)</span>
+<span class="num">10</span> / <span class="num">3</span>   <span class="cm"># 3.3333  (true divide, always float)</span>
+<span class="num">10</span> // <span class="num">3</span>  <span class="cm"># 3       (floor divide, drops decimal)</span>
+<span class="num">10</span> % <span class="num">3</span>   <span class="cm"># 1       (remainder / modulo)</span>
+<span class="num">2</span> ** <span class="num">8</span>   <span class="cm"># 256     (exponent, not ^)</span></pre>
+          </div>
+        </div>
+        <div class="cs-panel" id="cs-compare">
+          <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="num">5</span> == <span class="num">5</span>              <span class="cm"># True  (equal)</span>
+<span class="num">5</span> != <span class="num">3</span>              <span class="cm"># True  (not equal)</span>
+<span class="num">7</span> > <span class="num">5</span>               <span class="cm"># True  (greater than)</span>
+<span class="num">3</span> < <span class="num">5</span>               <span class="cm"># True  (less than)</span>
+<span class="num">5</span> >= <span class="num">5</span>              <span class="cm"># True  (greater or equal)</span>
+<span class="num">0</span> <= <span class="var">x</span> <= <span class="num">100</span>       <span class="cm"># chained comparison</span></pre>
+          </div>
+        </div>
+        <div class="cs-panel" id="cs-logical">
+          <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="kw">True</span> <span class="kw">and</span> <span class="kw">False</span>    <span class="cm"># False (both must be True)</span>
+<span class="kw">True</span> <span class="kw">or</span>  <span class="kw">False</span>    <span class="cm"># True  (at least one True)</span>
+<span class="kw">not</span> <span class="kw">True</span>          <span class="cm"># False (flips the value)</span>
+
+<span class="cm"># Short-circuit examples</span>
+<span class="kw">False</span> <span class="kw">and</span> <span class="var">expensive_fn</span>()  <span class="cm"># fn never called</span>
+<span class="kw">True</span>  <span class="kw">or</span>  <span class="var">expensive_fn</span>()  <span class="cm"># fn never called</span></pre>
+          </div>
+        </div>
+        <div class="cs-panel" id="cs-assign">
+          <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">x</span> = <span class="num">10</span>
+<span class="var">x</span> += <span class="num">5</span>    <span class="cm"># x = 15  (same as x = x + 5)</span>
+<span class="var">x</span> -= <span class="num">3</span>    <span class="cm"># x = 12</span>
+<span class="var">x</span> *= <span class="num">2</span>    <span class="cm"># x = 24</span>
+<span class="var">x</span> /= <span class="num">4</span>    <span class="cm"># x = 6.0</span>
+<span class="var">x</span> //= <span class="num">2</span>   <span class="cm"># x = 3</span>
+<span class="var">x</span> **= <span class="num">3</span>   <span class="cm"># x = 27</span>
+<span class="var">x</span> %= <span class="num">5</span>    <span class="cm"># x = 2</span></pre>
+          </div>
+        </div>
+        <div class="cs-panel" id="cs-identity">
+          <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="cm"># Correct uses of is</span>
+<span class="kw">if</span> <span class="var">result</span> <span class="kw">is</span> <span class="kw">None</span>: ...
+<span class="kw">if</span> <span class="var">result</span> <span class="kw">is not</span> <span class="kw">None</span>: ...
+
+<span class="cm"># Wrong — use == for value comparison</span>
+<span class="kw">if</span> <span class="var">x</span> <span class="kw">is</span> <span class="num">1000</span>: ...   <span class="cm"># unreliable, use ==</span>
+<span class="kw">if</span> <span class="var">x</span> == <span class="num">1000</span>: ...   <span class="cm"># correct</span></pre>
+          </div>
+        </div>
+        <div class="cs-panel" id="cs-member">
+          <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="str">"py"</span> <span class="kw">in</span> <span class="str">"python"</span>              <span class="cm"># True (substring check)</span>
+<span class="num">3</span>    <span class="kw">in</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]            <span class="cm"># True (list check)</span>
+<span class="str">"k"</span>  <span class="kw">in</span> {<span class="str">"k"</span>: <span class="str">"v"</span>}           <span class="cm"># True (checks keys)</span>
+<span class="num">5</span>    <span class="kw">not in</span> {<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>}        <span class="cm"># True (set check)</span></pre>
+          </div>
+        </div>
+      </div>
+      <script>
+        function csTab(btn, id) {
+          const wrap = btn.closest('.cs-tabs-wrap');
+          wrap.querySelectorAll('.cs-tab').forEach(b => b.classList.remove('active'));
+          wrap.querySelectorAll('.cs-panel').forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          wrap.querySelector('#' + id).classList.add('active');
+        }
+      </script>
+
+      <div class="personal-notes-card animate-fadeup">
+        <div class="personal-notes-header">
+          <div class="personal-notes-title">📝 My Notes</div>
+          <span class="personal-notes-hint">Auto-saved to your browser</span>
+        </div>
+        <textarea id="personalNotes" placeholder="Write your own notes, key points, or things to remember about operators..."></textarea>
+      </div>
+
+      <div class="topic-nav">
+        <a href="data-types.html" class="btn" id="prevTopicBtn">← Prev: Data Types</a>
+        <button class="btn complete-btn">✅ Mark as Complete</button>
+        <a href="conditionals.html" class="btn" id="nextTopicBtn">Next: Conditionals →</a>
+      </div>
+
+    </div><!-- end tab 7 -->
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <span class="footer-logo">🐍</span>
+      <span>PythonbyRohan</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/RohanPatil01" target="_blank" rel="noopener" class="footer-link">
+        <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/rohanpatil01" target="_blank" rel="noopener" class="footer-link">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn
+      </a>
+      <a href="https://www.instagram.com/rohanjpatil01/" target="_blank" rel="noopener" class="footer-link">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>@rohanjpatil01
+      </a>
+    </div>
+  </footer>
+
+</div><!-- end .main -->
+</div><!-- end .layout -->
+
+<script src="../assets/app.js"></script>
+<script>
+  const TOPIC_ID = 'operators';
+  document.addEventListener('DOMContentLoaded', () => {
+    initCompleteBtn(TOPIC_ID);
+    initMCQ(TOPIC_ID);
+    Bookmarks.initBtn(TOPIC_ID);
+    initPersonalNotes(TOPIC_ID);
+    initDifficultyRating(TOPIC_ID);
+  });
+</script>
+</body>
+</html>

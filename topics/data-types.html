@@ -1,0 +1,2069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Types | PythonbyRohan</title>
+  <meta name="description" content="Complete guide to Python data types: numeric, boolean, sequence, mapping, set, NoneType, type casting, mutable vs immutable." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <style>
+    .topic-header{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:28px 32px;margin-bottom:22px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 var(--card-shine)}
+    .topic-header-glow{position:absolute;top:-60px;right:-60px;width:260px;height:260px;background:radial-gradient(circle,rgba(79,127,255,.1) 0%,transparent 70%);pointer-events:none}
+    .topic-header-glow2{position:absolute;bottom:-40px;left:10%;width:160px;height:160px;background:radial-gradient(circle,rgba(52,211,153,.06) 0%,transparent 70%);pointer-events:none}
+    .topic-phase{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+    .topic-title{font-family:var(--font-display);font-size:clamp(22px,3vw,34px);font-weight:800;line-height:1.15;color:var(--text);margin-bottom:10px}
+    .topic-desc{font-size:14.5px;color:var(--text2);line-height:1.75;max-width:620px;margin-bottom:18px}
+    .topic-meta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+    .meta-chip{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text3);font-weight:600}
+    .meta-dot{width:7px;height:7px;border-radius:50%}
+    .topic-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .cbox{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius-lg);padding:22px 24px;margin-bottom:18px;box-shadow:inset 0 1px 0 var(--card-shine)}
+    .cbox.green{border-left-color:var(--green)}
+    .cbox.amber{border-left-color:var(--amber)}
+    .cbox.purple{border-left-color:var(--purple)}
+    .cbox.pink{border-left-color:var(--accent4)}
+    .cbox.teal{border-left-color:var(--accent2)}
+    .cbox.dim{border-left-color:var(--text3)}
+    .cbox h3{font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px;line-height:1.3}
+    .cbox p{font-size:14.5px;color:var(--text2);line-height:1.85;margin-bottom:10px}
+    .cbox p:last-child{margin-bottom:0}
+    .cbox ul,.cbox ol{padding-left:20px;color:var(--text2);font-size:14.5px;line-height:2.1}
+    .cbox li{margin-bottom:2px}
+    .cbox strong{color:var(--text)}
+    .cbox code{font-family:var(--font-mono);font-size:13px;color:var(--accent);background:rgba(79,127,255,.08);padding:1px 6px;border-radius:4px}
+    .diagram-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px 20px;margin-bottom:18px;overflow-x:auto;box-shadow:inset 0 1px 0 var(--card-shine)}
+    .table-wrap{overflow-x:auto;margin:14px 0;border-radius:var(--radius);border:1px solid var(--border)}
+    .data-table{width:100%;border-collapse:collapse;font-size:13.5px;font-family:var(--font-body)}
+    .data-table th{background:var(--bg3);color:var(--text2);font-weight:700;padding:10px 14px;text-align:center;border-bottom:1px solid var(--border);white-space:nowrap}
+    .data-table th:first-child{text-align:left}
+    .data-table td{padding:9px 14px;text-align:center;border-bottom:1px solid var(--border);color:var(--text2)}
+    .data-table td:first-child{text-align:left;font-weight:600;color:var(--text);font-family:var(--font-mono);font-size:12.5px;font-variant-ligatures:none}
+    .data-table tr:last-child td{border-bottom:none}
+    .data-table tr:hover td{background:var(--bg3)}
+    .yes{color:var(--green);font-weight:700}.no{color:var(--red);font-weight:700}.cond{color:var(--amber);font-weight:700}.na{color:var(--text3)}
+    .tf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+    .tf-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
+    .tf-card h4{font-size:13px;font-weight:700;margin-bottom:10px}
+    .tf-card ul{list-style:none;padding:0;font-size:13px;color:var(--text2);font-family:var(--font-mono);line-height:2.1}
+    /* Practice — shared styles in style.css */
+    .practice-body{font-size:14px;color:var(--text2);line-height:1.75}
+    .practice-hint{margin-top:12px;padding:10px 14px;background:var(--bg3);border-radius:7px;font-size:13px;color:var(--text3);display:none;line-height:1.6}
+    .hint-toggle{font-size:12px;color:var(--accent);background:none;border:none;font-family:var(--font-body);font-weight:700;padding:0;margin-top:10px;cursor:pointer;display:block}
+    .hint-toggle:hover{color:var(--accent-hover)}
+    .gto-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:14px;box-shadow:inset 0 1px 0 var(--card-shine)}
+    .gto-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .gto-title{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--text)}
+    .gto-reveal-btn{font-size:12px;font-weight:700;font-family:var(--font-body);color:var(--accent);background:rgba(79,127,255,.1);border:1px solid rgba(79,127,255,.25);border-radius:6px;padding:5px 14px;cursor:pointer;transition:background .2s}
+    .gto-reveal-btn:hover{background:rgba(79,127,255,.2)}
+    .gto-answer{margin-top:12px;padding:12px 16px;background:var(--bg3);border-radius:8px;border-left:3px solid var(--green);display:none}
+    .gto-answer.visible{display:block}
+    .gto-answer-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+    .gto-output{font-family:var(--font-mono);font-size:13.5px;color:var(--text);white-space:pre;line-height:1.7}
+    .gto-explain{font-size:13px;color:var(--text2);line-height:1.7;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+    .interview-q{font-size:14.5px;font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.5}
+    .interview-a{font-size:14px;color:var(--text2);line-height:1.8}
+    .interview-a strong{color:var(--text)}
+    .mistake-fix{margin-top:10px;padding:10px 14px;background:var(--green-bg);border:1px solid var(--green-border);border-radius:7px;font-size:13px;color:var(--green)}
+    .topic-nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0;margin-top:16px;border-top:1px solid var(--border);flex-wrap:wrap;gap:10px}
+    .example-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .example-title{font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--text)}
+    @media(max-width:700px){.tf-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<script>(function(){try{if(JSON.parse(localStorage.getItem('pynotes_theme'))==='light')document.body.classList.add('light');}catch(e){}}());</script>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">Py</div>
+    <div><div class="logo-text">Python<span style="color:var(--purple);font-size:.85em;font-weight:700">byRohan</span></div></div>
+  </div>
+  <div class="sidebar-progress">
+    <div class="progress-meta"><span>Overall Progress</span><span data-progress-count>0/29 topics</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
+  </div>
+  <div class="sidebar-label">Navigation</div>
+  <a href="../index.html" class="nav-item"><span class="nav-num">🏠</span><span class="nav-dot"></span>Home</a>
+  <div class="sidebar-label">Core Python</div>
+  <a href="python-basics.html" class="nav-item"><span class="nav-num">01</span><span class="nav-dot" id="dot-python-basics"></span>Python Basics</a>
+  <a href="data-types.html" class="nav-item active"><span class="nav-num">02</span><span class="nav-dot active"></span>Data Types</a>
+  <a href="operators.html" class="nav-item"><span class="nav-num">03</span><span class="nav-dot" id="dot-operators"></span>Operators</a>
+  <a href="conditionals.html" class="nav-item"><span class="nav-num">04</span><span class="nav-dot" id="dot-conditionals"></span>Conditionals</a>
+  <div class="nav-group" data-group="loops">
+    <div class="nav-group-header"><span class="nav-num">05</span><span class="nav-dot"></span>Loops<span class="nav-group-arrow">›</span></div>
+    <div class="nav-sub"><a href="loops-for.html" class="nav-sub-item">for Loop</a><a href="loops-while.html" class="nav-sub-item">while Loop</a></div>
+  </div>
+  <div class="nav-group" data-group="strings">
+    <div class="nav-group-header"><span class="nav-num">06</span><span class="nav-dot"></span>Strings<span class="nav-group-arrow">›</span></div>
+    <div class="nav-sub"><a href="strings-basics.html" class="nav-sub-item">Basics</a><a href="strings-methods.html" class="nav-sub-item">Methods</a></div>
+  </div>
+  <a href="lists.html" class="nav-item"><span class="nav-num">07</span><span class="nav-dot"></span>Lists</a>
+  <a href="tuples.html" class="nav-item"><span class="nav-num">08</span><span class="nav-dot"></span>Tuples</a>
+  <div class="sidebar-label">Intermediate</div>
+  <a href="dictionaries.html" class="nav-item"><span class="nav-num">09</span><span class="nav-dot"></span>Dictionaries</a>
+  <a href="sets.html" class="nav-item"><span class="nav-num">10</span><span class="nav-dot"></span>Sets</a>
+  <div class="nav-group" data-group="functions">
+    <div class="nav-group-header"><span class="nav-num">11</span><span class="nav-dot"></span>Functions<span class="nav-group-arrow">›</span></div>
+    <div class="nav-sub"><a href="functions-basics.html" class="nav-sub-item">Defining Functions</a><a href="functions-advanced.html" class="nav-sub-item">Args, kwargs, Lambda</a></div>
+  </div>
+  <a href="modules-packages.html" class="nav-item"><span class="nav-num">12</span><span class="nav-dot"></span>Modules &amp; Packages</a>
+  <div class="nav-group" data-group="file-handling">
+    <div class="nav-group-header"><span class="nav-num">13</span><span class="nav-dot"></span>File Handling<span class="nav-group-arrow">›</span></div>
+    <div class="nav-sub"><a href="file-handling-read.html" class="nav-sub-item">Reading Files</a><a href="file-handling-write.html" class="nav-sub-item">Writing Files</a></div>
+  </div>
+  <div class="nav-group" data-group="exceptions">
+    <div class="nav-group-header"><span class="nav-num">14</span><span class="nav-dot"></span>Exception Handling<span class="nav-group-arrow">›</span></div>
+    <div class="nav-sub"><a href="exceptions-basics.html" class="nav-sub-item">Basics</a><a href="exceptions-advanced.html" class="nav-sub-item">Advanced</a></div>
+  </div>
+  <div class="nav-group" data-group="oop">
+    <div class="nav-group-header"><span class="nav-num">15</span><span class="nav-dot"></span>OOP<span class="nav-group-arrow">›</span></div>
+    <div class="nav-sub"><a href="oop-classes.html" class="nav-sub-item">Classes &amp; Objects</a><a href="oop-inheritance.html" class="nav-sub-item">Inheritance</a><a href="oop-advanced.html" class="nav-sub-item">Advanced OOP</a></div>
+  </div>
+  <div class="sidebar-label">Advanced</div>
+  <a href="iterators-generators.html" class="nav-item"><span class="nav-num">16</span><span class="nav-dot"></span>Iterators &amp; Generators</a>
+  <a href="decorators.html" class="nav-item"><span class="nav-num">17</span><span class="nav-dot"></span>Decorators</a>
+  <div class="nav-group" data-group="numpy">
+    <div class="nav-group-header"><span class="nav-num">18</span><span class="nav-dot"></span>NumPy<span class="nav-group-arrow">›</span></div>
+    <div class="nav-sub"><a href="numpy-arrays.html" class="nav-sub-item">Arrays</a><a href="numpy-operations.html" class="nav-sub-item">Operations</a></div>
+  </div>
+  <div class="nav-group" data-group="pandas">
+    <div class="nav-group-header"><span class="nav-num">19</span><span class="nav-dot"></span>Pandas<span class="nav-group-arrow">›</span></div>
+    <div class="nav-sub"><a href="pandas-series.html" class="nav-sub-item">Series</a><a href="pandas-dataframe.html" class="nav-sub-item">DataFrame</a></div>
+  </div>
+  <a href="data-visualization.html" class="nav-item"><span class="nav-num">20</span><span class="nav-dot"></span>Data Visualization</a>
+  <div class="sidebar-label">More</div>
+  <a href="../projects/index.html" class="nav-item"><span class="nav-num">📁</span><span class="nav-dot"></span>Projects</a>
+  <a href="../interview/index.html" class="nav-item"><span class="nav-num">🎯</span><span class="nav-dot"></span>Interview Prep</a>
+  <a href="../resources/index.html" class="nav-item"><span class="nav-num">📚</span><span class="nav-dot"></span>Resources</a>
+</aside>
+
+<!-- MAIN -->
+<div class="main" id="main">
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="sidebar-toggle btn btn-icon" id="sidebarToggle">☰</button>
+      <nav class="breadcrumb">
+        <a href="../index.html">Home</a><span class="sep">›</span>
+        <span>Core Python</span><span class="sep">›</span>
+        <span class="crumb-current">Data Types</span>
+      </nav>
+    </div>
+    <div class="topbar-right">
+      <div class="theme-toggle">
+        <span class="theme-icon">🌙</span>
+        <button class="toggle-btn" id="themeToggle" aria-label="Toggle theme"></button>
+        <span class="theme-icon">☀️</span>
+      </div>
+      <button class="btn complete-btn">Mark as Complete</button>
+    </div>
+  </header>
+
+  <main class="content-area">
+
+    <!-- TOPIC HEADER -->
+    <div class="topic-header animate-fadeup">
+      <div class="topic-header-glow"></div>
+      <div class="topic-header-glow2"></div>
+      <div class="topic-phase"><span class="badge badge-accent">Module 02</span>Core Python · Phase 1</div>
+      <div class="topic-title">Data Types and Variables</div>
+      <div class="topic-desc">Every value in Python has a type. Understanding data types is like knowing the difference between a number, a word, and a list in real life. Get this right and everything else becomes clearer.</div>
+      <div class="topic-meta">
+        <div class="meta-chip"><div class="meta-dot" style="background:var(--green)"></div>Beginner</div>
+        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent3)"></div>~60 min read</div>
+        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent)"></div>12 practice tasks</div>
+        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent2)"></div>8 MCQs</div>
+        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent4)"></div>10 interview Qs</div>
+      </div>
+      <div class="topic-actions">
+        <button class="btn" data-bookmark="data-types">🔖 Bookmark</button>
+        <a href="python-basics.html" class="btn">Prev: Python Basics</a>
+        <a href="operators.html" class="btn">Next: Operators</a>
+      </div>
+      <div class="diff-rating">
+        <span class="diff-rating-label">How was this topic?</span>
+        <button class="diff-btn" data-diff="easy">😊 Easy</button>
+        <button class="diff-btn" data-diff="medium">🤔 Medium</button>
+        <button class="diff-btn" data-diff="hard">😤 Hard</button>
+      </div>
+    </div>
+
+    <!-- Keyboard shortcuts hint -->
+    <div class="shortcut-hint animate-fadeup delay-1">
+      <span><kbd class="kbd">N</kbd> Next topic</span>
+      <span><kbd class="kbd">P</kbd> Prev topic</span>
+      <span><kbd class="kbd">B</kbd> Bookmark</span>
+      <span><kbd class="kbd">D</kbd> Dark / Light</span>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs-wrap animate-fadeup delay-1">
+      <button class="tab-btn active">📖 Notes</button>
+      <button class="tab-btn">💻 Examples</button>
+      <button class="tab-btn">✏️ Practice</button>
+      <button class="tab-btn">❓ MCQs</button>
+      <button class="tab-btn">🎯 Guess the Output</button>
+      <button class="tab-btn">🎤 Interview</button>
+      <button class="tab-btn">⚠️ Mistakes</button>
+      <button class="tab-btn">📋 Summary</button>
+    </div>
+
+    <!-- TAB 1: NOTES -->
+    <div class="tab-panel active animate-fadeup delay-2">
+
+      <div class="callout callout-tip" style="margin-bottom:18px">
+        <span class="callout-icon">🔗</span>
+        <span>In Python Basics, you learned how to create variables and store values. Now let's go one level deeper and understand <strong>what kinds of values Python can actually store</strong>. Every variable has a type, and that type determines what you can do with it.</span>
+      </div>
+
+      <!-- SVG DIAGRAM -->
+      <div class="diagram-wrap">
+        <div class="concept-type-label label-definition" style="margin-bottom:20px">Python Data Types: Complete Map</div>
+        <svg viewBox="0 0 860 260" width="100%" style="max-width:860px;display:block;margin:0 auto;min-width:580px" aria-label="Python data types map">
+          <rect x="285" y="8" width="250" height="42" rx="10" fill="var(--accent)" opacity=".92"/>
+          <text x="410" y="34" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Outfit,sans-serif">Python Data Types</text>
+          <line x1="410" y1="50" x2="410" y2="74" stroke="var(--text3)" stroke-width="1.5"/>
+          <line x1="70" y1="74" x2="780" y2="74" stroke="var(--text3)" stroke-width="1.5"/>
+          <line x1="70" y1="74" x2="70" y2="94" stroke="var(--text3)" stroke-width="1.5"/>
+          <line x1="210" y1="74" x2="210" y2="94" stroke="var(--text3)" stroke-width="1.5"/>
+          <line x1="370" y1="74" x2="370" y2="94" stroke="var(--text3)" stroke-width="1.5"/>
+          <line x1="530" y1="74" x2="530" y2="94" stroke="var(--text3)" stroke-width="1.5"/>
+          <line x1="660" y1="74" x2="660" y2="94" stroke="var(--text3)" stroke-width="1.5"/>
+          <line x1="780" y1="74" x2="780" y2="94" stroke="var(--text3)" stroke-width="1.5"/>
+          <!-- Category boxes -->
+          <rect x="10" y="94" width="120" height="38" rx="8" fill="var(--bg3)" stroke="var(--green)" stroke-width="1.5"/>
+          <text x="70" y="118" text-anchor="middle" fill="var(--green)" font-size="12" font-weight="700" font-family="Outfit,sans-serif">Numeric</text>
+          <rect x="150" y="94" width="120" height="38" rx="8" fill="var(--bg3)" stroke="var(--accent)" stroke-width="1.5"/>
+          <text x="210" y="118" text-anchor="middle" fill="var(--accent)" font-size="12" font-weight="700" font-family="Outfit,sans-serif">Boolean</text>
+          <rect x="300" y="94" width="140" height="38" rx="8" fill="var(--bg3)" stroke="var(--accent3)" stroke-width="1.5"/>
+          <text x="370" y="118" text-anchor="middle" fill="var(--accent3)" font-size="12" font-weight="700" font-family="Outfit,sans-serif">Sequence</text>
+          <rect x="460" y="94" width="140" height="38" rx="8" fill="var(--bg3)" stroke="var(--accent4)" stroke-width="1.5"/>
+          <text x="530" y="118" text-anchor="middle" fill="var(--accent4)" font-size="12" font-weight="700" font-family="Outfit,sans-serif">Mapping</text>
+          <rect x="610" y="94" width="100" height="38" rx="8" fill="var(--bg3)" stroke="var(--accent2)" stroke-width="1.5"/>
+          <text x="660" y="118" text-anchor="middle" fill="var(--accent2)" font-size="12" font-weight="700" font-family="Outfit,sans-serif">Set</text>
+          <rect x="748" y="94" width="90" height="38" rx="8" fill="var(--bg3)" stroke="var(--text3)" stroke-width="1.5"/>
+          <text x="793" y="118" text-anchor="middle" fill="var(--text3)" font-size="12" font-weight="700" font-family="Outfit,sans-serif">NoneType</text>
+          <!-- Numeric children -->
+          <line x1="70" y1="132" x2="70" y2="152" stroke="var(--text3)" stroke-width="1.2"/>
+          <line x1="22" y1="152" x2="118" y2="152" stroke="var(--text3)" stroke-width="1.2"/>
+          <line x1="22" y1="152" x2="22" y2="168" stroke="var(--text3)" stroke-width="1.2"/>
+          <line x1="70" y1="152" x2="70" y2="168" stroke="var(--text3)" stroke-width="1.2"/>
+          <line x1="118" y1="152" x2="118" y2="168" stroke="var(--text3)" stroke-width="1.2"/>
+          <rect x="2" y="168" width="40" height="30" rx="6" fill="var(--bg3)" stroke="var(--green)" stroke-width="1"/>
+          <text x="22" y="188" text-anchor="middle" fill="var(--green)" font-size="11" font-family="JetBrains Mono,monospace">int</text>
+          <rect x="48" y="168" width="46" height="30" rx="6" fill="var(--bg3)" stroke="var(--green)" stroke-width="1"/>
+          <text x="71" y="188" text-anchor="middle" fill="var(--green)" font-size="11" font-family="JetBrains Mono,monospace">float</text>
+          <rect x="98" y="168" width="56" height="30" rx="6" fill="var(--bg3)" stroke="var(--green)" stroke-width="1"/>
+          <text x="126" y="188" text-anchor="middle" fill="var(--green)" font-size="11" font-family="JetBrains Mono,monospace">complex</text>
+          <!-- Boolean -->
+          <line x1="210" y1="132" x2="210" y2="168" stroke="var(--text3)" stroke-width="1.2"/>
+          <rect x="170" y="168" width="80" height="30" rx="6" fill="var(--bg3)" stroke="var(--accent)" stroke-width="1"/>
+          <text x="210" y="188" text-anchor="middle" fill="var(--accent)" font-size="11" font-family="JetBrains Mono,monospace">bool</text>
+          <!-- Sequence children -->
+          <line x1="370" y1="132" x2="370" y2="152" stroke="var(--text3)" stroke-width="1.2"/>
+          <line x1="308" y1="152" x2="436" y2="152" stroke="var(--text3)" stroke-width="1.2"/>
+          <line x1="308" y1="152" x2="308" y2="168" stroke="var(--text3)" stroke-width="1.2"/>
+          <line x1="346" y1="152" x2="346" y2="168" stroke="var(--text3)" stroke-width="1.2"/>
+          <line x1="390" y1="152" x2="390" y2="168" stroke="var(--text3)" stroke-width="1.2"/>
+          <line x1="436" y1="152" x2="436" y2="168" stroke="var(--text3)" stroke-width="1.2"/>
+          <rect x="290" y="168" width="36" height="30" rx="6" fill="var(--bg3)" stroke="var(--accent3)" stroke-width="1"/>
+          <text x="308" y="188" text-anchor="middle" fill="var(--accent3)" font-size="11" font-family="JetBrains Mono,monospace">str</text>
+          <rect x="328" y="168" width="36" height="30" rx="6" fill="var(--bg3)" stroke="var(--accent3)" stroke-width="1"/>
+          <text x="346" y="188" text-anchor="middle" fill="var(--accent3)" font-size="11" font-family="JetBrains Mono,monospace">list</text>
+          <rect x="372" y="168" width="40" height="30" rx="6" fill="var(--bg3)" stroke="var(--accent3)" stroke-width="1"/>
+          <text x="392" y="188" text-anchor="middle" fill="var(--accent3)" font-size="11" font-family="JetBrains Mono,monospace">tuple</text>
+          <rect x="416" y="168" width="44" height="30" rx="6" fill="var(--bg3)" stroke="var(--accent3)" stroke-width="1"/>
+          <text x="438" y="188" text-anchor="middle" fill="var(--accent3)" font-size="11" font-family="JetBrains Mono,monospace">range</text>
+          <!-- Mapping -->
+          <line x1="530" y1="132" x2="530" y2="168" stroke="var(--text3)" stroke-width="1.2"/>
+          <rect x="498" y="168" width="64" height="30" rx="6" fill="var(--bg3)" stroke="var(--accent4)" stroke-width="1"/>
+          <text x="530" y="188" text-anchor="middle" fill="var(--accent4)" font-size="11" font-family="JetBrains Mono,monospace">dict</text>
+          <!-- Set children -->
+          <line x1="660" y1="132" x2="660" y2="152" stroke="var(--text3)" stroke-width="1.2"/>
+          <line x1="626" y1="152" x2="700" y2="152" stroke="var(--text3)" stroke-width="1.2"/>
+          <line x1="626" y1="152" x2="626" y2="168" stroke="var(--text3)" stroke-width="1.2"/>
+          <line x1="700" y1="152" x2="700" y2="168" stroke="var(--text3)" stroke-width="1.2"/>
+          <rect x="606" y="168" width="40" height="30" rx="6" fill="var(--bg3)" stroke="var(--accent2)" stroke-width="1"/>
+          <text x="626" y="188" text-anchor="middle" fill="var(--accent2)" font-size="11" font-family="JetBrains Mono,monospace">set</text>
+          <rect x="664" y="168" width="70" height="30" rx="6" fill="var(--bg3)" stroke="var(--accent2)" stroke-width="1"/>
+          <text x="699" y="188" text-anchor="middle" fill="var(--accent2)" font-size="11" font-family="JetBrains Mono,monospace">frozenset</text>
+          <!-- None -->
+          <line x1="793" y1="132" x2="793" y2="168" stroke="var(--text3)" stroke-width="1.2"/>
+          <rect x="762" y="168" width="60" height="30" rx="6" fill="var(--bg3)" stroke="var(--text3)" stroke-width="1"/>
+          <text x="792" y="188" text-anchor="middle" fill="var(--text3)" font-size="11" font-family="JetBrains Mono,monospace">None</text>
+          <!-- Legend -->
+          <line x1="10" y1="216" x2="810" y2="216" stroke="var(--border)" stroke-width="1"/>
+          <text x="10" y="236" fill="var(--text3)" font-size="10.5" font-family="Nunito,sans-serif">Colors:</text>
+          <rect x="58" y="226" width="10" height="10" rx="2" fill="var(--green)"/><text x="72" y="236" fill="var(--text2)" font-size="10.5" font-family="Nunito,sans-serif">Numeric</text>
+          <rect x="130" y="226" width="10" height="10" rx="2" fill="var(--accent)"/><text x="144" y="236" fill="var(--text2)" font-size="10.5" font-family="Nunito,sans-serif">Boolean</text>
+          <rect x="205" y="226" width="10" height="10" rx="2" fill="var(--accent3)"/><text x="219" y="236" fill="var(--text2)" font-size="10.5" font-family="Nunito,sans-serif">Sequence</text>
+          <rect x="288" y="226" width="10" height="10" rx="2" fill="var(--accent4)"/><text x="302" y="236" fill="var(--text2)" font-size="10.5" font-family="Nunito,sans-serif">Mapping</text>
+          <rect x="365" y="226" width="10" height="10" rx="2" fill="var(--accent2)"/><text x="379" y="236" fill="var(--text2)" font-size="10.5" font-family="Nunito,sans-serif">Set</text>
+          <rect x="406" y="226" width="10" height="10" rx="2" fill="var(--text3)"/><text x="420" y="236" fill="var(--text2)" font-size="10.5" font-family="Nunito,sans-serif">NoneType</text>
+        </svg>
+      </div>
+
+      <!-- NUMERIC -->
+      <div class="cbox green">
+        <div class="concept-type-label label-syntax" style="background:var(--green-bg);color:var(--green);border-color:var(--green-border)">Category 1 of 6</div>
+        <h3>🔢 Numeric Types: int, float, complex</h3>
+        <p><strong>int</strong> stores whole numbers with no decimal. No size limit. Use underscores for readability like writing 1,000,000 in real life.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">age</span>    = <span class="num">24</span>
+<span class="var">score</span>  = <span class="num">-5</span>
+<span class="var">big</span>    = <span class="num">1_000_000</span>   <span class="cm"># same as 1000000</span>
+<span class="var">binary</span> = <span class="num">0b1010</span>      <span class="cm"># base 2 = 10</span>
+<span class="var">hexa</span>   = <span class="num">0xFF</span>        <span class="cm"># base 16 = 255</span>
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">age</span>))     <span class="cm"># &lt;class 'int'&gt;</span></pre></div>
+
+        <p><strong>float</strong> stores decimal numbers. Supports scientific notation. Watch out for precision issues.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">temperature</span> = <span class="num">36.6</span>
+<span class="var">pi</span>   = <span class="num">3.14159</span>
+<span class="var">sci</span>  = <span class="num">1.5e3</span>           <span class="cm"># 1500.0</span>
+<span class="fn">print</span>(<span class="num">0.1</span> + <span class="num">0.2</span>)        <span class="cm"># 0.30000000000000004</span>
+<span class="fn">print</span>(<span class="fn">round</span>(<span class="num">0.1</span>+<span class="num">0.2</span>,<span class="num">2</span>)) <span class="cm"># 0.3 (use round() to fix)</span></pre></div>
+        <div class="callout callout-note">
+          <span class="callout-icon">📝</span>
+          <span><strong>Why 0.1 + 0.2 gives 0.30000000000000004:</strong> Computers store numbers in binary. Some decimal fractions cannot be stored exactly in binary, just like 1/3 cannot be written exactly in decimal (0.333...). This is not a Python bug. Use <code>round()</code> or the <code>decimal</code> module when precision matters.</span>
+        </div>
+        <p><strong>complex</strong>:real and imaginary parts. Used in engineering. Rarely needed at beginner level.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">z</span> = <span class="num">3</span> + <span class="num">4j</span>
+<span class="fn">print</span>(<span class="var">z</span>.real)   <span class="cm"># 3.0</span>
+<span class="fn">print</span>(<span class="var">z</span>.imag)   <span class="cm"># 4.0</span>
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">z</span>))  <span class="cm"># &lt;class 'complex'&gt;</span></pre></div>
+      </div>
+
+      <!-- BOOLEAN -->
+      <div class="cbox">
+        <div class="concept-type-label label-definition">Category 2 of 6</div>
+        <h3>✅ Boolean: True and False</h3>
+        <p>Boolean holds one of two values: <code>True</code> or <code>False</code>. Think of a light switch. Either on or off. Booleans are secretly integers in Python: True equals 1 and False equals 0.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">is_student</span> = <span class="kw">True</span>
+<span class="var">eligible</span>   = <span class="num">10</span> > <span class="num">5</span>      <span class="cm"># True (comparison gives bool)</span>
+<span class="fn">print</span>(<span class="kw">True</span> + <span class="kw">True</span>)       <span class="cm"># 2</span>
+<span class="fn">print</span>(<span class="kw">False</span> + <span class="num">5</span>)         <span class="cm"># 5</span></pre></div>
+      </div>
+
+      <!-- TRUTHY FALSY -->
+      <div class="cbox amber">
+        <div class="concept-type-label label-rule">Important Concept</div>
+        <h3>💡 Truthy and Falsy Values</h3>
+        <p>Every Python value has a hidden boolean meaning. When Python evaluates a condition, it silently converts the value to True or False. This is called truthiness. Knowing this saves you from subtle bugs.</p>
+        <div class="tf-grid">
+          <div class="tf-card">
+            <h4 style="color:var(--red)">Falsy (treated as False)</h4>
+            <ul>
+              <li>False</li><li>None</li><li>0 (int)</li><li>0.0 (float)</li>
+              <li>"" (empty string)</li><li>[] (empty list)</li>
+              <li>{} (empty dict)</li><li>() (empty tuple)</li><li>set() (empty set)</li>
+            </ul>
+          </div>
+          <div class="tf-card">
+            <h4 style="color:var(--green)">Truthy (treated as True)</h4>
+            <ul>
+              <li>True</li><li>Any non-zero number</li>
+              <li>" " (space, NOT empty)</li>
+              <li>"False" (non-empty string)</li>
+              <li>[0] (list with one item)</li>
+              <li>Any non-empty collection</li>
+            </ul>
+          </div>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="cm"># Edge cases that surprise beginners</span>
+<span class="fn">print</span>(<span class="fn">bool</span>(<span class="str">""</span>))        <span class="cm"># False  (empty string)</span>
+<span class="fn">print</span>(<span class="fn">bool</span>(<span class="str">" "</span>))       <span class="cm"># True   (space = non-empty string!)</span>
+<span class="fn">print</span>(<span class="fn">bool</span>(<span class="str">"False"</span>))   <span class="cm"># True   (non-empty string, even if it says False)</span>
+<span class="fn">print</span>(<span class="fn">bool</span>(<span class="str">"0"</span>))       <span class="cm"># True   (non-empty string, not the integer 0)</span>
+<span class="fn">print</span>(<span class="fn">bool</span>(<span class="num">0</span>))         <span class="cm"># False  (actual integer zero)</span>
+<span class="fn">print</span>(<span class="fn">bool</span>([<span class="num">0</span>]))       <span class="cm"># True   (list with one item)</span>
+<span class="fn">print</span>(<span class="fn">bool</span>([]))        <span class="cm"># False  (empty list)</span></pre></div>
+        <div class="callout callout-tip">
+          <span class="callout-icon">💡</span>
+          <span>This is why <code>if my_list:</code> works as a non-empty check. Python converts the list to bool automatically. No need for <code>if len(my_list) > 0:</code>.</span>
+        </div>
+      </div>
+
+      <!-- KEYWORDS: True False None -->
+      <div class="cbox purple">
+        <div class="concept-type-label label-why">Keywords</div>
+        <h3>🔑 True, False, and None are Reserved Keywords</h3>
+        <p><code>True</code>, <code>False</code>, and <code>None</code> are not just values. They are reserved keywords in Python. You cannot use them as variable names, and capitalisation is strict.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="cm"># These raise SyntaxError</span>
+<span class="cm"># True = 10   |  False = 0   |  None = "hi"</span>
+
+<span class="cm"># Capitalisation is strict</span>
+<span class="fn">print</span>(<span class="kw">True</span>)      <span class="cm"># works</span>
+<span class="cm"># print(true)   # NameError</span>
+<span class="cm"># print(TRUE)   # NameError</span>
+
+<span class="cm"># None is a singleton:only one exists in memory</span>
+<span class="fn">print</span>(<span class="fn">id</span>(<span class="kw">None</span>) == <span class="fn">id</span>(<span class="kw">None</span>))  <span class="cm"># True always</span></pre></div>
+        <div class="callout callout-note">
+          <span class="callout-icon">📝</span>
+          <span>Since None is a singleton, always use <code>x is None</code> instead of <code>x == None</code>. The <code>is</code> operator checks memory identity, which is the correct and faster check for None.</span>
+        </div>
+      </div>
+
+      <!-- NONETYPE -->
+      <div class="cbox dim">
+        <div class="concept-type-label" style="background:var(--bg3);color:var(--text3);border:1px solid var(--border2)">Category 3 of 6</div>
+        <h3>🚫 NoneType: The Absence of a Value</h3>
+        <p>None means nothing is here. Not zero. Not False. Not empty string. It is the complete absence of any value. Think of an empty field on a form that has not been filled yet.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">result</span> = <span class="kw">None</span>
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">result</span>))    <span class="cm"># &lt;class 'NoneType'&gt;</span>
+
+<span class="kw">if</span> <span class="var">result</span> <span class="kw">is</span> <span class="kw">None</span>:    <span class="cm"># correct way to check</span>
+    <span class="fn">print</span>(<span class="str">"No value yet"</span>)
+
+<span class="cm"># Functions that return nothing give None</span>
+<span class="kw">def</span> <span class="fn">greet</span>():
+    <span class="fn">print</span>(<span class="str">"Hello"</span>)
+
+<span class="var">x</span> = <span class="fn">greet</span>()
+<span class="fn">print</span>(<span class="var">x</span>)              <span class="cm"># None</span></pre></div>
+      </div>
+
+      <!-- SEQUENCE -->
+      <div class="cbox amber">
+        <div class="concept-type-label label-rule">Category 4 of 6</div>
+        <h3>📋 Sequence Types: str, list, tuple, range</h3>
+        <p>Sequence types store multiple items in order. Every item has a position (index starting at 0). We go deep on each in dedicated topics. Here is an introduction to all four.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">name</span>    = <span class="str">"Rohan Patil"</span>            <span class="cm"># str: immutable</span>
+<span class="var">friends</span> = [<span class="str">"Siddhesh"</span>, <span class="str">"Sagar"</span>]  <span class="cm"># list: mutable</span>
+<span class="var">dob</span>     = (<span class="num">11</span>, <span class="num">12</span>, <span class="num">2001</span>)       <span class="cm"># tuple: immutable</span>
+<span class="var">r</span>       = <span class="fn">range</span>(<span class="num">5</span>)              <span class="cm"># range: 0,1,2,3,4</span>
+<span class="fn">print</span>(<span class="var">name</span>[<span class="num">0</span>])                  <span class="cm"># R</span>
+<span class="fn">print</span>(<span class="fn">list</span>(<span class="var">r</span>))                  <span class="cm"># [0,1,2,3,4]</span></pre></div>
+      </div>
+
+      <!-- MAPPING -->
+      <div class="cbox pink">
+        <div class="concept-type-label" style="background:rgba(244,114,182,.08);color:var(--accent4);border:1px solid rgba(244,114,182,.2)">Category 5 of 6</div>
+        <h3>🗂️ Mapping Type: dict</h3>
+        <p>A dictionary stores key-value pairs. Think of a contacts app: search by name (key), get the phone number (value). Not indexed by position, indexed by key.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">student</span> = {
+    <span class="str">"name"</span>   : <span class="str">"Rohan Patil"</span>,
+    <span class="str">"college"</span>: <span class="str">"B. N. Bandodkar College of Science"</span>,
+    <span class="str">"cgpa"</span>   : <span class="num">10.0</span>
+}
+<span class="fn">print</span>(<span class="var">student</span>[<span class="str">"name"</span>])   <span class="cm"># Rohan Patil</span></pre></div>
+      </div>
+
+      <!-- SET -->
+      <div class="cbox teal">
+        <div class="concept-type-label label-syntax" style="background:var(--green-bg);color:var(--accent2);border-color:var(--green-border)">Category 6 of 6</div>
+        <h3>🔵 Set Types: set and frozenset</h3>
+        <p>A set is an unordered collection of unique items. No duplicates allowed. Great for removing duplicates and fast membership checks. frozenset is the immutable version:covered in one line.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">subjects</span> = {<span class="str">"Python"</span>, <span class="str">"ML"</span>, <span class="str">"Stats"</span>, <span class="str">"Python"</span>}
+<span class="fn">print</span>(<span class="var">subjects</span>)   <span class="cm"># {'Python','ML','Stats'}:duplicate removed</span>
+<span class="var">fs</span> = <span class="fn">frozenset</span>([<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>])  <span class="cm"># immutable set</span></pre></div>
+      </div>
+
+      <!-- EMPTY SET VS EMPTY DICT -->
+      <div class="cbox amber">
+        <div class="concept-type-label label-rule">Common Confusion</div>
+        <h3>⚠️ Empty Set vs Empty Dictionary: set() vs {}</h3>
+        <p>This is one of the most common Python traps. Both sets and dicts use curly braces. But <code>{}</code> always creates a <strong>dictionary</strong>, not a set. Python chose dict as the default because dicts came before sets historically.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">x</span> = {}             <span class="cm"># dict, NOT a set</span>
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">x</span>))     <span class="cm"># &lt;class 'dict'&gt;</span>
+
+<span class="var">y</span> = <span class="fn">set</span>()          <span class="cm"># correct empty set</span>
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">y</span>))     <span class="cm"># &lt;class 'set'&gt;</span>
+
+<span class="var">z</span> = {<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>}      <span class="cm"># non-empty set (values, no colon) = set</span>
+<span class="var">d</span> = {<span class="str">"a"</span>: <span class="num">1</span>}       <span class="cm"># key:value (colon) = dict</span></pre></div>
+        <div class="callout callout-warning">
+          <span class="callout-icon">⚠️</span>
+          <span>Always use <code>set()</code> for an empty set. Never use <code>{}</code>.</span>
+        </div>
+      </div>
+
+      <!-- COLLECTION COMPARISON TABLE -->
+      <div class="cbox">
+        <div class="concept-type-label label-definition">Quick Reference</div>
+        <h3>📊 Collection Types: Side-by-Side Comparison</h3>
+        <p>You have met all four collection types. Here is how they compare across the properties that matter most when choosing which one to use.</p>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Property</th><th>list</th><th>tuple</th><th>set</th><th>dict</th></tr></thead>
+            <tbody>
+              <tr><td>Ordered</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td class="yes">Yes (3.7+)</td></tr>
+              <tr><td>Mutable</td><td class="yes">Yes</td><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+              <tr><td>Allows Duplicates</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td class="no">Keys unique</td></tr>
+              <tr><td>Indexed by position</td><td class="yes">Yes [0]</td><td class="yes">Yes [0]</td><td class="no">No</td><td class="cond">By key</td></tr>
+              <tr><td>Syntax</td><td class="na">[1, 2]</td><td class="na">(1, 2)</td><td class="na">{1, 2}</td><td class="na">{"k": "v"}</td></tr>
+              <tr><td>Use case</td><td class="na">General collection</td><td class="na">Fixed data</td><td class="na">Unique items</td><td class="na">Key-value pairs</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- MUTABLE VS IMMUTABLE -->
+      <div class="cbox purple">
+        <div class="concept-type-label label-why">Core Concept</div>
+        <h3>🔒 Mutable vs Immutable</h3>
+        <p>Every data type is either mutable or immutable. This single concept explains a lot of confusing Python behaviour.</p>
+        <p><strong>Immutable:</strong> the object cannot be changed after creation. If you try to "change" it, Python creates a brand new object in memory. <strong>Mutable:</strong> the object can be changed in place:same object, same memory address.</p>
+        <div class="table-wrap" style="margin-bottom:14px">
+          <table class="data-table">
+            <thead><tr><th>Category</th><th>Types</th><th>Changes after creation?</th><th>Hashable (dict key)?</th></tr></thead>
+            <tbody>
+              <tr><td>Immutable</td><td class="na">int, float, complex, bool, str, tuple, frozenset, NoneType</td><td class="no">No</td><td class="yes">Yes</td></tr>
+              <tr><td>Mutable</td><td class="na">list, dict, set, bytearray</td><td class="yes">Yes</td><td class="no">No</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Use <code>id()</code> to prove it. If the id stays the same after a change, the object was mutated in place. If the id changes, a new object was created.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="cm"># IMMUTABLE: string</span>
+<span class="var">name</span> = <span class="str">"Rohan"</span>
+<span class="fn">print</span>(<span class="fn">id</span>(<span class="var">name</span>))          <span class="cm"># e.g. 140234001</span>
+<span class="var">name</span> = <span class="var">name</span> + <span class="str">" Patil"</span>
+<span class="fn">print</span>(<span class="fn">id</span>(<span class="var">name</span>))          <span class="cm"># DIFFERENT id:new object</span>
+
+<span class="cm"># MUTABLE: list</span>
+<span class="var">friends</span> = [<span class="str">"Siddhesh"</span>, <span class="str">"Sagar"</span>]
+<span class="fn">print</span>(<span class="fn">id</span>(<span class="var">friends</span>))       <span class="cm"># e.g. 140234999</span>
+<span class="var">friends</span>.append(<span class="str">"Rohan"</span>)
+<span class="fn">print</span>(<span class="fn">id</span>(<span class="var">friends</span>))       <span class="cm"># SAME id:modified in place</span></pre></div>
+        <div class="callout callout-tip">
+          <span class="callout-icon">💡</span>
+          <span><strong>Why this matters in real code:</strong> when you pass a list to a function and the function modifies it, your original list changes too (same mutable object). When you pass a string or int, the original is always safe.</span>
+        </div>
+      </div>
+
+      <!-- NESTED DATA STRUCTURES -->
+      <div class="cbox green">
+        <div class="concept-type-label label-syntax" style="background:var(--green-bg);color:var(--green);border-color:var(--green-border)">Preview</div>
+        <h3>🪆 Nested Data Structures</h3>
+        <p>Python lets you put data structures inside other data structures. A list can contain dicts. A dict can hold lists as values. This is how real-world data looks:like a JSON response from an API or a database record.</p>
+        <p>We go deep on this in the Lists and Dictionaries topics. For now, just recognise the pattern.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="cm"># List of dicts (student records)</span>
+<span class="var">students</span> = [
+    {<span class="str">"name"</span>: <span class="str">"Rohan"</span>,    <span class="str">"cgpa"</span>: <span class="num">10.0</span>},
+    {<span class="str">"name"</span>: <span class="str">"Siddhesh"</span>, <span class="str">"cgpa"</span>: <span class="num">9.2</span>},
+    {<span class="str">"name"</span>: <span class="str">"Sagar"</span>,    <span class="str">"cgpa"</span>: <span class="num">8.7</span>},
+]
+<span class="fn">print</span>(<span class="var">students</span>[<span class="num">0</span>][<span class="str">"name"</span>])    <span class="cm"># Rohan</span>
+<span class="fn">print</span>(<span class="var">students</span>[<span class="num">1</span>][<span class="str">"cgpa"</span>])    <span class="cm"># 9.2</span>
+
+<span class="cm"># Dict with list values</span>
+<span class="var">student</span> = {
+    <span class="str">"name"</span>    : <span class="str">"Rohan Patil"</span>,
+    <span class="str">"subjects"</span>: [<span class="str">"Python"</span>, <span class="str">"ML"</span>, <span class="str">"Stats"</span>],
+    <span class="str">"scores"</span>  : [<span class="num">98</span>, <span class="num">95</span>, <span class="num">100</span>]
+}
+<span class="fn">print</span>(<span class="var">student</span>[<span class="str">"subjects"</span>][<span class="num">0</span>])  <span class="cm"># Python</span></pre></div>
+      </div>
+
+      <!-- isinstance vs type -->
+      <div class="cbox">
+        <div class="concept-type-label label-definition">Type Checking</div>
+        <h3>🔍 type() vs isinstance(): Know the Difference</h3>
+        <p>You know <code>type()</code>. Now meet <code>isinstance()</code>. Both check types but they work differently and one is almost always better in real code.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">x</span> = <span class="num">42</span>
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">x</span>))                    <span class="cm"># &lt;class 'int'&gt;</span>
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">x</span>) == <span class="fn">int</span>)             <span class="cm"># True (exact match)</span>
+
+<span class="fn">print</span>(<span class="fn">isinstance</span>(<span class="var">x</span>, <span class="fn">int</span>))         <span class="cm"># True</span>
+<span class="fn">print</span>(<span class="fn">isinstance</span>(<span class="var">x</span>, (<span class="fn">int</span>,<span class="fn">float</span>))) <span class="cm"># True (check multiple types)</span>
+
+<span class="cm"># Key difference: bool is a subclass of int</span>
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="kw">True</span>) == <span class="fn">int</span>)           <span class="cm"># False (exact type is bool)</span>
+<span class="fn">print</span>(<span class="fn">isinstance</span>(<span class="kw">True</span>, <span class="fn">int</span>))       <span class="cm"># True  (bool IS a subclass of int)</span></pre></div>
+        <div class="table-wrap" style="margin-top:14px">
+          <table class="data-table">
+            <thead><tr><th>Feature</th><th>type()</th><th>isinstance()</th></tr></thead>
+            <tbody>
+              <tr><td>Returns</td><td class="na">the type object</td><td class="na">True or False</td></tr>
+              <tr><td>Checks subclasses</td><td class="no">No (exact only)</td><td class="yes">Yes</td></tr>
+              <tr><td>Multiple types</td><td class="no">No</td><td class="yes">isinstance(x, (int, float))</td></tr>
+              <tr><td>Best used for</td><td class="na">Debugging, printing</td><td class="na">Validation in real code</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TYPE CASTING -->
+      <div class="cbox purple">
+        <div class="concept-type-label label-why">Type Casting</div>
+        <h3>🔁 Type Casting: Implicit and Explicit</h3>
+        <p><strong>Implicit casting</strong> happens automatically when Python combines compatible types.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">z</span> = <span class="num">5</span> + <span class="num">2.0</span>     <span class="cm"># int promoted to float automatically</span>
+<span class="fn">print</span>(<span class="var">z</span>)         <span class="cm"># 7.0</span>
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">z</span>))   <span class="cm"># &lt;class 'float'&gt;</span>
+<span class="fn">print</span>(<span class="num">10</span> + <span class="kw">True</span>) <span class="cm"># 11</span></pre></div>
+        <p><strong>Explicit casting</strong> is when you manually convert using built-in functions.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="fn">int</span>(<span class="str">"24"</span>)        <span class="cm"># 24</span>
+<span class="fn">int</span>(<span class="num">9.9</span>)         <span class="cm"># 9  (truncates, does NOT round)</span>
+<span class="fn">float</span>(<span class="str">"3.14"</span>)    <span class="cm"># 3.14</span>
+<span class="fn">str</span>(<span class="num">100</span>)         <span class="cm"># "100"</span>
+<span class="fn">list</span>((<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>))   <span class="cm"># [1, 2, 3]</span>
+<span class="fn">set</span>([<span class="num">1</span>,<span class="num">2</span>,<span class="num">2</span>])    <span class="cm"># {1, 2}</span></pre></div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>From / To</th><th>int()</th><th>float()</th><th>str()</th><th>bool()</th></tr></thead>
+            <tbody>
+              <tr><td>int</td><td class="na">same</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+              <tr><td>float</td><td class="yes">Yes (truncates)</td><td class="na">same</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+              <tr><td>str</td><td class="cond">Only if numeric</td><td class="cond">Only if numeric</td><td class="na">same</td><td class="yes">Yes (empty=False)</td></tr>
+              <tr><td>bool</td><td class="yes">1 or 0</td><td class="yes">1.0 or 0.0</td><td class="yes">"True"/"False"</td><td class="na">same</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="font-size:12px;color:var(--text3);margin-top:6px">
+          <span style="color:var(--green);font-weight:700">Yes</span> always works.
+          <span style="color:var(--amber);font-weight:700">Only if numeric</span> works for "24" but raises ValueError for "hello".
+        </div>
+      </div>
+
+      <!-- TYPE CASTING ERRORS -->
+      <div class="cbox amber">
+        <div class="concept-type-label label-rule">Errors to Know</div>
+        <h3>🚨 Type Casting Errors and ValueError</h3>
+        <p>Not every conversion is possible. When you try to convert something that cannot be converted, Python raises an error. Knowing which error and why helps you debug faster.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="cm"># ValueError: right type, wrong value</span>
+<span class="fn">int</span>(<span class="str">"hello"</span>)          <span class="cm"># ValueError: invalid literal for int()</span>
+<span class="fn">float</span>(<span class="str">"twenty"</span>)       <span class="cm"># ValueError</span>
+<span class="fn">int</span>(<span class="str">"3.14"</span>)           <span class="cm"># ValueError: can't convert float string to int directly</span>
+<span class="fn">int</span>(<span class="fn">float</span>(<span class="str">"3.14"</span>))    <span class="cm"># 3:correct: float first, then int</span>
+
+<span class="cm"># TypeError: incompatible type entirely</span>
+<span class="fn">int</span>([<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>])          <span class="cm"># TypeError: can't convert list to int</span>
+<span class="fn">int</span>(<span class="kw">None</span>)              <span class="cm"># TypeError</span></pre></div>
+        <div class="callout callout-warning">
+          <span class="callout-icon">⚠️</span>
+          <span><strong>ValueError vs TypeError:</strong> ValueError means the type is right but the value cannot be converted (like "hello" to int). TypeError means the type itself is wrong for the operation (like converting a list to int). The common scenario: user types "twenty" when you do <code>int(input(...))</code>. You will handle this with try-except in Exception Handling.</span>
+        </div>
+      </div>
+
+      <!-- INPUT + TYPE CASTING -->
+      <div class="cbox green">
+        <div class="concept-type-label label-syntax" style="background:var(--green-bg);color:var(--green);border-color:var(--green-border)">Most Common Pattern</div>
+        <h3>⌨️ input() with Type Casting: The Pattern You Will Use Every Day</h3>
+        <p>input() always returns a string. You almost always need to convert it. Here is the complete guide to every input pattern you will need.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">name</span>    = <span class="fn">input</span>(<span class="str">"Name: "</span>)                      <span class="cm"># str</span>
+<span class="var">age</span>     = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Age: "</span>))                  <span class="cm"># int</span>
+<span class="var">cgpa</span>    = <span class="fn">float</span>(<span class="fn">input</span>(<span class="str">"CGPA: "</span>))               <span class="cm"># float</span>
+<span class="var">is_pass</span> = <span class="fn">input</span>(<span class="str">"Passed? (yes/no): "</span>) == <span class="str">"yes"</span> <span class="cm"># bool via comparison</span>
+
+<span class="cm"># Multiple values on one line</span>
+<span class="var">a</span>, <span class="var">b</span> = <span class="fn">map</span>(<span class="fn">int</span>, <span class="fn">input</span>(<span class="str">"Two numbers: "</span>).split())
+<span class="fn">print</span>(<span class="var">a</span> + <span class="var">b</span>)
+
+<span class="cm"># List of numbers from one line</span>
+<span class="var">marks</span> = <span class="fn">list</span>(<span class="fn">map</span>(<span class="fn">int</span>, <span class="fn">input</span>(<span class="str">"Marks: "</span>).split()))
+<span class="fn">print</span>(<span class="var">marks</span>)       <span class="cm"># [85,90,78] if user typed "85 90 78"</span>
+<span class="fn">print</span>(<span class="fn">sum</span>(<span class="var">marks</span>))  <span class="cm"># 253</span></pre></div>
+        <div class="callout callout-tip">
+          <span class="callout-icon">💡</span>
+          <span>The <code>map(int, input().split())</code> pattern is extremely common. It converts all items in a space-separated input to integers in one line. Keep this in your toolkit.</span>
+        </div>
+      </div>
+
+    </div><!-- end notes tab -->
+
+    <!-- TAB 2: EXAMPLES -->
+    <div class="tab-panel">
+
+      <div class="cbox">
+        <div class="example-header"><div class="example-title">Example 1:Detecting Types Cleanly</div><span class="badge badge-green">Basic</span></div>
+        <p style="font-size:14px;color:var(--text2);margin-bottom:10px">Use type() to display the data type of every common Python value.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">values</span> = [<span class="num">42</span>, <span class="num">3.14</span>, <span class="str">"Rohan"</span>, <span class="kw">True</span>, <span class="kw">None</span>, [<span class="num">1</span>,<span class="num">2</span>], (<span class="num">3</span>,<span class="num">4</span>), {<span class="str">"a"</span>:<span class="num">1</span>}, {<span class="num">5</span>,<span class="num">6</span>}]
+<span class="kw">for</span> <span class="var">v</span> <span class="kw">in</span> <span class="var">values</span>:
+    <span class="fn">print</span>(<span class="str">f"{str(v):<15} -> {type(v).__name__}"</span>)</pre></div>
+        <div class="callout callout-success">
+          <span class="callout-icon">📤</span>
+          <span><strong>Output:</strong><br>
+42              -> int<br>
+3.14            -> float<br>
+Rohan           -> str<br>
+True            -> bool<br>
+None            -> NoneType<br>
+[1, 2]          -> list<br>
+(3, 4)          -> tuple<br>
+{'a': 1}        -> dict<br>
+{5, 6}          -> set</span>
+        </div>
+      </div>
+
+      <div class="cbox">
+        <div class="example-header"><div class="example-title">Example 2:Student Report Card</div><span class="badge badge-green">Basic</span></div>
+        <p style="font-size:14px;color:var(--text2);margin-bottom:10px">Combine multiple data types to build a realistic student record.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">name</span>     = <span class="str">"Rohan Patil"</span>                  <span class="cm"># str</span>
+<span class="var">roll_no</span>  = <span class="num">2019</span>                           <span class="cm"># int</span>
+<span class="var">cgpa</span>     = <span class="num">10.0</span>                           <span class="cm"># float</span>
+<span class="var">is_pass</span>  = <span class="kw">True</span>                           <span class="cm"># bool</span>
+<span class="var">subjects</span> = [<span class="str">"Python"</span>, <span class="str">"ML"</span>, <span class="str">"Stats"</span>]    <span class="cm"># list</span>
+<span class="var">dob</span>      = (<span class="num">11</span>, <span class="num">12</span>, <span class="num">2001</span>)                <span class="cm"># tuple</span>
+<span class="var">remarks</span>  = <span class="kw">None</span>                           <span class="cm"># NoneType</span>
+
+<span class="fn">print</span>(<span class="str">f"Name    : {name}"</span>)
+<span class="fn">print</span>(<span class="str">f"Roll No : {roll_no}"</span>)
+<span class="fn">print</span>(<span class="str">f"CGPA    : {cgpa}"</span>)
+<span class="fn">print</span>(<span class="str">f"Result  : {'Pass' if is_pass else 'Fail'}"</span>)
+<span class="fn">print</span>(<span class="str">f"Subjects: {', '.join(subjects)}"</span>)
+<span class="fn">print</span>(<span class="str">f"DOB     : {dob[0]}/{dob[1]}/{dob[2]}"</span>)
+<span class="fn">print</span>(<span class="str">f"Remarks : {remarks if remarks else 'No remarks yet'}"</span>)</pre></div>
+      </div>
+
+      <div class="cbox">
+        <div class="example-header"><div class="example-title">Example 3:Input with Type Conversion and Validation</div><span class="badge badge-amber">Intermediate</span></div>
+        <p style="font-size:14px;color:var(--text2);margin-bottom:10px">Takes user input, converts to correct types, and uses isinstance() for verification.</p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">name</span>    = <span class="fn">input</span>(<span class="str">"Enter your name: "</span>)
+<span class="var">marks</span>   = <span class="fn">float</span>(<span class="fn">input</span>(<span class="str">"Total marks (out of 500): "</span>))
+<span class="var">percent</span> = (<span class="var">marks</span> / <span class="num">500</span>) * <span class="num">100</span>
+<span class="var">is_pass</span> = <span class="var">percent</span> >= <span class="num">40</span>
+<span class="var">grade</span>   = <span class="str">"A+"</span> <span class="kw">if</span> <span class="var">percent</span> >= <span class="num">90</span> <span class="kw">else</span> <span class="str">"A"</span> <span class="kw">if</span> <span class="var">percent</span> >= <span class="num">80</span> <span class="kw">else</span> <span class="str">"B"</span> <span class="kw">if</span> <span class="var">percent</span> >= <span class="num">70</span> <span class="kw">else</span> <span class="str">"C"</span>
+
+<span class="fn">print</span>(<span class="str">f"\nResult for {name}"</span>)
+<span class="fn">print</span>(<span class="str">f"Marks      : {marks}/500"</span>)
+<span class="fn">print</span>(<span class="str">f"Percentage : {percent:.2f}%"</span>)
+<span class="fn">print</span>(<span class="str">f"Grade      : {grade}"</span>)
+<span class="fn">print</span>(<span class="str">f"Status     : {'Pass' if is_pass else 'Fail'}"</span>)
+<span class="fn">print</span>(<span class="str">f"marks is float? {isinstance(marks, float)}"</span>)</pre></div>
+      </div>
+
+      <div class="cbox">
+        <div class="example-header"><div class="example-title">Example 4:Mutable vs Immutable Proof with id()</div><span class="badge badge-red">Advanced</span></div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="fn">print</span>(<span class="str">"=== IMMUTABLE: String ==="</span>)
+<span class="var">s</span> = <span class="str">"Rohan"</span>
+<span class="fn">print</span>(<span class="str">f"Before: {s}, id={id(s)}"</span>)
+<span class="var">s</span> = <span class="var">s</span> + <span class="str">" Patil"</span>
+<span class="fn">print</span>(<span class="str">f"After : {s}, id={id(s)}"</span>)
+<span class="fn">print</span>(<span class="str">"id changed -> new object created\n"</span>)
+
+<span class="fn">print</span>(<span class="str">"=== MUTABLE: List ==="</span>)
+<span class="var">lst</span> = [<span class="str">"Siddhesh"</span>, <span class="str">"Sagar"</span>]
+<span class="fn">print</span>(<span class="str">f"Before: {lst}, id={id(lst)}"</span>)
+<span class="var">lst</span>.append(<span class="str">"Rohan"</span>)
+<span class="fn">print</span>(<span class="str">f"After : {lst}, id={id(lst)}"</span>)
+<span class="fn">print</span>(<span class="str">"id same -> modified in place"</span>)</pre></div>
+      </div>
+
+    </div><!-- end examples tab -->
+
+    <!-- TAB 3: PRACTICE -->
+    <div class="tab-panel">
+
+      <div class="practice-section-header">
+        <div class="callout callout-tip" style="margin-bottom:0;flex:1">
+          <span class="callout-icon">✏️</span>
+          <span>Try each task yourself first. The hints are there only if you are genuinely stuck.</span>
+        </div>
+        <div class="practice-progress-wrap">
+          <span class="practice-progress-label" id="pb-dt-label">0 / 12 done</span>
+          <div class="practice-progress-bar"><div class="practice-progress-fill" id="pb-dt-fill" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="practice-card diff-easy" data-practice-id="pb-dt-1">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">1</div><div class="practice-title">Identify the Type</div></div>
+          <span class="badge badge-green">Easy</span>
+        </div>
+        <div class="practice-body">Create one variable of each type: int, float, str, bool, list, dict. Print each with its type using <code>type().__name__</code> for clean output like: <code>42 is of type int</code>.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">Use <code>f"{val} is of type {type(val).__name__}"</code>.</div>
+      </div>
+
+      <div class="practice-card diff-easy" data-practice-id="pb-dt-2">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">2</div><div class="practice-title">isinstance() Checker</div></div>
+          <span class="badge badge-green">Easy</span>
+        </div>
+        <div class="practice-body">Create variables of different types. Use isinstance() to check: is the variable a number (int or float)? Is it a sequence (str, list, or tuple)? Print True or False for each check.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint"><code>isinstance(x, (int, float))</code> checks both types at once.</div>
+      </div>
+
+      <div class="practice-card diff-easy" data-practice-id="pb-dt-3">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">3</div><div class="practice-title">Truthy or Falsy?</div></div>
+          <span class="badge badge-green">Easy</span>
+        </div>
+        <div class="practice-body">Create a list of these 10 values: <code>0, 1, "", " ", "False", [], [0], {}, None, False</code>. For each print its bool() result and whether it is Truthy or Falsy in a formatted table.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">Use <code>"Truthy" if bool(val) else "Falsy"</code>. Format with <code>{str(val):<12}</code> for alignment.</div>
+      </div>
+
+      <div class="practice-card diff-easy" data-practice-id="pb-dt-4">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">4</div><div class="practice-title">Type Conversion Chain</div></div>
+          <span class="badge badge-green">Easy</span>
+        </div>
+        <div class="practice-body">Start with <code>"24"</code>. Convert it to int, then float, then bool, then back to str. Print value and type at each step. Also show what happens with <code>int("3.14")</code> vs <code>int(float("3.14"))</code>.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">int("3.14") raises ValueError. int(float("3.14")) gives 3. This is the two-step trick.</div>
+      </div>
+
+      <div class="practice-card diff-medium" data-practice-id="pb-dt-5">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">5</div><div class="practice-title">Mutable vs Immutable Proof</div></div>
+          <span class="badge badge-amber">Medium</span>
+        </div>
+        <div class="practice-body">Use id() to prove the difference. Create a string and a list. Modify both and print the id before and after each modification. Write a comment explaining what changed and why.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">String: <code>s = s + " world"</code> gives new id. List: <code>lst.append(4)</code> keeps same id.</div>
+      </div>
+
+      <div class="practice-card diff-medium" data-practice-id="pb-dt-6">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">6</div><div class="practice-title">User Input with Conversion</div></div>
+          <span class="badge badge-amber">Medium</span>
+        </div>
+        <div class="practice-body">Take name, age, and CGPA from the user. Store in correct types (str, int, float). Calculate approximate birth year. Print a formatted profile and show the type of each variable using isinstance().</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">birth_year = 2025 - age. Format CGPA to 1 decimal: <code>{cgpa:.1f}</code>.</div>
+      </div>
+
+      <div class="practice-card diff-medium" data-practice-id="pb-dt-7">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">7</div><div class="practice-title">Data Cleaning Simulation</div></div>
+          <span class="badge badge-amber">Medium</span>
+        </div>
+        <div class="practice-body">You have raw data as strings: <code>["42", "3.14", "True", "None", "hello", "0"]</code>. For each value, detect and convert it to the most appropriate Python type. Print result and detected type. (No try-except: use if-elif chains.)</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">Check <code>val == "True"</code> or <code>"False"</code> for bool. Check <code>val == "None"</code> for None. Check if val contains only digits for int. Check if val contains "." for float.</div>
+      </div>
+
+      <div class="practice-card diff-medium" data-practice-id="pb-dt-8">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">8</div><div class="practice-title">Collection Comparison</div></div>
+          <span class="badge badge-amber">Medium</span>
+        </div>
+        <div class="practice-body">Create the same data (numbers 1 to 5 with a duplicate 3) as a list, tuple, and set. Print each, their length, and type. Show which removed the duplicate. Then try to modify each and observe which ones raise an error.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">data = [1,2,3,3,4,5]. Set removes duplicates. Trying <code>tu[0] = 99</code> on a tuple raises TypeError.</div>
+      </div>
+
+      <div class="practice-card diff-hard" data-practice-id="pb-dt-9">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">9</div><div class="practice-title">Student Records (Nested Dict)</div></div>
+          <span class="badge badge-red">Hard</span>
+        </div>
+        <div class="practice-body">Create a list of 3 student dicts. Each dict: name (str), marks (list of 5 ints), is_pass (bool). For each student calculate average marks, determine pass/fail (average >= 40), and print a formatted report.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">average = sum(student["marks"]) / len(student["marks"]). Access nested with <code>students[0]["marks"]</code>.</div>
+      </div>
+
+      <div class="practice-card diff-hard" data-practice-id="pb-dt-10">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">10</div><div class="practice-title">Input Validator</div></div>
+          <span class="badge badge-red">Hard</span>
+        </div>
+        <div class="practice-body">Take age, email, and score (out of 100) as user input. Validate: age between 15 and 100, score between 0.0 and 100.0, email must contain "@". Print whether each input is valid or invalid with a reason. Do this without loops or exceptions.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">age_valid = 15 &lt;= age &lt;= 100. email_valid = "@" in email. score_valid = 0.0 &lt;= score &lt;= 100.0.</div>
+      </div>
+
+      <div class="practice-card diff-hard" data-practice-id="pb-dt-11">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">11</div><div class="practice-title">Marks Input with map()</div></div>
+          <span class="badge badge-red">Hard</span>
+        </div>
+        <div class="practice-body">Take 5 subject marks as space-separated input using <code>map(int, input().split())</code>. Convert to a list. Print total, average, highest, and lowest. Also print how many subjects scored above 75.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">marks = list(map(int, input("Enter 5 marks: ").split())). Use sum(), min(), max(). For count above 75 you will need to check each item: covered in Loops topic.</div>
+      </div>
+
+      <div class="practice-card diff-challenge" data-practice-id="pb-dt-12">
+        <div class="practice-card-header">
+          <div class="practice-card-left"><div class="practice-num">★</div><div class="practice-title">Mini Data Pipeline</div></div>
+          <span class="badge badge-accent">Challenge</span>
+        </div>
+        <div class="practice-body">You receive raw student data as one line: <code>"Rohan,24,10.0,Python ML Stats,True"</code>. Parse it into: name (str), age (int), cgpa (float), subjects (list), is_eligible (bool). Print each field with its type, then build a complete dict and print a formatted record.</div>
+        <div class="practice-footer">
+          <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+          <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+        </div>
+        <div class="practice-hint">Split on comma first. subjects is parts[3]: split on space to get a list. is_eligible = parts[4] == "True". Build dict from all fields with correct types.</div>
+      </div>
+
+      <script>
+      (function(){
+        var prefix = 'pb-dt-';
+        var cards = document.querySelectorAll('[data-practice-id^="' + prefix + '"]');
+        var total = cards.length;
+        function updateProgress(){
+          var done = document.querySelectorAll('[data-practice-id^="' + prefix + '"].done').length;
+          document.getElementById('pb-dt-label').textContent = done + ' / ' + total + ' done';
+          document.getElementById('pb-dt-fill').style.width = Math.round(done/total*100) + '%';
+        }
+        cards.forEach(function(c){
+          if(localStorage.getItem(c.dataset.practiceId)==='done') c.classList.add('done');
+        });
+        updateProgress();
+        document.addEventListener('practiceDoneChanged', updateProgress);
+      })();
+      </script>
+
+    </div><!-- end practice tab -->
+
+    <!-- TAB 4: MCQs -->
+    <div class="tab-panel">
+
+      <div class="callout callout-tip" style="margin-bottom:20px">
+        <span class="callout-icon">📝</span>
+        <span>Answer all 8 questions first, then click Submit. Results are revealed all at once.</span>
+      </div>
+
+      <div class="mcq-wrap mcq-question"
+           data-difficulty="easy"
+           data-concept="truthy-falsy"
+           data-explanation="A space character is still a character. Python only considers a string falsy when it contains zero characters. Any string with at least one character, including a space, evaluates to True.">
+        <div class="mcq-num">Question 1 of 8</div>
+        <div class="mcq-q">What is the output of <code style="font-family:var(--font-mono);color:var(--accent)">print(bool(" "))</code>?</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>False (space is empty)</div>
+        <div class="mcq-option" data-correct="true"><span class="mcq-label">B</span>True (space is a character, string is non-empty)</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>None</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>Error</div>
+      </div>
+
+      <div class="mcq-wrap mcq-question"
+           data-difficulty="easy"
+           data-concept="type-casting"
+           data-explanation="int() always truncates towards zero, it never rounds. To get rounding behaviour you need round(). So int(9.9) drops the .9 and gives 9, not 10.">
+        <div class="mcq-num">Question 2 of 8</div>
+        <div class="mcq-q">What does <code style="font-family:var(--font-mono);color:var(--accent)">int(9.9)</code> return?</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>10 (rounds up)</div>
+        <div class="mcq-option" data-correct="true"><span class="mcq-label">B</span>9 (truncates decimal)</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>9.9</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>Error</div>
+      </div>
+
+      <div class="mcq-wrap mcq-question"
+           data-difficulty="easy"
+           data-concept="set-types"
+           data-explanation="Curly braces {} always create a dict in Python, even when empty. To create an empty set you must explicitly use set(). This is because dicts existed in Python before sets, so {} was already reserved for dicts.">
+        <div class="mcq-num">Question 3 of 8</div>
+        <div class="mcq-q">Which statement correctly creates an empty set?</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>s = {}</div>
+        <div class="mcq-option" data-correct="true"><span class="mcq-label">B</span>s = set()</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>s = []</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>s = set{}</div>
+      </div>
+
+      <div class="mcq-wrap mcq-question"
+           data-difficulty="medium"
+           data-concept="isinstance"
+           data-explanation="bool is a subclass of int in Python. isinstance() checks the entire inheritance chain, so isinstance(True, int) returns True. type(True) == int would return False because type() checks for an exact match only.">
+        <div class="mcq-num">Question 4 of 8</div>
+        <div class="mcq-q">What is the output of <code style="font-family:var(--font-mono);color:var(--accent)">isinstance(True, int)</code>?</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>False (True is bool, not int)</div>
+        <div class="mcq-option" data-correct="true"><span class="mcq-label">B</span>True (bool is a subclass of int)</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>Error</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>None</div>
+      </div>
+
+      <div class="mcq-wrap mcq-question"
+           data-difficulty="medium"
+           data-concept="mutable-immutable"
+           data-explanation="Lists are mutable, so append() modifies the existing object in memory. The id() stays the same because no new object is created. If it were immutable (like a string or tuple), Python would create a new object and the id would change.">
+        <div class="mcq-num">Question 5 of 8</div>
+        <div class="mcq-q">After running the following code, which statement is true?</div>
+        <pre class="mcq-code"><span class="var">lst</span> = [<span class="num">1</span>, <span class="num">2</span>]
+<span class="var">lst</span>.append(<span class="num">3</span>)</pre>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>A new list object was created</div>
+        <div class="mcq-option" data-correct="true"><span class="mcq-label">B</span>Same list modified in place (id unchanged)</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>Original [1,2] is unchanged</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>Error: lists are immutable</div>
+      </div>
+
+      <div class="mcq-wrap mcq-question"
+           data-difficulty="medium"
+           data-concept="type-casting"
+           data-explanation="int() cannot convert a string that contains a decimal point because it does not know whether to truncate or round. The fix is to convert to float first: int(float('3.14')) gives 3. This is different from int('3') which works fine.">
+        <div class="mcq-num">Question 6 of 8</div>
+        <div class="mcq-q">What error does <code style="font-family:var(--font-mono);color:var(--accent)">int("3.14")</code> raise?</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>TypeError</div>
+        <div class="mcq-option" data-correct="true"><span class="mcq-label">B</span>ValueError</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>SyntaxError</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>No error, returns 3</div>
+      </div>
+
+      <div class="mcq-wrap mcq-question"
+           data-difficulty="easy"
+           data-concept="sequence-types"
+           data-explanation="A list is the only collection that is ordered (maintains insertion order), mutable (can be changed), and allows duplicate values. Set is unordered and does not allow duplicates. Tuple is ordered but immutable. frozenset is unordered and immutable.">
+        <div class="mcq-num">Question 7 of 8</div>
+        <div class="mcq-q">Which collection type is ordered, mutable, and allows duplicate values?</div>
+        <div class="mcq-option" data-correct="true"><span class="mcq-label">A</span>list</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">B</span>set</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>tuple</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>frozenset</div>
+      </div>
+
+      <div class="mcq-wrap mcq-question"
+           data-difficulty="hard"
+           data-concept="isinstance"
+           data-explanation="type(True) returns the exact type, which is bool, not int. So type(True) == int is False. This is why isinstance() is preferred in real code: it understands inheritance, while type() does an exact match only.">
+        <div class="mcq-num">Question 8 of 8</div>
+        <div class="mcq-q">What is the output of <code style="font-family:var(--font-mono);color:var(--accent)">print(type(True) == int)</code>?</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>True</div>
+        <div class="mcq-option" data-correct="true"><span class="mcq-label">B</span>False</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>Error</div>
+        <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>None</div>
+      </div>
+
+      <div class="mcq-submit-row">
+        <div id="mcqWarning" class="mcq-warning"></div>
+        <button class="btn btn-primary" id="mcqSubmitBtn">Submit Answers</button>
+      </div>
+      <div id="mcqResultDashboard" class="mcq-result-dashboard" style="display:none"></div>
+
+    </div><!-- end mcq tab -->
+
+    <!-- TAB 5: GUESS THE OUTPUT -->
+    <div class="tab-panel">
+      <div class="callout callout-tip" style="margin-bottom:18px">
+        <span class="callout-icon">🎯</span>
+        <span>Read each snippet, guess what Python will print, then click Reveal Answer. No peeking!</span>
+      </div>
+
+      <div class="gto-card">
+        <div class="gto-header">
+          <div class="gto-title">Snippet 1 <span class="badge badge-green" style="margin-left:8px">int vs float</span></div>
+          <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">print</span>(<span class="fn">type</span>(<span class="num">10</span>))
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="num">10.0</span>))
+<span class="fn">print</span>(<span class="num">10</span> == <span class="num">10.0</span>)
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="num">10</span>) == <span class="fn">type</span>(<span class="num">10.0</span>))</pre></div>
+        <div class="gto-answer">
+          <div class="gto-answer-label">Output</div>
+          <div class="gto-output">&lt;class 'int'&gt;
+&lt;class 'float'&gt;
+True
+False</div>
+          <div class="gto-explain">10 and 10.0 have the same value, so == returns True. But their types are different (int vs float), so comparing the types with == returns False.</div>
+        </div>
+      </div>
+
+      <div class="gto-card">
+        <div class="gto-header">
+          <div class="gto-title">Snippet 2 <span class="badge badge-green" style="margin-left:8px">bool is int</span></div>
+          <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">print</span>(<span class="kw">True</span> + <span class="kw">True</span>)
+<span class="fn">print</span>(<span class="kw">True</span> + <span class="num">5</span>)
+<span class="fn">print</span>(<span class="kw">False</span> * <span class="num">100</span>)
+<span class="fn">print</span>(<span class="fn">int</span>(<span class="kw">True</span>), <span class="fn">int</span>(<span class="kw">False</span>))</pre></div>
+        <div class="gto-answer">
+          <div class="gto-answer-label">Output</div>
+          <div class="gto-output">2
+6
+0
+1 0</div>
+          <div class="gto-explain">bool is a subclass of int in Python. True is literally 1 and False is literally 0. So arithmetic with booleans works and gives integer results.</div>
+        </div>
+      </div>
+
+      <div class="gto-card">
+        <div class="gto-header">
+          <div class="gto-title">Snippet 3 <span class="badge badge-green" style="margin-left:8px">None checks</span></div>
+          <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">x</span> = <span class="kw">None</span>
+<span class="fn">print</span>(<span class="var">x</span> <span class="kw">is</span> <span class="kw">None</span>)
+<span class="fn">print</span>(<span class="var">x</span> == <span class="kw">None</span>)
+<span class="fn">print</span>(<span class="fn">bool</span>(<span class="var">x</span>))
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">x</span>))</pre></div>
+        <div class="gto-answer">
+          <div class="gto-answer-label">Output</div>
+          <div class="gto-output">True
+True
+False
+&lt;class 'NoneType'&gt;</div>
+          <div class="gto-explain">Both <code>is None</code> and <code>== None</code> return True here, but <code>is</code> is the correct and recommended way. None is falsy, so bool(None) is False. And None's type is its own class: NoneType.</div>
+        </div>
+      </div>
+
+      <div class="gto-card">
+        <div class="gto-header">
+          <div class="gto-title">Snippet 4 <span class="badge badge-amber" style="margin-left:8px">type casting</span></div>
+          <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">print</span>(<span class="fn">int</span>(<span class="num">9.9</span>))
+<span class="fn">print</span>(<span class="fn">int</span>(-<span class="num">9.9</span>))
+<span class="fn">print</span>(<span class="fn">float</span>(<span class="str">"3.14"</span>))
+<span class="fn">print</span>(<span class="fn">bool</span>(<span class="num">0</span>), <span class="fn">bool</span>(<span class="num">42</span>))</pre></div>
+        <div class="gto-answer">
+          <div class="gto-answer-label">Output</div>
+          <div class="gto-output">9
+-9
+3.14
+False True</div>
+          <div class="gto-explain">int() chops toward zero, not toward the floor. So int(9.9) is 9 and int(-9.9) is -9 (not -10). float("3.14") works fine. bool of 0 is False, anything else is True.</div>
+        </div>
+      </div>
+
+      <div class="gto-card">
+        <div class="gto-header">
+          <div class="gto-title">Snippet 5 <span class="badge badge-amber" style="margin-left:8px">empty vs falsy</span></div>
+          <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">print</span>(<span class="fn">bool</span>(<span class="str">""</span>))
+<span class="fn">print</span>(<span class="fn">bool</span>(<span class="str">" "</span>))
+<span class="fn">print</span>(<span class="fn">bool</span>(<span class="str">"False"</span>))
+<span class="fn">print</span>(<span class="fn">bool</span>([]))
+<span class="fn">print</span>(<span class="fn">bool</span>([<span class="num">0</span>]))</pre></div>
+        <div class="gto-answer">
+          <div class="gto-answer-label">Output</div>
+          <div class="gto-output">False
+True
+True
+False
+True</div>
+          <div class="gto-explain">Only an empty string is falsy. A space " " has content so it's truthy. "False" is a non-empty string, so truthy. An empty list [] is falsy. A list with [0] has one item, so it's truthy even though 0 itself is falsy.</div>
+        </div>
+      </div>
+
+      <div class="gto-card">
+        <div class="gto-header">
+          <div class="gto-title">Snippet 6 <span class="badge badge-amber" style="margin-left:8px">mutable identity</span></div>
+          <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">a</span> = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]
+<span class="var">b</span> = <span class="var">a</span>
+<span class="var">b</span>.append(<span class="num">4</span>)
+<span class="fn">print</span>(<span class="var">a</span>)
+<span class="fn">print</span>(<span class="var">a</span> <span class="kw">is</span> <span class="var">b</span>)</pre></div>
+        <div class="gto-answer">
+          <div class="gto-answer-label">Output</div>
+          <div class="gto-output">[1, 2, 3, 4]
+True</div>
+          <div class="gto-explain">Lists are mutable. <code>b = a</code> doesn't copy the list, it just gives b a second name for the same list. So when b.append(4) modifies the list, a sees the change too. They point to the same object.</div>
+        </div>
+      </div>
+
+      <div class="gto-card">
+        <div class="gto-header">
+          <div class="gto-title">Snippet 7 <span class="badge badge-red" style="margin-left:8px">set vs dict</span></div>
+          <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">a</span> = {}
+<span class="var">b</span> = <span class="fn">set</span>()
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">a</span>))
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">b</span>))
+<span class="fn">print</span>(<span class="fn">type</span>({<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>}))
+<span class="fn">print</span>(<span class="fn">type</span>({<span class="str">"x"</span>: <span class="num">1</span>}))</pre></div>
+        <div class="gto-answer">
+          <div class="gto-answer-label">Output</div>
+          <div class="gto-output">&lt;class 'dict'&gt;
+&lt;class 'set'&gt;
+&lt;class 'set'&gt;
+&lt;class 'dict'&gt;</div>
+          <div class="gto-explain"><code>{}</code> always creates a dict. Use <code>set()</code> for an empty set. Once you put items in: <code>{1, 2, 3}</code> is a set (no key:value), <code>{"x": 1}</code> is a dict (has key:value pair).</div>
+        </div>
+      </div>
+
+      <div class="gto-card">
+        <div class="gto-header">
+          <div class="gto-title">Snippet 8 <span class="badge badge-red" style="margin-left:8px">float precision</span></div>
+          <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+        </div>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">print</span>(<span class="num">0.1</span> + <span class="num">0.2</span>)
+<span class="fn">print</span>(<span class="num">0.1</span> + <span class="num">0.2</span> == <span class="num">0.3</span>)
+<span class="fn">print</span>(<span class="fn">round</span>(<span class="num">0.1</span> + <span class="num">0.2</span>, <span class="num">1</span>) == <span class="num">0.3</span>)</pre></div>
+        <div class="gto-answer">
+          <div class="gto-answer-label">Output</div>
+          <div class="gto-output">0.30000000000000004
+False
+True</div>
+          <div class="gto-explain">Floats are stored in binary, and 0.1 and 0.2 can't be represented exactly. Their sum comes out slightly off, so == 0.3 is False. Rounding to 1 decimal place fixes the comparison.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB 6: INTERVIEW -->
+    <div class="tab-panel">
+
+      <div class="callout callout-tip" style="margin-bottom:18px">
+        <span class="callout-icon">💡</span>
+        <span>Click any question to reveal the answer. Try to answer in your head first before expanding.</span>
+      </div>
+
+      <div class="section-heading">Beginner Level</div>
+
+      <!-- Q1 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q1. What are the built-in data types in Python? How are they categorized?</span>
+          <span class="badge badge-green">Beginner</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Python has 6 categories of built-in types: Numeric, Boolean, Sequence, Mapping, Set, and NoneType. You never declare them explicitly. Python infers the type from the value.</div>
+            <div class="ia-body">
+              <ul>
+                <li><strong>Numeric</strong>: <code>int</code>, <code>float</code>, <code>complex</code></li>
+                <li><strong>Boolean</strong>: <code>bool</code> (True or False, subclass of int)</li>
+                <li><strong>Sequence</strong>: <code>str</code>, <code>list</code>, <code>tuple</code>, <code>range</code></li>
+                <li><strong>Mapping</strong>: <code>dict</code> (key-value pairs)</li>
+                <li><strong>Set</strong>: <code>set</code> (unique, unordered), <code>frozenset</code> (immutable set)</li>
+                <li><strong>NoneType</strong>: <code>None</code> (the absence of a value)</li>
+              </ul>
+              <p>Use <code>type(x)</code> to check the type of any value at runtime.</p>
+            </div>
+            <div class="ia-key">
+              <div class="ia-key-label">⚡ Say it in an interview</div>
+              Python has 6 built-in type categories. The most commonly used are int, float, str, list, dict, set, bool, and None. Python is dynamically typed so the type is inferred from the value, not declared upfront.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q2. What is the difference between int and float?</span>
+          <span class="badge badge-green">Beginner</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div><code>int</code> is for whole numbers with exact precision. <code>float</code> is for decimals but uses IEEE 754 binary representation, which introduces tiny rounding errors.</div>
+            <div class="ia-body">
+              <ul>
+                <li><code>int</code>: no decimal point, <strong>unlimited precision</strong> in Python (no overflow like C). Example: <code>x = 9999999999999999999</code> works fine.</li>
+                <li><code>float</code>: has a decimal point, limited to about 15-17 significant digits, stored in 64-bit IEEE 754 format. This causes the classic:</li>
+              </ul>
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0;font-variant-ligatures:none">0.1 + 0.2  # gives 0.30000000000000004, not 0.3</pre>
+              <p>When exact decimal precision matters (like money), use the <code>decimal</code> module or <code>round()</code> for display.</p>
+            </div>
+            <div class="ia-trap">
+              <div class="ia-trap-label">Common trap</div>
+              Never compare floats with <code>==</code>. Use <code>abs(a - b) &lt; 1e-9</code> or <code>math.isclose(a, b)</code> instead. Direct equality checks on floats will silently fail due to precision errors.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q3. What is None in Python? How is it different from 0, False, or ""?</span>
+          <span class="badge badge-green">Beginner</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div><code>None</code> represents the complete absence of a value. It is not zero, not False, not an empty string. Those are actual values. <code>None</code> means "nothing here at all."</div>
+            <div class="ia-body">
+              <p><code>None</code> belongs to its own type, <code>NoneType</code>, and is a <strong>singleton</strong>: only one <code>None</code> object exists in all of Python's memory.</p>
+              <ul>
+                <li><code>0</code> is an integer with value zero</li>
+                <li><code>False</code> is a boolean</li>
+                <li><code>""</code> is an empty string</li>
+                <li><code>None</code> is the absence of any value. A function that does not explicitly return something returns <code>None</code>.</li>
+              </ul>
+              <p>All four are falsy in a boolean context, but they are very different objects with different types.</p>
+            </div>
+            <div class="ia-key">
+              <div class="ia-key-label">⚡ Say it in an interview</div>
+              Always check for None with <code>x is None</code>, not <code>x == None</code>. Because None is a singleton, identity check (<code>is</code>) is both more correct and slightly faster than equality check (<code>==</code>).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q4. What is the difference between a list and a tuple?</span>
+          <span class="badge badge-green">Beginner</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>List is mutable (changeable), tuple is immutable (fixed). Use a list when data will change, a tuple when data should stay constant.</div>
+            <div class="ia-body">
+              <ul>
+                <li><strong>list</strong>: <code>[1, 2, 3]</code>, mutable, supports <code>.append()</code>, <code>.remove()</code>, etc. Slightly slower and uses more memory.</li>
+                <li><strong>tuple</strong>: <code>(1, 2, 3)</code>, immutable, no modification after creation. Faster iteration, smaller memory footprint.</li>
+              </ul>
+              <p>A key consequence of immutability: tuples are <strong>hashable</strong>, so they can be used as dictionary keys. Lists cannot.</p>
+              <p>Good real-world split: use a list for a shopping cart (changes constantly), use a tuple for GPS coordinates or an RGB colour value (should never change).</p>
+            </div>
+            <div class="ia-key">
+              <div class="ia-key-label">⚡ Say it in an interview</div>
+              The main differences are mutability and hashability. Tuples are immutable, faster, and can be used as dict keys. Lists are mutable and flexible. Choose based on whether the data should change.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-heading mt-3">Intermediate Level</div>
+
+      <!-- Q5 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q5. What is the difference between type() and isinstance()?</span>
+          <span class="badge badge-amber">Intermediate</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div><code>type()</code> returns the exact type. <code>isinstance()</code> checks the type and all its parent classes. Use <code>isinstance()</code> in real code.</div>
+            <div class="ia-body">
+              <p>The critical difference shows up with inheritance. Since <code>bool</code> is a subclass of <code>int</code>:</p>
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">type(True) == int       # False (exact type is bool)
+isinstance(True, int)   # True  (bool is a subclass of int)</pre>
+              <p><code>isinstance()</code> also accepts a tuple of types for checking multiple at once:</p>
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">isinstance(x, (int, float))  # True if x is either</pre>
+            </div>
+            <div class="ia-key">
+              <div class="ia-key-label">⚡ Rule</div>
+              Use <code>type()</code> for debugging when you want to see exactly what something is. Use <code>isinstance()</code> in production code for validation, because it respects inheritance and is more flexible.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q6. What are truthy and falsy values? Name some surprising ones.</span>
+          <span class="badge badge-amber">Intermediate</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Every Python value is either truthy or falsy. Falsy values are: <code>None</code>, <code>False</code>, <code>0</code>, <code>0.0</code>, <code>""</code>, <code>[]</code>, <code>{}</code>, <code>()</code>, <code>set()</code>. Everything else is truthy.</div>
+            <div class="ia-body">
+              <p>Python evaluates truthiness by calling <code>bool(x)</code> internally. The surprising cases interviewers love to ask about:</p>
+              <ul>
+                <li><code>" "</code> (a single space): <strong>truthy</strong>. The string is not empty, it contains a space character.</li>
+                <li><code>"False"</code>: <strong>truthy</strong>. It is a non-empty string. The content does not matter, only the length.</li>
+                <li><code>[0]</code>: <strong>truthy</strong>. The list has one item. Python checks whether the container is empty, not what is inside it.</li>
+                <li><code>0.0</code>: <strong>falsy</strong>. Zero is zero regardless of type.</li>
+              </ul>
+            </div>
+            <div class="ia-trap">
+              <div class="ia-trap-label">Common trap</div>
+              Assuming <code>"False"</code> is falsy. It is not. It is a non-empty string and evaluates to True in a condition. Only the boolean value <code>False</code> and the empty string <code>""</code> are falsy.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q7. What is type casting? What is the difference between ValueError and TypeError?</span>
+          <span class="badge badge-amber">Intermediate</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Type casting converts a value from one type to another. <code>ValueError</code> means the value is wrong for that conversion. <code>TypeError</code> means the type itself cannot be used that way at all.</div>
+            <div class="ia-body">
+              <p>Two kinds of type casting:</p>
+              <ul>
+                <li><strong>Implicit</strong>: Python does it automatically. <code>int + float</code> gives <code>float</code> without you doing anything.</li>
+                <li><strong>Explicit</strong>: you call <code>int()</code>, <code>float()</code>, <code>str()</code>, <code>bool()</code> yourself.</li>
+              </ul>
+              <p>The error distinction:</p>
+              <ul>
+                <li><code>int("hello")</code>: raises <strong>ValueError</strong>. The type (str) is fine to cast from, but the value "hello" cannot be converted to an integer.</li>
+                <li><code>int([1, 2, 3])</code>: raises <strong>TypeError</strong>. You cannot cast a list to int at all. The operation itself is invalid.</li>
+              </ul>
+            </div>
+            <div class="ia-key">
+              <div class="ia-key-label">⚡ Quick distinction</div>
+              ValueError: right type, wrong value. TypeError: wrong type entirely. Knowing this difference helps you write better <code>try/except</code> blocks.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-heading mt-3">Advanced Level</div>
+
+      <!-- Q8 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q8. What is the difference between mutable and immutable types? How does id() reveal this?</span>
+          <span class="badge badge-red">Advanced</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Mutable objects can be changed in place. Immutable objects cannot. <code>id()</code> exposes this: modifying a mutable object keeps the same id, while "modifying" an immutable one gives you a new object with a different id.</div>
+            <div class="ia-body">
+              <p><strong>Mutable</strong>: list, dict, set. You can add, remove, or update elements and the object's identity (memory address) stays the same.</p>
+              <p><strong>Immutable</strong>: int, float, str, tuple, frozenset, bool, NoneType. Any operation that appears to change them actually creates a new object.</p>
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">lst = [1, 2]
+print(id(lst))     # e.g. 140512345
+lst.append(3)
+print(id(lst))     # same id — same object, modified in place
+
+s = "hello"
+print(id(s))       # e.g. 140512999
+s += " world"
+print(id(s))       # different id — new object was created</pre>
+              <p>Immutable objects are <strong>hashable</strong> and can be used as dict keys. Mutable objects cannot.</p>
+            </div>
+            <div class="ia-key">
+              <div class="ia-key-label">⚡ Say it in an interview</div>
+              Mutability is about whether you can change the object in place. id() proves it: same id after change means mutable, different id means a new object was created (immutable).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q9. Why does {} create a dict and not a set in Python?</span>
+          <span class="badge badge-red">Advanced</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Dictionaries existed in Python long before sets. By the time sets were added, <code>{}</code> was already dict syntax. To avoid breaking code, it stayed that way.</div>
+            <div class="ia-body">
+              <p>The rules today:</p>
+              <ul>
+                <li><code>{}</code>: creates an empty <strong>dict</strong>, not a set</li>
+                <li><code>{1, 2, 3}</code>: creates a <strong>set</strong> (non-empty curly braces with no colons)</li>
+                <li><code>{"a": 1}</code>: creates a <strong>dict</strong> (key-value pairs with colons)</li>
+                <li><code>set()</code>: the only way to create an <strong>empty set</strong></li>
+              </ul>
+              <p>This is one of those historical quirks in the language. Knowing it well makes you look sharp in an interview.</p>
+            </div>
+            <div class="ia-trap">
+              <div class="ia-trap-label">Common trap</div>
+              Writing <code>empty_set = {}</code> when you meant to create a set. You actually created a dict. Always use <code>set()</code> for an empty set.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="interview-accordion">
+        <div class="interview-acc-header">
+          <span class="interview-acc-q">Q10. Why are True, False, and None capitalised in Python?</span>
+          <span class="badge badge-red">Advanced</span>
+          <span class="interview-acc-arrow">›</span>
+        </div>
+        <div class="interview-acc-body">
+          <div class="interview-acc-answer">
+            <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>They are reserved keywords and singletons. Python's convention capitalises constants, and the uppercase form was chosen to make them visually distinct and prevent accidental shadowing.</div>
+            <div class="ia-body">
+              <p><code>True</code>, <code>False</code>, and <code>None</code> are <strong>keywords</strong>, not just global variables. You cannot assign to them: <code>True = 1</code> raises a <code>SyntaxError</code>.</p>
+              <p>They are also <strong>singletons</strong>: only one instance of each exists in Python's memory at any time. This is why identity checks work reliably:</p>
+              <ul>
+                <li><code>x is None</code> is always correct because there is exactly one <code>None</code> object</li>
+                <li><code>x is True</code> works the same way</li>
+              </ul>
+              <p>Historically, in Python 2, <code>True</code> and <code>False</code> were just variables that could be reassigned (<code>True = False</code> was legal). Python 3 made them proper keywords to prevent this chaos.</p>
+            </div>
+            <div class="ia-key">
+              <div class="ia-key-label">⚡ Say it in an interview</div>
+              They are keywords and singletons. Capitalisation follows Python's constant convention and makes them visually distinct from user-defined names. In Python 3 they cannot be reassigned.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end interview tab -->
+
+    <!-- TAB 6: MISTAKES -->
+    <div class="tab-panel">
+
+      <div class="callout callout-tip" style="margin-bottom:20px">
+        <span class="callout-icon">💡</span>
+        <span>Data type mistakes are sneaky. Python often does not raise an error immediately. The bug shows up later when you try to use the wrong type in a calculation or comparison.</span>
+      </div>
+
+      <!-- MISTAKE 1 -->
+      <div class="mistake-accordion">
+        <div class="mistake-acc-header">
+          <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+            <span class="mistake-num">1</span>
+            <div class="mistake-acc-title" style="flex:1">Using <mark>==</mark> None instead of <mark>is</mark> None</div>
+            <span class="err-badge err-logic">Logic Error</span>
+          </div>
+          <span class="mistake-acc-arrow">›</span>
+        </div>
+        <div class="mistake-acc-body">
+          <div class="mistake-why">
+            <strong>Why it happens:</strong> <code>==</code> checks <strong>equality</strong>, and <code>is</code> checks <strong>identity</strong> (same object in memory). For <code>None</code>, you always want identity. Custom classes can override <code>==</code> to return anything, which can silently fool you. <code>is None</code> is guaranteed to be correct.
+          </div>
+          <div class="mistake-code-pair">
+            <div class="mistake-code-wrong">
+              <div class="mistake-code-label wrong">❌ Not recommended</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="kw">if</span> <span class="var">x</span> <mark class="wrong-mark">==</mark> <span class="kw">None</span>:
+    <span class="fn">print</span>(<span class="str">"no value"</span>)</pre></div>
+              <div class="logic-box">
+                <div class="logic-box-label">Why this is risky</div>
+                <pre>Custom classes can override ==
+to return True even when x is not None.</pre>
+              </div>
+            </div>
+            <div class="mistake-code-right">
+              <div class="mistake-code-label right">✅ Correct</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="kw">if</span> <span class="var">x</span> <mark class="fix-mark"><span class="kw">is</span></mark> <span class="kw">None</span>:
+    <span class="fn">print</span>(<span class="str">"no value"</span>)
+
+<span class="kw">if</span> <span class="var">x</span> <mark class="fix-mark"><span class="kw">is not</span></mark> <span class="kw">None</span>:
+    <span class="fn">print</span>(<span class="str">"has value"</span>)</pre></div>
+            </div>
+          </div>
+          <div class="mistake-memory">
+            <div class="mistake-memory-label">🧠 Memory Trick</div>
+            <div class="mistake-memory-text">There is only one None in all of Python. It is a singleton. So you are not asking "is this equal to None?" you are asking "is this the exact same None?" That is an identity check, which is what <code>is</code> does.</div>
+          </div>
+          <div class="mistake-key-rule">
+            <div class="mistake-key-rule-label">⚡ Key Rule</div>
+            <div class="mistake-key-rule-text">Always use <code style="color:var(--green)">is None</code> or <code style="color:var(--green)">is not None</code>. PEP 8 (Python's official style guide) explicitly requires this. Many linters will warn you if you use <code>== None</code>.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MISTAKE 2 -->
+      <div class="mistake-accordion">
+        <div class="mistake-acc-header">
+          <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+            <span class="mistake-num">2</span>
+            <div class="mistake-acc-title" style="flex:1">Expecting <mark>int()</mark> to round instead of chop</div>
+            <span class="err-badge err-logic">Logic Error</span>
+          </div>
+          <span class="mistake-acc-arrow">›</span>
+        </div>
+        <div class="mistake-acc-body">
+          <div class="mistake-why">
+            <strong>Why it happens:</strong> The name <code>int()</code> sounds like it converts to the nearest integer. It does not. It <strong>truncates</strong> (chops off) everything after the decimal, always moving towards zero. So <code>int(9.9)</code> gives 9, not 10.
+          </div>
+          <div class="mistake-code-pair">
+            <div class="mistake-code-wrong">
+              <div class="mistake-code-label wrong">❌ Wrong assumption</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">print</span>(<span class="fn">int</span>(<mark class="wrong-mark"><span class="num">9.9</span></mark>))   <span class="cm"># expected 10, got 9</span>
+<span class="fn">print</span>(<span class="fn">int</span>(<mark class="wrong-mark">-<span class="num">9.9</span></mark>))  <span class="cm"># expected -10, got -9</span></pre></div>
+              <div class="logic-box">
+                <div class="logic-box-label">Actual output</div>
+                <pre>9
+-9
+(truncated towards zero, not rounded!)</pre>
+              </div>
+            </div>
+            <div class="mistake-code-right">
+              <div class="mistake-code-label right">✅ Use round() for rounding</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">print</span>(<mark class="fix-mark"><span class="fn">round</span></mark>(<span class="num">9.9</span>))   <span class="cm"># 10 (proper rounding)</span>
+<span class="fn">print</span>(<mark class="fix-mark"><span class="fn">round</span></mark>(<span class="num">9.4</span>))   <span class="cm"># 9</span>
+<span class="fn">print</span>(<span class="fn">int</span>(<span class="num">9.9</span>))     <span class="cm"># 9 (use only to drop decimal)</span></pre></div>
+            </div>
+          </div>
+          <div class="mistake-memory">
+            <div class="mistake-memory-label">🧠 Memory Trick</div>
+            <div class="mistake-memory-text">Think of int() as a pair of scissors that cuts off the decimal tail. It does not care how long the tail is. 9.9999 becomes 9, not 10. If you want rounding, use round(), which actually looks at the value.</div>
+          </div>
+          <div class="mistake-key-rule">
+            <div class="mistake-key-rule-label">⚡ Key Rule</div>
+            <div class="mistake-key-rule-text"><code style="color:var(--accent)">int()</code> truncates (chops). <code style="color:var(--green)">round()</code> rounds to nearest. Use <code>int()</code> only when you deliberately want to drop the decimal part.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MISTAKE 3 -->
+      <div class="mistake-accordion">
+        <div class="mistake-acc-header">
+          <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+            <span class="mistake-num">3</span>
+            <div class="mistake-acc-title" style="flex:1">Thinking <mark>"False"</mark> or <mark>" "</mark> (a space) are falsy</div>
+            <span class="err-badge err-logic">Logic Error</span>
+          </div>
+          <span class="mistake-acc-arrow">›</span>
+        </div>
+        <div class="mistake-acc-body">
+          <div class="mistake-why">
+            <strong>Why it happens:</strong> You know <code>False</code> is falsy and assume the string <code>"False"</code> is too. But Python does <strong>not read the content</strong> of a string. It only asks one question: <strong>is this string empty?</strong> Any string with even one character (including a space) is truthy.
+          </div>
+          <div class="mistake-code-pair">
+            <div class="mistake-code-wrong">
+              <div class="mistake-code-label wrong">❌ Wrong assumption</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">print</span>(<span class="fn">bool</span>(<mark class="wrong-mark"><span class="str">"False"</span></mark>))  <span class="cm"># True, not False!</span>
+<span class="fn">print</span>(<span class="fn">bool</span>(<mark class="wrong-mark"><span class="str">" "</span></mark>))      <span class="cm"># True, space counts!</span></pre></div>
+              <div class="logic-box">
+                <div class="logic-box-label">Actual output</div>
+                <pre>True
+True
+(both are non-empty strings, so truthy)</pre>
+              </div>
+            </div>
+            <div class="mistake-code-right">
+              <div class="mistake-code-label right">✅ What is actually falsy</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">print</span>(<span class="fn">bool</span>(<mark class="fix-mark"><span class="str">""</span></mark>))        <span class="cm"># False (empty string)</span>
+<span class="fn">print</span>(<span class="fn">bool</span>(<mark class="fix-mark"><span class="kw">False</span></mark>))     <span class="cm"># False (actual boolean)</span>
+<span class="fn">print</span>(<span class="fn">bool</span>(<mark class="fix-mark"><span class="num">0</span></mark>))         <span class="cm"># False (zero)</span></pre></div>
+            </div>
+          </div>
+          <div class="mistake-memory">
+            <div class="mistake-memory-label">🧠 Memory Trick</div>
+            <div class="mistake-memory-text">Python is like a bouncer who only checks if the bag is empty, not what is written on it. A bag with "empty" written on it is still not an empty bag. <code>"False"</code> has 5 characters in it, so Python says: not empty, truthy.</div>
+          </div>
+          <div class="mistake-key-rule">
+            <div class="mistake-key-rule-label">⚡ Key Rule</div>
+            <div class="mistake-key-rule-text">Only the empty string <code style="color:var(--red)">""</code> is falsy. Any string with at least one character, even a space <code style="color:var(--green)">" "</code>, is truthy. Python checks emptiness, not content.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MISTAKE 4 -->
+      <div class="mistake-accordion">
+        <div class="mistake-acc-header">
+          <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+            <span class="mistake-num">4</span>
+            <div class="mistake-acc-title" style="flex:1">Using <mark>{}</mark> to create an empty set</div>
+            <span class="err-badge err-logic">Logic Error</span>
+          </div>
+          <span class="mistake-acc-arrow">›</span>
+        </div>
+        <div class="mistake-acc-body">
+          <div class="mistake-why">
+            <strong>Why it happens:</strong> <code>{}</code> looks like it should be an empty set, but Python decided early on that <code>{}</code> means an <strong>empty dict</strong>. There is no error, no warning. Your variable silently becomes the wrong type and causes confusion later.
+          </div>
+          <div class="mistake-code-pair">
+            <div class="mistake-code-wrong">
+              <div class="mistake-code-label wrong">❌ Wrong</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">s</span> = <mark class="wrong-mark">{}</mark>
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">s</span>))</pre></div>
+              <div class="logic-box">
+                <div class="logic-box-label">Actual output</div>
+                <pre>&lt;class 'dict'&gt;
+(not a set! silent wrong type)</pre>
+              </div>
+            </div>
+            <div class="mistake-code-right">
+              <div class="mistake-code-label right">✅ Correct</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">s</span> = <mark class="fix-mark"><span class="fn">set</span>()</mark>
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">s</span>))  <span class="cm"># &lt;class 'set'&gt;</span>
+
+<span class="cm"># set with items: curly braces work here</span>
+<span class="var">s2</span> = {<span class="str">"a"</span>, <span class="str">"b"</span>, <span class="str">"c"</span>}</pre></div>
+            </div>
+          </div>
+          <div class="mistake-memory">
+            <div class="mistake-memory-label">🧠 Memory Trick</div>
+            <div class="mistake-memory-text">Curly braces {} were claimed by dicts before sets existed in Python. So Python gave sets the function set(). Remember: empty set always needs the word "set" in it. If you just write {}, Python assumes dict.</div>
+          </div>
+          <div class="mistake-key-rule">
+            <div class="mistake-key-rule-label">⚡ Key Rule</div>
+            <div class="mistake-key-rule-text">Use <code style="color:var(--green)">set()</code> for an empty set. Use <code style="color:var(--accent)">{}</code> for an empty dict. Use <code style="color:var(--green)">{"a", "b"}</code> for a set with items. The only safe empty set syntax is <code>set()</code>.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MISTAKE 5 -->
+      <div class="mistake-accordion">
+        <div class="mistake-acc-header">
+          <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+            <span class="mistake-num">5</span>
+            <div class="mistake-acc-title" style="flex:1"><mark>int("3.14")</mark> raises a ValueError</div>
+            <span class="err-badge err-syntax">ValueError</span>
+          </div>
+          <span class="mistake-acc-arrow">›</span>
+        </div>
+        <div class="mistake-acc-body">
+          <div class="mistake-why">
+            <strong>Why it happens:</strong> <code>int()</code> can convert the string <code>"3"</code> because it looks exactly like a whole number. But <code>"3.14"</code> has a decimal point, and <code>int()</code> does not know how to handle that. It gives up and raises a <strong>ValueError</strong>.
+          </div>
+          <div class="mistake-code-pair">
+            <div class="mistake-code-wrong">
+              <div class="mistake-code-label wrong">❌ Wrong</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">int</span>(<mark class="wrong-mark"><span class="str">"3.14"</span></mark>)</pre></div>
+              <div class="error-box">
+                <div class="error-box-label">Python says</div>
+                <pre>ValueError: invalid literal for int()
+with base 10: '3.14'</pre>
+              </div>
+            </div>
+            <div class="mistake-code-right">
+              <div class="mistake-code-label right">✅ Two-step conversion</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">int</span>(<mark class="fix-mark"><span class="fn">float</span>(</mark><span class="str">"3.14"</span><mark class="fix-mark">)</mark>)  <span class="cm"># 3</span>
+<span class="cm"># string to float first, then chop to int</span></pre></div>
+            </div>
+          </div>
+          <div class="mistake-memory">
+            <div class="mistake-memory-label">🧠 Memory Trick</div>
+            <div class="mistake-memory-text">int() is strict: it only accepts strings that look exactly like whole numbers. If there is a dot in the string, it refuses. float() is more relaxed and accepts both. So the two-step route is: string to float, then float to int.</div>
+          </div>
+          <div class="mistake-key-rule">
+            <div class="mistake-key-rule-label">⚡ Key Rule</div>
+            <div class="mistake-key-rule-text">To convert a decimal string to int, use <code style="color:var(--green)">int(float("3.14"))</code>. Never pass a decimal string directly to <code style="color:var(--red)">int()</code>.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MISTAKE 6 -->
+      <div class="mistake-accordion">
+        <div class="mistake-acc-header">
+          <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+            <span class="mistake-num">6</span>
+            <div class="mistake-acc-title" style="flex:1">Using <mark>float</mark> for money calculations</div>
+            <span class="err-badge err-logic">Logic Error</span>
+          </div>
+          <span class="mistake-acc-arrow">›</span>
+        </div>
+        <div class="mistake-acc-body">
+          <div class="mistake-why">
+            <strong>Why it happens:</strong> Floats store numbers in binary (base 2), and most decimal fractions like 0.1 <strong>cannot be represented exactly</strong> in binary. The tiny rounding errors are invisible in small calculations but accumulate into real problems in financial code.
+          </div>
+          <div class="mistake-code-pair">
+            <div class="mistake-code-wrong">
+              <div class="mistake-code-label wrong">❌ Wrong for money</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">print</span>(<mark class="wrong-mark"><span class="num">0.1</span> + <span class="num">0.2</span></mark>)</pre></div>
+              <div class="logic-box">
+                <div class="logic-box-label">Actual output</div>
+                <pre>0.30000000000000004
+(not 0.3 — floats have binary precision limits)</pre>
+              </div>
+            </div>
+            <div class="mistake-code-right">
+              <div class="mistake-code-label right">✅ Use Decimal for money</div>
+              <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="kw">from</span> decimal <span class="kw">import</span> Decimal
+<span class="var">total</span> = <mark class="fix-mark">Decimal(<span class="str">"0.1"</span>) + Decimal(<span class="str">"0.2"</span>)</mark>
+<span class="fn">print</span>(<span class="var">total</span>)  <span class="cm"># 0.3 (exact)</span></pre></div>
+            </div>
+          </div>
+          <div class="mistake-memory">
+            <div class="mistake-memory-label">🧠 Memory Trick</div>
+            <div class="mistake-memory-text">Floats are great scientists (lots of precision, tiny errors acceptable) but terrible accountants (errors compound, every paisa matters). When dealing with money, use Decimal, which works in base 10 exactly like humans count.</div>
+          </div>
+          <div class="mistake-key-rule">
+            <div class="mistake-key-rule-label">⚡ Key Rule</div>
+            <div class="mistake-key-rule-text">For money or any calculation where exactness matters, use <code style="color:var(--green)">from decimal import Decimal</code> and always pass values as <strong>strings</strong>: <code style="color:var(--green)">Decimal("0.1")</code>, not <code style="color:var(--red)">Decimal(0.1)</code>.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end mistakes tab -->
+
+    <!-- TAB 7: SUMMARY -->
+    <div class="tab-panel">
+
+      <div class="section-heading">Key Takeaways</div>
+      <div class="summary-grid">
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">🔢</span><span class="sp-title">Numeric types</span><span class="sp-tag">types</span></div>
+          <div class="sp-desc"><ul><li><code>int</code> for whole numbers, <code>float</code> for decimals, <code>complex</code> for j notation</li><li>float has binary precision limits: 0.1 + 0.2 is not exactly 0.3</li><li>Use <code>round()</code> to control decimal display</li></ul></div>
+          <div class="sp-code">x = 42  |  y = 3.14  |  z = 3+4j</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">✅</span><span class="sp-title">Boolean</span><span class="sp-tag">type</span></div>
+          <div class="sp-desc"><ul><li>Only two values: <code>True</code> and <code>False</code></li><li>Secretly an int: True == 1, False == 0</li><li>Every value in Python has a truthy or falsy nature</li></ul></div>
+          <div class="sp-code">bool(0)  # False  |  bool("hi")  # True</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">🚫</span><span class="sp-title">NoneType</span><span class="sp-tag">type</span></div>
+          <div class="sp-desc"><ul><li><code>None</code> means "no value" — not 0, not False, not an empty string</li><li>Only one None exists in all of Python (singleton)</li><li>Always check with <code>is None</code>, never with <code>== None</code></li></ul></div>
+          <div class="sp-code">if x is None: ...  # correct</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">📋</span><span class="sp-title">Sequences</span><span class="sp-tag">types</span></div>
+          <div class="sp-desc"><ul><li>str, list, tuple, range: ordered and indexable</li><li><code>list</code> is mutable (you can change it); <code>tuple</code> is not</li><li>Strings are immutable: every change creates a new string</li></ul></div>
+          <div class="sp-code">li = [1,2,3]  |  tu = (1,2,3)</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">🗂️</span><span class="sp-title">dict</span><span class="sp-tag">mapping</span></div>
+          <div class="sp-desc"><ul><li>Stores key-value pairs, not indexed by position</li><li>Keys must be unique and immutable (str, int, tuple)</li><li>Values can be anything, including other dicts</li></ul></div>
+          <div class="sp-code">d = {"name": "Rohan", "age": 21}</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">🔵</span><span class="sp-title">set</span><span class="sp-tag">collection</span></div>
+          <div class="sp-desc"><ul><li>Unordered collection of unique items</li><li><code>set</code> is mutable; <code>frozenset</code> is not</li><li>Empty set must be <code>set()</code>, never <code>{}</code> (that's a dict)</li></ul></div>
+          <div class="sp-code">s = {1, 2, 3}  |  empty = set()</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">🔒</span><span class="sp-title">Mutable vs Immutable</span><span class="sp-tag">concept</span></div>
+          <div class="sp-desc"><ul><li>Mutable: list, dict, set — same object changes in place</li><li>Immutable: str, tuple, int, float — any change creates a new object</li><li>Check with <code>id()</code> to see if it is the same object</li></ul></div>
+          <div class="sp-code">id(x) before vs after tells the story</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">🔍</span><span class="sp-title">Type checking</span><span class="sp-tag">concept</span></div>
+          <div class="sp-desc"><ul><li><code>type(x)</code> returns the exact class, good for debugging</li><li><code>isinstance(x, int)</code> is better in real code: handles subclasses</li><li>Can check multiple types: <code>isinstance(x, (int, float))</code></li></ul></div>
+          <div class="sp-code">isinstance(x, (int, float))  # True for both</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">🔁</span><span class="sp-title">Implicit casting</span><span class="sp-tag">concept</span></div>
+          <div class="sp-desc"><ul><li>Python automatically widens types when mixing them</li><li><code>int + float</code> gives <code>float</code>, not int</li><li>Python never silently narrows (no accidental data loss)</li></ul></div>
+          <div class="sp-code">3 + 1.0  # 4.0, not 4</div>
+        </div>
+
+        <div class="summary-card">
+          <div class="sp-top"><span class="sp-icon">⚡</span><span class="sp-title">Explicit casting</span><span class="sp-tag">concept</span></div>
+          <div class="sp-desc"><ul><li><code>int()</code> truncates (chops), not rounds</li><li><code>int("3.14")</code> raises ValueError — go through float first</li><li><code>round()</code> is separate from <code>int()</code></li></ul></div>
+          <div class="sp-code">int(float("3.14"))  # 3</div>
+        </div>
+
+      </div>
+
+      <div class="section-heading mt-3">Quick Pick</div>
+      <div class="qp-wrap">
+        <div class="qp-title">Situation → Best choice</div>
+        <div class="qp-row">
+          <div class="qp-situation">Store a whole number</div>
+          <div class="qp-answer"><code>int</code></div>
+        </div>
+        <div class="qp-row">
+          <div class="qp-situation">Store a list of items that will change</div>
+          <div class="qp-answer"><code>list</code></div>
+        </div>
+        <div class="qp-row">
+          <div class="qp-situation">Store fixed data that should not change</div>
+          <div class="qp-answer"><code>tuple</code></div>
+        </div>
+        <div class="qp-row">
+          <div class="qp-situation">Map keys to values</div>
+          <div class="qp-answer"><code>dict</code></div>
+        </div>
+        <div class="qp-row">
+          <div class="qp-situation">Store unique items, remove duplicates</div>
+          <div class="qp-answer"><code>set</code></div>
+        </div>
+        <div class="qp-row">
+          <div class="qp-situation">Check if a variable has no value</div>
+          <div class="qp-answer"><code>x is None</code></div>
+        </div>
+        <div class="qp-row">
+          <div class="qp-situation">Convert a decimal string to int</div>
+          <div class="qp-answer"><code>int(float("3.14"))</code></div>
+        </div>
+        <div class="qp-row" style="border-bottom:none">
+          <div class="qp-situation">Check if value is int or float</div>
+          <div class="qp-answer"><code>isinstance(x, (int, float))</code></div>
+        </div>
+      </div>
+
+      <div class="section-heading mt-3">Cheat Sheet</div>
+      <div class="cs-tabs-wrap">
+        <div class="cs-tabs-bar">
+          <button class="cs-tab active" onclick="csTab(this,'cs-numeric')">Numeric</button>
+          <button class="cs-tab" onclick="csTab(this,'cs-bool')">Boolean</button>
+          <button class="cs-tab" onclick="csTab(this,'cs-none')">None</button>
+          <button class="cs-tab" onclick="csTab(this,'cs-collections')">Collections</button>
+          <button class="cs-tab" onclick="csTab(this,'cs-casting')">Casting</button>
+          <button class="cs-tab" onclick="csTab(this,'cs-checking')">Checking</button>
+        </div>
+        <div class="cs-panel active" id="cs-numeric">
+          <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">x</span> = <span class="num">42</span>            <span class="cm"># int</span>
+<span class="var">y</span> = <span class="num">3.14</span>          <span class="cm"># float</span>
+<span class="var">z</span> = <span class="num">3</span> + <span class="num">4j</span>        <span class="cm"># complex</span>
+<span class="fn">print</span>(<span class="num">0.1</span> + <span class="num">0.2</span>)  <span class="cm"># 0.30000000000000004 (float quirk)</span>
+<span class="fn">print</span>(<span class="fn">round</span>(<span class="num">0.1</span> + <span class="num">0.2</span>, <span class="num">2</span>))  <span class="cm"># 0.3</span></pre>
+          </div>
+        </div>
+        <div class="cs-panel" id="cs-bool">
+          <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="cm"># Falsy values</span>
+<span class="fn">bool</span>(<span class="num">0</span>)        <span class="cm"># False</span>
+<span class="fn">bool</span>(<span class="str">""</span>)       <span class="cm"># False  (empty string)</span>
+<span class="fn">bool</span>([])       <span class="cm"># False  (empty list)</span>
+<span class="fn">bool</span>(<span class="kw">None</span>)     <span class="cm"># False</span>
+
+<span class="cm"># Truthy values</span>
+<span class="fn">bool</span>(<span class="str">"False"</span>)  <span class="cm"># True   (non-empty string!)</span>
+<span class="fn">bool</span>(<span class="str">" "</span>)     <span class="cm"># True   (space is not empty)</span>
+<span class="fn">bool</span>(<span class="num">-1</span>)      <span class="cm"># True   (any non-zero int)</span></pre>
+          </div>
+        </div>
+        <div class="cs-panel" id="cs-none">
+          <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">val</span> = <span class="kw">None</span>
+
+<span class="cm"># Correct checks</span>
+<span class="kw">if</span> <span class="var">val</span> <span class="kw">is</span> <span class="kw">None</span>: ...
+<span class="kw">if</span> <span class="var">val</span> <span class="kw">is not</span> <span class="kw">None</span>: ...
+
+<span class="cm"># Avoid these</span>
+<span class="kw">if</span> <span class="var">val</span> == <span class="kw">None</span>: ...   <span class="cm"># works, but not recommended</span>
+<span class="kw">if</span> <span class="kw">not</span> <span class="var">val</span>: ...       <span class="cm"># matches 0, "", [] too</span></pre>
+          </div>
+        </div>
+        <div class="cs-panel" id="cs-collections">
+          <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">li</span> = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]      <span class="cm"># list  (mutable, ordered)</span>
+<span class="var">tu</span> = (<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>)      <span class="cm"># tuple (immutable, ordered)</span>
+<span class="var">d</span>  = {<span class="str">"k"</span>: <span class="str">"v"</span>}     <span class="cm"># dict  (key-value)</span>
+<span class="var">st</span> = {<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>}      <span class="cm"># set   (unique, unordered)</span>
+<span class="var">es</span> = <span class="fn">set</span>()           <span class="cm"># empty set (NOT {})</span>
+<span class="var">ed</span> = {}              <span class="cm"># empty dict</span></pre>
+          </div>
+        </div>
+        <div class="cs-panel" id="cs-casting">
+          <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="fn">int</span>(<span class="str">"42"</span>)              <span class="cm"># 42</span>
+<span class="fn">int</span>(<span class="num">9.9</span>)               <span class="cm"># 9  (truncates, not rounds)</span>
+<span class="fn">round</span>(<span class="num">9.9</span>)             <span class="cm"># 10 (rounds properly)</span>
+<span class="fn">int</span>(<span class="fn">float</span>(<span class="str">"3.14"</span>))    <span class="cm"># 3  (decimal string to int)</span>
+<span class="fn">float</span>(<span class="str">"3.14"</span>)          <span class="cm"># 3.14</span>
+<span class="fn">str</span>(<span class="num">42</span>)                <span class="cm"># "42"</span></pre>
+          </div>
+        </div>
+        <div class="cs-panel" id="cs-checking">
+          <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="fn">type</span>(<span class="var">x</span>)                         <span class="cm"># &lt;class 'int'&gt;</span>
+<span class="fn">isinstance</span>(<span class="var">x</span>, <span class="fn">int</span>)              <span class="cm"># True/False</span>
+<span class="fn">isinstance</span>(<span class="var">x</span>, (<span class="fn">int</span>, <span class="fn">float</span>))     <span class="cm"># check multiple types</span>
+
+<span class="cm"># Mutable = same id after change</span>
+<span class="var">li</span> = [<span class="num">1</span>, <span class="num">2</span>]
+<span class="fn">print</span>(<span class="fn">id</span>(<span class="var">li</span>))
+<span class="var">li</span>.<span class="fn">append</span>(<span class="num">3</span>)
+<span class="fn">print</span>(<span class="fn">id</span>(<span class="var">li</span>))   <span class="cm"># same id (list is mutable)</span></pre>
+          </div>
+        </div>
+      </div>
+      <script>
+        function csTab(btn, id) {
+          const wrap = btn.closest('.cs-tabs-wrap');
+          wrap.querySelectorAll('.cs-tab').forEach(b => b.classList.remove('active'));
+          wrap.querySelectorAll('.cs-panel').forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          wrap.querySelector('#' + id).classList.add('active');
+        }
+      </script>
+
+      <!-- Personal Notes -->
+      <div class="personal-notes-card animate-fadeup">
+        <div class="personal-notes-header">
+          <div class="personal-notes-title">📝 My Notes</div>
+          <span class="personal-notes-hint">Auto-saved to your browser</span>
+        </div>
+        <textarea id="personalNotes" placeholder="Write your own notes, key points, or things to remember..."></textarea>
+      </div>
+
+      <div class="topic-nav">
+        <a href="python-basics.html" class="btn" id="prevTopicBtn">Prev: Python Basics</a>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn complete-btn">Mark as Complete</button>
+          <a href="operators.html" class="btn btn-primary" id="nextTopicBtn">Next: Operators</a>
+        </div>
+      </div>
+
+    </div><!-- end summary tab -->
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">Python<span style="color:var(--purple)">byRohan</span> &copy; 2026</div>
+    <div class="footer-links">
+      <a href="https://github.com/RohanPatil01" target="_blank" rel="noopener" class="footer-link">
+        <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/rohanpatil01" target="_blank" rel="noopener" class="footer-link">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn
+      </a>
+      <a href="https://www.instagram.com/rohanjpatil01/" target="_blank" rel="noopener" class="footer-link">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>@rohanjpatil01
+      </a>
+    </div>
+  </footer>
+
+</div><!-- end main -->
+</div><!-- end layout -->
+
+<script src="../assets/app.js"></script>
+<script>
+  const TOPIC_ID = 'data-types';
+  document.addEventListener('DOMContentLoaded', () => {
+    initCompleteBtn(TOPIC_ID);
+    initMCQ(TOPIC_ID);
+    Bookmarks.initBtn(TOPIC_ID);
+    initPersonalNotes(TOPIC_ID);
+    initDifficultyRating(TOPIC_ID);
+    const scoreEl = document.getElementById('mcqScore');
+    if (scoreEl) scoreEl.style.display = 'none';
+  });
+</script>
+</body>
+</html>

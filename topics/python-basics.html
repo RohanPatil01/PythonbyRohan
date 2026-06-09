@@ -1,0 +1,2034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python Basics | PythonbyRohan</title>
+  <meta name="description" content="Learn Python basics with a teacher-like explanation. Variables, print(), input(), f-strings, comments and your first program." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <style>
+    /* Topic header */
+    .topic-header {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 28px 32px;
+      margin-bottom: 22px;
+      position: relative; overflow: hidden;
+      box-shadow: inset 0 1px 0 var(--card-shine);
+    }
+    .topic-header-glow {
+      position: absolute; top: -60px; right: -60px;
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(79,127,255,.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .topic-header-glow2 {
+      position: absolute; bottom: -40px; left: 10%;
+      width: 160px; height: 160px;
+      background: radial-gradient(circle, rgba(52,211,153,.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .topic-phase {
+      font-size: 10px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .topic-title {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 34px);
+      font-weight: 800; line-height: 1.15;
+      color: var(--text); margin-bottom: 10px;
+    }
+    .topic-desc {
+      font-size: 14.5px; color: var(--text2);
+      line-height: 1.75; max-width: 620px; margin-bottom: 18px;
+    }
+    .topic-meta { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+    .meta-chip {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 12px; color: var(--text3); font-weight: 600;
+    }
+    .meta-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .topic-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* Practice task cards — shared styles in style.css */
+    .gto-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:14px;box-shadow:inset 0 1px 0 var(--card-shine)}
+    .gto-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .gto-title{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--text)}
+    .gto-reveal-btn{font-size:12px;font-weight:700;font-family:var(--font-body);color:var(--accent);background:rgba(79,127,255,.1);border:1px solid rgba(79,127,255,.25);border-radius:6px;padding:5px 14px;cursor:pointer;transition:background .2s}
+    .gto-reveal-btn:hover{background:rgba(79,127,255,.2)}
+    .gto-answer{margin-top:12px;padding:12px 16px;background:var(--bg3);border-radius:8px;border-left:3px solid var(--green);display:none}
+    .gto-answer.visible{display:block}
+    .gto-answer-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+    .gto-output{font-family:var(--font-mono);font-size:13.5px;color:var(--text);white-space:pre;line-height:1.7}
+    .gto-explain{font-size:13px;color:var(--text2);line-height:1.7;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+
+    .mistake-fix {
+      margin-top: 10px; padding: 10px 14px;
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      border-radius: 7px;
+      font-size: 13px; color: var(--green);
+    }
+
+    /* Summary styles from style.css */
+
+    /* Topic nav */
+    .topic-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 0; margin-top: 16px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap; gap: 10px;
+    }
+
+    /* Example header */
+    .example-header {
+      display: flex; align-items: center;
+      justify-content: space-between; margin-bottom: 10px;
+    }
+    .example-title {
+      font-family: var(--font-display);
+      font-size: 15px; font-weight: 700; color: var(--text);
+    }
+
+    /* Line-by-line explanation */
+    .line-explain {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px; margin-top: 12px;
+    }
+    .line-explain-item {
+      display: flex; gap: 12px; padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13.5px;
+    }
+    .line-explain-item:last-child { border-bottom: none; }
+    .line-code {
+      font-family: var(--font-mono); font-size: 12px;
+      color: var(--accent); white-space: nowrap;
+      flex-shrink: 0; min-width: 160px;
+      padding-top: 2px;
+    }
+    .line-text { color: var(--text2); line-height: 1.6; }
+
+    @media (max-width: 700px) {
+      .summary-grid { grid-template-columns: 1fr; }
+      .line-explain-item { flex-direction: column; gap: 4px; }
+      .line-code { min-width: unset; }
+    }
+  </style>
+</head>
+<body>
+<script>(function(){try{if(JSON.parse(localStorage.getItem('pynotes_theme'))==='light')document.body.classList.add('light');}catch(e){}}());</script>
+
+<!-- Mobile overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="layout">
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">Py</div>
+      <div>
+        <div class="logo-text">Python<span style="color:var(--purple);font-size:.85em;font-weight:700">byRohan</span></div>
+      </div>
+    </div>
+    <div class="sidebar-progress">
+      <div class="progress-meta">
+        <span>Overall Progress</span>
+        <span data-progress-count>0/29 topics</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
+    </div>
+
+    <div class="sidebar-label">Navigation</div>
+    <a href="../index.html" class="nav-item">
+      <span class="nav-num">🏠</span><span class="nav-dot"></span>Home
+    </a>
+
+    <div class="sidebar-label">Core Python</div>
+    <a href="python-basics.html" class="nav-item active">
+      <span class="nav-num">01</span><span class="nav-dot active"></span>Python Basics
+    </a>
+    <a href="data-types.html" class="nav-item">
+      <span class="nav-num">02</span><span class="nav-dot" id="dot-data-types"></span>Data Types
+    </a>
+    <a href="operators.html" class="nav-item">
+      <span class="nav-num">03</span><span class="nav-dot" id="dot-operators"></span>Operators
+    </a>
+    <a href="conditionals.html" class="nav-item">
+      <span class="nav-num">04</span><span class="nav-dot" id="dot-conditionals"></span>Conditionals
+    </a>
+
+    <div class="nav-group" data-group="loops">
+      <div class="nav-group-header">
+        <span class="nav-num">05</span>
+        <span class="nav-dot" id="dot-loops-for"></span>
+        Loops
+        <span class="nav-group-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <a href="loops-for.html"   class="nav-sub-item">for Loop</a>
+        <a href="loops-while.html" class="nav-sub-item">while Loop</a>
+      </div>
+    </div>
+
+    <div class="nav-group" data-group="strings">
+      <div class="nav-group-header">
+        <span class="nav-num">06</span>
+        <span class="nav-dot" id="dot-strings-basics"></span>
+        Strings
+        <span class="nav-group-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <a href="strings-basics.html"  class="nav-sub-item">Basics</a>
+        <a href="strings-methods.html" class="nav-sub-item">Methods</a>
+      </div>
+    </div>
+
+    <a href="lists.html"  class="nav-item"><span class="nav-num">07</span><span class="nav-dot" id="dot-lists"></span>Lists</a>
+    <a href="tuples.html" class="nav-item"><span class="nav-num">08</span><span class="nav-dot" id="dot-tuples"></span>Tuples</a>
+
+    <div class="sidebar-label">Intermediate</div>
+    <a href="dictionaries.html" class="nav-item"><span class="nav-num">09</span><span class="nav-dot" id="dot-dictionaries"></span>Dictionaries</a>
+    <a href="sets.html"         class="nav-item"><span class="nav-num">10</span><span class="nav-dot" id="dot-sets"></span>Sets</a>
+
+    <div class="nav-group" data-group="functions">
+      <div class="nav-group-header">
+        <span class="nav-num">11</span>
+        <span class="nav-dot" id="dot-functions-basics"></span>
+        Functions
+        <span class="nav-group-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <a href="functions-basics.html"   class="nav-sub-item">Defining Functions</a>
+        <a href="functions-advanced.html" class="nav-sub-item">Args, kwargs, Lambda</a>
+      </div>
+    </div>
+
+    <a href="modules-packages.html" class="nav-item"><span class="nav-num">12</span><span class="nav-dot" id="dot-modules-packages"></span>Modules &amp; Packages</a>
+
+    <div class="nav-group" data-group="file-handling">
+      <div class="nav-group-header">
+        <span class="nav-num">13</span><span class="nav-dot"></span>File Handling<span class="nav-group-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <a href="file-handling-read.html"  class="nav-sub-item">Reading Files</a>
+        <a href="file-handling-write.html" class="nav-sub-item">Writing Files</a>
+      </div>
+    </div>
+
+    <div class="nav-group" data-group="exceptions">
+      <div class="nav-group-header">
+        <span class="nav-num">14</span><span class="nav-dot"></span>Exception Handling<span class="nav-group-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <a href="exceptions-basics.html"   class="nav-sub-item">Basics</a>
+        <a href="exceptions-advanced.html" class="nav-sub-item">Advanced</a>
+      </div>
+    </div>
+
+    <div class="nav-group" data-group="oop">
+      <div class="nav-group-header">
+        <span class="nav-num">15</span><span class="nav-dot"></span>OOP<span class="nav-group-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <a href="oop-classes.html"     class="nav-sub-item">Classes &amp; Objects</a>
+        <a href="oop-inheritance.html" class="nav-sub-item">Inheritance</a>
+        <a href="oop-advanced.html"    class="nav-sub-item">Advanced OOP</a>
+      </div>
+    </div>
+
+    <div class="sidebar-label">Advanced</div>
+    <a href="iterators-generators.html" class="nav-item"><span class="nav-num">16</span><span class="nav-dot"></span>Iterators &amp; Generators</a>
+    <a href="decorators.html"           class="nav-item"><span class="nav-num">17</span><span class="nav-dot"></span>Decorators</a>
+
+    <div class="nav-group" data-group="numpy">
+      <div class="nav-group-header"><span class="nav-num">18</span><span class="nav-dot"></span>NumPy<span class="nav-group-arrow">›</span></div>
+      <div class="nav-sub">
+        <a href="numpy-arrays.html"     class="nav-sub-item">Arrays</a>
+        <a href="numpy-operations.html" class="nav-sub-item">Operations</a>
+      </div>
+    </div>
+
+    <div class="nav-group" data-group="pandas">
+      <div class="nav-group-header"><span class="nav-num">19</span><span class="nav-dot"></span>Pandas<span class="nav-group-arrow">›</span></div>
+      <div class="nav-sub">
+        <a href="pandas-series.html"    class="nav-sub-item">Series</a>
+        <a href="pandas-dataframe.html" class="nav-sub-item">DataFrame</a>
+      </div>
+    </div>
+
+    <a href="data-visualization.html" class="nav-item"><span class="nav-num">20</span><span class="nav-dot"></span>Data Visualization</a>
+
+    <div class="sidebar-label">More</div>
+    <a href="../projects/index.html"  class="nav-item"><span class="nav-num">📁</span><span class="nav-dot"></span>Projects</a>
+    <a href="../interview/index.html" class="nav-item"><span class="nav-num">🎯</span><span class="nav-dot"></span>Interview Prep</a>
+    <a href="../resources/index.html" class="nav-item"><span class="nav-num">📚</span><span class="nav-dot"></span>Resources</a>
+  </aside>
+
+  <!-- ══ MAIN ══ -->
+  <div class="main" id="main">
+
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="sidebar-toggle btn btn-icon" id="sidebarToggle" title="Toggle sidebar">☰</button>
+        <nav class="breadcrumb">
+          <a href="../index.html">Home</a>
+          <span class="sep">›</span>
+          <span>Core Python</span>
+          <span class="sep">›</span>
+          <span class="crumb-current">Python Basics</span>
+        </nav>
+      </div>
+      <div class="topbar-right">
+        <div class="theme-toggle">
+          <span class="theme-icon">🌙</span>
+          <button class="toggle-btn" id="themeToggle" aria-label="Toggle theme"></button>
+          <span class="theme-icon">☀️</span>
+        </div>
+        <button class="btn complete-btn">Mark as Complete</button>
+      </div>
+    </header>
+
+    <main class="content-area">
+
+      <!-- Topic Header -->
+      <div class="topic-header animate-fadeup">
+        <div class="topic-header-glow"></div>
+        <div class="topic-header-glow2"></div>
+        <div class="topic-phase">
+          <span class="badge badge-accent">Module 01</span>
+          Core Python · Phase 1
+        </div>
+        <div class="topic-title">Python Basics</div>
+        <div class="topic-desc">Your gateway to programming. No prior experience needed. We will cover syntax, variables, print statements, comments, user input, and write your first real Python program, step by step.</div>
+        <div class="topic-meta">
+          <div class="meta-chip"><div class="meta-dot" style="background:var(--green)"></div>Beginner</div>
+          <div class="meta-chip"><div class="meta-dot" style="background:var(--accent3)"></div>~50 min read</div>
+          <div class="meta-chip"><div class="meta-dot" style="background:var(--accent)"></div>9 practice tasks</div>
+          <div class="meta-chip"><div class="meta-dot" style="background:var(--accent2)"></div>8 MCQs</div>
+          <div class="meta-chip"><div class="meta-dot" style="background:var(--accent4)"></div>10 interview Qs</div>
+        </div>
+        <div class="topic-actions">
+          <button class="btn" data-bookmark="python-basics">🔖 Bookmark</button>
+          <a href="data-types.html" class="btn">Next: Data Types</a>
+        </div>
+        <div class="diff-rating">
+          <span class="diff-rating-label">How was this topic?</span>
+          <button class="diff-btn" data-diff="easy">😊 Easy</button>
+          <button class="diff-btn" data-diff="medium">🤔 Medium</button>
+          <button class="diff-btn" data-diff="hard">😤 Hard</button>
+        </div>
+      </div>
+
+      <!-- Keyboard shortcuts hint -->
+      <div class="shortcut-hint animate-fadeup delay-1">
+        <span><kbd class="kbd">N</kbd> Next topic</span>
+        <span><kbd class="kbd">P</kbd> Prev topic</span>
+        <span><kbd class="kbd">B</kbd> Bookmark</span>
+        <span><kbd class="kbd">D</kbd> Dark / Light</span>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs-wrap animate-fadeup delay-1">
+        <button class="tab-btn active">📖 Notes</button>
+        <button class="tab-btn">💻 Examples</button>
+        <button class="tab-btn">✏️ Practice</button>
+        <button class="tab-btn">❓ MCQs</button>
+        <button class="tab-btn">🎯 Guess the Output</button>
+        <button class="tab-btn">🎤 Interview</button>
+        <button class="tab-btn">⚠️ Mistakes</button>
+        <button class="tab-btn">📋 Summary</button>
+      </div>
+
+      <!-- ══════════════════════════════════════
+           TAB 1:NOTES
+      ══════════════════════════════════════ -->
+      <div class="tab-panel active animate-fadeup delay-2" id="tab-notes">
+
+        <!-- Execution flow -->
+        <div class="concept-box type-definition">
+          <div class="concept-type-label label-definition">How Python Runs</div>
+          <h3>🔄 Python Reads Your Code Top to Bottom</h3>
+          <p>Before anything else, let's understand one golden rule: Python reads and runs your code <strong>line by line, from top to bottom</strong>. It does not jump around. It does not read ahead. Whatever comes first runs first.</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div>
+              <span class="code-lang">python</span>
+              <button class="code-copy">Copy</button>
+            </div>
+            <pre><span class="fn">print</span>(<span class="str">"Line 1 runs first"</span>)
+<span class="fn">print</span>(<span class="str">"Line 2 runs second"</span>)
+<span class="fn">print</span>(<span class="str">"Line 3 runs last"</span>)</pre>
+          </div>
+          <div class="callout callout-tip">
+            <span class="callout-icon">💡</span>
+            <span>This means if you use a variable before you create it, Python will throw an error. Order matters. Always.</span>
+          </div>
+        </div>
+
+        <!-- What is Python -->
+        <div class="concept-box type-definition">
+          <div class="concept-type-label label-definition">Definition</div>
+          <h3>🐍 What is Python?</h3>
+          <p>Python is a <strong>high-level, interpreted, general-purpose programming language</strong> created by <strong>Guido van Rossum</strong> and first released in <strong>1991</strong>. The name "Python" was inspired by the British comedy group Monty Python, not the snake.</p>
+          <p>Today Python is one of the most popular languages in the world. It is used in web development, data science, artificial intelligence, automation, cybersecurity, and much more. Companies like Google, Netflix, Instagram, and ISRO use Python.</p>
+        </div>
+
+        <!-- Why Python analogy -->
+        <div class="concept-box type-analogy">
+          <div class="concept-type-label label-analogy">Think of it this way</div>
+          <h3>💬 Why Python Feels Easy</h3>
+          <p>Think of programming languages like spoken languages. C++ is like German, powerful and precise but takes years to get fluent. Java is like French, beautiful structure but a lot of grammar rules. Python is like English. It is not perfect, but almost everyone can read it and make sense of it on the first try.</p>
+          <p>Think about the first time you read a Python program versus a C++ program. Python reads almost like plain English instructions. That is exactly what makes it the best first language for most learners.</p>
+        </div>
+
+        <!-- Why Python -->
+        <div class="concept-box type-why">
+          <div class="concept-type-label label-why">Why this matters</div>
+          <h3>🤔 Why Should You Learn Python?</h3>
+          <ul>
+            <li><strong>Simple syntax</strong>:reads like plain English, great for beginners</li>
+            <li><strong>Versatile</strong>:data science, web, AI, automation, all in one language</li>
+            <li><strong>Huge demand</strong>:top skill at TCS, Infosys, Wipro, and every data-focused startup</li>
+            <li><strong>Great community</strong>:millions of resources, Stack Overflow answers, YouTube tutorials</li>
+            <li><strong>Free and open source</strong>:zero cost, runs on any operating system</li>
+          </ul>
+        </div>
+
+        <!-- print() -->
+        <div class="concept-box type-syntax">
+          <div class="concept-type-label label-syntax">Syntax</div>
+          <h3>🖨️ The print() Function</h3>
+          <p>Let's start with the most satisfying thing in programming: making the computer say something. The <code>print()</code> function displays output on your screen. Every single Python programmer learns this first.</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div>
+              <span class="code-lang">python</span>
+              <button class="code-copy">Copy</button>
+            </div>
+            <pre><span class="fn">print</span>(<span class="str">"Hello, World!"</span>)
+<span class="fn">print</span>(<span class="str">"Hello"</span>, <span class="str">"World"</span>)            <span class="cm"># prints: Hello World</span>
+<span class="fn">print</span>(<span class="str">"Hello"</span>, <span class="str">"World"</span>, <span class="var">sep</span>=<span class="str">"-"</span>)  <span class="cm"># prints: Hello-World</span>
+<span class="fn">print</span>(<span class="str">"Hello"</span>, <span class="var">end</span>=<span class="str">" "</span>)           <span class="cm"># no newline at end</span>
+<span class="fn">print</span>(<span class="str">"World"</span>)                     <span class="cm"># prints on same line: Hello World</span></pre>
+          </div>
+          <div class="callout callout-tip">
+            <span class="callout-icon">💡</span>
+            <span>By default <code>print()</code> adds a new line at the end. Use <code>end=""</code> to stop that. Use <code>sep=</code> to control what goes between multiple values.</span>
+          </div>
+        </div>
+
+        <!-- Escape characters -->
+        <div class="concept-box type-syntax">
+          <div class="concept-type-label label-syntax">Syntax</div>
+          <h3>🔀 Escape Characters</h3>
+          <p>Sometimes you need to include special characters inside a string that Python would normally misread. That is where escape characters come in. They always start with a backslash <code>\</code>.</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div>
+              <span class="code-lang">python</span>
+              <button class="code-copy">Copy</button>
+            </div>
+            <pre><span class="fn">print</span>(<span class="str">"Line 1\nLine 2"</span>)        <span class="cm"># \n:new line</span>
+<span class="fn">print</span>(<span class="str">"Name:\tRohan"</span>)           <span class="cm"># \t:tab space</span>
+<span class="fn">print</span>(<span class="str">"He said \"Hello\""</span>)       <span class="cm"># \":double quote inside string</span>
+<span class="fn">print</span>(<span class="str">"C:\\Users\\Student"</span>)        <span class="cm"># \\:literal backslash</span>
+<span class="fn">print</span>(<span class="str">'It\'s easy'</span>)            <span class="cm"># \':single quote inside string</span></pre>
+          </div>
+          <div class="callout callout-note">
+            <span class="callout-icon">📝</span>
+            <span>Real-world use: <code>\t</code> is great for aligning bill receipts or tables in the terminal. <code>\n</code> is how you print multi-line messages in one print statement.</span>
+          </div>
+        </div>
+
+        <!-- Comments -->
+        <div class="concept-box type-definition">
+          <div class="concept-type-label label-definition">Concept</div>
+          <h3>💬 Comments</h3>
+          <p>Comments are lines in your code that Python completely ignores when running. They are notes you write for yourself and other humans.</p>
+          <p>Here is a real scenario: a student writes a complex data analysis script for a college project. Three months later, when a classmate asks to use it, even the original author cannot remember what half the code does. That is exactly why comments exist. They are <strong>notes to your future self</strong>.</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div>
+              <span class="code-lang">python</span>
+              <button class="code-copy">Copy</button>
+            </div>
+            <pre><span class="cm"># This is a single-line comment</span>
+
+<span class="fn">print</span>(<span class="str">"Hello"</span>)   <span class="cm"># This is an inline comment</span>
+
+<span class="str">"""
+This is a multi-line comment.
+Also called a docstring.
+Python does not run any of this.
+"""</span></pre>
+          </div>
+          <div class="callout callout-tip">
+            <span class="callout-icon">💡</span>
+            <span>Good rule: write a comment when the code is not obvious. You do not need to comment <code>x = 5</code> with "assigning 5 to x". But do comment a 10-line calculation with what it is computing.</span>
+          </div>
+        </div>
+
+        <!-- Variables definition -->
+        <div class="concept-box type-definition">
+          <div class="concept-type-label label-definition">Definition</div>
+          <h3>📦 Variables</h3>
+          <p>A variable is a <strong>named container</strong> that stores a value in memory. You give it a name, assign it a value, and Python remembers it for you throughout the program.</p>
+          <p>In Python you do not need to declare the type of variable. Python is smart enough to figure it out based on the value you give it. This is called <strong>dynamic typing</strong>.</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div>
+              <span class="code-lang">python</span>
+              <button class="code-copy">Copy</button>
+            </div>
+            <pre><span class="var">name</span>   = <span class="str">"Rohan Patil"</span>  <span class="cm"># string</span>
+<span class="var">age</span>    = <span class="num">24</span>             <span class="cm"># integer</span>
+<span class="var">cgpa</span>   = <span class="num">10.0</span>           <span class="cm"># float</span>
+<span class="var">is_pass</span>    = <span class="kw">True</span>           <span class="cm"># boolean</span>
+
+<span class="cm"># Multiple assignment in one line</span>
+<span class="var">x</span>, <span class="var">y</span>, <span class="var">z</span> = <span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>
+
+<span class="cm"># Same value to multiple variables</span>
+<span class="var">a</span> = <span class="var">b</span> = <span class="var">c</span> = <span class="num">0</span>
+
+<span class="fn">print</span>(<span class="var">name</span>, <span class="var">age</span>)   <span class="cm"># Rohan Patil 24</span></pre>
+          </div>
+        </div>
+
+        <!-- Variables analogy -->
+        <div class="concept-box type-analogy">
+          <div class="concept-type-label label-analogy">Think of it this way</div>
+          <h3>🏷️ Variables are Like Labelled Boxes</h3>
+          <p>Imagine you are packing for a trip. You have a box, and you stick a label on it that says "clothes". Now whenever you need clothes, you look for the box labelled "clothes". You do not need to remember exactly where the clothes are physically stored in the room. The label handles that.</p>
+          <p>Variables work the same way. When you write <code>name = "Rohan"</code>, you are creating a box in memory, putting "Rohan" inside it, and sticking a label called <code>name</code> on it. Whenever your program needs that value, it looks for the <code>name</code> label.</p>
+        </div>
+
+        <!-- Naming rules -->
+        <div class="concept-box type-rule">
+          <div class="concept-type-label label-rule">Rules and Conventions</div>
+          <h3>📏 Variable Naming Rules and snake_case</h3>
+          <p><strong>The hard rules (break these and Python throws an error):</strong></p>
+          <ul>
+            <li>Must start with a letter or underscore, not a number</li>
+            <li>Can contain letters, numbers, and underscores only</li>
+            <li>No spaces allowed</li>
+            <li>Case-sensitive: <code>name</code> and <code>Name</code> are two different variables</li>
+          </ul>
+          <p style="margin-top:12px"><strong>The convention (break these and your code still works, but other programmers will judge you):</strong></p>
+          <p>Python programmers follow <strong>snake_case</strong> for variable names. This means all lowercase letters with underscores between words. Like <code>student_name</code>, <code>total_marks</code>, <code>is_eligible</code>. Why? Because Python's own standard library uses snake_case everywhere. Following this makes your code look consistent with professional Python code.</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div>
+              <span class="code-lang">python</span>
+              <button class="code-copy">Copy</button>
+            </div>
+            <pre><span class="cm"># Valid and professional (snake_case)</span>
+<span class="var">student_name</span>  = <span class="str">"Sagar"</span>
+<span class="var">total_marks</span>   = <span class="num">487</span>
+<span class="var">is_eligible</span>   = <span class="kw">True</span>
+
+<span class="cm"># Valid but not Pythonic</span>
+<span class="var">StudentName</span>   = <span class="str">"Sagar"</span>   <span class="cm"># PascalCase (used for classes)</span>
+<span class="var">totalMarks</span>    = <span class="num">487</span>      <span class="cm"># camelCase (used in JavaScript)</span>
+
+<span class="cm"># Invalid (will throw SyntaxError)</span>
+<span class="cm"># 1name = "bad"</span>
+<span class="cm"># my-name = "bad"</span>
+<span class="cm"># my name = "bad"</span></pre>
+          </div>
+          <div class="callout callout-warning">
+            <span class="callout-icon">⚠️</span>
+            <span><strong>Reserved Keywords.</strong> These words are reserved by Python and cannot be used as variable names: <code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>, <code>def</code>, <code>class</code>, <code>return</code>, <code>True</code>, <code>False</code>, <code>None</code>, <code>import</code>, <code>and</code>, <code>or</code>, <code>not</code>. Python uses these words for its own grammar.</span>
+          </div>
+        </div>
+
+        <!-- Why can't variable names start with a number -->
+        <div class="concept-box type-why">
+          <div class="concept-type-label label-why">Why this rule exists</div>
+          <h3>🤔 Why Can't Variable Names Start With a Number?</h3>
+          <p>Great question. If you wrote <code>1name = "Rohan"</code>, Python would read the <code>1</code> and think you are writing a number. Then it sees <code>name</code> right after and gets confused because a number cannot be followed by letters without an operator between them.</p>
+          <p>Basically Python's brain (the parser) reads numbers and names using different rules. Mixing them at the start creates an ambiguity Python cannot resolve. So the rule is simple: start with a letter or underscore, never a digit.</p>
+        </div>
+
+        <!-- input() -->
+        <div class="concept-box type-syntax">
+          <div class="concept-type-label label-syntax">Syntax</div>
+          <h3>⌨️ The input() Function</h3>
+          <p>So far we have been printing things. Now let's make Python listen. The <code>input()</code> function pauses your program, waits for the user to type something and press Enter, then gives you whatever they typed.</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div>
+              <span class="code-lang">python</span>
+              <button class="code-copy">Copy</button>
+            </div>
+            <pre><span class="var">name</span> = <span class="fn">input</span>(<span class="str">"Enter your name: "</span>)
+<span class="fn">print</span>(<span class="str">"Hello,"</span>, <span class="var">name</span>)
+
+<span class="cm"># Always convert to number if you need math</span>
+<span class="var">age</span>  = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Enter your age: "</span>))
+<span class="var">cgpa</span>       = <span class="fn">float</span>(<span class="fn">input</span>(<span class="str">"Enter your CGPA: "</span>))</pre>
+          </div>
+        </div>
+
+        <!-- input() analogy -->
+        <div class="concept-box type-analogy">
+          <div class="concept-type-label label-analogy">Think of it this way</div>
+          <h3>📞 Why input() Always Returns a String</h3>
+          <p>Here is the trick that confuses almost every beginner. <code>input()</code> <strong>always gives you a string</strong>, no matter what the user types. Even if they type 25, Python gives you "25" (with invisible quote marks around it), not the number 25.</p>
+          <p>Think of it like a phone call. When someone speaks to you over the phone, everything arrives as sound waves. Whether they said a number, a name, or a poem, it all arrives the same way. You have to interpret it yourself. Similarly, <code>input()</code> brings everything in as text. You have to convert it to a number if that is what you need.</p>
+          <p>That is why we write <code>int(input(...))</code>. The <code>int()</code> is you "interpreting" the text as a number.</p>
+        </div>
+
+        <!-- Type conversion -->
+        <div class="concept-box type-syntax">
+          <div class="concept-type-label label-syntax">Syntax</div>
+          <h3>🔁 Type Conversion</h3>
+          <p>Python lets you convert one data type into another. This is called <strong>type conversion</strong> or <strong>type casting</strong>. You will use this constantly, especially right after <code>input()</code>.</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div>
+              <span class="code-lang">python</span>
+              <button class="code-copy">Copy</button>
+            </div>
+            <pre><span class="cm"># str to int</span>
+<span class="var">age</span> = <span class="fn">int</span>(<span class="str">"24"</span>)         <span class="cm"># 24</span>
+
+<span class="cm"># str to float</span>
+<span class="var">cgpa</span>       = <span class="fn">float</span>(<span class="str">"10.0"</span>)   <span class="cm"># 10.0</span>
+
+<span class="cm"># int to str</span>
+<span class="var">code</span> = <span class="fn">str</span>(<span class="num">2001</span>)        <span class="cm"># "2001"</span>
+
+<span class="cm"># float to int (drops decimal, does NOT round)</span>
+<span class="var">marks</span> = <span class="fn">int</span>(<span class="num">95.9</span>)       <span class="cm"># 95, not 96</span>
+
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">age</span>))        <span class="cm"># &lt;class 'int'&gt;</span></pre>
+          </div>
+          <div class="callout callout-warning">
+            <span class="callout-icon">⚠️</span>
+            <span><strong>ValueError alert.</strong> If the user types "twenty" when you do <code>int(input(...))</code>, Python throws a <code>ValueError</code> because "twenty" cannot be converted to a number. You will learn how to handle this gracefully in the Exception Handling topic.</span>
+          </div>
+        </div>
+
+        <!-- f-strings -->
+        <div class="concept-box type-syntax">
+          <div class="concept-type-label label-syntax">Syntax</div>
+          <h3>🔤 f-Strings (Formatted Strings)</h3>
+          <p>f-strings are the modern, clean way to embed variables directly inside a string. Prefix the string with <code>f</code> and put variable names inside curly braces. Python replaces <code>{variable}</code> with the actual value when it runs.</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div>
+              <span class="code-lang">python</span>
+              <button class="code-copy">Copy</button>
+            </div>
+            <pre><span class="var">name</span>    = <span class="str">"Rohan Patil"</span>
+<span class="var">college</span> = <span class="str">"B. N. Bandodkar College of Science"</span>
+<span class="var">cgpa</span>    = <span class="num">10.0</span>
+
+<span class="fn">print</span>(<span class="str">f"Name   : </span><span class="var">{name}</span><span class="str">"</span>)
+<span class="fn">print</span>(<span class="str">f"College: </span><span class="var">{college}</span><span class="str">"</span>)
+<span class="fn">print</span>(<span class="str">f"CGPA   : </span><span class="var">{cgpa}</span><span class="str">"</span>)
+
+<span class="cm"># Expression inside f-string</span>
+<span class="fn">print</span>(<span class="str">f"10 + 5 = </span><span class="var">{10 + 5}</span><span class="str">"</span>)
+
+<span class="cm"># Formatting decimal places</span>
+<span class="fn">print</span>(<span class="str">f"Pi is approximately </span><span class="var">{22/7:.4f}</span><span class="str">"</span>)</pre>
+          </div>
+          <div class="callout callout-tip">
+            <span class="callout-icon">💡</span>
+            <span>f-strings were introduced in Python 3.6. They are faster and more readable than older methods like <code>%</code> formatting or <code>.format()</code>. Always use f-strings for new code.</span>
+          </div>
+        </div>
+
+        <!-- type() and id() -->
+        <div class="concept-box type-syntax">
+          <div class="concept-type-label label-syntax">Syntax</div>
+          <h3>🔍 type() and id() Functions</h3>
+          <p><code>type()</code> tells you what kind of data a variable holds. <code>id()</code> tells you the memory address where Python stored the value.</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div>
+              <span class="code-lang">python</span>
+              <button class="code-copy">Copy</button>
+            </div>
+            <pre><span class="var">age</span>  = <span class="num">24</span>
+<span class="var">name</span> = <span class="str">"Rohan"</span>
+<span class="var">cgpa</span> = <span class="num">10.0</span>
+
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">age</span>))   <span class="cm"># &lt;class 'int'&gt;</span>
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">name</span>))  <span class="cm"># &lt;class 'str'&gt;</span>
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="var">cgpa</span>))  <span class="cm"># &lt;class 'float'&gt;</span>
+
+<span class="fn">print</span>(<span class="fn">id</span>(<span class="var">age</span>))     <span class="cm"># something like 140234567</span>
+<span class="fn">print</span>(<span class="fn">id</span>(<span class="var">name</span>))    <span class="cm"># a different memory address</span></pre>
+          </div>
+          <div class="callout callout-tip">
+            <span class="callout-icon">💡</span>
+            <span><strong>When is id() actually useful?</strong> Imagine two variables seem equal. <code>id()</code> tells you if they are pointing to the exact same object in memory or two different objects with the same value. This becomes important when you start working with lists and mutable objects.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ══════════════════════════════════════
+           TAB 2:EXAMPLES
+      ══════════════════════════════════════ -->
+      <div class="tab-panel" id="tab-examples">
+
+        <!-- Example 0: First complete program -->
+        <div class="concept-box type-definition">
+          <div class="example-header">
+            <div class="example-title">Example 0:Your First Complete Program</div>
+            <span class="badge badge-green">Start Here</span>
+          </div>
+          <p style="font-size:14px;color:var(--text2);margin-bottom:12px">Let's walk through a complete program line by line. Read the explanation below each block before moving to the next example.</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div>
+              <span class="code-lang">python</span>
+              <button class="code-copy">Copy</button>
+            </div>
+            <pre><span class="cm"># My first Python program</span>
+<span class="var">name</span> = <span class="fn">input</span>(<span class="str">"What is your name? "</span>)
+<span class="var">age</span>  = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"How old are you? "</span>))
+<span class="var">year</span> = <span class="num">2025</span> - <span class="var">age</span>
+<span class="fn">print</span>(<span class="str">f"Hello {name}! You were born around {year}."</span>)</pre>
+          </div>
+          <div class="line-explain">
+            <div class="line-explain-item">
+              <div class="line-code"># My first Python program</div>
+              <div class="line-text">This is a comment. Python ignores it completely. It is just a note for the reader.</div>
+            </div>
+            <div class="line-explain-item">
+              <div class="line-code">name = input(...)</div>
+              <div class="line-text">Python pauses, shows the message "What is your name?", waits for the user to type, then stores whatever they typed in a variable called <code>name</code>.</div>
+            </div>
+            <div class="line-explain-item">
+              <div class="line-code">age = int(input(...))</div>
+              <div class="line-text">Same idea, but we wrap <code>input()</code> with <code>int()</code> because we need the age as a number, not text. Without <code>int()</code>, we could not do math with it.</div>
+            </div>
+            <div class="line-explain-item">
+              <div class="line-code">year = 2025 - age</div>
+              <div class="line-text">We calculate an approximate birth year by subtracting the age from 2025. The result is stored in a new variable called <code>year</code>.</div>
+            </div>
+            <div class="line-explain-item">
+              <div class="line-code">print(f"Hello {name}! ...")</div>
+              <div class="line-text">We display a friendly message using an f-string. Python replaces <code>{name}</code> and <code>{year}</code> with the actual values at runtime.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Example 1 -->
+        <div class="concept-box type-definition">
+          <div class="example-header">
+            <div class="example-title">Example 1:Hello World</div>
+            <span class="badge badge-green">Basic</span>
+          </div>
+          <p style="font-size:14px;color:var(--text2);margin-bottom:10px">The traditional first program. Every programmer in the world has written this.</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div>
+              <span class="code-lang">python</span>
+              <button class="code-copy">Copy</button>
+            </div>
+            <pre><span class="fn">print</span>(<span class="str">"Hello, World!"</span>)
+<span class="fn">print</span>(<span class="str">"Hello from PyNotes!"</span>)</pre>
+          </div>
+          <div class="callout callout-success">
+            <span class="callout-icon">📤</span>
+            <span><strong>Output:</strong><br>Hello, World!<br>Hello from PyNotes!</span>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div class="concept-box type-definition">
+          <div class="example-header">
+            <div class="example-title">Example 2:Student Information Card</div>
+            <span class="badge badge-green">Basic</span>
+          </div>
+          <p style="font-size:14px;color:var(--text2);margin-bottom:10px">Store and display student details using variables and f-strings.</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div>
+              <span class="code-lang">python</span>
+              <button class="code-copy">Copy</button>
+            </div>
+            <pre><span class="var">name</span>    = <span class="str">"Rohan Patil"</span>
+<span class="var">college</span> = <span class="str">"B. N. Bandodkar College of Science"</span>
+<span class="var">course</span>  = <span class="str">"M.Sc. Data Science"</span>
+<span class="var">cgpa</span>    = <span class="num">10.0</span>
+<span class="var">hobbies</span> = <span class="str">"Chess, Travelling"</span>
+
+<span class="fn">print</span>(<span class="str">"===== Student Card ====="</span>)
+<span class="fn">print</span>(<span class="str">f"Name   : </span><span class="var">{name}</span><span class="str">"</span>)
+<span class="fn">print</span>(<span class="str">f"College: </span><span class="var">{college}</span><span class="str">"</span>)
+<span class="fn">print</span>(<span class="str">f"Course : </span><span class="var">{course}</span><span class="str">"</span>)
+<span class="fn">print</span>(<span class="str">f"CGPA   : </span><span class="var">{cgpa}</span><span class="str">"</span>)
+<span class="fn">print</span>(<span class="str">f"Hobbies: </span><span class="var">{hobbies}</span><span class="str">"</span>)
+<span class="fn">print</span>(<span class="str">"========================"</span>)</pre>
+          </div>
+        </div>
+
+        <!-- Example 3 -->
+        <div class="concept-box type-definition">
+          <div class="example-header">
+            <div class="example-title">Example 3:Simple Calculator</div>
+            <span class="badge badge-amber">Intermediate</span>
+          </div>
+          <p style="font-size:14px;color:var(--text2);margin-bottom:10px">Take two numbers from the user and display all basic operations.</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div>
+              <span class="code-lang">python</span>
+              <button class="code-copy">Copy</button>
+            </div>
+            <pre><span class="var">a</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="str">"Enter first number: "</span>))
+<span class="var">b</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="str">"Enter second number: "</span>))
+
+<span class="fn">print</span>(<span class="str">f"\nResults for </span><span class="var">{a}</span><span class="str"> and </span><span class="var">{b}</span><span class="str">:"</span>)
+<span class="fn">print</span>(<span class="str">f"Addition       : </span><span class="var">{a + b}</span><span class="str">"</span>)
+<span class="fn">print</span>(<span class="str">f"Subtraction    : </span><span class="var">{a - b}</span><span class="str">"</span>)
+<span class="fn">print</span>(<span class="str">f"Multiplication : </span><span class="var">{a * b}</span><span class="str">"</span>)
+<span class="fn">print</span>(<span class="str">f"Division       : </span><span class="var">{a / b:.2f}</span><span class="str">"</span>)</pre>
+          </div>
+        </div>
+
+        <!-- Example 4 -->
+        <div class="concept-box type-definition">
+          <div class="example-header">
+            <div class="example-title">Example 4:UPI-style Receipt Generator</div>
+            <span class="badge badge-red">Advanced</span>
+          </div>
+          <p style="font-size:14px;color:var(--text2);margin-bottom:10px">Use variables, input, type conversion, escape characters and f-strings to simulate a payment receipt like UPI apps show after a transaction.</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div>
+              <span class="code-lang">python</span>
+              <button class="code-copy">Copy</button>
+            </div>
+            <pre><span class="var">sender</span>   = <span class="fn">input</span>(<span class="str">"Your name: "</span>)
+<span class="var">receiver</span> = <span class="fn">input</span>(<span class="str">"Receiver name: "</span>)
+<span class="var">amount</span>   = <span class="fn">float</span>(<span class="fn">input</span>(<span class="str">"Amount (Rs): "</span>))
+<span class="var">upi_id</span>   = <span class="fn">input</span>(<span class="str">"Receiver UPI ID: "</span>)
+
+<span class="fn">print</span>(<span class="str">"\n====== Payment Receipt ======"</span>)
+<span class="fn">print</span>(<span class="str">f"From\t: </span><span class="var">{sender}</span><span class="str">"</span>)
+<span class="fn">print</span>(<span class="str">f"To\t: </span><span class="var">{receiver}</span><span class="str"> (</span><span class="var">{upi_id}</span><span class="str">)"</span>)
+<span class="fn">print</span>(<span class="str">f"Amount\t: Rs. </span><span class="var">{amount:.2f}</span><span class="str">"</span>)
+<span class="fn">print</span>(<span class="str">f"Status\t: Payment Successful"</span>)
+<span class="fn">print</span>(<span class="str">"============================="</span>)</pre>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ══════════════════════════════════════
+           TAB 3:PRACTICE
+      ══════════════════════════════════════ -->
+      <div class="tab-panel" id="tab-practice">
+
+        <div class="practice-section-header">
+          <div class="callout callout-tip" style="margin-bottom:0;flex:1">
+            <span class="callout-icon">✏️</span>
+            <span>Try each task on your own first. Only check the hint if you are truly stuck.</span>
+          </div>
+          <div class="practice-progress-wrap">
+            <span class="practice-progress-label" id="pb-basics-label">0 / 9 done</span>
+            <div class="practice-progress-bar"><div class="practice-progress-fill" id="pb-basics-fill" style="width:0%"></div></div>
+          </div>
+        </div>
+
+        <div class="practice-card diff-easy" data-practice-id="pb-basics-1">
+          <div class="practice-card-header">
+            <div class="practice-card-left">
+              <div class="practice-num">1</div>
+              <div class="practice-title">Print Your Biodata</div>
+            </div>
+            <span class="badge badge-green">Easy</span>
+          </div>
+          <div class="practice-body">Write a program that prints your name, age, city, and favourite subject in a neat formatted card with borders made of dashes or equals signs.</div>
+          <div class="practice-footer">
+            <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+            <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+          </div>
+          <div class="practice-hint">Create variables for each detail and print them using f-strings. Try using <code>print("=" * 25)</code> for the border.</div>
+        </div>
+
+        <div class="practice-card diff-easy" data-practice-id="pb-basics-2">
+          <div class="practice-card-header">
+            <div class="practice-card-left">
+              <div class="practice-num">2</div>
+              <div class="practice-title">Swap Two Variables</div>
+            </div>
+            <span class="badge badge-green">Easy</span>
+          </div>
+          <div class="practice-body">Create two variables <code>a = 10</code> and <code>b = 20</code>. Swap their values and print both before and after swapping.</div>
+          <div class="practice-footer">
+            <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+            <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+          </div>
+          <div class="practice-hint">Python has a clean trick for this: <code>a, b = b, a</code>. This is called tuple unpacking and it swaps in one line.</div>
+        </div>
+
+        <div class="practice-card diff-easy" data-practice-id="pb-basics-3">
+          <div class="practice-card-header">
+            <div class="practice-card-left">
+              <div class="practice-num">3</div>
+              <div class="practice-title">Area of a Rectangle</div>
+            </div>
+            <span class="badge badge-green">Easy</span>
+          </div>
+          <div class="practice-body">Take length and breadth as input from the user and print the area and perimeter of the rectangle.</div>
+          <div class="practice-footer">
+            <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+            <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+          </div>
+          <div class="practice-hint">Area = length x breadth. Perimeter = 2 x (length + breadth). Remember to convert input to float!</div>
+        </div>
+
+        <div class="practice-card diff-medium" data-practice-id="pb-basics-4">
+          <div class="practice-card-header">
+            <div class="practice-card-left">
+              <div class="practice-num">4</div>
+              <div class="practice-title">Temperature Converter</div>
+            </div>
+            <span class="badge badge-amber">Medium</span>
+          </div>
+          <div class="practice-body">Take a temperature in Celsius as input and convert it to Fahrenheit and Kelvin. Display all three values neatly.</div>
+          <div class="practice-footer">
+            <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+            <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+          </div>
+          <div class="practice-hint">F = (C x 9/5) + 32. K = C + 273.15. Use f-strings with 2 decimal places: <code>{value:.2f}</code>.</div>
+        </div>
+
+        <div class="practice-card diff-medium" data-practice-id="pb-basics-5">
+          <div class="practice-card-header">
+            <div class="practice-card-left">
+              <div class="practice-num">5</div>
+              <div class="practice-title">Mumbai to Pune Trip Calculator</div>
+            </div>
+            <span class="badge badge-amber">Medium</span>
+          </div>
+          <div class="practice-body">The distance from Mumbai to Pune is 148 km. Ask the user for their average speed in km/h and calculate: time taken for the trip, and what speed they need to reach in 1.5 hours.</div>
+          <div class="practice-footer">
+            <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+            <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+          </div>
+          <div class="practice-hint">Time = Distance / Speed. Required speed = Distance / 1.5. Use <code>:.2f</code> for 2 decimal places.</div>
+        </div>
+
+        <div class="practice-card diff-medium" data-practice-id="pb-basics-6">
+          <div class="practice-card-header">
+            <div class="practice-card-left">
+              <div class="practice-num">6</div>
+              <div class="practice-title">GST Bill Generator</div>
+            </div>
+            <span class="badge badge-amber">Medium</span>
+          </div>
+          <div class="practice-body">Take an item name, base price, and GST percentage as input. Print a formatted bill showing item name, base price, GST amount, and final price with the rupee symbol.</div>
+          <div class="practice-footer">
+            <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+            <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+          </div>
+          <div class="practice-hint">GST Amount = (price x gst_percent) / 100. Final = price + GST Amount. Use <code>\t</code> to align columns.</div>
+        </div>
+
+        <div class="practice-card diff-hard" data-practice-id="pb-basics-7">
+          <div class="practice-card-header">
+            <div class="practice-card-left">
+              <div class="practice-num">7</div>
+              <div class="practice-title">Print a Diamond Pattern</div>
+            </div>
+            <span class="badge badge-red">Hard</span>
+          </div>
+          <div class="practice-body">Without using loops, use only print statements and string multiplication to print a diamond shape made of stars. The widest row should have 5 stars.</div>
+          <div class="practice-footer">
+            <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+            <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+          </div>
+          <div class="practice-hint">String multiplication: <code>"*" * 3</code> gives <code>***</code>. Use spaces before the stars to center them. Think row by row: 1 star, 3 stars, 5 stars, 3 stars, 1 star.</div>
+        </div>
+
+        <div class="practice-card diff-hard" data-practice-id="pb-basics-8">
+          <div class="practice-card-header">
+            <div class="practice-card-left">
+              <div class="practice-num">8</div>
+              <div class="practice-title">EMI Calculator</div>
+            </div>
+            <span class="badge badge-red">Hard</span>
+          </div>
+          <div class="practice-body">Take loan amount, annual interest rate, and number of months as input. Calculate the monthly EMI and total repayment amount. This is exactly how banks calculate your phone or bike EMI.</div>
+          <div class="practice-footer">
+            <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+            <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+          </div>
+          <div class="practice-hint">r = annual_rate / 12 / 100. EMI = P x r x (1+r)^n / ((1+r)^n - 1). Use <code>**</code> for power in Python.</div>
+        </div>
+
+        <div class="practice-card diff-challenge" data-practice-id="pb-basics-9">
+          <div class="practice-card-header">
+            <div class="practice-card-left">
+              <div class="practice-num">★</div>
+              <div class="practice-title">Monthly Budget Report</div>
+            </div>
+            <span class="badge badge-accent">Challenge</span>
+          </div>
+          <div class="practice-body">Take monthly income, rent, food, transport, and savings target as input. Print a complete budget report showing all expenses, total spent, remaining balance, and whether the savings goal is achievable. Format it like a real financial report.</div>
+          <div class="practice-footer">
+            <button class="hint-toggle" onclick="toggleHint(this)">Show Hint</button>
+            <button class="practice-done-btn" onclick="markPracticeDone(this)"><span class="done-icon">✓</span> Mark Done</button>
+          </div>
+          <div class="practice-hint">Total expenses = rent + food + transport. Remaining = income - total. Compare remaining with savings target to print a message. Use <code>=</code> or <code>-</code> borders for formatting.</div>
+        </div>
+
+        <script>
+        (function(){
+          var prefix = 'pb-basics-';
+          var cards = document.querySelectorAll('[data-practice-id^="' + prefix + '"]');
+          var total = cards.length;
+          function updateProgress(){
+            var done = document.querySelectorAll('[data-practice-id^="' + prefix + '"].done').length;
+            document.getElementById('pb-basics-label').textContent = done + ' / ' + total + ' done';
+            document.getElementById('pb-basics-fill').style.width = Math.round(done/total*100) + '%';
+          }
+          cards.forEach(function(c){
+            if(localStorage.getItem(c.dataset.practiceId)==='done') c.classList.add('done');
+          });
+          updateProgress();
+          document.addEventListener('practiceDoneChanged', updateProgress);
+        })();
+        </script>
+
+      </div>
+
+      <!-- ══════════════════════════════════════
+           TAB 4:MCQs
+      ══════════════════════════════════════ -->
+      <div class="tab-panel" id="tab-mcq">
+
+        <div class="callout callout-tip" style="margin-bottom:20px">
+          <span class="callout-icon">📝</span>
+          <span>Select your answer for all 8 questions first, then click Submit. Results will be revealed together.</span>
+        </div>
+
+        <div class="mcq-wrap mcq-question"
+             data-difficulty="easy"
+             data-concept="print-function"
+             data-explanation="print() is Python's built-in output function. echo() is PHP, display() and write() are not standard Python output functions.">
+          <div class="mcq-num">Question 1 of 8</div>
+          <div class="mcq-q">Which function is used to display output on the screen in Python?</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>echo()</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">B</span>display()</div>
+          <div class="mcq-option" data-correct="true"><span class="mcq-label">C</span>print()</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>write()</div>
+        </div>
+
+        <div class="mcq-wrap mcq-question"
+             data-difficulty="easy"
+             data-concept="print-function"
+             data-explanation="The sep= parameter controls what goes between multiple values. The default is a space, so sep='-' replaces it with a hyphen, giving Hello-World.">
+          <div class="mcq-num">Question 2 of 8</div>
+          <div class="mcq-q">What is the output of the following code?</div>
+          <pre class="mcq-code"><span class="fn">print</span>(<span class="str">"Hello"</span>, <span class="str">"World"</span>, <span class="var">sep</span>=<span class="str">"-"</span>)</pre>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>Hello World</div>
+          <div class="mcq-option" data-correct="true"><span class="mcq-label">B</span>Hello-World</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>Hello, World</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>HelloWorld</div>
+        </div>
+
+        <div class="mcq-wrap mcq-question"
+             data-difficulty="easy"
+             data-concept="variables"
+             data-explanation="Variable names can only contain letters, numbers, and underscores. They cannot start with a number, contain spaces, or use hyphens. my_name follows snake_case convention and is valid.">
+          <div class="mcq-num">Question 3 of 8</div>
+          <div class="mcq-q">Which of the following is a valid variable name in Python?</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>2name</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">B</span>my-name</div>
+          <div class="mcq-option" data-correct="true"><span class="mcq-label">C</span>my_name</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>my name</div>
+        </div>
+
+        <div class="mcq-wrap mcq-question"
+             data-difficulty="easy"
+             data-concept="input-function"
+             data-explanation="input() always returns a string regardless of what is typed. Even if the user types 25, Python gives you the string '25'. You must explicitly wrap it with int() or float() to use it as a number.">
+          <div class="mcq-num">Question 4 of 8</div>
+          <div class="mcq-q">What does the <code style="font-family:var(--font-mono);color:var(--accent)">input()</code> function always return, regardless of what the user types?</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>int</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">B</span>float</div>
+          <div class="mcq-option" data-correct="true"><span class="mcq-label">C</span>str</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>It depends on what the user types</div>
+        </div>
+
+        <div class="mcq-wrap mcq-question"
+             data-difficulty="easy"
+             data-concept="type-checking"
+             data-explanation="3.14 is a decimal number so Python stores it as a float. The type name in Python uses angle brackets and the word class: &lt;class 'float'&gt;. There is no built-in type called 'number'.">
+          <div class="mcq-num">Question 5 of 8</div>
+          <div class="mcq-q">What is the output of: <code style="font-family:var(--font-mono);color:var(--accent)">print(type(3.14))</code></div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>&lt;class 'int'&gt;</div>
+          <div class="mcq-option" data-correct="true"><span class="mcq-label">B</span>&lt;class 'float'&gt;</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>&lt;class 'str'&gt;</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>&lt;class 'number'&gt;</div>
+        </div>
+
+        <div class="mcq-wrap mcq-question"
+             data-difficulty="easy"
+             data-concept="escape-characters"
+             data-explanation="\n stands for newline and moves the cursor to the next line. \t is a tab, \\ is a literal backslash, and \r is a carriage return (rarely used in modern code).">
+          <div class="mcq-num">Question 6 of 8</div>
+          <div class="mcq-q">Which escape character is used to move to a new line inside a string?</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>\t</div>
+          <div class="mcq-option" data-correct="true"><span class="mcq-label">B</span>\n</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>\\</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>\r</div>
+        </div>
+
+        <div class="mcq-wrap mcq-question"
+             data-difficulty="easy"
+             data-concept="f-strings"
+             data-explanation="f-strings use curly braces {} to embed variables or expressions. The f prefix before the quote activates this feature. Without the f prefix, {score} is treated as plain text, not a variable.">
+          <div class="mcq-num">Question 7 of 8</div>
+          <div class="mcq-q">What is the correct f-string syntax to print the value of a variable called <code style="font-family:var(--font-mono);color:var(--accent)">score</code>?</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>f"Score is $score"</div>
+          <div class="mcq-option" data-correct="true"><span class="mcq-label">B</span>f"Score is {score}"</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">C</span>f"Score is %score"</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>"Score is {score}"</div>
+        </div>
+
+        <div class="mcq-wrap mcq-question"
+             data-difficulty="medium"
+             data-concept="type-casting"
+             data-explanation="ValueError is raised when the type is correct (str) but the value cannot be converted to int. TypeError would occur if the type itself was wrong. NameError is for undefined variable names, SyntaxError is for invalid code syntax.">
+          <div class="mcq-num">Question 8 of 8</div>
+          <div class="mcq-q">What error does Python throw if you try to convert the string "twenty" to an integer using <code style="font-family:var(--font-mono);color:var(--accent)">int("twenty")</code>?</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">A</span>TypeError</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">B</span>SyntaxError</div>
+          <div class="mcq-option" data-correct="true"><span class="mcq-label">C</span>ValueError</div>
+          <div class="mcq-option" data-correct="false"><span class="mcq-label">D</span>NameError</div>
+        </div>
+
+        <div class="mcq-submit-row">
+          <div id="mcqWarning" class="mcq-warning"></div>
+          <button class="btn btn-primary" id="mcqSubmitBtn">Submit Answers</button>
+        </div>
+        <div id="mcqResultDashboard" class="mcq-result-dashboard" style="display:none"></div>
+
+      </div>
+
+      <!-- TAB 5: GUESS THE OUTPUT -->
+      <div class="tab-panel">
+        <div class="callout callout-tip" style="margin-bottom:18px">
+          <span class="callout-icon">🎯</span>
+          <span>Read each snippet, guess what Python will print, then click Reveal Answer. No peeking!</span>
+        </div>
+
+        <div class="gto-card">
+          <div class="gto-header">
+            <div class="gto-title">Snippet 1 <span class="badge badge-green" style="margin-left:8px">print basics</span></div>
+            <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+          </div>
+          <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">print</span>(<span class="str">"Hello"</span>, <span class="str">"Rohan"</span>)
+<span class="fn">print</span>(<span class="str">"Score:"</span>, <span class="num">100</span>)
+<span class="fn">print</span>(<span class="str">"Line1"</span>, end=<span class="str">""</span>)
+<span class="fn">print</span>(<span class="str">"Line2"</span>)</pre></div>
+          <div class="gto-answer">
+            <div class="gto-answer-label">Output</div>
+            <div class="gto-output">Hello Rohan
+Score: 100
+Line1Line2</div>
+            <div class="gto-explain">print() puts a space between items by default. The third line uses <code>end=""</code> which removes the newline at the end, so the next print continues on the same line.</div>
+          </div>
+        </div>
+
+        <div class="gto-card">
+          <div class="gto-header">
+            <div class="gto-title">Snippet 2 <span class="badge badge-green" style="margin-left:8px">variables</span></div>
+            <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+          </div>
+          <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">x</span> = <span class="num">10</span>
+<span class="var">y</span> = <span class="var">x</span>
+<span class="var">x</span> = <span class="num">20</span>
+<span class="fn">print</span>(<span class="var">x</span>, <span class="var">y</span>)</pre></div>
+          <div class="gto-answer">
+            <div class="gto-answer-label">Output</div>
+            <div class="gto-output">20 10</div>
+            <div class="gto-explain"><code>y = x</code> copies the value 10 into y. After that, changing x to 20 has no effect on y. Numbers in Python are immutable, so y still holds 10.</div>
+          </div>
+        </div>
+
+        <div class="gto-card">
+          <div class="gto-header">
+            <div class="gto-title">Snippet 3 <span class="badge badge-green" style="margin-left:8px">multiple assignment</span></div>
+            <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+          </div>
+          <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">a</span>, <span class="var">b</span> = <span class="num">5</span>, <span class="num">3</span>
+<span class="var">a</span>, <span class="var">b</span> = <span class="var">b</span>, <span class="var">a</span>
+<span class="fn">print</span>(<span class="var">a</span>, <span class="var">b</span>)</pre></div>
+          <div class="gto-answer">
+            <div class="gto-answer-label">Output</div>
+            <div class="gto-output">3 5</div>
+            <div class="gto-explain">Python evaluates the right side first (<code>b, a</code> = 3, 5), then assigns both. This is the classic Pythonic swap: no temp variable needed.</div>
+          </div>
+        </div>
+
+        <div class="gto-card">
+          <div class="gto-header">
+            <div class="gto-title">Snippet 4 <span class="badge badge-amber" style="margin-left:8px">type()</span></div>
+            <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+          </div>
+          <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">print</span>(<span class="fn">type</span>(<span class="num">5</span>))
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="num">5.0</span>))
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="str">"5"</span>))
+<span class="fn">print</span>(<span class="fn">type</span>(<span class="kw">True</span>))</pre></div>
+          <div class="gto-answer">
+            <div class="gto-answer-label">Output</div>
+            <div class="gto-output">&lt;class 'int'&gt;
+&lt;class 'float'&gt;
+&lt;class 'str'&gt;
+&lt;class 'bool'&gt;</div>
+            <div class="gto-explain">type() returns the class of the object. 5 and 5.0 look similar but are different types: int vs float. "5" in quotes is a string. True is a bool.</div>
+          </div>
+        </div>
+
+        <div class="gto-card">
+          <div class="gto-header">
+            <div class="gto-title">Snippet 5 <span class="badge badge-amber" style="margin-left:8px">string + number</span></div>
+            <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+          </div>
+          <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">name</span> = <span class="str">"Rohan"</span>
+<span class="var">score</span> = <span class="num">100</span>
+<span class="fn">print</span>(<span class="str">"Name: "</span> + <span class="var">name</span>)
+<span class="fn">print</span>(<span class="str">"Score: "</span> + <span class="var">score</span>)</pre></div>
+          <div class="gto-answer">
+            <div class="gto-answer-label">Output</div>
+            <div class="gto-output">Name: Rohan
+TypeError: can only concatenate str (not "int") to str</div>
+            <div class="gto-explain">The first print works fine. But you cannot use + to join a string and an integer. Python doesn't auto-convert. Fix: use <code>str(score)</code> or use a comma in print instead of +.</div>
+          </div>
+        </div>
+
+        <div class="gto-card">
+          <div class="gto-header">
+            <div class="gto-title">Snippet 6 <span class="badge badge-amber" style="margin-left:8px">f-strings</span></div>
+            <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+          </div>
+          <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">cgpa</span> = <span class="num">10.0</span>
+<span class="fn">print</span>(<span class="str">f"CGPA: <span class="kw">{cgpa}</span>"</span>)
+<span class="fn">print</span>(<span class="str">f"Double: <span class="kw">{cgpa * 2}</span>"</span>)
+<span class="fn">print</span>(<span class="str">f"Type: <span class="kw">{type(cgpa).__name__}</span>"</span>)</pre></div>
+          <div class="gto-answer">
+            <div class="gto-answer-label">Output</div>
+            <div class="gto-output">CGPA: 10.0
+Double: 20.0
+Type: float</div>
+            <div class="gto-explain">f-strings evaluate the expression inside <code>{}</code> at runtime. You can put any valid Python expression inside: arithmetic, function calls, attribute access, whatever you need.</div>
+          </div>
+        </div>
+
+        <div class="gto-card">
+          <div class="gto-header">
+            <div class="gto-title">Snippet 7 <span class="badge badge-red" style="margin-left:8px">scope tricky</span></div>
+            <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+          </div>
+          <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">x</span> = <span class="str">"global"</span>
+<span class="kw">def</span> <span class="fn">show</span>():
+    <span class="fn">print</span>(<span class="var">x</span>)
+<span class="fn">show</span>()
+<span class="var">x</span> = <span class="str">"changed"</span>
+<span class="fn">show</span>()</pre></div>
+          <div class="gto-answer">
+            <div class="gto-answer-label">Output</div>
+            <div class="gto-output">global
+changed</div>
+            <div class="gto-explain">The function reads x at the time it's called, not when it was defined. So the first call prints "global" and the second call prints "changed" because x was updated in between.</div>
+          </div>
+        </div>
+
+        <div class="gto-card">
+          <div class="gto-header">
+            <div class="gto-title">Snippet 8 <span class="badge badge-red" style="margin-left:8px">chained comparison</span></div>
+            <button class="gto-reveal-btn" onclick="this.closest('.gto-card').querySelector('.gto-answer').classList.toggle('visible');this.textContent=this.closest('.gto-card').querySelector('.gto-answer').classList.contains('visible')?'Hide Answer':'Reveal Answer'">Reveal Answer</button>
+          </div>
+          <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">x</span> = <span class="num">5</span>
+<span class="fn">print</span>(<span class="num">1</span> &lt; <span class="var">x</span> &lt; <span class="num">10</span>)
+<span class="fn">print</span>(<span class="num">1</span> &lt; <span class="var">x</span> &lt; <span class="num">4</span>)
+<span class="fn">print</span>(<span class="num">10</span> &gt; <span class="var">x</span> &gt; <span class="num">1</span>)</pre></div>
+          <div class="gto-answer">
+            <div class="gto-answer-label">Output</div>
+            <div class="gto-output">True
+False
+True</div>
+            <div class="gto-explain">Python supports chained comparisons natively. <code>1 &lt; x &lt; 10</code> means "is x between 1 and 10?" It checks both conditions and ANDs them together. Very useful, very Pythonic.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ══════════════════════════════════════
+           TAB 6:INTERVIEW
+      ══════════════════════════════════════ -->
+      <div class="tab-panel" id="tab-interview">
+
+        <div class="callout callout-tip" style="margin-bottom:18px">
+          <span class="callout-icon">💡</span>
+          <span>Click any question to reveal the answer. Try to answer in your head first before expanding.</span>
+        </div>
+
+        <div class="section-heading">Beginner Level</div>
+
+        <!-- Q1 -->
+        <div class="interview-accordion">
+          <div class="interview-acc-header">
+            <span class="interview-acc-q">Q1. What is Python? Name some of its key features.</span>
+            <span class="badge badge-green">Beginner</span>
+            <span class="interview-acc-arrow">›</span>
+          </div>
+          <div class="interview-acc-body">
+            <div class="interview-acc-answer">
+              <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Python is a high-level, interpreted, general-purpose programming language known for its simple, readable syntax and massive ecosystem.</div>
+              <div class="ia-body">
+                <p>Created by Guido van Rossum and released in 1991, Python is today one of the most popular languages in the world. The key features interviewers love to hear:</p>
+                <ul>
+                  <li><strong>Easy syntax</strong>: reads almost like plain English, minimal boilerplate</li>
+                  <li><strong>Dynamically typed</strong>: no need to declare variable types explicitly</li>
+                  <li><strong>Interpreted</strong>: runs line by line, errors appear immediately</li>
+                  <li><strong>Object-oriented</strong>: supports classes, inheritance, polymorphism</li>
+                  <li><strong>Large standard library</strong>: batteries included, hundreds of built-in modules</li>
+                  <li><strong>Cross-platform</strong>: same code runs on Windows, Mac, and Linux</li>
+                </ul>
+              </div>
+              <div class="ia-key">
+                <div class="ia-key-label">⚡ Say it in an interview</div>
+                Python is high-level, interpreted, and dynamically typed. Its biggest strengths are readable syntax, a huge standard library, and versatility across web, data science, AI, and automation.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="interview-accordion">
+          <div class="interview-acc-header">
+            <span class="interview-acc-q">Q2. What is the difference between print() and input() in Python?</span>
+            <span class="badge badge-green">Beginner</span>
+            <span class="interview-acc-arrow">›</span>
+          </div>
+          <div class="interview-acc-body">
+            <div class="interview-acc-answer">
+              <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div><code>print()</code> sends data out to the screen. <code>input()</code> brings data in from the user and always gives it back as a string.</div>
+              <div class="ia-body">
+                <ul>
+                  <li><code>print(value)</code>: displays output. You can pass multiple values, control separators with <code>sep=</code>, and control the line ending with <code>end=</code>.</li>
+                  <li><code>input("prompt")</code>: pauses the program, shows the prompt, waits for the user to type and press Enter, then returns what they typed as a <strong>string</strong>.</li>
+                </ul>
+                <p>The most important thing about <code>input()</code>: it <strong>always returns a string</strong>, no matter what the user types. Even if they type 42, Python gives you <code>"42"</code>. You must wrap it with <code>int()</code> or <code>float()</code> to use it as a number.</p>
+              </div>
+              <div class="ia-trap">
+                <div class="ia-trap-label">Common trap</div>
+                Forgetting to convert <code>input()</code> to a number before doing math. <code>age + 1</code> will throw a <code>TypeError</code> if <code>age</code> is still a string. Always use <code>int(input(...))</code> when you need a number.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="interview-accordion">
+          <div class="interview-acc-header">
+            <span class="interview-acc-q">Q3. Is Python case-sensitive?</span>
+            <span class="badge badge-green">Beginner</span>
+            <span class="interview-acc-arrow">›</span>
+          </div>
+          <div class="interview-acc-body">
+            <div class="interview-acc-answer">
+              <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Yes, completely. <code>name</code>, <code>Name</code>, and <code>NAME</code> are three separate variables. Python treats every character as distinct.</div>
+              <div class="ia-body">
+                <p>Case sensitivity applies everywhere in Python: variable names, function names, class names, and keywords. This means:</p>
+                <ul>
+                  <li><code>True</code> is valid. <code>true</code> raises a <code>NameError</code>.</li>
+                  <li><code>None</code> is valid. <code>none</code> raises a <code>NameError</code>.</li>
+                  <li><code>print("hi")</code> works. <code>Print("hi")</code> raises a <code>NameError</code>.</li>
+                </ul>
+                <p>This also means snake_case matters: <code>student_name</code> and <code>Student_Name</code> are completely different variables even though they look related.</p>
+              </div>
+              <div class="ia-key">
+                <div class="ia-key-label">⚡ Say it in an interview</div>
+                Yes, Python is fully case-sensitive. Keywords like <code>True</code>, <code>False</code>, and <code>None</code> must be capitalized exactly as shown. Variable names follow the same rule.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="interview-accordion">
+          <div class="interview-acc-header">
+            <span class="interview-acc-q">Q4. What are variables in Python? How are they different from other languages?</span>
+            <span class="badge badge-green">Beginner</span>
+            <span class="interview-acc-arrow">›</span>
+          </div>
+          <div class="interview-acc-body">
+            <div class="interview-acc-answer">
+              <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>A variable is a named label that points to a value in memory. In Python, you never declare the type. Python figures it out from the value you assign.</div>
+              <div class="ia-body">
+                <p>In C or Java, you must declare the type before using a variable: <code>int age = 24;</code>. In Python, you just write <code>age = 24</code> and Python infers the type automatically. This is called <strong>dynamic typing</strong>.</p>
+                <p>Another Python-specific behaviour: you can reassign a variable to a completely different type at any time:</p>
+                <ul>
+                  <li><code>x = 10</code> makes <code>x</code> an integer</li>
+                  <li><code>x = "hello"</code> now makes <code>x</code> a string. No error, no redeclaration needed.</li>
+                </ul>
+                <p>Under the hood, Python variables are just names that point to objects. When you reassign, the name now points to a different object.</p>
+              </div>
+              <div class="ia-key">
+                <div class="ia-key-label">⚡ Say it in an interview</div>
+                Python is dynamically typed. Variables are labels pointing to objects, not typed containers. The type is attached to the object, not the variable name.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-heading mt-3">Intermediate Level</div>
+
+        <!-- Q5 -->
+        <div class="interview-accordion">
+          <div class="interview-acc-header">
+            <span class="interview-acc-q">Q5. What is the difference between = and == in Python?</span>
+            <span class="badge badge-amber">Intermediate</span>
+            <span class="interview-acc-arrow">›</span>
+          </div>
+          <div class="interview-acc-body">
+            <div class="interview-acc-answer">
+              <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div><code>=</code> assigns a value to a variable. <code>==</code> compares two values and returns <code>True</code> or <code>False</code>. They do completely different things.</div>
+              <div class="ia-body">
+                <ul>
+                  <li><code>x = 5</code>: stores the value 5 in the variable <code>x</code>. This is a statement, not an expression. It does not return anything.</li>
+                  <li><code>x == 5</code>: checks whether <code>x</code> currently holds the value 5. Returns <code>True</code> or <code>False</code>. Used inside conditions.</li>
+                </ul>
+                <p>Example: <code>if x = 5:</code> causes a <code>SyntaxError</code>. You cannot use <code>=</code> inside a condition. Python requires <code>==</code> for comparison.</p>
+              </div>
+              <div class="ia-trap">
+                <div class="ia-trap-label">Common trap</div>
+                Using <code>=</code> inside an <code>if</code> condition by accident: <code>if x = 10:</code>. Python raises a SyntaxError here. In languages like C this is a silent bug, but Python prevents it entirely.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="interview-accordion">
+          <div class="interview-acc-header">
+            <span class="interview-acc-q">Q6. What are f-strings and when were they introduced?</span>
+            <span class="badge badge-amber">Intermediate</span>
+            <span class="interview-acc-arrow">›</span>
+          </div>
+          <div class="interview-acc-body">
+            <div class="interview-acc-answer">
+              <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>f-strings let you embed variables and expressions directly inside a string using <code>{}</code>. They were introduced in Python 3.6 and are now the preferred way to format strings.</div>
+              <div class="ia-body">
+                <p>Before f-strings, developers used <code>%</code> formatting (<code>"Hello %s" % name</code>) or <code>.format()</code> (<code>"Hello {}".format(name)</code>). Both are verbose and easy to mess up with multiple values.</p>
+                <p>f-strings are faster, shorter, and easier to read. You prefix the string with <code>f</code> and put any Python expression inside <code>{}</code>:</p>
+                <ul>
+                  <li><code>f"Hello {name}"</code>: embed a variable</li>
+                  <li><code>f"Result: {10 + 5}"</code>: embed an expression</li>
+                  <li><code>f"Pi: {22/7:.4f}"</code>: format decimal places</li>
+                </ul>
+              </div>
+              <div class="ia-key">
+                <div class="ia-key-label">⚡ Say it in an interview</div>
+                f-strings (formatted string literals) were introduced in Python 3.6. They are the fastest and most readable string formatting method. Always prefer them over <code>%</code> or <code>.format()</code>.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="interview-accordion">
+          <div class="interview-acc-header">
+            <span class="interview-acc-q">Q7. What is the difference between compiled and interpreted languages?</span>
+            <span class="badge badge-amber">Intermediate</span>
+            <span class="interview-acc-arrow">›</span>
+          </div>
+          <div class="interview-acc-body">
+            <div class="interview-acc-answer">
+              <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Compiled languages translate all code to machine language before running. Interpreted languages like Python execute code line by line at runtime.</div>
+              <div class="ia-body">
+                <ul>
+                  <li><strong>Compiled</strong> (C, C++, Go): the entire source code is converted to machine code by a compiler before execution. The resulting binary is fast to run but takes time to compile.</li>
+                  <li><strong>Interpreted</strong> (Python, Ruby): an interpreter reads and executes the code line by line at runtime. No compilation step needed, but generally slower for heavy computation.</li>
+                </ul>
+                <p>Python actually does compile to bytecode (<code>.pyc</code> files) internally, then the CPython interpreter runs that bytecode. It is both compiled and interpreted in a sense, but the user-facing experience is that of an interpreted language.</p>
+              </div>
+              <div class="ia-key">
+                <div class="ia-key-label">⚡ Say it in an interview</div>
+                Python is interpreted: code runs line by line. This makes debugging easier (errors appear immediately) but means Python is slower than compiled languages for CPU-heavy tasks.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-heading mt-3">Advanced Level</div>
+
+        <!-- Q8 -->
+        <div class="interview-accordion">
+          <div class="interview-acc-header">
+            <span class="interview-acc-q">Q8. What is dynamic typing? What are the trade-offs?</span>
+            <span class="badge badge-red">Advanced</span>
+            <span class="interview-acc-arrow">›</span>
+          </div>
+          <div class="interview-acc-body">
+            <div class="interview-acc-answer">
+              <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Dynamic typing means the type of a variable is determined at runtime, not declared in advance. Faster to write, but type bugs may only appear when the code actually runs.</div>
+              <div class="ia-body">
+                <p><strong>Advantages:</strong></p>
+                <ul>
+                  <li>Faster to write: <code>x = 5</code> instead of <code>int x = 5;</code></li>
+                  <li>More flexible: a variable can hold any type at any point</li>
+                  <li>Less boilerplate, easier to prototype</li>
+                </ul>
+                <p><strong>Disadvantages:</strong></p>
+                <ul>
+                  <li>Type errors surface at runtime, not at compile time. A bug in rarely-run code can go unnoticed for a long time.</li>
+                  <li>IDEs and linters have less certainty about types, making autocomplete less reliable.</li>
+                </ul>
+                <p>Python 3.5 introduced optional <strong>type hints</strong> (<code>def greet(name: str) -> str:</code>) to get the benefits of type annotations without giving up dynamic typing.</p>
+              </div>
+              <div class="ia-key">
+                <div class="ia-key-label">⚡ Say it in an interview</div>
+                Dynamic typing trades compile-time safety for development speed. Type hints (Python 3.5+) are the best of both worlds: optional annotations that tools can check without the language enforcing them.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="interview-accordion">
+          <div class="interview-acc-header">
+            <span class="interview-acc-q">Q9. What is the difference between mutable and immutable objects?</span>
+            <span class="badge badge-red">Advanced</span>
+            <span class="interview-acc-arrow">›</span>
+          </div>
+          <div class="interview-acc-body">
+            <div class="interview-acc-answer">
+              <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Mutable objects can be changed after creation. Immutable objects cannot. Modifying an immutable object always creates a new one instead.</div>
+              <div class="ia-body">
+                <ul>
+                  <li><strong>Mutable</strong>: list, dict, set. You can add, remove, or change elements in place.</li>
+                  <li><strong>Immutable</strong>: int, float, str, tuple. Any "modification" creates a brand new object. The original is untouched.</li>
+                </ul>
+                <p>Example: <code>s = "hello"; s += " world"</code> does not modify the original string. Python creates a new string <code>"hello world"</code> and makes <code>s</code> point to it. The old <code>"hello"</code> object still exists in memory until the garbage collector cleans it up.</p>
+                <p>This matters most when passing objects to functions: mutable objects passed to a function can be modified inside it, affecting the caller. Immutable objects cannot.</p>
+              </div>
+              <div class="ia-trap">
+                <div class="ia-trap-label">Common trap</div>
+                Using a mutable object (like a list) as a default function argument. Python creates the default once at definition time, so all calls share the same list object. Use <code>None</code> as default and create the list inside the function instead.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="interview-accordion">
+          <div class="interview-acc-header">
+            <span class="interview-acc-q">Q10. How does Python manage memory?</span>
+            <span class="badge badge-red">Advanced</span>
+            <span class="interview-acc-arrow">›</span>
+          </div>
+          <div class="interview-acc-body">
+            <div class="interview-acc-answer">
+              <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Python uses automatic memory management via reference counting. When no variable points to an object, the memory is freed automatically.</div>
+              <div class="ia-body">
+                <p>Python's memory management has two main mechanisms:</p>
+                <ul>
+                  <li><strong>Reference counting</strong>: every object in memory has a counter tracking how many variables point to it. When that count drops to zero (no references left), Python immediately frees the memory.</li>
+                  <li><strong>Cyclic garbage collector</strong>: reference counting alone cannot handle circular references (object A points to B, B points back to A). Python's cyclic GC periodically scans for and cleans up these cycles.</li>
+                </ul>
+                <p>You can inspect memory details using: <code>id(x)</code> shows the memory address of <code>x</code>, and <code>sys.getrefcount(x)</code> shows how many references point to <code>x</code>.</p>
+              </div>
+              <div class="ia-key">
+                <div class="ia-key-label">⚡ Say it in an interview</div>
+                Python uses reference counting for immediate deallocation and a cyclic garbage collector for circular references. Developers never call <code>free()</code> manually. Memory is managed entirely by the runtime.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- ══════════════════════════════════════
+           TAB 6:COMMON MISTAKES
+      ══════════════════════════════════════ -->
+      <div class="tab-panel" id="tab-mistakes">
+
+        <div class="callout callout-tip" style="margin-bottom:20px">
+          <span class="callout-icon">💡</span>
+          <span>Every programmer makes these mistakes at the start. Knowing them in advance puts you ahead of 90% of beginners.</span>
+        </div>
+
+        <!-- MISTAKE 1 -->
+        <div class="mistake-accordion">
+          <div class="mistake-acc-header">
+            <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+              <span class="mistake-num">1</span>
+              <div class="mistake-acc-title" style="flex:1"><mark>print</mark> without parentheses</div>
+              <span class="err-badge err-syntax">SyntaxError</span>
+            </div>
+            <span class="mistake-acc-arrow">›</span>
+          </div>
+          <div class="mistake-acc-body">
+            <div class="mistake-why">
+              <strong>Why it happens:</strong> In Python 2, <strong>print</strong> was a statement and worked without parentheses. In Python 3, it became a <strong>function</strong>. If you forget the parentheses, Python 3 has no idea what you mean and crashes immediately.
+            </div>
+            <div class="mistake-code-pair">
+              <div class="mistake-code-wrong">
+                <div class="mistake-code-label wrong">❌ Wrong</div>
+                <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">print</span><mark class="wrong-mark"> </mark><span class="str">"Hello"</span></pre></div>
+                <div class="error-box">
+                  <div class="error-box-label">Python says</div>
+                  <pre>  File "main.py", line 1
+    print "Hello"
+          ^^^^^^^
+SyntaxError: Missing parentheses in call to 'print'</pre>
+                </div>
+              </div>
+              <div class="mistake-code-right">
+                <div class="mistake-code-label right">✅ Correct</div>
+                <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="fn">print</span><mark class="fix-mark">(</mark><span class="str">"Hello"</span><mark class="fix-mark">)</mark></pre></div>
+              </div>
+            </div>
+            <div class="mistake-memory">
+              <div class="mistake-memory-label">🧠 Memory Trick</div>
+              <div class="mistake-memory-text">In Python 3, print is just a regular function, exactly like input() or len(). You always call functions with parentheses. No parentheses means you are just looking at the function, not calling it.</div>
+            </div>
+            <div class="mistake-key-rule">
+              <div class="mistake-key-rule-label">⚡ Key Rule</div>
+              <div class="mistake-key-rule-text">Python 3 requires <code style="color:var(--accent)">print()</code> with parentheses, always. Python even tells you exactly this in the error message: "Missing parentheses in call to 'print'."</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MISTAKE 2 -->
+        <div class="mistake-accordion">
+          <div class="mistake-acc-header">
+            <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+              <span class="mistake-num">2</span>
+              <div class="mistake-acc-title" style="flex:1">Forgetting to convert <mark>input()</mark> to a number</div>
+              <span class="err-badge err-logic">Logic Error</span>
+            </div>
+            <span class="mistake-acc-arrow">›</span>
+          </div>
+          <div class="mistake-acc-body">
+            <div class="mistake-why">
+              <strong>Why it happens:</strong> <code>input()</code> <strong>always returns a string</strong>, no matter what the user types. Even if they type 5, you get the text "5", not the number 5. So adding two inputs <strong>concatenates</strong> them as text instead of doing math.
+            </div>
+            <div class="mistake-code-pair">
+              <div class="mistake-code-wrong">
+                <div class="mistake-code-label wrong">❌ Wrong</div>
+                <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">a</span> = <mark class="wrong-mark"><span class="fn">input</span>(<span class="str">"Enter a: "</span>)</mark>
+<span class="var">b</span> = <mark class="wrong-mark"><span class="fn">input</span>(<span class="str">"Enter b: "</span>)</mark>
+<span class="fn">print</span>(<span class="var">a</span> + <span class="var">b</span>)</pre></div>
+                <div class="logic-box">
+                  <div class="logic-box-label">User types 5 and 3, but gets:</div>
+                  <pre>53
+(strings joined, not numbers added!)</pre>
+                </div>
+              </div>
+              <div class="mistake-code-right">
+                <div class="mistake-code-label right">✅ Correct</div>
+                <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">a</span> = <mark class="fix-mark"><span class="fn">int</span>(</mark><span class="fn">input</span>(<span class="str">"Enter a: "</span>)<mark class="fix-mark">)</mark>
+<span class="var">b</span> = <mark class="fix-mark"><span class="fn">int</span>(</mark><span class="fn">input</span>(<span class="str">"Enter b: "</span>)<mark class="fix-mark">)</mark>
+<span class="fn">print</span>(<span class="var">a</span> + <span class="var">b</span>)</pre></div>
+                <div class="logic-box">
+                  <div class="logic-box-label">User types 5 and 3, now gets:</div>
+                  <pre>8  (correct!)</pre>
+                </div>
+              </div>
+            </div>
+            <div class="mistake-memory">
+              <div class="mistake-memory-label">🧠 Memory Trick</div>
+              <div class="mistake-memory-text">Think of input() as a postman who only delivers letters (strings). Even if you write "42" on the letter, it is still a letter, not a number. You have to open the letter and convert the content yourself using int() or float().</div>
+            </div>
+            <div class="mistake-key-rule">
+              <div class="mistake-key-rule-label">⚡ Key Rule</div>
+              <div class="mistake-key-rule-text"><code style="color:var(--accent)">input()</code> always returns a string. Wrap it with <code style="color:var(--green)">int()</code> for whole numbers or <code style="color:var(--green)">float()</code> for decimals whenever you need to do math with user input.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MISTAKE 3 -->
+        <div class="mistake-accordion">
+          <div class="mistake-acc-header">
+            <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+              <span class="mistake-num">3</span>
+              <div class="mistake-acc-title" style="flex:1">Variable name <mark>starting with a number</mark></div>
+              <span class="err-badge err-syntax">SyntaxError</span>
+            </div>
+            <span class="mistake-acc-arrow">›</span>
+          </div>
+          <div class="mistake-acc-body">
+            <div class="mistake-why">
+              <strong>Why it happens:</strong> Python uses the first character of a name to decide what it is looking at. If the first character is a digit, Python thinks it is seeing a <strong>number literal</strong>, not a variable name. The rest of the line then makes no grammatical sense, so it crashes.
+            </div>
+            <div class="mistake-code-pair">
+              <div class="mistake-code-wrong">
+                <div class="mistake-code-label wrong">❌ Wrong</div>
+                <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><mark class="wrong-mark">1</mark>name = <span class="str">"Rohan"</span>
+<mark class="wrong-mark">2</mark>score = <span class="num">95</span></pre></div>
+                <div class="error-box">
+                  <div class="error-box-label">Python says</div>
+                  <pre>  File "main.py", line 1
+    1name = "Rohan"
+     ^^^^
+SyntaxError: invalid syntax</pre>
+                </div>
+              </div>
+              <div class="mistake-code-right">
+                <div class="mistake-code-label right">✅ Correct</div>
+                <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><mark class="fix-mark">name1</mark>     = <span class="str">"Rohan"</span>
+<mark class="fix-mark">score_2</mark>   = <span class="num">95</span>
+<mark class="fix-mark">_private</mark>  = <span class="str">"ok too"</span></pre></div>
+              </div>
+            </div>
+            <div class="mistake-memory">
+              <div class="mistake-memory-label">🧠 Memory Trick</div>
+              <div class="mistake-memory-text">Think of a variable name like a person's name. Names start with a letter, not a number. You would never call someone "1John" but you might call them "John1". Same rule applies in Python.</div>
+            </div>
+            <div class="mistake-key-rule">
+              <div class="mistake-key-rule-label">⚡ Key Rule</div>
+              <div class="mistake-key-rule-text">Variable names must start with a <strong>letter (a-z, A-Z)</strong> or an <strong>underscore (_)</strong>. Numbers are allowed anywhere after that. No spaces, no hyphens, no starting digit.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MISTAKE 4 -->
+        <div class="mistake-accordion">
+          <div class="mistake-acc-header">
+            <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+              <span class="mistake-num">4</span>
+              <div class="mistake-acc-title" style="flex:1">Using <mark>=</mark> (store) instead of <mark>==</mark> (compare) in a condition</div>
+              <span class="err-badge err-syntax">SyntaxError</span>
+            </div>
+            <span class="mistake-acc-arrow">›</span>
+          </div>
+          <div class="mistake-acc-body">
+            <div class="mistake-why">
+              <strong>Why it happens:</strong> In everyday English, "if x = 5" sounds natural. But in Python, <code>=</code> is a <strong>storage action</strong> (put 5 into x). Inside a condition, Python expects a <strong>question</strong> (is x equal to 5?). That question is written with <code>==</code>.
+            </div>
+            <div class="mistake-code-pair">
+              <div class="mistake-code-wrong">
+                <div class="mistake-code-label wrong">❌ Wrong</div>
+                <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="kw">if</span> <span class="var">x</span> <mark class="wrong-mark">=</mark> <span class="num">5</span>:
+    <span class="fn">print</span>(<span class="str">"five"</span>)</pre></div>
+                <div class="error-box">
+                  <div class="error-box-label">Python says</div>
+                  <pre>  File "main.py", line 1
+    if x = 5:
+         ^
+SyntaxError: invalid syntax. Maybe you meant '==' ?</pre>
+                </div>
+              </div>
+              <div class="mistake-code-right">
+                <div class="mistake-code-label right">✅ Correct</div>
+                <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="kw">if</span> <span class="var">x</span> <mark class="fix-mark">==</mark> <span class="num">5</span>:
+    <span class="fn">print</span>(<span class="str">"five"</span>)</pre></div>
+              </div>
+            </div>
+            <div class="mistake-memory">
+              <div class="mistake-memory-label">🧠 Memory Trick</div>
+              <div class="mistake-memory-text">One = is a mouth open to receive something (storing). Two == are two eyes looking at each other to check if they match (comparing). Inside an if, you are always comparing, never storing.</div>
+            </div>
+            <div class="mistake-key-rule">
+              <div class="mistake-key-rule-label">⚡ Key Rule</div>
+              <div class="mistake-key-rule-text"><code style="color:var(--red)">=</code> assigns a value. <code style="color:var(--green)">==</code> compares two values. Inside <code style="color:var(--accent)">if</code>, <code style="color:var(--accent)">elif</code>, and <code style="color:var(--accent)">while</code>, always use <code style="color:var(--green)">==</code>.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MISTAKE 5 -->
+        <div class="mistake-accordion">
+          <div class="mistake-acc-header">
+            <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;flex-wrap:wrap">
+              <span class="mistake-num">5</span>
+              <div class="mistake-acc-title" style="flex:1">Using a variable <mark>before creating it</mark></div>
+              <span class="err-badge err-runtime">NameError</span>
+            </div>
+            <span class="mistake-acc-arrow">›</span>
+          </div>
+          <div class="mistake-acc-body">
+            <div class="mistake-why">
+              <strong>Why it happens:</strong> Python runs your code <strong>top to bottom</strong>, one line at a time. It has no ability to look ahead. If you try to use a variable before the line that creates it, Python genuinely has <strong>never seen that name before</strong> and raises a NameError.
+            </div>
+            <div class="mistake-code-pair">
+              <div class="mistake-code-wrong">
+                <div class="mistake-code-label wrong">❌ Wrong</div>
+                <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><mark class="wrong-mark"><span class="fn">print</span>(<span class="var">score</span>)</mark>   <span class="cm"># used before created</span>
+<span class="var">score</span> = <span class="num">95</span></pre></div>
+                <div class="error-box">
+                  <div class="error-box-label">Python says</div>
+                  <pre>NameError: name 'score' is not defined</pre>
+                </div>
+              </div>
+              <div class="mistake-code-right">
+                <div class="mistake-code-label right">✅ Correct</div>
+                <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><mark class="fix-mark"><span class="var">score</span> = <span class="num">95</span></mark>      <span class="cm"># create first</span>
+<span class="fn">print</span>(<span class="var">score</span>)   <span class="cm"># then use: prints 95</span></pre></div>
+              </div>
+            </div>
+            <div class="mistake-memory">
+              <div class="mistake-memory-label">🧠 Memory Trick</div>
+              <div class="mistake-memory-text">Python is like a chef who only cooks with ingredients already on the counter. If you ask for a dish before putting the ingredients out, the chef cannot start. You must put the ingredients out (create the variable) before asking for the dish (using it).</div>
+            </div>
+            <div class="mistake-key-rule">
+              <div class="mistake-key-rule-label">⚡ Key Rule</div>
+              <div class="mistake-key-rule-text">Always <strong>assign before you use</strong>. The line that creates a variable must come before any line that reads it. Python runs top to bottom with no lookahead.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ══════════════════════════════════════
+           TAB 7:SUMMARY
+      ══════════════════════════════════════ -->
+      <div class="tab-panel" id="tab-summary">
+
+        <div class="section-heading">Key Takeaways</div>
+        <div class="summary-grid">
+
+          <div class="summary-card">
+            <div class="sp-top"><span class="sp-icon">🖨️</span><span class="sp-title">print()</span><span class="sp-tag">built-in</span></div>
+            <div class="sp-desc"><ul><li>Displays output to the screen</li><li>Use <code>sep=</code> to change what goes between items</li><li>Use <code>end=</code> to change what prints at the end (default is newline)</li></ul></div>
+            <div class="sp-code">print("a", "b", sep="-", end="!")</div>
+          </div>
+
+          <div class="summary-card">
+            <div class="sp-top"><span class="sp-icon">⌨️</span><span class="sp-title">input()</span><span class="sp-tag">built-in</span></div>
+            <div class="sp-desc"><ul><li>Reads what the user types</li><li>Always returns a string, no exceptions</li><li>Wrap with int() or float() to get a number</li></ul></div>
+            <div class="sp-code">age = int(input("Age: "))</div>
+          </div>
+
+          <div class="summary-card">
+            <div class="sp-top"><span class="sp-icon">📦</span><span class="sp-title">Variables</span><span class="sp-tag">concept</span></div>
+            <div class="sp-desc"><ul><li>Named labels that point to values</li><li>Dynamically typed: no need to declare the type</li><li>Use snake_case by convention</li></ul></div>
+            <div class="sp-code">user_name = "Rohan"</div>
+          </div>
+
+          <div class="summary-card">
+            <div class="sp-top"><span class="sp-icon">🔤</span><span class="sp-title">f-strings</span><span class="sp-tag">syntax</span></div>
+            <div class="sp-desc"><ul><li>Prefix string with <code>f</code>, put variables in <code>{}</code></li><li>Can embed any expression, not just variables</li><li>Use <code>{value:.2f}</code> to format decimal places</li></ul></div>
+            <div class="sp-code">print(f"Hi {name}, score: {score:.1f}")</div>
+          </div>
+
+          <div class="summary-card">
+            <div class="sp-top"><span class="sp-icon">🔀</span><span class="sp-title">Escape characters</span><span class="sp-tag">syntax</span></div>
+            <div class="sp-desc"><ul><li><code>\n</code> inserts a new line</li><li><code>\t</code> inserts a tab</li><li><code>\"</code> puts a quote inside a string</li></ul></div>
+            <div class="sp-code">print("Line1\nLine2\tindented")</div>
+          </div>
+
+          <div class="summary-card">
+            <div class="sp-top"><span class="sp-icon">🔁</span><span class="sp-title">Type conversion</span><span class="sp-tag">concept</span></div>
+            <div class="sp-desc"><ul><li><code>int()</code>, <code>float()</code>, <code>str()</code> convert between types</li><li>Raises ValueError if the string is not a valid number</li><li>int("3.14") fails; use int(float("3.14")) instead</li></ul></div>
+            <div class="sp-code">x = int(float("3.14"))  # 3</div>
+          </div>
+
+          <div class="summary-card">
+            <div class="sp-top"><span class="sp-icon">🔄</span><span class="sp-title">Execution order</span><span class="sp-tag">rule</span></div>
+            <div class="sp-desc"><ul><li>Python reads top to bottom, one line at a time</li><li>A variable must be created before it can be used</li><li>Order of your code always matters</li></ul></div>
+            <div class="sp-code">x = 5  # must come before print(x)</div>
+          </div>
+
+          <div class="summary-card">
+            <div class="sp-top"><span class="sp-icon">💬</span><span class="sp-title">Comments</span><span class="sp-tag">syntax</span></div>
+            <div class="sp-desc"><ul><li><code>#</code> starts a single-line comment</li><li>Triple quotes <code>"""..."""</code> for multi-line notes</li><li>Ignored by Python, only for humans reading the code</li></ul></div>
+            <div class="sp-code"># this is a note for whoever reads the code</div>
+          </div>
+
+        </div>
+
+        <div class="section-heading mt-3">Quick Pick</div>
+        <div class="qp-wrap">
+          <div class="qp-title">Situation → Best choice</div>
+          <div class="qp-row">
+            <div class="qp-situation">Show something on screen</div>
+            <div class="qp-answer"><code>print()</code></div>
+          </div>
+          <div class="qp-row">
+            <div class="qp-situation">Get a number from the user</div>
+            <div class="qp-answer"><code>int(input(...))</code> or <code>float(input(...))</code></div>
+          </div>
+          <div class="qp-row">
+            <div class="qp-situation">Embed a variable inside a string</div>
+            <div class="qp-answer"><code>f"Hello {name}"</code></div>
+          </div>
+          <div class="qp-row">
+            <div class="qp-situation">Print two items on the same line</div>
+            <div class="qp-answer"><code>print(a, b, end="")</code> or <code>print(a, end=" "); print(b)</code></div>
+          </div>
+          <div class="qp-row">
+            <div class="qp-situation">Check what type a variable is</div>
+            <div class="qp-answer"><code>type(x)</code> or <code>isinstance(x, int)</code></div>
+          </div>
+          <div class="qp-row" style="border-bottom:none">
+            <div class="qp-situation">Swap two variables</div>
+            <div class="qp-answer"><code>a, b = b, a</code></div>
+          </div>
+        </div>
+
+        <div class="section-heading mt-3">Cheat Sheet</div>
+        <div class="cs-tabs-wrap">
+          <div class="cs-tabs-bar">
+            <button class="cs-tab active" onclick="csTab(this,'cs-output')">print()</button>
+            <button class="cs-tab" onclick="csTab(this,'cs-input')">input()</button>
+            <button class="cs-tab" onclick="csTab(this,'cs-vars')">Variables</button>
+            <button class="cs-tab" onclick="csTab(this,'cs-fstr')">f-strings</button>
+            <button class="cs-tab" onclick="csTab(this,'cs-escape')">Escape</button>
+            <button class="cs-tab" onclick="csTab(this,'cs-types')">Types</button>
+          </div>
+          <div class="cs-panel active" id="cs-output">
+            <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="fn">print</span>(<span class="str">"Hello"</span>)                    <span class="cm"># Hello</span>
+<span class="fn">print</span>(<span class="str">"a"</span>, <span class="str">"b"</span>, <span class="str">"c"</span>)              <span class="cm"># a b c (space by default)</span>
+<span class="fn">print</span>(<span class="str">"a"</span>, <span class="str">"b"</span>, <span class="var">sep</span>=<span class="str">"-"</span>)          <span class="cm"># a-b</span>
+<span class="fn">print</span>(<span class="str">"Hello"</span>, <span class="var">end</span>=<span class="str">" "</span>)            <span class="cm"># no newline at end</span>
+<span class="fn">print</span>(<span class="str">"a"</span>, <span class="str">"b"</span>, <span class="var">sep</span>=<span class="str">","</span>, <span class="var">end</span>=<span class="str">"!"</span>)  <span class="cm"># a,b!</span></pre>
+            </div>
+          </div>
+          <div class="cs-panel" id="cs-input">
+            <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">name</span>  = <span class="fn">input</span>(<span class="str">"Name: "</span>)             <span class="cm"># always a string</span>
+<span class="var">age</span>   = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Age: "</span>))         <span class="cm"># convert to int</span>
+<span class="var">score</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="str">"Score: "</span>))     <span class="cm"># convert to float</span>
+<span class="var">x</span>     = <span class="fn">int</span>(<span class="fn">float</span>(<span class="fn">input</span>(<span class="str">"Num: "</span>)))  <span class="cm"># decimal string to int</span></pre>
+            </div>
+          </div>
+          <div class="cs-panel" id="cs-vars">
+            <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">x</span>    = <span class="num">10</span>          <span class="cm"># int</span>
+<span class="var">pi</span>   = <span class="num">3.14</span>        <span class="cm"># float</span>
+<span class="var">msg</span>  = <span class="str">"Hello"</span>     <span class="cm"># string</span>
+<span class="var">flag</span> = <span class="kw">True</span>        <span class="cm"># boolean</span>
+
+<span class="var">a</span>, <span class="var">b</span> = <span class="num">1</span>, <span class="num">2</span>        <span class="cm"># multiple assignment</span>
+<span class="var">a</span>, <span class="var">b</span> = <span class="var">b</span>, <span class="var">a</span>        <span class="cm"># swap in one line</span></pre>
+            </div>
+          </div>
+          <div class="cs-panel" id="cs-fstr">
+            <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="fn">print</span>(<span class="str">f"Name: </span><span class="var">{name}</span><span class="str">"</span>)         <span class="cm"># embed variable</span>
+<span class="fn">print</span>(<span class="str">f"Sum: </span><span class="var">{a + b}</span><span class="str">"</span>)         <span class="cm"># embed expression</span>
+<span class="fn">print</span>(<span class="str">f"Pi: </span><span class="var">{pi:.2f}</span><span class="str">"</span>)         <span class="cm"># 2 decimal places</span>
+<span class="fn">print</span>(<span class="str">f"</span><span class="var">{name!u}</span><span class="str">"</span>)              <span class="cm"># uppercase</span>
+<span class="fn">print</span>(<span class="str">f"</span><span class="var">{num:,}</span><span class="str">"</span>)               <span class="cm"># thousands separator</span></pre>
+            </div>
+          </div>
+          <div class="cs-panel" id="cs-escape">
+            <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="fn">print</span>(<span class="str">"Line1\nLine2"</span>)           <span class="cm"># \n = new line</span>
+<span class="fn">print</span>(<span class="str">"Name:\tRohan"</span>)           <span class="cm"># \t = tab</span>
+<span class="fn">print</span>(<span class="str">"Say \"Hello\""</span>)          <span class="cm"># \" = quote in string</span>
+<span class="fn">print</span>(<span class="str">"C:\\Users\\Rohan"</span>)        <span class="cm"># \\ = backslash</span>
+<span class="fn">print</span>(<span class="str">r"C:\Users\Rohan"</span>)        <span class="cm"># r"" = raw string, no escapes</span></pre>
+            </div>
+          </div>
+          <div class="cs-panel" id="cs-types">
+            <div class="code-block" style="margin:0;border-radius:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="fn">type</span>(<span class="var">x</span>)                        <span class="cm"># check type</span>
+<span class="fn">isinstance</span>(<span class="var">x</span>, <span class="fn">int</span>)             <span class="cm"># True/False</span>
+<span class="fn">int</span>(<span class="str">"42"</span>)                       <span class="cm"># str to int</span>
+<span class="fn">float</span>(<span class="str">"3.14"</span>)                   <span class="cm"># str to float</span>
+<span class="fn">str</span>(<span class="num">42</span>)                         <span class="cm"># int to str</span>
+<span class="fn">int</span>(<span class="fn">float</span>(<span class="str">"3.14"</span>))              <span class="cm"># decimal str to int</span></pre>
+            </div>
+          </div>
+        </div>
+        <script>
+          function csTab(btn, id) {
+            const wrap = btn.closest('.cs-tabs-wrap');
+            wrap.querySelectorAll('.cs-tab').forEach(b => b.classList.remove('active'));
+            wrap.querySelectorAll('.cs-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            wrap.querySelector('#' + id).classList.add('active');
+          }
+        </script>
+
+        <!-- Personal Notes -->
+        <div class="personal-notes-card animate-fadeup">
+          <div class="personal-notes-header">
+            <div class="personal-notes-title">📝 My Notes</div>
+            <span class="personal-notes-hint">Auto-saved to your browser</span>
+          </div>
+          <textarea id="personalNotes" placeholder="Write your own notes, key points, or things to remember..."></textarea>
+        </div>
+
+        <div class="topic-nav">
+          <a href="../index.html" class="btn" id="prevTopicBtn">Home</a>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn complete-btn">Mark as Complete</button>
+            <a href="data-types.html" class="btn btn-primary" id="nextTopicBtn">Next: Data Types</a>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <footer class="footer">
+      <div class="footer-brand">Python<span style="color:var(--purple)">byRohan</span> &copy; 2026 · Rohan Patil</div>
+      <div class="footer-links">
+        <a href="https://github.com/RohanPatil01" target="_blank" rel="noopener" class="footer-link">
+          <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/rohanpatil01" target="_blank" rel="noopener" class="footer-link">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn
+        </a>
+        <a href="https://www.instagram.com/rohanjpatil01/" target="_blank" rel="noopener" class="footer-link">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>@rohanjpatil01
+        </a>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<script src="../assets/app.js"></script>
+<script>
+  const TOPIC_ID = 'python-basics';
+  document.addEventListener('DOMContentLoaded', () => {
+    initCompleteBtn(TOPIC_ID);
+    initMCQ(TOPIC_ID);
+    Bookmarks.initBtn(TOPIC_ID);
+    initPersonalNotes(TOPIC_ID);
+    initDifficultyRating(TOPIC_ID);
+    const scoreEl = document.getElementById('mcqScore');
+    if (scoreEl) scoreEl.style.display = 'none';
+  });
+</script>
+
+</body>
+</html>

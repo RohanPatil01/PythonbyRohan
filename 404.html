@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404:Page Not Found | PyNotes</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+    .error-wrap {
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+    }
+    .error-code {
+      font-family: var(--font-mono);
+      font-size: clamp(80px, 15vw, 140px);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--accent);
+      opacity: .15;
+      margin-bottom: 0;
+      letter-spacing: -4px;
+    }
+    .error-snake {
+      font-size: 64px;
+      margin: -20px 0 16px;
+      display: block;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+    .error-title {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .error-msg {
+      font-size: 15px;
+      color: var(--text2);
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+    .error-code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 32px;
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.8;
+      color: #cdd6f4;
+    }
+    .error-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .theme-toggle-wrap {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="theme-toggle-wrap">
+    <span class="theme-icon">🌙</span>
+    <button class="toggle-btn" id="themeToggle" aria-label="Toggle theme"></button>
+    <span class="theme-icon">☀️</span>
+  </div>
+
+  <div class="error-wrap animate-fadeup">
+    <div class="error-code">404</div>
+    <span class="error-snake">🐍</span>
+    <div class="error-title">Page not found.</div>
+    <div class="error-msg">
+      Looks like this page slithered away. It might have been moved,
+      deleted, or maybe the URL has a typo.
+    </div>
+
+    <div class="error-code-block">
+      <span style="color:#585b70"># Python error equivalent</span><br>
+      <span style="color:#f38ba8">FileNotFoundError</span>:
+      <span style="color:#a6e3a1">"The page you requested does not exist."</span><br><br>
+      <span style="color:#585b70"># Suggested fix</span><br>
+      <span style="color:#cba6f7">try</span>:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#89dceb">go_back</span>(<span style="color:#a6e3a1">"home"</span>)<br>
+      <span style="color:#cba6f7">except</span>:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#89dceb">print</span>(<span style="color:#a6e3a1">"Still lost? Check the URL."</span>)
+    </div>
+
+    <div class="error-actions">
+      <a href="index.html" class="btn btn-primary">Go Home</a>
+      <a href="topics/python-basics.html" class="btn">Start Learning</a>
+      <a href="resources/index.html" class="btn">Resources</a>
+    </div>
+  </div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
