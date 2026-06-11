@@ -3,778 +3,1565 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PythonbyRohan:Learn Python the Right Way</title>
-  <meta name="description" content="Structured Python notes with examples, MCQs, practice tasks, and interview prep by Rohan Patil." />
-
-  <!-- Favicon -->
+  <title>PythonbyRohan · Learn Python the Right Way</title>
+  <meta name="description" content="Structured Python notes with examples, MCQs, practice tasks, and interview prep by Rohan Patil. Free for everyone." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>" />
-
-  <!-- Open Graph -->
-  <meta property="og:title"       content="PythonbyRohan:Learn Python the Right Way" />
-  <meta property="og:description" content="Structured Python notes, MCQs, practice tasks and interview prep by Rohan Patil. Free for everyone." />
-  <meta property="og:type"        content="website" />
-  <meta property="og:url"         content="https://rohanpatil01.github.io/pynotes/" />
-  <meta name="twitter:card"       content="summary" />
-  <meta name="twitter:title"      content="PythonbyRohan:Learn Python the Right Way" />
-  <meta name="twitter:description" content="Structured Python notes, MCQs, practice tasks and interview prep by Rohan Patil." />
-
   <link rel="stylesheet" href="assets/style.css" />
   <style>
-    /* Home-page specific */
-    .hero {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 40px 36px;
-      position: relative; overflow: hidden;
-      margin-bottom: 24px;
-      box-shadow: inset 0 1px 0 var(--card-shine);
+    /* ── Full-page layout ── */
+    body { margin:0; }
+
+    /* ── TOPBAR ─────────────────────────────────────────────── */
+    .hn {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      background:rgba(11,15,26,.88);
+      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--border);
+      transition:box-shadow .3s;
     }
-    .hero-glow {
-      position:absolute; top:-80px; right:-80px;
-      width:320px; height:320px;
-      background:radial-gradient(circle, rgba(79,127,255,.1) 0%, transparent 70%);
-      pointer-events:none;
+    .hn.scrolled { box-shadow:0 2px 20px rgba(0,0,0,.5); }
+    body.light .hn { background:rgba(245,246,250,.9); }
+    .hn-inner {
+      max-width:1200px; margin:0 auto; padding:0 2rem;
+      height:60px; display:flex; align-items:center; gap:2rem;
     }
-    .hero-glow2 {
-      position:absolute; bottom:-50px; left:20%;
-      width:200px; height:200px;
-      background:radial-gradient(circle, rgba(52,211,153,.06) 0%, transparent 70%);
-      pointer-events:none;
+    .hn-brand {
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none; flex-shrink:0;
     }
-    .hero-snake {
-      position:absolute; right:36px; top:50%;
-      transform:translateY(-50%);
-      font-size:120px; opacity:.05;
-      pointer-events:none; user-select:none;
+    .hn-logo {
+      width:34px; height:34px; background:var(--accent);
+      border-radius:9px; display:flex; align-items:center;
+      justify-content:center; font-family:var(--font-mono);
+      font-size:12px; font-weight:700; color:#fff;
+      box-shadow:0 0 14px rgba(79,127,255,.4);
     }
-    .hero-tag {
-      display:inline-flex; align-items:center; gap:6px;
-      background:rgba(79,127,255,.1);
-      border:1px solid rgba(79,127,255,.2);
-      color:var(--accent);
-      font-size:11px; font-weight:700;
-      padding:4px 12px; border-radius:20px;
-      margin-bottom:18px; letter-spacing:.05em;
+    .hn-name {
+      font-family:var(--font-display); font-size:16px;
+      font-weight:800; color:var(--text);
     }
-    .hero h1 {
+    .hn-name span { color:var(--purple); font-size:.85em; }
+    .hn-nav { display:flex; align-items:center; gap:2px; flex:1; }
+    .hn-link {
+      padding:6px 14px; font-size:15px; color:var(--text2);
+      text-decoration:none; border-radius:8px; transition:all .2s;
+    }
+    .hn-link:hover { color:var(--text); background:var(--bg3); }
+    .hn-link.active { color:var(--accent); background:rgba(79,127,255,.09); }
+    .hn-actions { display:flex; align-items:center; gap:10px; }
+    .hn-theme {
+      width:36px; height:36px; border-radius:9px;
+      border:1.5px solid var(--border); background:var(--bg3);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; font-size:15px; transition:all .2s;
+    }
+    .hn-theme:hover { border-color:var(--accent); }
+    .hn-theme::after { content:'☀️'; }
+    body.light .hn-theme::after { content:'🌙'; }
+    .hn-cta {
+      background:var(--accent); color:#fff;
+      padding:8px 20px; border-radius:9px; font-size:14px;
+      font-weight:700; text-decoration:none; font-family:var(--font-display);
+      transition:all .2s; box-shadow:0 0 16px rgba(79,127,255,.3);
+    }
+    .hn-cta:hover { background:var(--accent-hover); transform:translateY(-1px); color:#fff; }
+    .hn-mobile-btn {
+      display:none; flex-direction:column; gap:5px;
+      padding:8px; background:none; border:none; cursor:pointer;
+    }
+    .hn-mobile-btn span {
+      display:block; width:22px; height:2px;
+      background:var(--text2); border-radius:2px;
+    }
+    .mobile-drawer {
+      position:fixed; top:60px; left:0; right:0;
+      background:var(--bg2); border-bottom:1px solid var(--border);
+      padding:1rem 1.5rem 1.5rem; z-index:199;
+      transform:translateY(-100%); opacity:0; pointer-events:none;
+      transition:transform .3s, opacity .3s;
+      display:flex; flex-direction:column; gap:6px;
+    }
+    .mobile-drawer.open { transform:translateY(0); opacity:1; pointer-events:all; }
+    .mobile-drawer a {
+      padding:10px 12px; color:var(--text2); text-decoration:none;
+      border-radius:8px; font-size:15px; transition:all .2s;
+    }
+    .mobile-drawer a:hover { background:var(--bg3); color:var(--accent); }
+
+    /* ── SECTION WRAPPERS ─────────────────────────────────── */
+    .sec { position:relative; }
+    .sec--alt { background:var(--bg2); }
+    .sec--dark {
+      background:#0d1220 !important;
+      border-top:1px solid rgba(79,127,255,.08);
+    }
+    .si { max-width:1200px; margin:0 auto; padding:5rem 2rem; }
+    .sh { text-align:center; margin-bottom:3.5rem; }
+    .sh h2 {
       font-family:var(--font-display);
-      font-size:clamp(26px,4vw,40px);
-      font-weight:800; line-height:1.12;
-      margin-bottom:14px; color:var(--text);
+      font-size:clamp(1.7rem,3.5vw,2.5rem); font-weight:800;
+      color:var(--text); margin-bottom:.75rem; letter-spacing:-.02em;
     }
-    .hero h1 .hl { color:var(--accent); }
-    .hero p {
-      font-size:15px; color:var(--text2);
-      line-height:1.75; max-width:500px; margin-bottom:26px;
+    .sec--dark .sh h2 { color:#fff; }
+    .sh p {
+      font-size:1.15rem; color:var(--text2);
+      max-width:560px; margin:0 auto; line-height:1.75;
     }
-    .hero-actions { display:flex; gap:10px; flex-wrap:wrap; }
+    .sec--dark .sh p { color:rgba(255,255,255,.45); }
 
-    /* Last visit banner */
-    .last-visit-banner {
-      display:none; align-items:center; justify-content:space-between;
-      background:rgba(79,127,255,.08);
+    /* ── HERO ─────────────────────────────────────────────── */
+    .hero {
+      min-height:100vh; display:flex; align-items:center;
+      padding-top:60px; position:relative; overflow:hidden;
+      background:var(--bg);
+    }
+    .hero-dot-grid {
+      position:absolute; inset:0;
+      background-image:radial-gradient(circle, var(--border) 1px, transparent 1px);
+      background-size:28px 28px; opacity:.55; pointer-events:none;
+    }
+    .hero-glow-r {
+      position:absolute; top:-150px; right:-120px;
+      width:750px; height:750px;
+      background:radial-gradient(circle, rgba(79,127,255,.1) 0%, transparent 60%);
+      pointer-events:none;
+    }
+    .hero-glow-l {
+      position:absolute; bottom:-80px; left:5%;
+      width:450px; height:450px;
+      background:radial-gradient(circle, rgba(52,211,153,.06) 0%, transparent 65%);
+      pointer-events:none;
+    }
+    .hero-inner {
+      max-width:1200px; margin:0 auto; padding:4rem 2rem;
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:4rem; align-items:center; width:100%;
+      position:relative; z-index:1;
+    }
+    .hero-eyebrow {
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:11px; font-weight:700; color:var(--accent);
+      letter-spacing:.08em; text-transform:uppercase;
+      margin-bottom:1.25rem; background:rgba(79,127,255,.08);
       border:1px solid rgba(79,127,255,.2);
-      border-radius:var(--radius);
-      padding:12px 18px; margin-bottom:20px;
-      font-size:13.5px; gap:12px; flex-wrap:wrap;
+      padding:5px 14px; border-radius:20px;
+      font-family:var(--font-display);
     }
-    .last-visit-banner span { color:var(--text2); }
-    .last-visit-banner strong { color:var(--text); }
-
-    /* Streak */
-    .streak-section {
+    .hero-eyebrow-dot {
+      width:6px; height:6px; background:var(--accent);
+      border-radius:50%; animation:pdot 2s infinite;
+    }
+    @keyframes pdot {
+      0%,100%{opacity:1;transform:scale(1)}
+      50%{opacity:.5;transform:scale(1.5)}
+    }
+    .hero-title {
+      font-family:var(--font-display);
+      font-size:clamp(2.4rem,5.5vw,3.8rem); font-weight:800;
+      line-height:1.08; letter-spacing:-.025em; color:var(--text);
+      margin-bottom:1.25rem;
+    }
+    .hero-title .hl {
+      background:linear-gradient(90deg, var(--accent), var(--green));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    .hero-sub {
+      font-size:1.15rem; color:var(--text2); line-height:1.85;
+      margin-bottom:2.25rem; max-width:460px;
+    }
+    .hero-btns {
       display:flex; align-items:center; gap:12px;
-      background:var(--card); border:1px solid var(--border);
-      border-radius:var(--radius-lg); padding:14px 20px;
-      margin-bottom:20px;
-      box-shadow:inset 0 1px 0 var(--card-shine);
-      flex-wrap:wrap;
+      flex-wrap:wrap; margin-bottom:2.75rem;
     }
-    .streak-label { font-size:13px; font-weight:700; color:var(--text2); white-space:nowrap; }
-    #streakDots   { display:flex; gap:5px; }
+    .btn-primary {
+      background:var(--accent); color:#fff;
+      padding:12px 28px; border-radius:10px;
+      font-size:15px; font-weight:700; text-decoration:none;
+      font-family:var(--font-display);
+      box-shadow:0 0 22px rgba(79,127,255,.35);
+      transition:all .2s; display:inline-flex; align-items:center; gap:6px;
+    }
+    .btn-primary:hover { background:var(--accent-hover); transform:translateY(-2px); color:#fff; box-shadow:0 4px 28px rgba(79,127,255,.45); }
+    .btn-ghost {
+      background:transparent; color:var(--text2);
+      padding:11px 24px; border-radius:10px;
+      font-size:15px; font-weight:600; text-decoration:none;
+      border:1.5px solid var(--border2);
+      font-family:var(--font-display); transition:all .2s;
+    }
+    .btn-ghost:hover { border-color:var(--accent); color:var(--accent); }
+    .hero-stats {
+      display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;
+    }
+    .hstat { display:flex; flex-direction:column; }
+    .hstat-val {
+      font-family:var(--font-display); font-weight:800;
+      font-size:1.55rem; color:var(--text); line-height:1;
+    }
+    .hstat-lbl {
+      font-size:12px; color:var(--text3); margin-top:3px;
+      text-transform:uppercase; letter-spacing:.05em; font-weight:600;
+    }
+    .hstat-div { width:1px; height:36px; background:var(--border2); }
+
+    /* Hero right: floating cards */
+    .hero-visual { position:relative; height:460px; }
+    .hcard {
+      position:absolute;
+      background:var(--card); border:1px solid var(--border);
+      border-radius:16px; overflow:hidden;
+      box-shadow:0 12px 40px rgba(0,0,0,.45), 0 0 0 1px rgba(79,127,255,.06);
+    }
+    /* macOS dots */
+    .hcard-header {
+      display:flex; align-items:center; gap:8px;
+      padding:10px 14px; border-bottom:1px solid var(--border);
+      background:var(--code-header);
+    }
+    .hcard-dots { display:flex; gap:5px; }
+    .hcard-dots span { width:9px; height:9px; border-radius:50%; }
+    .hcard-dots span:nth-child(1){background:#FF5F57}
+    .hcard-dots span:nth-child(2){background:#FFBD2E}
+    .hcard-dots span:nth-child(3){background:#28CA41}
+    .hcard-filename {
+      font-size:11px; font-weight:600; color:var(--text3);
+      font-family:var(--font-mono);
+    }
+
+    /* Code card */
+    .hcard--code { width:300px; top:10px; left:20px; animation:hfloat 4s ease-in-out infinite; }
+    .hcard-code {
+      padding:16px; background:var(--code-bg);
+      font-family:var(--font-mono); font-size:12px; line-height:1.85;
+      font-variant-ligatures:none; color:#e4eaf6;
+    }
+    .hcard-output {
+      padding:10px 16px; font-family:var(--font-mono); font-size:11px;
+      background:#0d1220; border-top:1px solid rgba(79,127,255,.12);
+      color:var(--green); display:flex; align-items:center; gap:8px;
+    }
+    .hcard-output-label {
+      font-size:9px; font-weight:700; letter-spacing:.08em;
+      text-transform:uppercase; color:#5c6370; white-space:nowrap;
+    }
+    .hc-kw{color:#79aaff}.hc-fn{color:#61dafb}.hc-str{color:#98c379}
+    .hc-num{color:#d19a66}.hc-cm{color:#5c6370;font-style:italic}.hc-var{color:#e4eaf6}
+
+    /* Quiz card */
+    .hcard--quiz { width:240px; top:30px; right:0; padding:18px; animation:hfloat 4s ease-in-out infinite .7s; }
+    .hcard-quiz-eyebrow {
+      font-size:9px; font-weight:700; text-transform:uppercase;
+      letter-spacing:.1em; color:var(--accent); margin-bottom:10px;
+      font-family:var(--font-display);
+    }
+    .hcard-quiz-q { font-size:12.5px; font-weight:600; color:var(--text); margin-bottom:10px; line-height:1.5; }
+    .hcard-quiz-opts { display:flex; flex-direction:column; gap:5px; }
+    .hcard-quiz-opt {
+      padding:6px 10px; border-radius:7px;
+      border:1px solid var(--border); font-size:11.5px; color:var(--text2);
+      font-family:var(--font-body);
+    }
+    .hcard-quiz-opt.correct { background:color-mix(in srgb,var(--green) 12%,transparent); border-color:var(--green); color:var(--green); font-weight:700; }
+    .hcard-quiz-opt.wrong   { opacity:.45; }
+    .hcard-quiz-score {
+      margin-top:10px; padding-top:10px; border-top:1px solid var(--border);
+      font-size:11px; color:var(--text3); text-align:right;
+    }
+    .hcard-quiz-score strong { color:var(--green); }
+
+    /* Progress card */
+    .hcard--prog {
+      width:240px; bottom:20px; left:0; padding:18px;
+      animation:hfloat 4s ease-in-out infinite 1.4s;
+    }
+    .hcard-prog-title { font-size:12px; font-weight:700; color:var(--text); margin-bottom:14px; font-family:var(--font-display); }
+    .hcard-prog-rows { display:flex; flex-direction:column; gap:9px; }
+    .hcard-prog-row { display:flex; flex-direction:column; gap:4px; }
+    .hcard-prog-row-header { display:flex; justify-content:space-between; font-size:11px; }
+    .hcard-prog-row-name { color:var(--text2); font-weight:600; }
+    .hcard-prog-row-pct  { color:var(--text3); font-family:var(--font-mono); }
+    .hcard-prog-track {
+      height:5px; background:var(--bg3); border-radius:99px; overflow:hidden;
+    }
+    .hcard-prog-fill { height:100%; border-radius:99px; }
+    .hcard-prog-fill--1 { width:75%; background:var(--green); }
+    .hcard-prog-fill--2 { width:40%; background:var(--accent); }
+    .hcard-prog-fill--3 { width:15%; background:var(--purple); }
+    .hcard-prog-total {
+      margin-top:12px; padding-top:12px; border-top:1px solid var(--border);
+      font-size:11px; color:var(--text3);
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .hcard-prog-total strong { color:var(--text); font-size:13px; font-family:var(--font-display); }
+
+    @keyframes hfloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+
+    /* ── LAST VISIT BANNER ─────────────────────────────────── */
+    .lvb-wrap {
+      background:var(--bg2); border-bottom:1px solid var(--border); display:none;
+    }
+    .lvb {
+      max-width:1200px; margin:0 auto; padding:12px 2rem;
+      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    }
+    .lvb-text { font-size:15px; color:var(--text2); }
+    .lvb-text strong { color:var(--text); }
+    .lvb-btn {
+      background:rgba(79,127,255,.1); color:var(--accent); border:1px solid rgba(79,127,255,.2);
+      padding:6px 16px; border-radius:8px; font-size:13px; font-weight:700;
+      text-decoration:none; font-family:var(--font-display); transition:all .2s;
+    }
+    .lvb-btn:hover { background:var(--accent); color:#fff; }
+
+    /* ── STREAK + STATS BAND ─────────────────────────────── */
+    .streak-wrap {
+      background:var(--bg2); border-bottom:1px solid var(--border);
+    }
+    .streak-inner {
+      max-width:1200px; margin:0 auto; padding:.9rem 2rem;
+      display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+    }
+    .streak-flame {
+      display:flex; align-items:center; gap:10px; flex-shrink:0;
+    }
+    .streak-flame-icon {
+      font-size:26px; display:block;
+      animation:flameBeat 2.2s ease-in-out infinite; line-height:1;
+    }
+    @keyframes flameBeat {
+      0%,100%{transform:scale(1) rotate(-4deg)}
+      50%{transform:scale(1.18) rotate(4deg)}
+    }
+    .streak-flame-text { display:flex; flex-direction:column; gap:1px; }
+    .streak-flame-val {
+      font-family:var(--font-display); font-size:1.6rem;
+      font-weight:800; color:var(--amber); line-height:1;
+    }
+    .streak-flame-lbl {
+      font-size:10px; text-transform:uppercase; letter-spacing:.06em;
+      color:var(--text3); font-weight:700;
+    }
+    .streak-div { width:1px; height:44px; background:var(--border); flex-shrink:0; }
+    .streak-days { display:flex; flex-direction:column; gap:4px; }
+    .streak-day-labels { display:flex; gap:5px; }
+    .streak-day-label {
+      width:34px; text-align:center;
+      font-size:9px; font-weight:700; text-transform:uppercase;
+      letter-spacing:.04em; color:var(--text3);
+    }
+    #streakDots { display:flex; gap:5px; }
     .streak-dot {
-      width:30px; height:30px; border-radius:7px;
+      width:34px; height:34px; border-radius:8px;
       background:var(--bg3); border:1px solid var(--border);
       display:flex; align-items:center; justify-content:center;
-      font-size:10px; font-family:var(--font-mono);
-      color:var(--text3); transition:all .2s;
+      font-size:11px; font-family:var(--font-mono); color:var(--text3);
+      font-weight:600; transition:all .25s;
     }
-    .streak-dot.done  { background:rgba(79,127,255,.15); border-color:rgba(79,127,255,.3); color:var(--accent); }
-    .streak-dot.today { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:700; }
-    .streak-msg { font-size:13px; color:var(--accent3); font-weight:700; white-space:nowrap; }
+    .streak-dot.done {
+      background:rgba(251,191,36,.14); border-color:rgba(251,191,36,.4);
+      color:var(--amber);
+    }
+    .streak-dot.today {
+      background:var(--amber); border-color:var(--amber);
+      color:#0d1220; font-weight:800;
+      box-shadow:0 0 12px rgba(251,191,36,.45);
+    }
+    .streak-best { display:flex; flex-direction:column; gap:1px; flex-shrink:0; }
+    .streak-best-val {
+      font-family:var(--font-display); font-size:1.25rem;
+      font-weight:800; color:var(--text2); line-height:1;
+    }
+    .streak-best-lbl {
+      font-size:10px; text-transform:uppercase; letter-spacing:.06em;
+      color:var(--text3); font-weight:700;
+    }
 
-    /* Stats */
+    .stats-wrap { background:var(--bg2); }
     .stats-grid {
-      display:grid; grid-template-columns:repeat(4,1fr);
-      gap:12px; margin-bottom:24px;
+      max-width:1200px; margin:0 auto; padding:1.5rem 2rem;
+      display:grid; grid-template-columns:repeat(4,1fr); gap:12px;
     }
-    .stat-card {
-      background:var(--card); border:1px solid var(--border);
-      border-radius:var(--radius-lg); padding:18px 16px;
-      text-align:center;
-      transition:border-color .2s, transform .2s;
-      box-shadow:inset 0 1px 0 var(--card-shine);
-    }
-    .stat-card:hover { border-color:var(--border2); transform:translateY(-2px); }
-    .stat-icon  { font-size:20px; margin-bottom:6px; }
-    .stat-num   {
-      font-family:var(--font-display);
-      font-size:28px; font-weight:800; line-height:1; margin-bottom:4px;
-    }
-    .stat-label { font-size:11px; color:var(--text3); font-weight:600; letter-spacing:.03em; }
-
-    /* Quick links */
-    .quicklinks-grid {
-      display:grid; grid-template-columns:repeat(4,1fr);
-      gap:10px; margin-bottom:32px;
-    }
-    .quicklink-card {
-      background:var(--card); border:1px solid var(--border);
-      border-radius:var(--radius-lg); padding:18px 14px;
-      text-decoration:none; transition:all .2s;
-      display:flex; flex-direction:column;
-      align-items:center; gap:8px; text-align:center;
-      box-shadow:inset 0 1px 0 var(--card-shine);
-    }
-    .quicklink-card:hover { border-color:var(--accent); transform:translateY(-2px); }
-    .quicklink-icon { font-size:24px; }
-    .quicklink-name { font-size:13px; font-weight:700; color:var(--text); }
-    .quicklink-desc { font-size:11px; color:var(--text3); }
-
-    /* Featured */
-    .featured-grid {
-      display:grid; grid-template-columns:2fr 1fr;
-      gap:16px; margin-bottom:32px;
-    }
-    .featured-card {
-      background:linear-gradient(135deg, rgba(79,127,255,.08), rgba(52,211,153,.04));
-      border:1px solid rgba(79,127,255,.18);
-      border-radius:var(--radius-xl); padding:26px;
+    .scard {
+      background:var(--bg); border:1px solid var(--border);
+      border-radius:14px; padding:20px 20px 18px;
+      display:flex; flex-direction:column; gap:0;
       position:relative; overflow:hidden;
-    }
-    .featured-label {
-      font-size:10px; font-weight:700; letter-spacing:.12em;
-      text-transform:uppercase; color:var(--accent); margin-bottom:10px;
-    }
-    .featured-title {
-      font-family:var(--font-display);
-      font-size:20px; font-weight:800; margin-bottom:8px; color:var(--text);
-    }
-    .featured-desc { font-size:14px; color:var(--text2); line-height:1.7; margin-bottom:18px; }
-    .updates-card {
-      background:var(--card); border:1px solid var(--border);
-      border-radius:var(--radius-xl); padding:20px;
       box-shadow:inset 0 1px 0 var(--card-shine);
+      transition:border-color .25s, box-shadow .25s, transform .25s;
     }
-    .update-item {
-      display:flex; gap:10px; align-items:flex-start;
-      padding:10px 0; border-bottom:1px solid var(--border);
+    .scard::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+      border-radius:3px 3px 0 0;
+      background:var(--sc, var(--accent));
     }
-    .update-item:last-child { border-bottom:none; }
-    .update-dot { width:8px; height:8px; border-radius:50%; margin-top:5px; flex-shrink:0; }
-    .update-text { font-size:13px; color:var(--text2); line-height:1.5; }
-    .update-date { font-size:10px; color:var(--text3); font-family:var(--font-mono); margin-top:3px; }
+    .scard:hover {
+      border-color:color-mix(in srgb, var(--sc, var(--accent)) 50%, transparent);
+      box-shadow:0 4px 20px color-mix(in srgb, var(--sc, var(--accent)) 18%, transparent),
+                 inset 0 1px 0 var(--card-shine);
+      transform:translateY(-2px);
+    }
+    .scard-icon {
+      width:44px; height:44px; border-radius:11px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:20px; flex-shrink:0; margin-bottom:14px;
+    }
+    .scard-val {
+      font-family:var(--font-display); font-size:2rem; font-weight:800;
+      line-height:1; margin-bottom:5px;
+      color:var(--sc, var(--accent));
+    }
+    .scard-lbl { font-size:12.5px; color:var(--text3); font-weight:600; letter-spacing:.03em; }
 
-    /* Roadmap */
-    .roadmap-grid {
-      display:grid; grid-template-columns:repeat(3,1fr);
-      gap:12px; margin-bottom:32px;
+    /* ── FEATURES ─────────────────────────────────────────── */
+    .feat-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem;
     }
-    .roadmap-card {
+    .feat-card {
       background:var(--card); border:1px solid var(--border);
-      border-radius:var(--radius-lg); padding:18px;
+      border-radius:16px; padding:1.75rem; position:relative; overflow:hidden;
       box-shadow:inset 0 1px 0 var(--card-shine);
+      transition:transform .25s, border-color .25s, box-shadow .25s, background .25s;
+      display:flex; flex-direction:column; gap:0;
+    }
+    /* Subtle radial glow in the top-left corner on hover, per card color */
+    .feat-card::after {
+      content:''; position:absolute; top:-40px; left:-40px;
+      width:160px; height:160px; border-radius:50%;
+      opacity:0; transition:opacity .35s;
+      pointer-events:none;
+    }
+    .feat-card:hover::after { opacity:1; }
+    .feat-card:hover { transform:translateY(-5px); box-shadow:inset 0 1px 0 var(--card-shine), 0 16px 40px rgba(0,0,0,.3); }
+
+    /* Per-card accent colors */
+    .feat-card:nth-child(1) { --fc:#4f7fff; }
+    .feat-card:nth-child(2) { --fc:#34d399; }
+    .feat-card:nth-child(3) { --fc:#fbbf24; }
+    .feat-card:nth-child(4) { --fc:#a78bfa; }
+    .feat-card:nth-child(5) { --fc:#f472b6; }
+    .feat-card:nth-child(6) { --fc:#22d3ee; }
+    .feat-card::after { background:radial-gradient(circle, color-mix(in srgb, var(--fc) 18%, transparent) 0%, transparent 70%); }
+    .feat-card:hover { border-color:var(--fc); }
+
+    /* Icon box */
+    .feat-icon-box {
+      width:52px; height:52px; border-radius:14px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.5rem; margin-bottom:1.1rem; flex-shrink:0;
+      background:color-mix(in srgb, var(--fc) 12%, var(--bg3));
+      border:1px solid color-mix(in srgb, var(--fc) 22%, transparent);
+      transition:transform .25s;
+    }
+    .feat-card:hover .feat-icon-box { transform:scale(1.08); }
+
+    /* Arrow that slides in on hover */
+    .feat-arrow {
+      position:absolute; bottom:1.5rem; right:1.5rem;
+      width:28px; height:28px; border-radius:8px;
+      background:color-mix(in srgb, var(--fc) 12%, transparent);
+      border:1px solid color-mix(in srgb, var(--fc) 20%, transparent);
+      display:flex; align-items:center; justify-content:center;
+      font-size:13px; color:var(--fc);
+      opacity:0; transform:translateX(6px);
+      transition:opacity .25s, transform .25s;
+    }
+    .feat-card:hover .feat-arrow { opacity:1; transform:translateX(0); }
+
+    .feat-title { font-family:var(--font-display); font-size:17px; font-weight:800; color:var(--text); margin-bottom:.5rem; }
+    .feat-desc  { font-size:16px; color:var(--text2); line-height:1.75; margin:0; padding-bottom:1.5rem; }
+
+    /* ── CURRICULUM ───────────────────────────────────────── */
+    .curriculum-search {
+      display:flex; align-items:center; gap:10px;
+      background:var(--card); border:1.5px solid var(--border2);
+      border-radius:10px; padding:10px 16px; margin-bottom:2rem;
       transition:border-color .2s;
     }
-    .roadmap-card:hover { border-color:var(--border2); }
-    .roadmap-phase {
-      font-size:10px; font-weight:700; letter-spacing:.1em;
-      text-transform:uppercase; margin-bottom:6px;
+    .curriculum-search:focus-within { border-color:var(--accent); }
+    .curriculum-search input {
+      background:none; border:none; outline:none;
+      color:var(--text); font-size:14px; flex:1; font-family:var(--font-body);
     }
-    .roadmap-title { font-family:var(--font-display); font-size:15px; font-weight:800; margin-bottom:12px; }
-    .roadmap-items { list-style:none; }
-    .roadmap-items li {
-      font-size:13px; color:var(--text2);
-      padding:5px 0; border-bottom:1px solid var(--border);
-      display:flex; align-items:center; gap:8px;
-    }
-    .roadmap-items li:last-child { border-bottom:none; }
-    .roadmap-items li::before { content:'›'; color:var(--accent); font-size:14px; font-weight:700; }
+    .curriculum-search input::placeholder { color:var(--text3); }
 
-    /* Topic grid */
-    .topic-grid {
-      display:grid; grid-template-columns:repeat(3,1fr);
-      gap:10px; margin-bottom:32px;
-    }
-    .topic-card {
-      background:var(--card); border:1px solid var(--border);
-      border-radius:var(--radius); padding:15px 16px;
-      cursor:pointer; transition:all .22s ease;
-      text-decoration:none; display:block;
-      position:relative; overflow:hidden;
+    /* Phase sections */
+    .phase-sec {
+      border:1px solid var(--border); border-radius:16px; overflow:hidden;
+      margin-bottom:14px; background:var(--card);
       box-shadow:inset 0 1px 0 var(--card-shine);
     }
-    .topic-card::before {
-      content:''; position:absolute;
-      left:0; top:0; bottom:0; width:3px;
-      background:var(--border2); transition:background .2s;
+    .phase-hdr {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 20px; cursor:pointer; user-select:none;
+      border-bottom:1px solid var(--border); transition:background .18s;
     }
-    .topic-card:hover { border-color:var(--accent); transform:translateY(-2px); box-shadow:var(--shadow-sm); }
+    .phase-hdr:hover { background:var(--bg3); }
+    .phase-hdr-l { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+    .phase-badge {
+      font-size:11px; font-weight:800; letter-spacing:.08em;
+      padding:5px 14px; border-radius:20px; border:1.5px solid;
+      text-transform:uppercase; flex-shrink:0;
+    }
+    .phase-title { font-size:16px; font-weight:700; color:var(--text); transition:color .18s; }
+    .phase-hdr:hover .phase-title { color:var(--ph, var(--accent)); }
+    .phase-meta { font-size:13px; color:var(--text3); font-family:var(--font-mono); }
+    .phase-arrow {
+      font-size:18px; color:var(--text3);
+      transition:color .18s, transform .25s; transform:rotate(90deg);
+    }
+    .phase-hdr:hover .phase-arrow { color:var(--ph, var(--accent)); }
+    .phase-sec.collapsed .phase-arrow { transform:rotate(0deg); }
+    .phase-body { padding:14px; }
+    .phase-sec.collapsed .phase-body { display:none; }
+
+    /* Topic cards — horizontal style */
+    .topic-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:8px;
+    }
+    .topic-card {
+      background:var(--bg2); border:1px solid var(--border);
+      border-radius:10px; padding:14px 16px; cursor:pointer;
+      transition:all .2s ease; text-decoration:none; display:block;
+      position:relative; overflow:hidden;
+    }
+    .topic-card::before {
+      content:''; position:absolute; left:0; top:0; bottom:0;
+      width:3px; background:var(--border2); transition:background .2s;
+    }
+    .topic-card:hover { border-color:var(--accent); transform:translateY(-2px); box-shadow:0 4px 16px rgba(0,0,0,.3); }
     .topic-card:hover::before { background:var(--accent); }
     .topic-card.done { border-color:rgba(52,211,153,.2); }
     .topic-card.done::before { background:var(--green); }
-    .topic-num  { font-family:var(--font-mono); font-size:10px; color:var(--text3); margin-bottom:5px; }
-    .topic-name { font-size:13.5px; font-weight:700; color:var(--text); margin-bottom:8px; }
+    .tc-num { font-family:var(--font-mono); font-size:11px; color:var(--text3); margin-bottom:4px; }
+    .tc-name { font-size:15px; font-weight:700; color:var(--text); }
 
-    /* Phase sections */
-    .phase-section {
-      margin-bottom: 20px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      background: var(--card);
-      box-shadow: inset 0 1px 0 var(--card-shine);
+    /* Quick link cards */
+    .qlinks { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:18px; }
+    .qlink {
+      display:flex; align-items:center; gap:12px;
+      background:var(--bg2); border:1px solid var(--border);
+      border-radius:12px; padding:16px 18px; text-decoration:none;
+      transition:all .2s;
     }
-    .phase-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 18px; cursor: pointer;
-      border-bottom: 1px solid var(--border);
-      transition: background .18s;
-      user-select: none;
-    }
-    .phase-header:hover { background: var(--bg3); }
-    .phase-header-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .phase-badge {
-      font-size: 10px; font-weight: 700; letter-spacing: .08em;
-      padding: 3px 10px; border-radius: 20px; border: 1px solid;
-    }
-    .phase-title { font-size: 13.5px; font-weight: 700; color: var(--text); }
-    .phase-count { font-size: 12px; color: var(--text3); font-family: var(--font-mono); }
-    .phase-arrow {
-      font-size: 18px; color: var(--text3);
-      transition: transform .25s; display: inline-block;
-      transform: rotate(90deg);
-    }
-    .phase-section.collapsed .phase-arrow { transform: rotate(0deg); }
-    .phase-body { padding: 14px; margin-bottom: 0; }
-    .phase-section.collapsed .phase-body { display: none; }
+    .qlink:hover { border-color:var(--accent); background:var(--card); transform:translateY(-2px); }
+    .qlink-icon { font-size:22px; flex-shrink:0; }
+    .qlink-title { font-size:15px; font-weight:700; color:var(--text); margin-bottom:2px; }
+    .qlink-sub   { font-size:13px; color:var(--text3); }
 
-    /* Responsive */
-    @media (max-width:900px) {
-      .stats-grid      { grid-template-columns:repeat(2,1fr); }
-      .topic-grid      { grid-template-columns:repeat(2,1fr); }
-      .roadmap-grid    { grid-template-columns:1fr 1fr; }
-      .quicklinks-grid { grid-template-columns:repeat(2,1fr); }
-      .featured-grid   { grid-template-columns:1fr; }
+    /* ── LEARNING PATH ───────────────────────────────────── */
+    .path-steps { max-width:660px; margin:0 auto; }
+    .path-step { display:flex; gap:1.5rem; align-items:flex-start; }
+    .path-num {
+      flex-shrink:0; width:48px; height:48px;
+      background:var(--accent); color:#fff; border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--font-display); font-weight:800;
+      font-size:13px; letter-spacing:.08em;
+      box-shadow:0 0 14px rgba(79,127,255,.3);
     }
-    @media (max-width:560px) {
-      .topic-grid   { grid-template-columns:1fr; }
-      .roadmap-grid { grid-template-columns:1fr; }
+    .path-body { flex:1; padding-bottom:.5rem; }
+    .path-title { font-family:var(--font-display); font-size:17px; font-weight:700; color:var(--text); margin-bottom:.4rem; }
+    .path-desc  { font-size:16px; color:var(--text2); line-height:1.8; margin-bottom:.5rem; }
+    .path-link  {
+      font-size:13px; font-weight:700; color:var(--accent);
+      font-family:var(--font-display); text-decoration:none; transition:color .2s;
     }
+    .path-link:hover { color:var(--accent-hover); }
+    .path-connector { width:2px; height:28px; background:var(--border2); margin-left:23px; }
+
+    /* ── INSTRUCTOR ──────────────────────────────────────── */
+    .ins-card {
+      display:flex; gap:3rem; align-items:center;
+      background:var(--card); border:1px solid var(--border);
+      border-radius:20px; padding:3rem; max-width:800px; margin:0 auto;
+      box-shadow:var(--shadow); box-sizing:border-box;
+    }
+    .ins-avatar-wrap { position:relative; flex-shrink:0; }
+    .ins-avatar {
+      width:100px; height:100px; border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--green));
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--font-display); font-weight:800;
+      font-size:2rem; color:#fff; position:relative; z-index:1;
+      box-shadow:0 0 24px rgba(79,127,255,.3);
+    }
+    .ins-ring {
+      position:absolute; inset:-7px; border-radius:50%;
+      border:2px dashed rgba(79,127,255,.35);
+      animation:spin 22s linear infinite;
+    }
+    @keyframes spin { to{transform:rotate(360deg)} }
+    .ins-eyebrow {
+      font-size:11px; font-weight:700; text-transform:uppercase;
+      letter-spacing:.08em; color:var(--accent); margin-bottom:4px;
+    }
+    .ins-name { font-family:var(--font-display); font-size:1.9rem; font-weight:800; color:var(--text); margin-bottom:4px; }
+    .ins-tag  { font-size:15px; color:var(--text2); margin-bottom:1rem; }
+    .ins-bio  { font-size:16px; color:var(--text2); line-height:1.85; margin-bottom:1.25rem; }
+    .ins-social { display:flex; gap:8px; flex-wrap:wrap; }
+    .ins-link {
+      display:inline-flex; align-items:center; gap:6px;
+      padding:7px 16px; border-radius:8px; font-size:13px; font-weight:600;
+      text-decoration:none; border:1.5px solid transparent; transition:all .2s;
+    }
+    .ins-link svg { width:15px; height:15px; flex-shrink:0; }
+    .ins-link--li  { background:rgba(0,119,181,.08); color:#0077B5; border-color:rgba(0,119,181,.2); }
+    .ins-link--li:hover  { background:#0077B5; color:#fff; border-color:#0077B5; }
+    .ins-link--gh  { background:var(--bg3); color:var(--text2); border-color:var(--border2); }
+    .ins-link--gh:hover  { background:var(--text); color:var(--bg); border-color:var(--text); }
+    .ins-link--ig  { background:rgba(225,48,108,.08); color:#E1306C; border-color:rgba(225,48,108,.2); }
+    .ins-link--ig:hover  { background:linear-gradient(45deg,#F58529,#DD2A7B,#8134AF); color:#fff; border-color:transparent; }
+
+    /* ── FINAL CTA (dark) ────────────────────────────────── */
+    .cta-inner { text-align:center; max-width:540px; margin:0 auto; }
+    .cta-inner h2 {
+      font-family:var(--font-display);
+      font-size:clamp(1.6rem,3.5vw,2.3rem); font-weight:800;
+      color:#fff; margin-bottom:.75rem; letter-spacing:-.02em;
+    }
+    .cta-inner p { font-size:1.15rem; color:rgba(255,255,255,.45); margin-bottom:2rem; line-height:1.75; }
+    .btn-primary--white {
+      background:#fff; color:#0b0f1a;
+      padding:13px 30px; border-radius:10px;
+      font-size:15px; font-weight:700; text-decoration:none;
+      font-family:var(--font-display); transition:all .2s;
+      display:inline-flex; align-items:center; gap:6px;
+      box-shadow:0 0 30px rgba(255,255,255,.15);
+    }
+    .btn-primary--white:hover { background:var(--accent); color:#fff; transform:translateY(-2px); }
+
+    /* ── FOOTER (dark) ───────────────────────────────────── */
+    .hfooter {
+      background:#0d1220 !important;
+      border-top:1px solid rgba(255,255,255,.06);
+      position:relative; overflow:hidden;
+    }
+    /* Subtle dot grid on footer background */
+    .hfooter::before {
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background-image:radial-gradient(circle, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size:28px 28px;
+    }
+    /* Top glow accent */
+    .hfooter::after {
+      content:''; position:absolute; top:-120px; left:50%; transform:translateX(-50%);
+      width:600px; height:240px; pointer-events:none;
+      background:radial-gradient(circle, rgba(79,127,255,.07) 0%, transparent 70%);
+    }
+    .hfooter-inner {
+      max-width:1200px; margin:0 auto; padding:3rem 2rem 0;
+      position:relative; z-index:1;
+    }
+    .hfooter-top {
+      display:grid; grid-template-columns:1.8fr 1fr 1fr; gap:3rem;
+      padding-bottom:2.5rem; border-bottom:1px solid rgba(255,255,255,.07);
+    }
+    /* Brand column */
+    .hfooter-brand {
+      font-family:var(--font-display); font-size:20px;
+      font-weight:800; color:#fff; letter-spacing:-.01em; margin-bottom:.75rem;
+    }
+    .hfooter-brand span { color:rgba(167,139,250,.85); }
+    .hfooter-tagline {
+      font-size:14px; color:rgba(255,255,255,.38); line-height:1.7;
+      max-width:260px; margin-bottom:1.25rem;
+    }
+    /* Column headings */
+    .hfooter-col-title {
+      font-size:11px; font-weight:800; letter-spacing:.1em;
+      text-transform:uppercase; color:rgba(255,255,255,.3);
+      margin-bottom:1rem;
+    }
+    .hfooter-col-links { display:flex; flex-direction:column; gap:.6rem; }
+    .hfooter-col-links a {
+      font-size:14px; color:rgba(255,255,255,.4); text-decoration:none;
+      transition:color .18s; width:fit-content;
+    }
+    .hfooter-col-links a:hover { color:#fff; }
+    /* Social icon buttons */
+    .hfooter-socials { display:flex; gap:.6rem; margin-top:.25rem; }
+    .hfooter-soc {
+      width:38px; height:38px; border-radius:10px;
+      border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.04);
+      display:flex; align-items:center; justify-content:center;
+      color:rgba(255,255,255,.45); text-decoration:none;
+      transition:all .2s;
+    }
+    .hfooter-soc:hover { transform:translateY(-2px); color:#fff; }
+    /* LinkedIn */
+    .hfooter-soc:nth-child(1):hover { border-color:rgba(10,102,194,.55); background:rgba(10,102,194,.15); color:#4d9de0; }
+    /* GitHub */
+    .hfooter-soc:nth-child(2):hover { border-color:rgba(255,255,255,.25); background:rgba(255,255,255,.08); color:#fff; }
+    /* Instagram */
+    .hfooter-soc:nth-child(3):hover { border-color:rgba(225,48,108,.5); background:rgba(225,48,108,.12); color:#e1306c; }
+    .hfooter-soc svg { width:16px; height:16px; }
+    /* Bottom bar */
+    .hfooter-bottom {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1.25rem 0; flex-wrap:wrap; gap:.5rem;
+    }
+    .hfooter-copy {
+      font-size:12px; color:rgba(255,255,255,.2);
+    }
+    .hfooter-made {
+      font-size:12px; color:rgba(255,255,255,.18);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media(max-width:1024px) { .feat-grid { grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:900px) {
+      .hero-inner { grid-template-columns:1fr; text-align:center; gap:2.5rem; }
+      .hero-sub { margin:0 auto 2rem; }
+      .hero-btns { justify-content:center; }
+      .hero-stats { justify-content:center; }
+      .hero-visual { height:320px; }
+      .hcard--code { width:230px; left:50%; transform:translateX(-60%); }
+      .hcard--quiz { width:200px; right:4%; top:20px; }
+      .hcard--prog { width:200px; bottom:10px; left:4%; }
+      .stats-grid { grid-template-columns:repeat(2,1fr); }
+      .topic-grid { grid-template-columns:repeat(2,1fr); }
+      .qlinks { grid-template-columns:1fr; }
+      .ins-card { flex-direction:column; text-align:center; gap:1.5rem; padding:2rem; }
+      .ins-social { justify-content:center; }
+    }
+    @media(max-width:768px) {
+      .hn-nav, .hn-actions .hn-cta { display:none; }
+      .hn-mobile-btn { display:flex; }
+      .hn-inner { justify-content:space-between; }
+      .feat-grid { grid-template-columns:1fr; }
+      .si { padding:3.5rem 1.25rem; }
+      .hfooter-top { grid-template-columns:1fr; gap:2rem; }
+      .hfooter-tagline { max-width:100%; }
+    }
+    @media(max-width:560px) { .topic-grid { grid-template-columns:1fr; } }
+
+    /* ── LIGHT MODE: hero overrides ─────────────────────────── */
+    body.light .hero { background:var(--bg); }
+    body.light .hero-dot-grid {
+      background-image:radial-gradient(circle, rgba(79,127,255,.18) 1px, transparent 1px);
+      opacity:.7;
+    }
+    body.light .hero-glow-r {
+      background:radial-gradient(circle, rgba(79,127,255,.14) 0%, transparent 60%);
+    }
+    body.light .hero-glow-l {
+      background:radial-gradient(circle, rgba(52,211,153,.1) 0%, transparent 65%);
+    }
+    body.light .hcard {
+      box-shadow:0 12px 40px rgba(0,0,0,.12), 0 0 0 1px rgba(79,127,255,.08);
+    }
+
+    /* ── SCROLL REVEAL ──────────────────────────────────────── */
+    .sr {
+      opacity:0;
+      transform:translateY(26px);
+      transition:opacity .65s ease, transform .65s ease;
+    }
+    .sr.visible { opacity:1; transform:translateY(0); }
+
+    /* ── PHASE COLOR VARIABLES ──────────────────────────────── */
+    .phase-sec:nth-child(2) { --ph:var(--green);  --ph-a:rgba(52,211,153,.06); }
+    .phase-sec:nth-child(3) { --ph:var(--accent); --ph-a:rgba(79,127,255,.06); }
+    .phase-sec:nth-child(4) { --ph:var(--purple); --ph-a:rgba(167,139,250,.06); }
+
+    /* Phase header hover uses phase tint */
+    .phase-hdr:hover { background:var(--ph-a, var(--bg3)) !important; }
+
+    /* Topic cards pick up phase color on hover */
+    .topic-card:hover {
+      border-color:color-mix(in srgb, var(--ph, var(--accent)) 60%, transparent) !important;
+      box-shadow:0 4px 16px color-mix(in srgb, var(--ph, var(--accent)) 14%, transparent) !important;
+    }
+    .topic-card:hover::before { background:var(--ph, var(--accent)) !important; }
+
+    /* ── PHASE PROGRESS BAR ─────────────────────────────────── */
+    .phase-hdr { position:relative; overflow:hidden; }
+    .phase-hdr-prog {
+      position:absolute; bottom:0; left:0; height:3px;
+      background:var(--ph, var(--accent)); width:0%;
+      transition:width 1s cubic-bezier(.16,1,.3,1);
+      border-radius:0 2px 0 0;
+      box-shadow:0 0 8px color-mix(in srgb, var(--ph, var(--accent)) 70%, transparent);
+    }
+
+    /* ── ACTIVE TOPIC HIGHLIGHT (last visited) ───────────────── */
+    .topic-card.last-visited {
+      border-color:var(--accent) !important;
+      box-shadow:0 0 0 3px rgba(79,127,255,.15);
+    }
+    .topic-card.last-visited::before { background:var(--accent) !important; }
+    .topic-card.last-visited .tc-name::after {
+      content:' ·'; color:var(--accent); font-size:12px;
+    }
+    .lv-badge {
+      display:inline-flex; align-items:center; gap:4px;
+      font-size:9.5px; font-weight:700; letter-spacing:.06em;
+      text-transform:uppercase; color:var(--accent);
+      background:rgba(79,127,255,.1); border:1px solid rgba(79,127,255,.2);
+      padding:2px 7px; border-radius:20px; margin-top:5px;
+    }
+    @keyframes lvpulse {
+      0%,100%{box-shadow:0 0 0 0 rgba(79,127,255,.4)}
+      50%{box-shadow:0 0 0 6px rgba(79,127,255,0)}
+    }
+    .topic-card.last-visited { animation:lvpulse 2.5s ease-in-out 3; }
+
+    /* ── SCROLL PROGRESS BAR ───────────────────────────────── */
+    #scrollProg {
+      position:fixed; top:0; left:0; height:2.5px; width:0%;
+      background:linear-gradient(90deg, var(--accent), var(--green));
+      z-index:9999; pointer-events:none;
+      box-shadow:0 0 8px rgba(79,127,255,.5);
+    }
+
+    /* ── SCROLL-TO-TOP ──────────────────────────────────────── */
+    #scrollTop {
+      position:fixed; bottom:24px; right:24px; z-index:190;
+      width:42px; height:42px; border-radius:12px;
+      background:var(--accent); color:#fff; border:none; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      font-size:18px; box-shadow:0 4px 16px rgba(79,127,255,.4);
+      opacity:0; transform:translateY(12px); pointer-events:none;
+      transition:opacity .3s, transform .3s;
+    }
+    #scrollTop.show { opacity:1; transform:translateY(0); pointer-events:all; }
+    #scrollTop:hover { background:var(--accent-hover); transform:translateY(-2px); }
   </style>
 </head>
 <body>
 <script>(function(){try{if(JSON.parse(localStorage.getItem('pynotes_theme'))==='light')document.body.classList.add('light');}catch(e){}}());</script>
+<div id="scrollProg"></div>
 
-<!-- Mobile overlay -->
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<!-- TOPBAR -->
+<header class="hn" id="homeNav">
+  <div class="hn-inner">
+    <a href="index.html" class="hn-brand">
+      <div class="hn-logo">Py</div>
+      <span class="hn-name">Python<span>byRohan</span></span>
+    </a>
+    <nav class="hn-nav">
+      <a href="#features"    class="hn-link">Features</a>
+      <a href="#curriculum"  class="hn-link">Curriculum</a>
+      <a href="#path"        class="hn-link">Learning Path</a>
+      <a href="#about"       class="hn-link">About</a>
+    </nav>
+    <div class="hn-actions">
+      <button class="hn-theme" id="themeToggle" title="Toggle theme"></button>
+      <a href="topics/python-basics.html" class="hn-cta">Start Learning →</a>
+    </div>
+    <button class="hn-mobile-btn" id="mobileMenuBtn"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile-drawer" id="mobileDrawer">
+  <a href="#features">Features</a>
+  <a href="#curriculum">Curriculum</a>
+  <a href="#path">Learning Path</a>
+  <a href="#about">About</a>
+  <a href="topics/python-basics.html" class="hn-cta" style="margin-top:6px;display:inline-block;text-align:center">Start Learning →</a>
+</div>
 
-<div class="layout">
-
-  <!-- ══ SIDEBAR ══════════════════════════════════════════ -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-logo">
-      <div class="logo-icon">Py</div>
-      <div>
-        <div class="logo-text">Python<span style="color:var(--purple);font-size:.85em;font-weight:700">byRohan</span></div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-dot-grid"></div>
+  <div class="hero-glow-r"></div>
+  <div class="hero-glow-l"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        Free &middot; Structured &middot; Beginner to Advanced
+      </div>
+      <h1 class="hero-title">
+        Learn Python<br><span class="hl">the right way.</span>
+      </h1>
+      <p class="hero-sub">
+        A structured learning platform built for students. Notes, real examples,
+        MCQs, guess-the-output exercises, and interview prep, all in one place, completely free.
+      </p>
+      <div class="hero-btns">
+        <a href="topics/python-basics.html" class="btn-primary">Start Learning →</a>
+        <a href="#curriculum"               class="btn-ghost">View Curriculum</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><span class="hstat-val">29</span><span class="hstat-lbl">Topics</span></div>
+        <div class="hstat-div"></div>
+        <div class="hstat"><span class="hstat-val">3</span><span class="hstat-lbl">Phases</span></div>
+        <div class="hstat-div"></div>
+        <div class="hstat"><span class="hstat-val">MCQ</span><span class="hstat-lbl">Per Topic</span></div>
+        <div class="hstat-div"></div>
+        <div class="hstat"><span class="hstat-val">Free</span><span class="hstat-lbl">Always</span></div>
       </div>
     </div>
 
-    <div class="sidebar-progress">
-      <div class="progress-meta">
-        <span>Overall Progress</span>
-        <span data-progress-count>0/29 topics</span>
-      </div>
-      <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
-    </div>
-
-    <div class="sidebar-label">Navigation</div>
-    <a href="index.html" class="nav-item active">
-      <span class="nav-num">🏠</span><span class="nav-dot active"></span>Home
-    </a>
-
-    <div class="sidebar-label">Core Python</div>
-
-    <a href="topics/python-basics.html" class="nav-item">
-      <span class="nav-num">01</span><span class="nav-dot" id="dot-python-basics"></span>Python Basics
-    </a>
-    <a href="topics/data-types.html" class="nav-item">
-      <span class="nav-num">02</span><span class="nav-dot" id="dot-data-types"></span>Data Types
-    </a>
-    <a href="topics/operators.html" class="nav-item">
-      <span class="nav-num">03</span><span class="nav-dot" id="dot-operators"></span>Operators
-    </a>
-    <a href="topics/conditionals.html" class="nav-item">
-      <span class="nav-num">04</span><span class="nav-dot" id="dot-conditionals"></span>Conditionals
-    </a>
-
-    <!-- Loops group -->
-    <div class="nav-group" data-group="loops">
-      <div class="nav-group-header">
-        <span class="nav-num">05</span>
-        <span class="nav-dot" id="dot-loops-for"></span>
-        Loops
-        <span class="nav-group-arrow">›</span>
-      </div>
-      <div class="nav-sub">
-        <a href="topics/loops-for.html"   class="nav-sub-item" id="sub-loops-for">for Loop</a>
-        <a href="topics/loops-while.html" class="nav-sub-item" id="sub-loops-while">while Loop</a>
-      </div>
-    </div>
-
-    <!-- Strings group -->
-    <div class="nav-group" data-group="strings">
-      <div class="nav-group-header">
-        <span class="nav-num">06</span>
-        <span class="nav-dot" id="dot-strings-basics"></span>
-        Strings
-        <span class="nav-group-arrow">›</span>
-      </div>
-      <div class="nav-sub">
-        <a href="topics/strings-basics.html"  class="nav-sub-item" id="sub-strings-basics">Basics</a>
-        <a href="topics/strings-methods.html" class="nav-sub-item" id="sub-strings-methods">Methods</a>
-      </div>
-    </div>
-
-    <a href="topics/lists.html" class="nav-item">
-      <span class="nav-num">07</span><span class="nav-dot" id="dot-lists"></span>Lists
-    </a>
-    <a href="topics/tuples.html" class="nav-item">
-      <span class="nav-num">08</span><span class="nav-dot" id="dot-tuples"></span>Tuples
-    </a>
-
-    <div class="sidebar-label">Intermediate</div>
-
-    <a href="topics/dictionaries.html" class="nav-item">
-      <span class="nav-num">09</span><span class="nav-dot" id="dot-dictionaries"></span>Dictionaries
-    </a>
-    <a href="topics/sets.html" class="nav-item">
-      <span class="nav-num">10</span><span class="nav-dot" id="dot-sets"></span>Sets
-    </a>
-
-    <!-- Functions group -->
-    <div class="nav-group" data-group="functions">
-      <div class="nav-group-header">
-        <span class="nav-num">11</span>
-        <span class="nav-dot" id="dot-functions-basics"></span>
-        Functions
-        <span class="nav-group-arrow">›</span>
-      </div>
-      <div class="nav-sub">
-        <a href="topics/functions-basics.html"   class="nav-sub-item">Defining Functions</a>
-        <a href="topics/functions-advanced.html" class="nav-sub-item">Args, kwargs, Lambda</a>
-      </div>
-    </div>
-
-    <a href="topics/modules-packages.html" class="nav-item">
-      <span class="nav-num">12</span><span class="nav-dot" id="dot-modules-packages"></span>Modules &amp; Packages
-    </a>
-
-    <!-- File Handling group -->
-    <div class="nav-group" data-group="file-handling">
-      <div class="nav-group-header">
-        <span class="nav-num">13</span>
-        <span class="nav-dot" id="dot-file-handling-read"></span>
-        File Handling
-        <span class="nav-group-arrow">›</span>
-      </div>
-      <div class="nav-sub">
-        <a href="topics/file-handling-read.html"  class="nav-sub-item">Reading Files</a>
-        <a href="topics/file-handling-write.html" class="nav-sub-item">Writing Files</a>
-      </div>
-    </div>
-
-    <!-- Exception Handling group -->
-    <div class="nav-group" data-group="exceptions">
-      <div class="nav-group-header">
-        <span class="nav-num">14</span>
-        <span class="nav-dot" id="dot-exceptions-basics"></span>
-        Exception Handling
-        <span class="nav-group-arrow">›</span>
-      </div>
-      <div class="nav-sub">
-        <a href="topics/exceptions-basics.html"   class="nav-sub-item">Basics</a>
-        <a href="topics/exceptions-advanced.html" class="nav-sub-item">Advanced</a>
-      </div>
-    </div>
-
-    <!-- OOP group -->
-    <div class="nav-group" data-group="oop">
-      <div class="nav-group-header">
-        <span class="nav-num">15</span>
-        <span class="nav-dot" id="dot-oop-classes"></span>
-        OOP
-        <span class="nav-group-arrow">›</span>
-      </div>
-      <div class="nav-sub">
-        <a href="topics/oop-classes.html"     class="nav-sub-item">Classes &amp; Objects</a>
-        <a href="topics/oop-inheritance.html" class="nav-sub-item">Inheritance</a>
-        <a href="topics/oop-advanced.html"    class="nav-sub-item">Advanced OOP</a>
-      </div>
-    </div>
-
-    <div class="sidebar-label">Advanced</div>
-
-    <a href="topics/iterators-generators.html" class="nav-item">
-      <span class="nav-num">16</span><span class="nav-dot" id="dot-iterators-generators"></span>Iterators &amp; Generators
-    </a>
-    <a href="topics/decorators.html" class="nav-item">
-      <span class="nav-num">17</span><span class="nav-dot" id="dot-decorators"></span>Decorators
-    </a>
-
-    <!-- NumPy group -->
-    <div class="nav-group" data-group="numpy">
-      <div class="nav-group-header">
-        <span class="nav-num">18</span>
-        <span class="nav-dot" id="dot-numpy-arrays"></span>
-        NumPy
-        <span class="nav-group-arrow">›</span>
-      </div>
-      <div class="nav-sub">
-        <a href="topics/numpy-arrays.html"     class="nav-sub-item">Arrays</a>
-        <a href="topics/numpy-operations.html" class="nav-sub-item">Operations</a>
-      </div>
-    </div>
-
-    <!-- Pandas group -->
-    <div class="nav-group" data-group="pandas">
-      <div class="nav-group-header">
-        <span class="nav-num">19</span>
-        <span class="nav-dot" id="dot-pandas-series"></span>
-        Pandas
-        <span class="nav-group-arrow">›</span>
-      </div>
-      <div class="nav-sub">
-        <a href="topics/pandas-series.html"    class="nav-sub-item">Series</a>
-        <a href="topics/pandas-dataframe.html" class="nav-sub-item">DataFrame</a>
-      </div>
-    </div>
-
-    <a href="topics/data-visualization.html" class="nav-item">
-      <span class="nav-num">20</span><span class="nav-dot" id="dot-data-visualization"></span>Data Visualization
-    </a>
-
-    <div class="sidebar-label">More</div>
-    <a href="projects/index.html"  class="nav-item"><span class="nav-num">📁</span><span class="nav-dot"></span>Projects</a>
-    <a href="interview/index.html" class="nav-item"><span class="nav-num">🎯</span><span class="nav-dot"></span>Interview Prep</a>
-    <a href="resources/index.html" class="nav-item"><span class="nav-num">📚</span><span class="nav-dot"></span>Resources</a>
-  </aside>
-
-  <!-- ══ MAIN ════════════════════════════════════════════ -->
-  <div class="main" id="main">
-
-    <!-- Topbar -->
-    <header class="topbar">
-      <div style="display:flex;align-items:center;gap:12px">
-        <button class="sidebar-toggle btn btn-icon" id="sidebarToggle" title="Toggle sidebar">☰</button>
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-          <span class="crumb-current">Home</span>
-        </nav>
-      </div>
-      <div class="topbar-right">
-        <div class="theme-toggle">
-          <span class="theme-icon">🌙</span>
-          <button class="toggle-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme (D)"></button>
-          <span class="theme-icon">☀️</span>
+    <!-- Floating cards -->
+    <div class="hero-visual" aria-hidden="true">
+      <!-- Code card -->
+      <div class="hcard hcard--code">
+        <div class="hcard-header">
+          <div class="hcard-dots"><span></span><span></span><span></span></div>
+          <span class="hcard-filename">conditionals.py</span>
         </div>
-        <a href="topics/python-basics.html" class="btn btn-primary btn-sm">Start Learning</a>
-      </div>
-    </header>
-
-    <!-- Content -->
-    <main class="content-area">
-
-      <!-- Last visit banner -->
-      <div class="last-visit-banner animate-fadeup" id="lastVisitBanner">
-        <span>Welcome back! Continue from <strong id="lastVisitName"></strong></span>
-        <a id="lastVisitLink" href="#" class="btn btn-primary btn-sm">Continue</a>
-      </div>
-
-      <!-- Hero -->
-      <section class="hero animate-fadeup">
-        <div class="hero-glow"></div>
-        <div class="hero-glow2"></div>
-        <div class="hero-snake">🐍</div>
-        <div class="hero-tag">Python Notes · Student Edition</div>
-        <h1>Learn Python<br><span class="hl">the right way.</span></h1>
-        <p>Structured notes, real-world examples, practice tasks, MCQs, and interview prep. Everything a student needs, all in one place. Free forever.</p>
-        <div class="hero-actions">
-          <a href="topics/python-basics.html" class="btn btn-primary">Start Learning</a>
-          <a href="#roadmap" class="btn">View Roadmap</a>
-          <a href="#topics"  class="btn">All Topics</a>
+        <div class="hcard-code">
+<span class="hc-var">score</span> = <span class="hc-num">82</span><br>
+<br>
+<span class="hc-kw">if</span> <span class="hc-var">score</span> &gt;= <span class="hc-num">90</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="hc-fn">print</span>(<span class="hc-str">"Grade: A"</span>)<br>
+<span class="hc-kw">elif</span> <span class="hc-var">score</span> &gt;= <span class="hc-num">75</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="hc-fn">print</span>(<span class="hc-str">"Grade: B"</span>)<br>
+<span class="hc-kw">else</span>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="hc-fn">print</span>(<span class="hc-str">"Grade: F"</span>)
         </div>
-      </section>
-
-      <!-- Streak -->
-      <div class="streak-section animate-fadeup delay-1">
-        <div class="streak-label">🔥 Streak</div>
-        <div id="streakDots"></div>
-        <div class="streak-msg"><span data-streak>0</span> day streak!</div>
-      </div>
-
-      <!-- Stats -->
-      <div class="stats-grid animate-fadeup delay-2">
-        <div class="stat-card">
-          <div class="stat-icon">📚</div>
-          <div class="stat-num" style="color:var(--accent)">29</div>
-          <div class="stat-label">Total Topics</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">✅</div>
-          <div class="stat-num" style="color:var(--green)" data-completed-count>0</div>
-          <div class="stat-label">Completed</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">📊</div>
-          <div class="stat-num" style="color:var(--accent3)" data-progress-percent>0%</div>
-          <div class="stat-label">Progress</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">🎯</div>
-          <div class="stat-num" style="color:var(--accent2)" id="avgScore">--</div>
-          <div class="stat-label">Avg Quiz Score</div>
+        <div class="hcard-output">
+          <span class="hcard-output-label">Output</span>
+          <span style="color:var(--green)">Grade: B</span>
         </div>
       </div>
 
-      <!-- Search -->
-      <div class="search-wrap animate-fadeup delay-2" style="margin-bottom:24px">
-        <span class="search-icon">🔍</span>
-        <input id="globalSearch" type="text" placeholder="Search topics... (press / to focus)" aria-label="Search topics" />
-      </div>
-
-      <!-- Keyboard shortcuts -->
-      <div class="shortcut-hint animate-fadeup delay-2">
-        <span><kbd class="kbd">/</kbd> Search</span>
-        <span><kbd class="kbd">N</kbd> Next topic</span>
-        <span><kbd class="kbd">P</kbd> Prev topic</span>
-        <span><kbd class="kbd">B</kbd> Bookmark</span>
-        <span><kbd class="kbd">D</kbd> Dark / Light</span>
-      </div>
-
-      <!-- Featured -->
-      <div class="section-heading animate-fadeup delay-2">Featured</div>
-      <div class="featured-grid animate-fadeup delay-3">
-        <div class="featured-card">
-          <div class="featured-label">Start here</div>
-          <div class="featured-title">Python Basics</div>
-          <div class="featured-desc">Your gateway to programming. Learn syntax, variables, print statements, comments, and write your very first Python program. Explained like a teacher, not a textbook.</div>
-          <a href="topics/python-basics.html" class="btn btn-primary">Begin Topic</a>
+      <!-- Quiz card -->
+      <div class="hcard hcard--quiz">
+        <div class="hcard-quiz-eyebrow">MCQ Quiz · Strings</div>
+        <div class="hcard-quiz-q">What does <code style="font-family:var(--font-mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:4px;color:var(--accent)">"hello"[1]</code> return?</div>
+        <div class="hcard-quiz-opts">
+          <div class="hcard-quiz-opt wrong">'h'</div>
+          <div class="hcard-quiz-opt correct">✓ &nbsp;'e'</div>
+          <div class="hcard-quiz-opt wrong">'l'</div>
+          <div class="hcard-quiz-opt wrong">'o'</div>
         </div>
-        <div class="updates-card">
-          <div class="section-heading" style="font-size:13px;margin-bottom:8px">Latest Updates</div>
-          <div class="update-item">
-            <div class="update-dot" style="background:var(--accent)"></div>
-            <div>
-              <div class="update-text">OOP chapter with diagrams and examples</div>
-              <div class="update-date">Coming soon</div>
+        <div class="hcard-quiz-score">Score: <strong>4 / 5</strong></div>
+      </div>
+
+      <!-- Progress card -->
+      <div class="hcard hcard--prog">
+        <div class="hcard-prog-title">Your Progress</div>
+        <div class="hcard-prog-rows">
+          <div class="hcard-prog-row">
+            <div class="hcard-prog-row-header">
+              <span class="hcard-prog-row-name">Phase 1</span>
+              <span class="hcard-prog-row-pct">75%</span>
             </div>
+            <div class="hcard-prog-track"><div class="hcard-prog-fill hcard-prog-fill--1"></div></div>
           </div>
-          <div class="update-item">
-            <div class="update-dot" style="background:var(--accent2)"></div>
-            <div>
-              <div class="update-text">NumPy and Pandas notes going live</div>
-              <div class="update-date">Coming soon</div>
+          <div class="hcard-prog-row">
+            <div class="hcard-prog-row-header">
+              <span class="hcard-prog-row-name">Phase 2</span>
+              <span class="hcard-prog-row-pct">40%</span>
             </div>
+            <div class="hcard-prog-track"><div class="hcard-prog-fill hcard-prog-fill--2"></div></div>
           </div>
-          <div class="update-item">
-            <div class="update-dot" style="background:var(--accent3)"></div>
-            <div>
-              <div class="update-text">Interview Q and A section launching</div>
-              <div class="update-date">Coming soon</div>
+          <div class="hcard-prog-row">
+            <div class="hcard-prog-row-header">
+              <span class="hcard-prog-row-name">Phase 3</span>
+              <span class="hcard-prog-row-pct">15%</span>
             </div>
+            <div class="hcard-prog-track"><div class="hcard-prog-fill hcard-prog-fill--3"></div></div>
           </div>
         </div>
-      </div>
-
-      <!-- Quick links -->
-      <div class="section-heading animate-fadeup delay-3">Quick Access</div>
-      <div class="quicklinks-grid animate-fadeup delay-3">
-        <a href="projects/index.html"  class="quicklink-card"><div class="quicklink-icon">📁</div><div class="quicklink-name">Projects</div><div class="quicklink-desc">Beginner to Advanced</div></a>
-        <a href="interview/index.html" class="quicklink-card"><div class="quicklink-icon">🎯</div><div class="quicklink-name">Interview Prep</div><div class="quicklink-desc">Q and A + Coding problems</div></a>
-        <a href="resources/index.html" class="quicklink-card"><div class="quicklink-icon">📚</div><div class="quicklink-name">Resources</div><div class="quicklink-desc">Cheat sheets and references</div></a>
-        <a href="resources/index.html" class="quicklink-card"><div class="quicklink-icon">📋</div><div class="quicklink-name">Cheat Sheets</div><div class="quicklink-desc">Quick syntax reference</div></a>
-      </div>
-
-      <!-- Roadmap -->
-      <div id="roadmap" class="section-heading animate-fadeup delay-3">Learning Roadmap</div>
-      <div class="roadmap-grid animate-fadeup delay-3">
-        <div class="roadmap-card">
-          <div class="roadmap-phase" style="color:var(--green)">Phase 1 · Beginner</div>
-          <div class="roadmap-title">Core Python</div>
-          <ul class="roadmap-items">
-            <li>Python Basics</li>
-            <li>Data Types and Variables</li>
-            <li>Operators</li>
-            <li>Conditional Statements</li>
-            <li>Loops (for and while)</li>
-            <li>Strings</li>
-            <li>Lists and Tuples</li>
-          </ul>
-        </div>
-        <div class="roadmap-card">
-          <div class="roadmap-phase" style="color:var(--accent)">Phase 2 · Intermediate</div>
-          <div class="roadmap-title">Data Structures and Functions</div>
-          <ul class="roadmap-items">
-            <li>Dictionaries and Sets</li>
-            <li>Functions</li>
-            <li>Modules and Packages</li>
-            <li>File Handling</li>
-            <li>Exception Handling</li>
-            <li>OOP</li>
-          </ul>
-        </div>
-        <div class="roadmap-card">
-          <div class="roadmap-phase" style="color:var(--accent4)">Phase 3 · Advanced</div>
-          <div class="roadmap-title">Advanced and Libraries</div>
-          <ul class="roadmap-items">
-            <li>Iterators and Generators</li>
-            <li>Decorators</li>
-            <li>NumPy</li>
-            <li>Pandas</li>
-            <li>Data Visualization</li>
-            <li>Projects and Interview Prep</li>
-          </ul>
+        <div class="hcard-prog-total">
+          <span>Topics done</span>
+          <strong id="heroProgCount">0 / 29</strong>
         </div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <!-- All Topics -->
-      <div id="topics" class="section-heading animate-fadeup delay-4">All Topics</div>
-
-      <!-- Phase 1 -->
-      <div class="phase-section animate-fadeup delay-4">
-        <div class="phase-header" onclick="this.parentElement.classList.toggle('collapsed')">
-          <div class="phase-header-left">
-            <span class="phase-badge" style="background:var(--green-bg);border-color:var(--green-border);color:var(--green)">Phase 1</span>
-            <span class="phase-title">Core Python · Beginner</span>
-            <span class="phase-count" id="phase1-count">0 / 10 done</span>
-          </div>
-          <span class="phase-arrow">›</span>
-        </div>
-        <div class="topic-grid phase-body">
-          <a href="topics/python-basics.html"    class="topic-card" data-searchable data-topic="python-basics"><div class="topic-num">01</div><div class="topic-name">Python Basics</div><span class="badge badge-gray" id="status-python-basics">Not Started</span></a>
-          <a href="topics/data-types.html"       class="topic-card" data-searchable data-topic="data-types"><div class="topic-num">02</div><div class="topic-name">Data Types and Variables</div><span class="badge badge-gray" id="status-data-types">Not Started</span></a>
-          <a href="topics/operators.html"        class="topic-card" data-searchable data-topic="operators"><div class="topic-num">03</div><div class="topic-name">Operators</div><span class="badge badge-gray" id="status-operators">Not Started</span></a>
-          <a href="topics/conditionals.html"     class="topic-card" data-searchable data-topic="conditionals"><div class="topic-num">04</div><div class="topic-name">Conditional Statements</div><span class="badge badge-gray" id="status-conditionals">Not Started</span></a>
-          <a href="topics/loops-for.html"        class="topic-card" data-searchable data-topic="loops-for"><div class="topic-num">05a</div><div class="topic-name">Loops: for Loop</div><span class="badge badge-gray" id="status-loops-for">Not Started</span></a>
-          <a href="topics/loops-while.html"      class="topic-card" data-searchable data-topic="loops-while"><div class="topic-num">05b</div><div class="topic-name">Loops: while Loop</div><span class="badge badge-gray" id="status-loops-while">Not Started</span></a>
-          <a href="topics/strings-basics.html"   class="topic-card" data-searchable data-topic="strings-basics"><div class="topic-num">06a</div><div class="topic-name">Strings: Basics</div><span class="badge badge-gray" id="status-strings-basics">Not Started</span></a>
-          <a href="topics/strings-methods.html"  class="topic-card" data-searchable data-topic="strings-methods"><div class="topic-num">06b</div><div class="topic-name">Strings: Methods</div><span class="badge badge-gray" id="status-strings-methods">Not Started</span></a>
-          <a href="topics/lists.html"            class="topic-card" data-searchable data-topic="lists"><div class="topic-num">07</div><div class="topic-name">Lists</div><span class="badge badge-gray" id="status-lists">Not Started</span></a>
-          <a href="topics/tuples.html"           class="topic-card" data-searchable data-topic="tuples"><div class="topic-num">08</div><div class="topic-name">Tuples</div><span class="badge badge-gray" id="status-tuples">Not Started</span></a>
-        </div>
-      </div>
-
-      <!-- Phase 2 -->
-      <div class="phase-section animate-fadeup delay-4">
-        <div class="phase-header" onclick="this.parentElement.classList.toggle('collapsed')">
-          <div class="phase-header-left">
-            <span class="phase-badge" style="background:rgba(79,127,255,.1);border-color:rgba(79,127,255,.2);color:var(--accent)">Phase 2</span>
-            <span class="phase-title">Data Structures and Functions · Intermediate</span>
-            <span class="phase-count" id="phase2-count">0 / 11 done</span>
-          </div>
-          <span class="phase-arrow">›</span>
-        </div>
-        <div class="topic-grid phase-body">
-          <a href="topics/dictionaries.html"         class="topic-card" data-searchable data-topic="dictionaries"><div class="topic-num">09</div><div class="topic-name">Dictionaries</div><span class="badge badge-gray" id="status-dictionaries">Not Started</span></a>
-          <a href="topics/sets.html"                 class="topic-card" data-searchable data-topic="sets"><div class="topic-num">10</div><div class="topic-name">Sets</div><span class="badge badge-gray" id="status-sets">Not Started</span></a>
-          <a href="topics/functions-basics.html"     class="topic-card" data-searchable data-topic="functions-basics"><div class="topic-num">11a</div><div class="topic-name">Functions: Basics</div><span class="badge badge-gray" id="status-functions-basics">Not Started</span></a>
-          <a href="topics/functions-advanced.html"   class="topic-card" data-searchable data-topic="functions-advanced"><div class="topic-num">11b</div><div class="topic-name">Functions: Advanced</div><span class="badge badge-gray" id="status-functions-advanced">Not Started</span></a>
-          <a href="topics/modules-packages.html"     class="topic-card" data-searchable data-topic="modules-packages"><div class="topic-num">12</div><div class="topic-name">Modules and Packages</div><span class="badge badge-gray" id="status-modules-packages">Not Started</span></a>
-          <a href="topics/file-handling-read.html"   class="topic-card" data-searchable data-topic="file-handling-read"><div class="topic-num">13a</div><div class="topic-name">File Handling: Reading</div><span class="badge badge-gray" id="status-file-handling-read">Not Started</span></a>
-          <a href="topics/file-handling-write.html"  class="topic-card" data-searchable data-topic="file-handling-write"><div class="topic-num">13b</div><div class="topic-name">File Handling: Writing</div><span class="badge badge-gray" id="status-file-handling-write">Not Started</span></a>
-          <a href="topics/exceptions-basics.html"    class="topic-card" data-searchable data-topic="exceptions-basics"><div class="topic-num">14a</div><div class="topic-name">Exception Handling: Basics</div><span class="badge badge-gray" id="status-exceptions-basics">Not Started</span></a>
-          <a href="topics/exceptions-advanced.html"  class="topic-card" data-searchable data-topic="exceptions-advanced"><div class="topic-num">14b</div><div class="topic-name">Exception Handling: Advanced</div><span class="badge badge-gray" id="status-exceptions-advanced">Not Started</span></a>
-          <a href="topics/oop-classes.html"          class="topic-card" data-searchable data-topic="oop-classes"><div class="topic-num">15a</div><div class="topic-name">OOP: Classes and Objects</div><span class="badge badge-gray" id="status-oop-classes">Not Started</span></a>
-          <a href="topics/oop-inheritance.html"      class="topic-card" data-searchable data-topic="oop-inheritance"><div class="topic-num">15b</div><div class="topic-name">OOP: Inheritance</div><span class="badge badge-gray" id="status-oop-inheritance">Not Started</span></a>
-          <a href="topics/oop-advanced.html"         class="topic-card" data-searchable data-topic="oop-advanced"><div class="topic-num">15c</div><div class="topic-name">OOP: Advanced</div><span class="badge badge-gray" id="status-oop-advanced">Not Started</span></a>
-        </div>
-      </div>
-
-      <!-- Phase 3 -->
-      <div class="phase-section animate-fadeup delay-4">
-        <div class="phase-header" onclick="this.parentElement.classList.toggle('collapsed')">
-          <div class="phase-header-left">
-            <span class="phase-badge" style="background:var(--purple-bg);border-color:var(--purple-border);color:var(--purple)">Phase 3</span>
-            <span class="phase-title">Advanced and Libraries</span>
-            <span class="phase-count" id="phase3-count">0 / 8 done</span>
-          </div>
-          <span class="phase-arrow">›</span>
-        </div>
-        <div class="topic-grid phase-body">
-          <a href="topics/iterators-generators.html" class="topic-card" data-searchable data-topic="iterators-generators"><div class="topic-num">16</div><div class="topic-name">Iterators and Generators</div><span class="badge badge-gray" id="status-iterators-generators">Not Started</span></a>
-          <a href="topics/decorators.html"           class="topic-card" data-searchable data-topic="decorators"><div class="topic-num">17</div><div class="topic-name">Decorators</div><span class="badge badge-gray" id="status-decorators">Not Started</span></a>
-          <a href="topics/numpy-arrays.html"         class="topic-card" data-searchable data-topic="numpy-arrays"><div class="topic-num">18a</div><div class="topic-name">NumPy: Arrays</div><span class="badge badge-gray" id="status-numpy-arrays">Not Started</span></a>
-          <a href="topics/numpy-operations.html"     class="topic-card" data-searchable data-topic="numpy-operations"><div class="topic-num">18b</div><div class="topic-name">NumPy: Operations</div><span class="badge badge-gray" id="status-numpy-operations">Not Started</span></a>
-          <a href="topics/pandas-series.html"        class="topic-card" data-searchable data-topic="pandas-series"><div class="topic-num">19a</div><div class="topic-name">Pandas: Series</div><span class="badge badge-gray" id="status-pandas-series">Not Started</span></a>
-          <a href="topics/pandas-dataframe.html"     class="topic-card" data-searchable data-topic="pandas-dataframe"><div class="topic-num">19b</div><div class="topic-name">Pandas: DataFrame</div><span class="badge badge-gray" id="status-pandas-dataframe">Not Started</span></a>
-          <a href="topics/data-visualization.html"   class="topic-card" data-searchable data-topic="data-visualization"><div class="topic-num">20</div><div class="topic-name">Data Visualization</div><span class="badge badge-gray" id="status-data-visualization">Not Started</span></a>
-        </div>
-      </div>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-brand">Python<span style="color:var(--purple)">byRohan</span> &copy; 2026 · Rohan Patil</div>
-      <div class="footer-links">
-        <a href="https://github.com/RohanPatil01" target="_blank" rel="noopener" class="footer-link">
-          <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-          GitHub
-        </a>
-        <a href="https://www.linkedin.com/in/rohanpatil01" target="_blank" rel="noopener" class="footer-link">
-          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-        <a href="https://www.instagram.com/rohanjpatil01/" target="_blank" rel="noopener" class="footer-link">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-          @rohanjpatil01
-        </a>
-      </div>
-    </footer>
-
+<!-- LAST VISIT BANNER -->
+<div class="lvb-wrap" id="lastVisitBanner">
+  <div class="lvb">
+    <span class="lvb-text">Welcome back! Continue from <strong id="lastVisitName"></strong></span>
+    <a id="lastVisitLink" href="#" class="lvb-btn">Continue →</a>
   </div>
 </div>
 
+<!-- STREAK -->
+<div class="streak-wrap">
+  <div class="streak-inner">
+    <div class="streak-flame">
+      <span class="streak-flame-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </span>
+      <div class="streak-flame-text">
+        <span class="streak-flame-val"><span data-streak>0</span></span>
+        <span class="streak-flame-lbl">day streak</span>
+      </div>
+    </div>
+    <div class="streak-div"></div>
+    <div class="streak-days">
+      <div class="streak-day-labels" id="streakDayLabels"></div>
+      <div id="streakDots"></div>
+    </div>
+    <div class="streak-div"></div>
+    <div class="streak-best">
+      <div class="streak-best-val" id="streakBestVal">--</div>
+      <div class="streak-best-lbl">Best Streak</div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-wrap">
+  <div class="stats-grid">
+    <div class="scard" style="--sc:var(--accent)">
+      <div class="scard-icon" style="background:rgba(79,127,255,.12)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      </div>
+      <div class="scard-val">29</div>
+      <div class="scard-lbl">Total Topics</div>
+    </div>
+    <div class="scard" style="--sc:var(--green)">
+      <div class="scard-icon" style="background:rgba(52,211,153,.1)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+      </div>
+      <div class="scard-val" data-completed-count>0</div>
+      <div class="scard-lbl">Completed</div>
+    </div>
+    <div class="scard" style="--sc:var(--amber)">
+      <div class="scard-icon" style="background:rgba(251,191,36,.1)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      </div>
+      <div class="scard-val" data-progress-percent>0%</div>
+      <div class="scard-lbl">Progress</div>
+    </div>
+    <div class="scard" style="--sc:var(--purple)">
+      <div class="scard-icon" style="background:rgba(167,139,250,.1)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="scard-val" id="avgScore">--</div>
+      <div class="scard-lbl">Avg Quiz Score</div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="sec sec--alt" id="features">
+  <div class="si">
+    <div class="sh">
+      <h2>Everything you need to learn Python</h2>
+      <p>Not just reading material. A complete learning system designed to make concepts stick and build real skills.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-icon-box">📖</div>
+        <div class="feat-title">Structured Notes</div>
+        <p class="feat-desc">Every topic explained clearly with examples, analogies, and diagrams. Written like a friendly teacher, not a textbook.</p>
+        <div class="feat-arrow">→</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-box">💻</div>
+        <div class="feat-title">Code Examples</div>
+        <p class="feat-desc">Syntax-highlighted, copy-ready examples for every concept. See the code, understand it, run it yourself.</p>
+        <div class="feat-arrow">→</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-box">🧠</div>
+        <div class="feat-title">MCQ Quizzes</div>
+        <p class="feat-desc">Topic-level multiple choice questions to test your understanding. Answers explained, not just shown.</p>
+        <div class="feat-arrow">→</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-box">🔍</div>
+        <div class="feat-title">Guess the Output</div>
+        <p class="feat-desc">Look at a snippet and predict what it prints. The fastest way to catch gaps in your understanding.</p>
+        <div class="feat-arrow">→</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-box">💼</div>
+        <div class="feat-title">Interview Prep</div>
+        <p class="feat-desc">Beginner to advanced interview questions, common mistakes, and model answers from real Python interviews.</p>
+        <div class="feat-arrow">→</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon-box">📈</div>
+        <div class="feat-title">Progress Tracking</div>
+        <p class="feat-desc">Mark topics complete, track your streak, and see your quiz average. Saved locally in your browser.</p>
+        <div class="feat-arrow">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section class="sec" id="curriculum">
+  <div class="si">
+    <div class="sh">
+      <h2>Complete Curriculum</h2>
+      <p>29 topics across 3 phases. Structured to build on each other, from your first print statement to advanced Python.</p>
+    </div>
+
+    <div class="curriculum-search">
+      <span style="font-size:16px;color:var(--text3)">🔍</span>
+      <input id="globalSearch" type="text" placeholder="Search topics... (press / to focus)" />
+    </div>
+
+    <!-- Phase 1 -->
+    <div class="phase-sec">
+      <div class="phase-hdr" onclick="this.parentElement.classList.toggle('collapsed')">
+        <div class="phase-hdr-l">
+          <span class="phase-badge" style="background:var(--green-bg);border-color:var(--green-border);color:var(--green)">Phase 1</span>
+          <span class="phase-title">Core Python</span>
+          <span class="phase-meta" id="phase1-count">0 / 10 done</span>
+        </div>
+        <span class="phase-arrow">›</span>
+        <div class="phase-hdr-prog" id="phase1-prog" style="background:var(--green)"></div>
+      </div>
+      <div class="phase-body">
+        <div class="topic-grid">
+          <a href="topics/python-basics.html"    class="topic-card" data-searchable data-topic="python-basics">   <div class="tc-num">01</div><div class="tc-name">Python Basics</div>           <span class="badge badge-gray" id="status-python-basics">Not Started</span></a>
+          <a href="topics/data-types.html"       class="topic-card" data-searchable data-topic="data-types">      <div class="tc-num">02</div><div class="tc-name">Data Types &amp; Variables</div><span class="badge badge-gray" id="status-data-types">Not Started</span></a>
+          <a href="topics/operators.html"        class="topic-card" data-searchable data-topic="operators">        <div class="tc-num">03</div><div class="tc-name">Operators</div>               <span class="badge badge-gray" id="status-operators">Not Started</span></a>
+          <a href="topics/conditionals.html"     class="topic-card" data-searchable data-topic="conditionals">     <div class="tc-num">04</div><div class="tc-name">Conditional Statements</div> <span class="badge badge-gray" id="status-conditionals">Not Started</span></a>
+          <a href="topics/loops-for.html"        class="topic-card" data-searchable data-topic="loops-for">        <div class="tc-num">05a</div><div class="tc-name">for Loop</div>                <span class="badge badge-gray" id="status-loops-for">Not Started</span></a>
+          <a href="topics/loops-while.html"      class="topic-card" data-searchable data-topic="loops-while">      <div class="tc-num">05b</div><div class="tc-name">while Loop</div>              <span class="badge badge-gray" id="status-loops-while">Not Started</span></a>
+          <a href="topics/strings-basics.html"   class="topic-card" data-searchable data-topic="strings-basics">   <div class="tc-num">06a</div><div class="tc-name">Strings: Basics</div>        <span class="badge badge-gray" id="status-strings-basics">Not Started</span></a>
+          <a href="topics/strings-methods.html"  class="topic-card" data-searchable data-topic="strings-methods">  <div class="tc-num">06b</div><div class="tc-name">Strings: Methods</div>       <span class="badge badge-gray" id="status-strings-methods">Not Started</span></a>
+          <a href="topics/lists.html"            class="topic-card" data-searchable data-topic="lists">             <div class="tc-num">07</div><div class="tc-name">Lists</div>                   <span class="badge badge-gray" id="status-lists">Not Started</span></a>
+          <a href="topics/tuples.html"           class="topic-card" data-searchable data-topic="tuples">            <div class="tc-num">08</div><div class="tc-name">Tuples</div>                  <span class="badge badge-gray" id="status-tuples">Not Started</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase-sec">
+      <div class="phase-hdr" onclick="this.parentElement.classList.toggle('collapsed')">
+        <div class="phase-hdr-l">
+          <span class="phase-badge" style="background:rgba(79,127,255,.1);border-color:rgba(79,127,255,.22);color:var(--accent)">Phase 2</span>
+          <span class="phase-title">Data Structures &amp; Functions</span>
+          <span class="phase-meta" id="phase2-count">0 / 12 done</span>
+        </div>
+        <span class="phase-arrow">›</span>
+        <div class="phase-hdr-prog" id="phase2-prog" style="background:var(--accent)"></div>
+      </div>
+      <div class="phase-body">
+        <div class="topic-grid">
+          <a href="topics/dictionaries.html"         class="topic-card" data-searchable data-topic="dictionaries">         <div class="tc-num">09</div><div class="tc-name">Dictionaries</div>                  <span class="badge badge-gray" id="status-dictionaries">Not Started</span></a>
+          <a href="topics/sets.html"                 class="topic-card" data-searchable data-topic="sets">                 <div class="tc-num">10</div><div class="tc-name">Sets</div>                          <span class="badge badge-gray" id="status-sets">Not Started</span></a>
+          <a href="topics/functions-basics.html"     class="topic-card" data-searchable data-topic="functions-basics">     <div class="tc-num">11a</div><div class="tc-name">Functions: Basics</div>             <span class="badge badge-gray" id="status-functions-basics">Not Started</span></a>
+          <a href="topics/functions-advanced.html"   class="topic-card" data-searchable data-topic="functions-advanced">   <div class="tc-num">11b</div><div class="tc-name">Functions: Advanced</div>           <span class="badge badge-gray" id="status-functions-advanced">Not Started</span></a>
+          <a href="topics/modules-packages.html"     class="topic-card" data-searchable data-topic="modules-packages">     <div class="tc-num">12</div><div class="tc-name">Modules &amp; Packages</div>         <span class="badge badge-gray" id="status-modules-packages">Not Started</span></a>
+          <a href="topics/file-handling-read.html"   class="topic-card" data-searchable data-topic="file-handling-read">   <div class="tc-num">13a</div><div class="tc-name">File Handling: Reading</div>         <span class="badge badge-gray" id="status-file-handling-read">Not Started</span></a>
+          <a href="topics/file-handling-write.html"  class="topic-card" data-searchable data-topic="file-handling-write">  <div class="tc-num">13b</div><div class="tc-name">File Handling: Writing</div>         <span class="badge badge-gray" id="status-file-handling-write">Not Started</span></a>
+          <a href="topics/exceptions-basics.html"    class="topic-card" data-searchable data-topic="exceptions-basics">    <div class="tc-num">14a</div><div class="tc-name">Exception Handling: Basics</div>    <span class="badge badge-gray" id="status-exceptions-basics">Not Started</span></a>
+          <a href="topics/exceptions-advanced.html"  class="topic-card" data-searchable data-topic="exceptions-advanced">  <div class="tc-num">14b</div><div class="tc-name">Exception Handling: Advanced</div>  <span class="badge badge-gray" id="status-exceptions-advanced">Not Started</span></a>
+          <a href="topics/oop-classes.html"          class="topic-card" data-searchable data-topic="oop-classes">          <div class="tc-num">15a</div><div class="tc-name">OOP: Classes &amp; Objects</div>      <span class="badge badge-gray" id="status-oop-classes">Not Started</span></a>
+          <a href="topics/oop-inheritance.html"      class="topic-card" data-searchable data-topic="oop-inheritance">      <div class="tc-num">15b</div><div class="tc-name">OOP: Inheritance</div>               <span class="badge badge-gray" id="status-oop-inheritance">Not Started</span></a>
+          <a href="topics/oop-advanced.html"         class="topic-card" data-searchable data-topic="oop-advanced">         <div class="tc-num">15c</div><div class="tc-name">OOP: Advanced</div>                  <span class="badge badge-gray" id="status-oop-advanced">Not Started</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase-sec">
+      <div class="phase-hdr" onclick="this.parentElement.classList.toggle('collapsed')">
+        <div class="phase-hdr-l">
+          <span class="phase-badge" style="background:var(--purple-bg);border-color:var(--purple-border);color:var(--purple)">Phase 3</span>
+          <span class="phase-title">Advanced Python &amp; Libraries</span>
+          <span class="phase-meta" id="phase3-count">0 / 7 done</span>
+        </div>
+        <span class="phase-arrow">›</span>
+        <div class="phase-hdr-prog" id="phase3-prog" style="background:var(--purple)"></div>
+      </div>
+      <div class="phase-body">
+        <div class="topic-grid">
+          <a href="topics/iterators-generators.html" class="topic-card" data-searchable data-topic="iterators-generators"> <div class="tc-num">16</div><div class="tc-name">Iterators &amp; Generators</div> <span class="badge badge-gray" id="status-iterators-generators">Not Started</span></a>
+          <a href="topics/decorators.html"           class="topic-card" data-searchable data-topic="decorators">           <div class="tc-num">17</div><div class="tc-name">Decorators</div>                  <span class="badge badge-gray" id="status-decorators">Not Started</span></a>
+          <a href="topics/numpy-arrays.html"         class="topic-card" data-searchable data-topic="numpy-arrays">         <div class="tc-num">18a</div><div class="tc-name">NumPy: Arrays</div>             <span class="badge badge-gray" id="status-numpy-arrays">Not Started</span></a>
+          <a href="topics/numpy-operations.html"     class="topic-card" data-searchable data-topic="numpy-operations">     <div class="tc-num">18b</div><div class="tc-name">NumPy: Operations</div>         <span class="badge badge-gray" id="status-numpy-operations">Not Started</span></a>
+          <a href="topics/pandas-series.html"        class="topic-card" data-searchable data-topic="pandas-series">        <div class="tc-num">19a</div><div class="tc-name">Pandas: Series</div>            <span class="badge badge-gray" id="status-pandas-series">Not Started</span></a>
+          <a href="topics/pandas-dataframe.html"     class="topic-card" data-searchable data-topic="pandas-dataframe">     <div class="tc-num">19b</div><div class="tc-name">Pandas: DataFrame</div>         <span class="badge badge-gray" id="status-pandas-dataframe">Not Started</span></a>
+          <a href="topics/data-visualization.html"   class="topic-card" data-searchable data-topic="data-visualization">   <div class="tc-num">20</div><div class="tc-name">Data Visualization</div>       <span class="badge badge-gray" id="status-data-visualization">Not Started</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick links -->
+    <div class="qlinks">
+      <a href="projects/index.html"  class="qlink"><span class="qlink-icon">📁</span><div><div class="qlink-title">Projects</div><div class="qlink-sub">Beginner to Advanced</div></div></a>
+      <a href="interview/index.html" class="qlink"><span class="qlink-icon">🎯</span><div><div class="qlink-title">Interview Prep</div><div class="qlink-sub">Q&amp;A + Coding problems</div></div></a>
+      <a href="resources/index.html" class="qlink"><span class="qlink-icon">📚</span><div><div class="qlink-title">Resources</div><div class="qlink-sub">Cheat sheets &amp; references</div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- LEARNING PATH -->
+<section class="sec sec--alt" id="path">
+  <div class="si">
+    <div class="sh">
+      <h2>Recommended Learning Path</h2>
+      <p>Follow this sequence for the smoothest progression from zero to job-ready Python skills.</p>
+    </div>
+    <div class="path-steps">
+      <div class="path-step">
+        <div class="path-num">01</div>
+        <div class="path-body">
+          <div class="path-title">Start with Python Basics</div>
+          <p class="path-desc">Variables, data types, and your first Python program. This is where everything begins.</p>
+          <a href="topics/python-basics.html" class="path-link">Start here →</a>
+        </div>
+      </div>
+      <div class="path-connector"></div>
+      <div class="path-step">
+        <div class="path-num">02</div>
+        <div class="path-body">
+          <div class="path-title">Learn Operators and Conditionals</div>
+          <p class="path-desc">Understand how to compare values and make decisions. Conditionals are the foundation of every meaningful program.</p>
+          <a href="topics/operators.html" class="path-link">Explore →</a>
+        </div>
+      </div>
+      <div class="path-connector"></div>
+      <div class="path-step">
+        <div class="path-num">03</div>
+        <div class="path-body">
+          <div class="path-title">Master Loops and Strings</div>
+          <p class="path-desc">Loops let you repeat actions. Strings are the most-used data type. Both are essential in every real program.</p>
+          <a href="topics/loops-for.html" class="path-link">Explore →</a>
+        </div>
+      </div>
+      <div class="path-connector"></div>
+      <div class="path-step">
+        <div class="path-num">04</div>
+        <div class="path-body">
+          <div class="path-title">Tackle Data Structures and Functions</div>
+          <p class="path-desc">Lists, dictionaries, sets, and functions form the core toolkit of any Python developer. Learn to organize and reuse your code properly.</p>
+          <a href="topics/dictionaries.html" class="path-link">Explore →</a>
+        </div>
+      </div>
+      <div class="path-connector"></div>
+      <div class="path-step">
+        <div class="path-num">05</div>
+        <div class="path-body">
+          <div class="path-title">Level Up: OOP, Exceptions, File Handling</div>
+          <p class="path-desc">Write programs that handle errors gracefully, work with files, and organize complex logic using classes and objects.</p>
+          <a href="topics/oop-classes.html" class="path-link">Explore →</a>
+        </div>
+      </div>
+      <div class="path-connector"></div>
+      <div class="path-step">
+        <div class="path-num">06</div>
+        <div class="path-body">
+          <div class="path-title">Explore Advanced Python and Libraries</div>
+          <p class="path-desc">NumPy, Pandas, and data visualization. Apply everything you've learned to real datasets and build portfolio projects.</p>
+          <a href="topics/numpy-arrays.html" class="path-link">Start exploring →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTOR -->
+<section class="sec" id="about">
+  <div class="si">
+    <div class="ins-card">
+      <div class="ins-avatar-wrap">
+        <div class="ins-avatar">RP</div>
+        <div class="ins-ring"></div>
+      </div>
+      <div>
+        <p class="ins-eyebrow">Your Instructor</p>
+        <h2 class="ins-name">Rohan Patil</h2>
+        <p class="ins-tag">Python Developer and Educator</p>
+        <p class="ins-bio">
+          This platform is built to give every student the structured, practical Python education they deserve, completely free. Every topic is designed around what actually gets asked in interviews and used on the job, not just textbook theory. No fluff. No paywalls. Just clear explanations and real examples.
+        </p>
+        <div class="ins-social">
+          <a href="https://www.linkedin.com/in/rohanpatil01/" target="_blank" rel="noopener" class="ins-link ins-link--li">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn
+          </a>
+          <a href="https://github.com/RohanPatil01" target="_blank" rel="noopener" class="ins-link ins-link--gh">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>GitHub
+          </a>
+          <a href="https://www.instagram.com/rohanjpatil01" target="_blank" rel="noopener" class="ins-link ins-link--ig">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Instagram
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA (dark) -->
+<section class="sec sec--dark">
+  <div class="si">
+    <div class="cta-inner">
+      <h2>Ready to start learning Python?</h2>
+      <p>Start from the basics, build up to real projects, and prepare for Python interviews. No account needed. No cost. Ever.</p>
+      <a href="topics/python-basics.html" class="btn-primary--white">Begin from the Start →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (dark) -->
+<footer class="hfooter">
+  <div class="hfooter-inner">
+    <div class="hfooter-top">
+
+      <!-- Brand column -->
+      <div>
+        <div class="hfooter-brand">Python<span>byRohan</span></div>
+        <p class="hfooter-tagline">A free, structured Python course built for students who want to go from zero to data science.</p>
+        <div class="hfooter-socials">
+          <a class="hfooter-soc" href="https://www.linkedin.com/in/rohanpatil01/" target="_blank" rel="noopener" title="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a class="hfooter-soc" href="https://github.com/RohanPatil01" target="_blank" rel="noopener" title="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          </a>
+          <a class="hfooter-soc" href="https://www.instagram.com/rohanjpatil01/" target="_blank" rel="noopener" title="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links column -->
+      <div>
+        <div class="hfooter-col-title">Quick Links</div>
+        <div class="hfooter-col-links">
+          <a href="#features">Features</a>
+          <a href="#curriculum">Curriculum</a>
+          <a href="#path">Learning Path</a>
+          <a href="#about">About</a>
+        </div>
+      </div>
+
+      <!-- Topics column -->
+      <div>
+        <div class="hfooter-col-title">Start Here</div>
+        <div class="hfooter-col-links">
+          <a href="topics/python-basics.html">Python Basics</a>
+          <a href="topics/data-types.html">Data Types</a>
+          <a href="topics/operators.html">Operators</a>
+          <a href="topics/conditionals.html">Conditionals</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="hfooter-bottom">
+      <span class="hfooter-copy">&copy; 2026 PythonbyRohan. Free forever.</span>
+      <span class="hfooter-made">Built with care by Rohan Patil</span>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTop" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 <script src="assets/app.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const progress = Progress.getAll();
-    document.querySelectorAll('[data-topic]').forEach(card => {
-      const id   = card.dataset.topic;
-      const done = !!progress[id];
-      const statusEl = document.getElementById('status-' + id);
-      const dotEl    = document.getElementById('dot-' + id);
-      if (done) {
-        card.classList.add('done');
-        if (statusEl) { statusEl.textContent = 'Completed'; statusEl.className = 'badge badge-green'; }
-        if (dotEl)    dotEl.classList.add('done');
-      }
-    });
-    const avg = QuizScores.getAverage();
-    const el  = document.getElementById('avgScore');
-    if (el) el.textContent = avg ? avg + '%' : '--';
+document.addEventListener('DOMContentLoaded', () => {
 
-    // Phase completion counts
-    const p1Topics = ['python-basics','data-types','operators','conditionals','loops-for','loops-while','strings-basics','strings-methods','lists','tuples'];
-    const p2Topics = ['dictionaries','sets','functions-basics','functions-advanced','modules-packages','file-handling-read','file-handling-write','exceptions-basics','exceptions-advanced','oop-classes','oop-inheritance','oop-advanced'];
-    const p3Topics = ['iterators-generators','decorators','numpy-arrays','numpy-operations','pandas-series','pandas-dataframe','data-visualization'];
-    [[p1Topics,'phase1-count'],[p2Topics,'phase2-count'],[p3Topics,'phase3-count']].forEach(([topics,id]) => {
-      const done = topics.filter(t => !!progress[t]).length;
-      const el = document.getElementById(id);
-      if (el) el.textContent = `${done} / ${topics.length} done`;
+  // ── Topbar scroll shadow + scroll progress ─────────────────
+  const nav = document.getElementById('homeNav');
+  const scrollTopBtn = document.getElementById('scrollTop');
+  const scrollProg = document.getElementById('scrollProg');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+    scrollTopBtn.classList.toggle('show', window.scrollY > 500);
+    if (scrollProg) {
+      const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+      scrollProg.style.width = Math.min(pct, 100) + '%';
+    }
+  }, { passive: true });
+
+  // ── Mobile drawer ──────────────────────────────────────────
+  const mBtn = document.getElementById('mobileMenuBtn');
+  const drawer = document.getElementById('mobileDrawer');
+  mBtn.addEventListener('click', () => drawer.classList.toggle('open'));
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => drawer.classList.remove('open')));
+
+  // ── Keyboard shortcuts ─────────────────────────────────────
+  document.addEventListener('keydown', e => {
+    if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+      e.preventDefault(); document.getElementById('globalSearch').focus();
+    }
+    if ((e.key === 'd' || e.key === 'D') && document.activeElement.tagName !== 'INPUT') {
+      document.getElementById('themeToggle')?.click();
+    }
+  });
+
+  // ── Progress data ──────────────────────────────────────────
+  const allTopics = ['python-basics','data-types','operators','conditionals','loops-for','loops-while','strings-basics','strings-methods','lists','tuples','dictionaries','sets','functions-basics','functions-advanced','modules-packages','file-handling-read','file-handling-write','exceptions-basics','exceptions-advanced','oop-classes','oop-inheritance','oop-advanced','iterators-generators','decorators','numpy-arrays','numpy-operations','pandas-series','pandas-dataframe','data-visualization'];
+  const p1 = allTopics.slice(0,10), p2 = allTopics.slice(10,22), p3 = allTopics.slice(22);
+  const progress = Progress.getAll();
+
+  document.querySelectorAll('[data-topic]').forEach(card => {
+    const id = card.dataset.topic;
+    if (progress[id]) {
+      card.classList.add('done');
+      const s = document.getElementById('status-' + id);
+      if (s) { s.textContent = 'Completed'; s.className = 'badge badge-green'; }
+    }
+  });
+
+  const p1Done = p1.filter(t => !!progress[t]).length;
+  const p2Done = p2.filter(t => !!progress[t]).length;
+  const p3Done = p3.filter(t => !!progress[t]).length;
+  const totalDone = p1Done + p2Done + p3Done;
+  const pct = Math.round(totalDone / allTopics.length * 100);
+  const avg = QuizScores.getAverage();
+
+  // Phase counts + progress bars
+  [
+    [p1Done, p1.length, 'phase1-count', 'phase1-prog'],
+    [p2Done, p2.length, 'phase2-count', 'phase2-prog'],
+    [p3Done, p3.length, 'phase3-count', 'phase3-prog'],
+  ].forEach(([done, total, countId, progId]) => {
+    const el = document.getElementById(countId);
+    if (el) el.textContent = `${done} / ${total} done`;
+    // Progress bar width set after a small delay so CSS transition fires
+    const bar = document.getElementById(progId);
+    if (bar) setTimeout(() => bar.style.width = (done / total * 100) + '%', 300);
+  });
+
+  // Stats — store targets for animated counter
+  const statsMap = [
+    { selector: '[data-completed-count]', target: totalDone, suffix: '' },
+    { selector: '[data-progress-percent]', target: pct, suffix: '%' },
+  ];
+  statsMap.forEach(({ selector, target, suffix }) => {
+    document.querySelectorAll(selector).forEach(el => {
+      el.dataset.counterTarget = target;
+      el.dataset.counterSuffix = suffix;
+      el.textContent = '0' + suffix;
     });
   });
+  // Avg score
+  const avgEl = document.getElementById('avgScore');
+  if (avgEl) {
+    if (avg) { avgEl.dataset.counterTarget = avg; avgEl.dataset.counterSuffix = '%'; avgEl.textContent = '0%'; }
+    else avgEl.textContent = '--';
+  }
+  // Hero progress count
+  const heroCount = document.getElementById('heroProgCount');
+  if (heroCount) heroCount.textContent = totalDone + ' / 29';
+
+  // ── Streak ─────────────────────────────────────────────────
+  Streak.render();
+
+  // Day labels for streak dots (last 7 days)
+  const dlWrap = document.getElementById('streakDayLabels');
+  if (dlWrap) {
+    const dayAbbr = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+    const now = new Date();
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(now); d.setDate(now.getDate() - i);
+      const sp = document.createElement('span');
+      sp.className = 'streak-day-label';
+      sp.textContent = dayAbbr[d.getDay()];
+      if (i === 0) sp.style.color = 'var(--amber)';
+      dlWrap.appendChild(sp);
+    }
+  }
+
+  // Best streak
+  try {
+    const sd = JSON.parse(localStorage.getItem('Streak') || '{}');
+    const bestEl = document.getElementById('streakBestVal');
+    if (bestEl) bestEl.textContent = (sd.best || 0) + ' days';
+  } catch(e) {}
+
+  // ── Last visit banner + active topic highlight ─────────────
+  try {
+    const lv = JSON.parse(localStorage.getItem('pynotes_last_visit'));
+    if (lv && lv.name && lv.url) {
+      document.getElementById('lastVisitName').textContent = lv.name;
+      document.getElementById('lastVisitLink').href = lv.url;
+      document.getElementById('lastVisitBanner').style.display = 'block';
+
+      // Highlight the matching topic card
+      const slug = lv.url.replace(/^.*\//, '').replace('.html', '');
+      const activeCard = document.querySelector(`[data-topic="${slug}"]`);
+      if (activeCard) {
+        activeCard.classList.add('last-visited');
+        // Add "Last visited" badge
+        const badge = document.createElement('div');
+        badge.className = 'lv-badge'; badge.textContent = '▶ Last visited';
+        activeCard.appendChild(badge);
+      }
+    }
+  } catch(e){}
+
+  // ── Search ─────────────────────────────────────────────────
+  document.getElementById('globalSearch').addEventListener('input', function() {
+    const q = this.value.toLowerCase().trim();
+    document.querySelectorAll('[data-searchable]').forEach(card => {
+      const name = card.querySelector('.tc-name')?.textContent.toLowerCase() || '';
+      card.style.display = (!q || name.includes(q)) ? '' : 'none';
+    });
+  });
+
+  // ── Scroll reveal (Intersection Observer) ─────────────────
+  const revealTargets = [
+    { sel: '.sh',         delay: 0   },
+    { sel: '.feat-card',  delay: 80  },
+    { sel: '.scard',      delay: 60  },
+    { sel: '.phase-sec',  delay: 60  },
+    { sel: '.path-step',  delay: 100 },
+    { sel: '.ins-card',   delay: 0   },
+    { sel: '.qlink',      delay: 80  },
+    { sel: '.lvb',        delay: 0   },
+  ];
+
+  revealTargets.forEach(({ sel, delay }) => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+      el.classList.add('sr');
+      el.style.transitionDelay = (i * delay) + 'ms';
+    });
+  });
+
+  // ── Animated counter ──────────────────────────────────────
+  function runCounter(el) {
+    const target = parseFloat(el.dataset.counterTarget);
+    const suffix = el.dataset.counterSuffix || '';
+    if (isNaN(target)) return;
+    const duration = 1100;
+    const start = performance.now();
+    const step = ts => {
+      const t = Math.min((ts - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      el.classList.add('visible');
+      // Fire counter on any counter-target descendants
+      el.querySelectorAll('[data-counter-target]').forEach(runCounter);
+      // Also fire if the element itself is a counter
+      if (el.dataset.counterTarget !== undefined) runCounter(el);
+      io.unobserve(el);
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.sr').forEach(el => io.observe(el));
+
+  // ── Active nav highlight ────────────────────────────────────
+  const navIds = ['features','curriculum','path','about'];
+  const navMap = {};
+  navIds.forEach(id => {
+    const link = document.querySelector(`.hn-link[href="#${id}"]`);
+    if (link) navMap[id] = link;
+  });
+  const navIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      Object.values(navMap).forEach(l => l.classList.remove('active'));
+      const id = entry.target.id;
+      if (navMap[id]) navMap[id].classList.add('active');
+    });
+  }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+  navIds.forEach(id => {
+    const sec = document.getElementById(id);
+    if (sec) navIO.observe(sec);
+  });
+
+});
 </script>
 </body>
 </html>

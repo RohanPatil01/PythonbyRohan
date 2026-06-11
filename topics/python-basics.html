@@ -9,60 +9,33 @@
   <link rel="stylesheet" href="../assets/style.css" />
   <style>
     /* Topic header */
-    .topic-header {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 28px 32px;
-      margin-bottom: 22px;
-      position: relative; overflow: hidden;
-      box-shadow: inset 0 1px 0 var(--card-shine);
-    }
-    .topic-header-glow {
-      position: absolute; top: -60px; right: -60px;
-      width: 260px; height: 260px;
-      background: radial-gradient(circle, rgba(79,127,255,.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .topic-header-glow2 {
-      position: absolute; bottom: -40px; left: 10%;
-      width: 160px; height: 160px;
-      background: radial-gradient(circle, rgba(52,211,153,.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .topic-phase {
-      font-size: 10px; font-weight: 700; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--accent);
-      margin-bottom: 10px;
-      display: flex; align-items: center; gap: 7px;
-    }
-    .topic-title {
-      font-family: var(--font-display);
-      font-size: clamp(22px, 3vw, 34px);
-      font-weight: 800; line-height: 1.15;
-      color: var(--text); margin-bottom: 10px;
-    }
-    .topic-desc {
-      font-size: 14.5px; color: var(--text2);
-      line-height: 1.75; max-width: 620px; margin-bottom: 18px;
-    }
-    .topic-meta { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
-    .meta-chip {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 12px; color: var(--text3); font-weight: 600;
-    }
-    .meta-dot { width: 7px; height: 7px; border-radius: 50%; }
-    .topic-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .topic-header{background:var(--card);border:1px solid rgba(79,127,255,.22);border-radius:var(--radius-xl);margin-bottom:22px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 var(--card-shine);display:flex;flex-direction:column}
+    .topic-diff-row{border-top:1px solid var(--border);padding:9px 32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:relative;z-index:2}
+    .topic-bg-num{position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:120px;font-weight:900;color:rgba(79,127,255,.1);line-height:1;font-family:var(--font-mono);pointer-events:none;user-select:none;z-index:1}
+    body.light .topic-bg-num{color:rgba(79,127,255,.13)}
+    .topic-header-body{padding:26px 32px;position:relative;z-index:2;max-width:520px}
+    .topic-phase{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+    .topic-title{font-family:var(--font-display);font-size:clamp(22px,2.8vw,30px);font-weight:800;line-height:1.1;color:var(--text);letter-spacing:-0.025em;margin-bottom:8px}
+    .topic-desc{font-size:13.5px;color:var(--text2);line-height:1.65;margin-bottom:16px}
+    .topic-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+    .meta-chip{display:inline-flex;align-items:center;font-size:13px;font-weight:700;padding:3px 11px;border-radius:20px}
+    .meta-chip.green{color:var(--green);background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2)}
+    .meta-chip.amber{color:var(--amber);background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2)}
+    .meta-chip.purple{color:var(--purple);background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2)}
+    .meta-chip.blue{color:var(--accent);background:rgba(79,127,255,.1);border:1px solid rgba(79,127,255,.2)}
+    .topic-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .topic-footer-btn{font-size:13px;font-weight:700;padding:7px 16px;border-radius:8px;background:var(--accent);color:#fff!important;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;transition:background .15s}
+    .topic-footer-btn:hover{background:var(--accent-hover,#3d6dee)}
 
     /* Practice task cards — shared styles in style.css */
     .gto-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:14px;box-shadow:inset 0 1px 0 var(--card-shine)}
     .gto-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
     .gto-title{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--text)}
-    .gto-reveal-btn{font-size:12px;font-weight:700;font-family:var(--font-body);color:var(--accent);background:rgba(79,127,255,.1);border:1px solid rgba(79,127,255,.25);border-radius:6px;padding:5px 14px;cursor:pointer;transition:background .2s}
+    .gto-reveal-btn{font-size:13px;font-weight:700;font-family:var(--font-body);color:var(--accent);background:rgba(79,127,255,.1);border:1px solid rgba(79,127,255,.25);border-radius:6px;padding:5px 14px;cursor:pointer;transition:background .2s}
     .gto-reveal-btn:hover{background:rgba(79,127,255,.2)}
     .gto-answer{margin-top:12px;padding:12px 16px;background:var(--bg3);border-radius:8px;border-left:3px solid var(--green);display:none}
     .gto-answer.visible{display:block}
-    .gto-answer-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+    .gto-answer-label{font-size:13.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
     .gto-output{font-family:var(--font-mono);font-size:13.5px;color:var(--text);white-space:pre;line-height:1.7}
     .gto-explain{font-size:13px;color:var(--text2);line-height:1.7;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
 
@@ -108,7 +81,7 @@
     }
     .line-explain-item:last-child { border-bottom: none; }
     .line-code {
-      font-family: var(--font-mono); font-size: 12px;
+      font-family: var(--font-mono); font-size: 13px;
       color: var(--accent); white-space: nowrap;
       flex-shrink: 0; min-width: 160px;
       padding-top: 2px;
@@ -145,13 +118,16 @@
       </div>
       <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
     </div>
-
+      <div class="sidebar-streak">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <span data-streak>0</span>&nbsp;<span class="sb-streak-lbl">day streak</span>
+    </div>
     <div class="sidebar-label">Navigation</div>
     <a href="../index.html" class="nav-item">
       <span class="nav-num">🏠</span><span class="nav-dot"></span>Home
     </a>
 
-    <div class="sidebar-label">Core Python</div>
+    <div class="sidebar-label" data-phase="green">Core Python</div>
     <a href="python-basics.html" class="nav-item active">
       <span class="nav-num">01</span><span class="nav-dot active"></span>Python Basics
     </a>
@@ -194,7 +170,7 @@
     <a href="lists.html"  class="nav-item"><span class="nav-num">07</span><span class="nav-dot" id="dot-lists"></span>Lists</a>
     <a href="tuples.html" class="nav-item"><span class="nav-num">08</span><span class="nav-dot" id="dot-tuples"></span>Tuples</a>
 
-    <div class="sidebar-label">Intermediate</div>
+    <div class="sidebar-label" data-phase="accent">Intermediate</div>
     <a href="dictionaries.html" class="nav-item"><span class="nav-num">09</span><span class="nav-dot" id="dot-dictionaries"></span>Dictionaries</a>
     <a href="sets.html"         class="nav-item"><span class="nav-num">10</span><span class="nav-dot" id="dot-sets"></span>Sets</a>
 
@@ -244,7 +220,7 @@
       </div>
     </div>
 
-    <div class="sidebar-label">Advanced</div>
+    <div class="sidebar-label" data-phase="purple">Advanced</div>
     <a href="iterators-generators.html" class="nav-item"><span class="nav-num">16</span><span class="nav-dot"></span>Iterators &amp; Generators</a>
     <a href="decorators.html"           class="nav-item"><span class="nav-num">17</span><span class="nav-dot"></span>Decorators</a>
 
@@ -300,26 +276,24 @@
 
       <!-- Topic Header -->
       <div class="topic-header animate-fadeup">
-        <div class="topic-header-glow"></div>
-        <div class="topic-header-glow2"></div>
-        <div class="topic-phase">
-          <span class="badge badge-accent">Module 01</span>
-          Core Python · Phase 1
-        </div>
-        <div class="topic-title">Python Basics</div>
-        <div class="topic-desc">Your gateway to programming. No prior experience needed. We will cover syntax, variables, print statements, comments, user input, and write your first real Python program, step by step.</div>
-        <div class="topic-meta">
-          <div class="meta-chip"><div class="meta-dot" style="background:var(--green)"></div>Beginner</div>
-          <div class="meta-chip"><div class="meta-dot" style="background:var(--accent3)"></div>~50 min read</div>
-          <div class="meta-chip"><div class="meta-dot" style="background:var(--accent)"></div>9 practice tasks</div>
-          <div class="meta-chip"><div class="meta-dot" style="background:var(--accent2)"></div>8 MCQs</div>
-          <div class="meta-chip"><div class="meta-dot" style="background:var(--accent4)"></div>10 interview Qs</div>
-        </div>
-        <div class="topic-actions">
+        <div class="topic-bg-num">01</div>
+        <div class="topic-header-body">
+          <div class="topic-phase">Core Python · Phase 1</div>
+          <div class="topic-title">Python Basics</div>
+          <div class="topic-desc">Your gateway to programming. No prior experience needed. We will cover syntax, variables, print statements, comments, user input, and write your first real Python program, step by step.</div>
+          <div class="topic-meta">
+            <span class="meta-chip green">🟢 Beginner</span>
+            <span class="meta-chip amber">⏱ ~50 min</span>
+            <span class="meta-chip purple">✏️ 9 tasks</span>
+            <span class="meta-chip blue">❓ 8 MCQs</span>
+            <span class="meta-chip blue">🎤 10 interview Qs</span>
+          </div>
+          <div class="topic-actions">
+          <a href="data-types.html" class="topic-footer-btn">Next: Data Types →</a>
           <button class="btn" data-bookmark="python-basics">🔖 Bookmark</button>
-          <a href="data-types.html" class="btn">Next: Data Types</a>
+          </div>
         </div>
-        <div class="diff-rating">
+        <div class="topic-diff-row">
           <span class="diff-rating-label">How was this topic?</span>
           <button class="diff-btn" data-diff="easy">😊 Easy</button>
           <button class="diff-btn" data-diff="medium">🤔 Medium</button>
@@ -1998,8 +1972,8 @@ SyntaxError: invalid syntax. Maybe you meant '==' ?</pre>
 
     </main>
 
-    <footer class="footer">
-      <div class="footer-brand">Python<span style="color:var(--purple)">byRohan</span> &copy; 2026 · Rohan Patil</div>
+            <footer class="footer">
+      <div class="footer-brand">Python<span style="color:var(--purple)">byRohan</span> &copy; 2026 &middot; Rohan Patil</div>
       <div class="footer-links">
         <a href="https://github.com/RohanPatil01" target="_blank" rel="noopener" class="footer-link">
           <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub
@@ -2008,7 +1982,7 @@ SyntaxError: invalid syntax. Maybe you meant '==' ?</pre>
           <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn
         </a>
         <a href="https://www.instagram.com/rohanjpatil01/" target="_blank" rel="noopener" class="footer-link">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>@rohanjpatil01
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.336 3.608 1.311.975.975 1.249 2.242 1.311 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.336 2.633-1.311 3.608-.975.975-2.242 1.249-3.608 1.311-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.336-3.608-1.311-.975-.975-1.249-2.242-1.311-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.336-2.633 1.311-3.608.975-.975 2.242-1.249 3.608-1.311C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>@rohanjpatil01
         </a>
       </div>
     </footer>
@@ -2025,10 +1999,7 @@ SyntaxError: invalid syntax. Maybe you meant '==' ?</pre>
     Bookmarks.initBtn(TOPIC_ID);
     initPersonalNotes(TOPIC_ID);
     initDifficultyRating(TOPIC_ID);
-    const scoreEl = document.getElementById('mcqScore');
-    if (scoreEl) scoreEl.style.display = 'none';
-  });
-</script>
 
-</body>
-</html>
+    // [ key toggles sidebar
+    document.addEventListener('keydown', e => {
+      if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') retu   

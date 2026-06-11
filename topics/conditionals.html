@@ -8,16 +8,24 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>" />
   <link rel="stylesheet" href="../assets/style.css" />
   <style>
-    .topic-header{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:28px 32px;margin-bottom:22px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 var(--card-shine)}
-    .topic-header-glow{position:absolute;top:-60px;right:-60px;width:260px;height:260px;background:radial-gradient(circle,rgba(79,127,255,.1) 0%,transparent 70%);pointer-events:none}
-    .topic-header-glow2{position:absolute;bottom:-40px;left:10%;width:160px;height:160px;background:radial-gradient(circle,rgba(52,211,153,.06) 0%,transparent 70%);pointer-events:none}
-    .topic-phase{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:7px}
-    .topic-title{font-family:var(--font-display);font-size:clamp(22px,3vw,34px);font-weight:800;line-height:1.15;color:var(--text);margin-bottom:10px}
-    .topic-desc{font-size:14.5px;color:var(--text2);line-height:1.75;max-width:620px;margin-bottom:18px}
-    .topic-meta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px}
-    .meta-chip{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text3);font-weight:600}
-    .meta-dot{width:7px;height:7px;border-radius:50%}
-    .topic-actions{display:flex;gap:10px;flex-wrap:wrap}
+    /* Topic header */
+    .topic-header{background:var(--card);border:1px solid rgba(79,127,255,.22);border-radius:var(--radius-xl);margin-bottom:22px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 var(--card-shine);display:flex;flex-direction:column}
+    .topic-diff-row{border-top:1px solid var(--border);padding:9px 32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:relative;z-index:2}
+    .topic-bg-num{position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:120px;font-weight:900;color:rgba(79,127,255,.1);line-height:1;font-family:var(--font-mono);pointer-events:none;user-select:none;z-index:1}
+    body.light .topic-bg-num{color:rgba(79,127,255,.13)}
+    .topic-header-body{padding:26px 32px;position:relative;z-index:2;max-width:520px}
+    .topic-phase{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+    .topic-title{font-family:var(--font-display);font-size:clamp(22px,2.8vw,30px);font-weight:800;line-height:1.1;color:var(--text);letter-spacing:-0.025em;margin-bottom:8px}
+    .topic-desc{font-size:13.5px;color:var(--text2);line-height:1.65;margin-bottom:16px}
+    .topic-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+    .meta-chip{display:inline-flex;align-items:center;font-size:13px;font-weight:700;padding:3px 11px;border-radius:20px}
+    .meta-chip.green{color:var(--green);background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2)}
+    .meta-chip.amber{color:var(--amber);background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2)}
+    .meta-chip.purple{color:var(--purple);background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2)}
+    .meta-chip.blue{color:var(--accent);background:rgba(79,127,255,.1);border:1px solid rgba(79,127,255,.2)}
+    .topic-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .topic-footer-btn{font-size:13px;font-weight:700;padding:7px 16px;border-radius:8px;background:var(--accent);color:#fff!important;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;transition:background .15s}
+    .topic-footer-btn:hover{background:var(--accent-hover,#3d6dee)}
     /* Layout boxes */
     .cbox{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius-lg);padding:22px 24px;margin-bottom:18px;box-shadow:inset 0 1px 0 var(--card-shine)}
     .cbox.green{border-left-color:var(--green)}
@@ -37,48 +45,48 @@
     .diagram-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px 20px;margin-bottom:18px;overflow-x:auto;box-shadow:inset 0 1px 0 var(--card-shine)}
     /* Syntax box */
     .syntax-box{background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--purple);border-radius:var(--radius-lg);padding:18px 22px;margin-bottom:18px}
-    .syntax-box-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:10px}
+    .syntax-box-label{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:10px}
     .syntax-box pre{font-family:var(--font-mono);font-size:13.5px;color:var(--text);line-height:1.9;margin:0;white-space:pre;font-variant-ligatures:none}
     pre{font-variant-ligatures:none}
     .syntax-kw{color:var(--accent);font-weight:700}
     .syntax-ph{color:var(--amber);font-style:italic}
-    .syntax-cm{color:var(--text3);font-size:12px}
+    .syntax-cm{color:var(--text3);font-size:13px}
     /* Tables */
     .table-wrap{overflow-x:auto;margin:14px 0;border-radius:var(--radius);border:1px solid var(--border)}
     .data-table{width:100%;border-collapse:collapse;font-size:13.5px;font-family:var(--font-body)}
     .data-table th{background:var(--bg3);color:var(--text2);font-weight:700;padding:10px 14px;text-align:center;border-bottom:1px solid var(--border);white-space:nowrap}
     .data-table th:first-child{text-align:left}
     .data-table td{padding:9px 14px;text-align:center;border-bottom:1px solid var(--border);color:var(--text2)}
-    .data-table td:first-child{text-align:left;font-weight:600;color:var(--text);font-family:var(--font-mono);font-size:12.5px;font-variant-ligatures:none}
+    .data-table td:first-child{text-align:left;font-weight:600;color:var(--text);font-family:var(--font-mono);font-size:13.5px;font-variant-ligatures:none}
     .data-table tr:last-child td{border-bottom:none}
     .data-table tr:hover td{background:var(--bg3)}
     /* Practice — shared styles in style.css */
     /* Mistake tab enhancements */
-    .mistake-num{width:26px;height:26px;border-radius:50%;background:var(--red);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .err-badge{font-size:10px;font-weight:700;letter-spacing:.05em;padding:2px 9px;border-radius:4px;flex-shrink:0;white-space:nowrap}
+    .mistake-num{width:26px;height:26px;border-radius:50%;background:var(--red);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .err-badge{font-size:13px;font-weight:700;letter-spacing:.05em;padding:2px 9px;border-radius:4px;flex-shrink:0;white-space:nowrap}
     .err-syntax{background:rgba(239,68,68,.13);color:var(--red)}
     .err-logic{background:rgba(245,158,11,.13);color:var(--amber)}
     .wrong-mark{background:rgba(239,68,68,.28);border-radius:2px;outline:1.5px dashed rgba(239,68,68,.7);padding:0 2px;font-style:normal}
     .fix-mark{background:rgba(52,211,153,.22);border-radius:2px;outline:1.5px solid rgba(52,211,153,.6);padding:0 2px;font-style:normal}
     .error-box{margin-top:7px;padding:9px 14px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:6px}
-    .error-box-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--red);margin-bottom:4px;opacity:.85}
-    .error-box pre{font-family:var(--font-mono);font-size:11.5px;color:var(--red);margin:0;white-space:pre-wrap;font-variant-ligatures:none;line-height:1.6}
+    .error-box-label{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--red);margin-bottom:4px;opacity:.85}
+    .error-box pre{font-family:var(--font-mono);font-size:13px;color:var(--red);margin:0;white-space:pre-wrap;font-variant-ligatures:none;line-height:1.6}
     .logic-box{margin-top:7px;padding:9px 14px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:6px}
-    .logic-box-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--amber);margin-bottom:4px;opacity:.85}
-    .logic-box pre{font-family:var(--font-mono);font-size:11.5px;color:var(--amber);margin:0;white-space:pre-wrap;font-variant-ligatures:none;line-height:1.6}
+    .logic-box-label{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--amber);margin-bottom:4px;opacity:.85}
+    .logic-box pre{font-family:var(--font-mono);font-size:13px;color:var(--amber);margin:0;white-space:pre-wrap;font-variant-ligatures:none;line-height:1.6}
     .mistake-memory{margin-top:12px;padding:13px 16px;background:rgba(139,92,246,.07);border:1px solid rgba(139,92,246,.22);border-radius:8px}
-    .mistake-memory-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:5px;display:flex;align-items:center;gap:5px}
+    .mistake-memory-label{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:5px;display:flex;align-items:center;gap:5px}
     .mistake-memory-text{font-size:13.5px;color:var(--text2);line-height:1.75}
     .mistake-intro{font-size:14px;color:var(--text2);line-height:1.85;margin-bottom:14px}
     .mistake-intro strong{color:var(--text)}
     .mistake-code-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
-    .mistake-code-label{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:5px 12px;border-radius:6px 6px 0 0;display:inline-block;margin-bottom:-2px}
+    .mistake-code-label{font-size:13px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:5px 12px;border-radius:6px 6px 0 0;display:inline-block;margin-bottom:-2px}
     .mistake-code-label.wrong{background:rgba(239,68,68,.15);color:var(--red)}
     .mistake-code-label.right{background:rgba(52,211,153,.15);color:var(--green)}
     .mistake-code-wrong .code-block{border-top:2px solid var(--red);border-radius:0 var(--radius-lg) var(--radius-lg) var(--radius-lg)}
     .mistake-code-right .code-block{border-top:2px solid var(--green);border-radius:0 var(--radius-lg) var(--radius-lg) var(--radius-lg)}
     .mistake-key-rule{margin-top:4px;padding:14px 18px;background:rgba(245,158,11,.07);border:1.5px solid rgba(245,158,11,.35);border-radius:10px;animation:rule-glow 2.5s ease-in-out infinite alternate}
-    .mistake-key-rule-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+    .mistake-key-rule-label{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:7px;display:flex;align-items:center;gap:6px}
     .mistake-key-rule-text{font-size:13.5px;color:var(--text);font-weight:600;line-height:1.7}
     .mistake-why{margin-top:14px;margin-bottom:14px;padding:10px 14px;background:var(--bg3);border-left:3px solid var(--accent);border-radius:0 7px 7px 0;font-size:13px;color:var(--text2);line-height:1.7}
     .mistake-why strong{color:var(--text)}
@@ -88,46 +96,118 @@
     .gto-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:14px;box-shadow:inset 0 1px 0 var(--card-shine)}
     .gto-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
     .gto-title{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--text)}
-    .gto-reveal-btn{font-size:12px;font-weight:700;font-family:var(--font-body);color:var(--accent);background:rgba(79,127,255,.1);border:1px solid rgba(79,127,255,.25);border-radius:6px;padding:5px 14px;cursor:pointer;transition:background .2s}
+    .gto-reveal-btn{font-size:13px;font-weight:700;font-family:var(--font-body);color:var(--accent);background:rgba(79,127,255,.1);border:1px solid rgba(79,127,255,.25);border-radius:6px;padding:5px 14px;cursor:pointer;transition:background .2s}
     .gto-reveal-btn:hover{background:rgba(79,127,255,.2)}
     .gto-answer{margin-top:12px;padding:12px 16px;background:var(--bg3);border-radius:8px;border-left:3px solid var(--green);display:none}
     .gto-answer.visible{display:block}
-    .gto-answer-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+    .gto-answer-label{font-size:13.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
     .gto-output{font-family:var(--font-mono);font-size:13.5px;color:var(--text);white-space:pre;line-height:1.7}
     .gto-explain{font-size:13px;color:var(--text2);line-height:1.7;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
-    /* Summary */
-    .summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
-    .summary-point{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;box-shadow:inset 0 1px 0 var(--card-shine);display:flex;flex-direction:column;gap:8px}
-    .sp-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
-    .sp-icon{font-size:20px;line-height:1;flex-shrink:0}
-    .sp-tag{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 9px;border-radius:20px;background:var(--bg3);color:var(--text3);border:1px solid var(--border);flex-shrink:0}
-    .sp-title{font-size:14.5px;font-weight:700;color:var(--text);font-family:var(--font-mono);flex:1}
-    .sp-desc{font-size:12.5px;color:var(--text2);line-height:1.6;padding-left:4px}
-    .sp-desc li{margin-bottom:3px;list-style:none;padding-left:14px;position:relative}
-    .sp-desc li::before{content:"·";position:absolute;left:0;color:var(--accent);font-weight:700;font-size:16px;line-height:1.1}
-    .sp-code{font-size:11.5px;font-family:var(--font-mono);color:var(--accent);background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:5px 10px;margin-top:2px;font-variant-ligatures:none}
-    /* Quick Pick */
-    .qp-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:24px}
-    .qp-title{font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--text3);padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg3)}
-    .qp-row{display:grid;grid-template-columns:1fr 1fr;align-items:center;border-bottom:1px solid var(--border);padding:11px 16px;gap:12px}
-    .qp-row:last-child{border-bottom:none}
-    .qp-row:nth-child(even){background:rgba(255,255,255,.015)}
-    .qp-situation{font-size:13px;color:var(--text2)}
-    .qp-answer{font-size:13px;font-weight:700;color:var(--accent);font-family:var(--font-mono)}
-    .summary-text strong{color:var(--text);display:block;margin-bottom:2px}
+    /* Summary — shared styles in style.css */
+    /* Scenario panels */
+    .scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+    .scenario-card{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+    .scenario-label{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:9px 14px;border-bottom:1px solid var(--border)}
+    .scenario-true .scenario-label{color:var(--green);background:rgba(52,211,153,.06)}
+    .scenario-false .scenario-label{color:var(--red);background:rgba(248,113,113,.06)}
+    .hl-run{background:rgba(52,211,153,.11);display:block;margin:0 -1rem;padding:0 1rem}
+    .hl-skip{display:block;margin:0 -1rem;padding:0 1rem;opacity:.38;text-decoration:line-through}
+    .hl-check{display:block;margin:0 -1rem;padding:0 1rem;background:rgba(79,127,255,.08)}
+    /* Execution tracer */
+    .tracer-wrap{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:18px}
+    .tracer-header-label{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+    .tracer-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .tracer-var{font-size:13px;font-family:var(--font-mono);color:var(--text2);font-weight:600}
+    .tracer-input{width:72px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;background:var(--card);color:var(--text);font-size:13px;font-family:var(--font-mono)}
+    .tracer-btn{font-size:13px;font-weight:700;padding:6px 14px;border-radius:6px;background:var(--accent);color:#fff;border:none;cursor:pointer;font-family:var(--font-body);transition:opacity .2s}
+    .tracer-btn:hover{opacity:.85}
+    .tracer-output{margin-top:12px;display:none}
+    .tracer-output.show{display:block}
+    .tracer-step{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text2);line-height:1.55}
+    .tracer-step:last-child{border-bottom:none}
+    .tracer-step code{font-family:var(--font-mono);font-size:13px;color:var(--accent);background:rgba(79,127,255,.09);padding:1px 5px;border-radius:3px;font-variant-ligatures:none}
+    .tracer-num{min-width:20px;height:20px;border-radius:50%;background:var(--bg2);border:1px solid var(--border);font-size:13px;font-weight:700;color:var(--text3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+    .step-check .tracer-num{background:rgba(79,127,255,.1);color:var(--accent);border-color:rgba(79,127,255,.3)}
+    .step-true  .tracer-num{background:rgba(52,211,153,.1);color:var(--green);border-color:rgba(52,211,153,.3)}
+    .step-false .tracer-num{background:rgba(248,113,113,.1);color:var(--red);border-color:rgba(248,113,113,.3)}
+    .step-run   .tracer-num{background:rgba(79,127,255,.1);color:var(--accent);border-color:rgba(79,127,255,.3)}
+    .step-done  .tracer-num{background:rgba(52,211,153,.1);color:var(--green);border-color:rgba(52,211,153,.3)}
+    /* Code line stepper (nested if) */
+    .code-step-line{display:block;transition:background .3s ease}
+    .code-step-line.hl{background:rgba(79,127,255,.13);border-radius:3px;padding:0 5px;margin:0 -5px}
+    /* Nested stepper controls */
+    .flow-controls{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+    .flow-btn{font-size:13px;font-weight:700;padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;transition:background .2s,color .2s;font-family:var(--font-body)}
+    .flow-btn:hover:not(:disabled){background:var(--accent);color:#fff;border-color:var(--accent)}
+    .flow-btn:disabled{opacity:.4;cursor:default}
+    .flow-step-label{font-size:13px;color:var(--text3);font-weight:600;margin:0 4px}
+    .flow-desc-box{background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;font-size:13.5px;color:var(--text2);line-height:1.7;margin-top:10px;min-height:52px;transition:all .3s ease}
+    .ternary-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center}
+    @media(max-width:580px){.ternary-grid{grid-template-columns:1fr}}
+    @media(max-width:560px){.scenario-grid{grid-template-columns:1fr}}
     /* Nav */
     .topic-nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0;margin-top:16px;border-top:1px solid var(--border);flex-wrap:wrap;gap:10px}
     .example-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
     .example-title{font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--text)}
-    .cs-tabs-wrap{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:8px}
-    .cs-tabs-bar{display:flex;overflow-x:auto;border-bottom:1px solid var(--border);background:var(--bg3)}
-    .cs-tab{padding:9px 16px;font-size:12.5px;font-family:var(--font-mono);font-weight:600;background:none;border:none;border-bottom:2px solid transparent;color:var(--text3);cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s}
-    .cs-tab:hover{color:var(--text2)}
-    .cs-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-    .cs-panel{display:none}
-    .cs-panel.active{display:block}
-    .cs-note{font-size:13px;color:var(--text2);line-height:1.7;padding:12px 16px;border-top:1px solid var(--border);background:var(--bg3)}
-    @media(max-width:700px){.summary-grid{grid-template-columns:1fr}.qp-row{grid-template-columns:1fr}}
+    /* Overview tree */
+    .ov-tree{text-align:center}
+    .ov-root{display:inline-flex;align-items:center;background:linear-gradient(135deg,#4f7fff,#6366f1);color:#fff;padding:13px 34px;border-radius:16px;font-size:14px;font-weight:800;position:relative;box-shadow:0 6px 24px rgba(79,127,255,.35),0 2px 8px rgba(79,127,255,.2),inset 0 1px 0 rgba(255,255,255,.25);letter-spacing:.01em}
+    .ov-root::after{content:'';position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);width:2px;height:22px;background:linear-gradient(to bottom,#6366f1,transparent)}
+    .ov-branches{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:40px;position:relative}
+    .ov-branch{display:flex;flex-direction:column;align-items:center;position:relative}
+    /* Colored gradient bus line */
+    .ov-branches::before{content:'';position:absolute;top:-18px;left:10%;right:10%;height:2px;background:linear-gradient(to right,var(--green) 0%,var(--accent) 25%,var(--amber) 50%,var(--purple) 75%,var(--accent2) 100%);border-radius:2px;opacity:.9}
+    /* Colored vertical branch line */
+    .ov-branch::before{content:'';position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:2px;height:18px;background:var(--ov-color,var(--border));opacity:.9}
+    /* Colored dot at junction */
+    .ov-branch::after{content:'';position:absolute;top:-23px;left:50%;transform:translateX(-50%);width:9px;height:9px;border-radius:50%;background:var(--ov-color,var(--border));border:2px solid var(--card);z-index:1;box-shadow:0 0 6px var(--ov-color)}
+    /* Card: tinted background + stronger border top */
+    .ov-card{background:color-mix(in srgb,var(--ov-color,var(--accent)) 6%,var(--card));border:1px solid color-mix(in srgb,var(--ov-color,var(--border)) 25%,var(--border));border-top:3px solid var(--ov-color,var(--border));border-radius:14px;padding:16px 12px 14px;text-align:center;width:100%;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 2px 8px rgba(0,0,0,.06);transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+    .ov-card:hover{transform:translateY(-5px);box-shadow:0 10px 28px color-mix(in srgb,var(--ov-color,var(--accent)) 20%,transparent),inset 0 1px 0 rgba(255,255,255,.1);background:color-mix(in srgb,var(--ov-color,var(--accent)) 12%,var(--card))}
+    .ov-kw{font-family:var(--font-mono);font-size:14px;font-weight:800;display:block;font-variant-ligatures:none;letter-spacing:-.01em;margin-bottom:6px}
+    .ov-type{display:block;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-top:4px}
+    .ov-desc{font-size:13px;color:var(--text2);line-height:1.65;margin-top:10px;text-align:center;padding:0 2px}
+    @media(max-width:680px){.ov-branches{grid-template-columns:repeat(2,1fr)}.ov-branches::before,.ov-branch::before,.ov-branch::after{display:none}.ov-branches .ov-branch:last-child{grid-column:1/-1}}
+    /* Cheat sheet — shared styles in style.css */
+    /* ── HTML Flowcharts (fct) ── */
+    .fct{display:flex;flex-direction:column;align-items:center;max-width:340px;margin:0 auto}
+    .fct-oval{border-radius:50px;padding:6px 22px;font-size:13.5px;font-weight:800;letter-spacing:.02em}
+    .fct-start{background:var(--accent);color:#fff;box-shadow:0 3px 10px color-mix(in srgb,var(--accent) 25%,transparent)}
+    .fct-end{background:color-mix(in srgb,var(--text3) 75%,transparent);color:#fff;font-size:13px;padding:5px 16px}
+    /* Diamond decision: clip-path with layered pseudo-elements for border */
+    .fct-decision{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;padding:26px 18px;font-size:13px;font-weight:700;color:var(--amber);text-align:center;line-height:1.35;min-width:110px}
+    .fct-decision::before{content:'';position:absolute;inset:0;clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);background:var(--amber);z-index:-2}
+    .fct-decision::after{content:'';position:absolute;inset:3px;clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);background:color-mix(in srgb,var(--amber) 10%,var(--card));z-index:-1}
+    .fct-process{border-radius:8px;padding:8px 12px;font-size:13.5px;font-weight:700;text-align:center;width:108px;line-height:1.4}
+    .fct-pt{background:color-mix(in srgb,var(--green) 10%,var(--card));border:1.5px solid var(--green);color:var(--green)}
+    .fct-pf{background:color-mix(in srgb,var(--accent4,#f43f5e) 10%,var(--card));border:1.5px solid var(--accent4,#f43f5e);color:var(--accent4,#f43f5e)}
+    .fct-skip{background:color-mix(in srgb,var(--text3) 5%,var(--card));border:1.5px dashed color-mix(in srgb,var(--text3) 30%,var(--border));color:var(--text3);border-radius:8px;padding:8px 10px;font-size:13px;font-weight:600;text-align:center;width:108px;font-style:italic;line-height:1.4}
+    .fct-vc{width:2px;background:var(--border);align-self:center}
+    .fct-vct{background:var(--green)}
+    .fct-vcf{background:color-mix(in srgb,var(--accent4,#f43f5e) 70%,var(--border))}
+    .fct-split{display:flex;flex-direction:column;align-items:center}
+    .fct-branches{display:flex;gap:24px;position:relative;padding-top:20px}
+    .fct-branches::before{content:'';position:absolute;top:0;left:22%;right:22%;height:2px;background:linear-gradient(to right,var(--accent4,#f43f5e),var(--green))}
+    /* No padding-top on branch — drop line uses top:-20px to reach the bus */
+    .fct-branch{display:flex;flex-direction:column;align-items:center;position:relative;padding-bottom:20px}
+    .fct-branch::before{content:'';position:absolute;top:-20px;left:50%;transform:translateX(-50%);width:2px;height:20px}
+    /* bottom:-20px + height:40px spans from content bottom through padding to merge bar */
+    .fct-branch::after{content:'';position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:2px;height:40px}
+    .fct-bt::before,.fct-bt::after{background:var(--green)}
+    .fct-bf::before,.fct-bf::after{background:color-mix(in srgb,var(--accent4,#f43f5e) 80%,var(--border))}
+    .fct-blabel{font-size:13px;font-weight:700;margin-bottom:8px}
+    .fct-blt{color:var(--green)}
+    .fct-blf{color:var(--accent4,#f43f5e)}
+    .fct-merge{width:100%;height:2px;background:var(--border);margin-top:20px;position:relative}
+    .fct-merge::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:2px;height:20px;background:var(--border)}
+    /* Elif vertical chain */
+    .fct-chain{max-width:420px}
+    .fct-drow{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;width:100%}
+    .fct-drow-label-r{padding-left:6px;font-size:13px;font-weight:700;color:var(--accent4,#f43f5e);align-self:center}
+    .fct-arm{display:flex;align-items:center;gap:4px}
+    .fct-arm-line{width:20px;height:2px;background:var(--green);flex-shrink:0}
+    .fct-arm-tag{font-size:13px;font-weight:700;color:var(--green)}
+    .fct-arm-sep{width:8px;height:2px;background:var(--green);flex-shrink:0}
   </style>
 </head>
 <body>
@@ -145,9 +225,13 @@
     <div class="progress-meta"><span>Overall Progress</span><span data-progress-count>0/29 topics</span></div>
     <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
   </div>
+      <div class="sidebar-streak">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <span data-streak>0</span>&nbsp;<span class="sb-streak-lbl">day streak</span>
+    </div>
   <div class="sidebar-label">Navigation</div>
   <a href="../index.html" class="nav-item"><span class="nav-num">🏠</span><span class="nav-dot"></span>Home</a>
-  <div class="sidebar-label">Core Python</div>
+  <div class="sidebar-label" data-phase="green">Core Python</div>
   <a href="python-basics.html" class="nav-item"><span class="nav-num">01</span><span class="nav-dot" id="dot-python-basics"></span>Python Basics</a>
   <a href="data-types.html" class="nav-item"><span class="nav-num">02</span><span class="nav-dot" id="dot-data-types"></span>Data Types</a>
   <a href="operators.html" class="nav-item"><span class="nav-num">03</span><span class="nav-dot" id="dot-operators"></span>Operators</a>
@@ -162,7 +246,7 @@
   </div>
   <a href="lists.html" class="nav-item"><span class="nav-num">07</span><span class="nav-dot"></span>Lists</a>
   <a href="tuples.html" class="nav-item"><span class="nav-num">08</span><span class="nav-dot"></span>Tuples</a>
-  <div class="sidebar-label">Intermediate</div>
+  <div class="sidebar-label" data-phase="accent">Intermediate</div>
   <a href="dictionaries.html" class="nav-item"><span class="nav-num">09</span><span class="nav-dot"></span>Dictionaries</a>
   <a href="sets.html" class="nav-item"><span class="nav-num">10</span><span class="nav-dot"></span>Sets</a>
   <div class="nav-group" data-group="functions">
@@ -182,7 +266,7 @@
     <div class="nav-group-header"><span class="nav-num">15</span><span class="nav-dot"></span>OOP<span class="nav-group-arrow">›</span></div>
     <div class="nav-sub"><a href="oop-classes.html" class="nav-sub-item">Classes &amp; Objects</a><a href="oop-inheritance.html" class="nav-sub-item">Inheritance</a><a href="oop-advanced.html" class="nav-sub-item">Advanced OOP</a></div>
   </div>
-  <div class="sidebar-label">Advanced</div>
+  <div class="sidebar-label" data-phase="purple">Advanced</div>
   <a href="iterators-generators.html" class="nav-item"><span class="nav-num">16</span><span class="nav-dot"></span>Iterators &amp; Generators</a>
   <a href="decorators.html" class="nav-item"><span class="nav-num">17</span><span class="nav-dot"></span>Decorators</a>
   <div class="nav-group" data-group="numpy">
@@ -225,24 +309,25 @@
 
     <!-- TOPIC HEADER -->
     <div class="topic-header animate-fadeup">
-      <div class="topic-header-glow"></div>
-      <div class="topic-header-glow2"></div>
-      <div class="topic-phase"><span class="badge badge-accent">Module 04</span>Core Python · Phase 1</div>
-      <div class="topic-title">Conditionals in Python</div>
-      <div class="topic-desc">Every useful program makes decisions. Conditionals let your code ask questions and take different paths depending on the answers. Master if, elif, and else and your programs start thinking for themselves.</div>
-      <div class="topic-meta">
-        <div class="meta-chip"><div class="meta-dot" style="background:var(--green)"></div>Beginner</div>
-        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent3)"></div>~45 min read</div>
-        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent)"></div>10 practice tasks</div>
-        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent2)"></div>8 MCQs</div>
-        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent4)"></div>10 interview Qs</div>
+      <div class="topic-bg-num">04</div>
+      <div class="topic-header-body">
+        <div class="topic-phase">Core Python · Phase 1</div>
+        <div class="topic-title">Conditionals in Python</div>
+        <div class="topic-desc">Every useful program makes decisions. Conditionals let your code ask questions and take different paths depending on the answers. Master if, elif, and else and your programs start thinking for themselves.</div>
+        <div class="topic-meta">
+          <div class="meta-chip green">🟢 Beginner</div>
+          <div class="meta-chip amber">⏱ ~45 min read</div>
+          <div class="meta-chip purple">✏️ 10 practice tasks</div>
+          <div class="meta-chip blue">❓ 8 MCQs</div>
+          <div class="meta-chip blue">🎤 10 interview Qs</div>
+        </div>
+        <div class="topic-actions">
+          <a href="loops-for.html" class="topic-footer-btn" id="nextTopicBtn">Next: for Loop →</a>
+          <a href="operators.html" class="btn" id="prevTopicBtn">← Prev</a>
+          <button class="btn" data-bookmark="conditionals">🔖 Bookmark</button>
+        </div>
       </div>
-      <div class="topic-actions">
-        <button class="btn" data-bookmark="conditionals">🔖 Bookmark</button>
-        <a href="operators.html" class="btn" id="prevTopicBtn">← Prev: Operators</a>
-        <a href="loops-for.html" class="btn" id="nextTopicBtn">Next: for Loop →</a>
-      </div>
-      <div class="diff-rating">
+      <div class="topic-diff-row">
         <span class="diff-rating-label">How was this topic?</span>
         <button class="diff-btn" data-diff="easy">😊 Easy</button>
         <button class="diff-btn" data-diff="medium">🤔 Medium</button>
@@ -273,77 +358,500 @@
     <!-- ═══════════════ TAB 1: NOTES ═══════════════ -->
     <div class="tab-panel active animate-fadeup delay-2">
 
-      <!-- PLACEHOLDER: intro callout -->
       <div class="callout callout-tip" style="margin-bottom:18px">
         <span class="callout-icon">💡</span>
-        <span><strong>Coming up:</strong> if, if-else, if-elif-else, nested if, ternary expression, truthy/falsy values. Each section has a syntax box, a flowchart, and examples.</span>
+        <span>Every program needs to make decisions. Should I show the user a discount? Is the password correct? Is the score high enough to pass? <strong>Conditionals</strong> are Python's way of asking a yes/no question and running different code based on the answer. Use the interactive flowcharts in each section to walk through exactly what Python does.</span>
       </div>
 
-      <!-- PLACEHOLDER: Overview diagram -->
-      <div class="diagram-wrap" style="text-align:center;padding:40px 20px;color:var(--text3)">
-        <div style="font-size:13px">📊 Overview diagram goes here</div>
+      <!-- OVERVIEW -->
+      <div class="diagram-wrap" style="padding-bottom:28px">
+        <div class="ov-tree">
+          <div class="ov-root">Conditional Statements</div>
+          <div class="ov-branches">
+            <div class="ov-branch" style="--ov-color:var(--green)">
+              <div class="ov-card">
+                <code class="ov-kw" style="color:var(--green)">if</code>
+                <span class="ov-type">statement</span>
+              </div>
+              <div class="ov-desc">Run a block only when the condition is True. Skip it otherwise.</div>
+            </div>
+            <div class="ov-branch" style="--ov-color:var(--accent)">
+              <div class="ov-card">
+                <code class="ov-kw" style="color:var(--accent)">if-else</code>
+                <span class="ov-type">statement</span>
+              </div>
+              <div class="ov-desc">Two paths: one runs when True, the other when False. Always exactly one executes.</div>
+            </div>
+            <div class="ov-branch" style="--ov-color:var(--amber)">
+              <div class="ov-card">
+                <code class="ov-kw" style="color:var(--amber)">if-elif-else</code>
+                <span class="ov-type">chain</span>
+              </div>
+              <div class="ov-desc">3 or more outcomes. Python stops at the first True condition.</div>
+            </div>
+            <div class="ov-branch" style="--ov-color:var(--purple)">
+              <div class="ov-card">
+                <code class="ov-kw" style="color:var(--purple)">nested if</code>
+                <span class="ov-type">statement</span>
+              </div>
+              <div class="ov-desc">An if inside another if. The inner check only runs when the outer is True.</div>
+            </div>
+            <div class="ov-branch" style="--ov-color:var(--accent2)">
+              <div class="ov-card">
+                <code class="ov-kw" style="color:var(--accent2)">ternary</code>
+                <span class="ov-type">operator</span>
+              </div>
+              <div class="ov-desc">One-line if-else for assigning a value based on a condition.</div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- PLACEHOLDER: Section 1 — if statement -->
+      <!-- WHICH ONE DO I PICK? -->
+      <div class="diagram-wrap" style="padding:22px 20px 26px;margin-bottom:18px">
+        <p style="text-align:center;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin:0 0 16px">Which one should I use?</p>
+        <div style="display:flex;flex-direction:column;gap:0">
+
+          <div style="display:grid;grid-template-columns:120px 1fr;gap:0;border:1px solid var(--border);border-radius:10px 10px 0 0;overflow:hidden">
+            <div style="background:color-mix(in srgb,var(--green) 12%,var(--card));border-right:1px solid var(--border);padding:16px 12px;display:flex;align-items:center;justify-content:center">
+              <code style="font-size:15px;font-weight:800;color:var(--green)">if</code>
+            </div>
+            <div style="padding:14px 18px">
+              <div style="font-size:13.5px;font-weight:700;color:var(--text1);margin-bottom:5px">The false case doesn't matter</div>
+              <div style="font-size:13px;color:var(--text2);line-height:1.65">Do something only when the condition is true. If it's false, just move on. No special action needed.</div>
+              <div style="margin-top:8px;font-size:13px;color:var(--text3);font-style:italic">Example: show a welcome message only if the user is logged in</div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:120px 1fr;gap:0;border:1px solid var(--border);border-top:none;overflow:hidden">
+            <div style="background:color-mix(in srgb,var(--accent) 12%,var(--card));border-right:1px solid var(--border);padding:16px 12px;display:flex;align-items:center;justify-content:center">
+              <code style="font-size:14px;font-weight:800;color:var(--accent)">if-else</code>
+            </div>
+            <div style="padding:14px 18px">
+              <div style="font-size:13.5px;font-weight:700;color:var(--text1);margin-bottom:5px">You always need one of two outcomes</div>
+              <div style="font-size:13px;color:var(--text2);line-height:1.65">Exactly one block always runs. Use this when both the true case and the false case need their own action.</div>
+              <div style="margin-top:8px;font-size:13px;color:var(--text3);font-style:italic">Example: show "logged in" or "please log in" depending on status</div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:120px 1fr;gap:0;border:1px solid var(--border);border-top:none;overflow:hidden">
+            <div style="background:color-mix(in srgb,var(--amber) 12%,var(--card));border-right:1px solid var(--border);padding:16px 12px;display:flex;align-items:center;justify-content:center">
+              <code style="font-size:13px;font-weight:800;color:var(--amber);text-align:center">if-elif<br>-else</code>
+            </div>
+            <div style="padding:14px 18px">
+              <div style="font-size:13.5px;font-weight:700;color:var(--text1);margin-bottom:5px">3 or more mutually exclusive outcomes</div>
+              <div style="font-size:13px;color:var(--text2);line-height:1.65">You have multiple specific cases and only one should ever run. Python checks top to bottom and stops at the first match.</div>
+              <div style="margin-top:8px;font-size:13px;color:var(--text3);font-style:italic">Example: assign a grade (A, B, C, F) based on a score range</div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:120px 1fr;gap:0;border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;overflow:hidden">
+            <div style="background:color-mix(in srgb,var(--purple) 12%,var(--card));border-right:1px solid var(--border);padding:16px 12px;display:flex;align-items:center;justify-content:center">
+              <code style="font-size:13px;font-weight:800;color:var(--purple);text-align:center">nested<br>if</code>
+            </div>
+            <div style="padding:14px 18px">
+              <div style="font-size:13.5px;font-weight:700;color:var(--text1);margin-bottom:5px">Conditions depend on each other</div>
+              <div style="font-size:13px;color:var(--text2);line-height:1.65">The inner check only makes sense after the outer check passes. Both conditions have to hold together.</div>
+              <div style="margin-top:8px;font-size:13px;color:var(--text3);font-style:italic">Example: check if logged in, then check if admin</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SECTION 1: if -->
       <div class="section-heading">1. The if Statement</div>
-      <div class="syntax-box">
-        <div class="syntax-box-label">Syntax</div>
-        <pre><!-- syntax goes here --></pre>
-      </div>
-      <div class="diagram-wrap" style="text-align:center;padding:40px 20px;color:var(--text3)">
-        <div style="font-size:13px">🔀 Flowchart: if statement goes here</div>
-      </div>
       <div class="cbox green">
-        <h3>Explanation placeholder</h3>
-        <p>Content goes here.</p>
+        <h3>✅ The if Statement</h3>
+        <p>The simplest form of decision-making. You give Python a condition. If it's true, Python runs the code block inside. If it's false, Python skips the block and moves on. That's the whole idea.</p>
+        <p>Think of it as: <em>"Do this only if this is true. Otherwise, don't bother."</em></p>
       </div>
 
-      <!-- PLACEHOLDER: Section 2 — if-else -->
+      <div class="syntax-box">
+        <div class="syntax-box-label">Syntax</div>
+        <pre><span class="syntax-kw">if</span> <span class="syntax-ph">condition</span>:
+    <span class="syntax-ph">code to run when True</span>
+    <span class="syntax-ph">more code (all indented 4 spaces)</span>
+<span class="syntax-cm"># anything here runs regardless of the condition</span></pre>
+      </div>
+
+      <!-- if: flowchart -->
+      <div class="diagram-wrap" style="padding:24px 20px 28px">
+        <p style="text-align:center;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin:0 0 16px">How the if statement flows</p>
+        <div class="fct">
+          <div class="fct-oval fct-start">START</div>
+          <div class="fct-vc" style="height:14px"></div>
+          <div class="fct-decision">condition?</div>
+          <div class="fct-vc" style="height:20px"></div>
+          <div class="fct-split">
+            <div class="fct-branches">
+              <div class="fct-branch fct-bf">
+                <span class="fct-blabel fct-blf">False</span>
+                <div class="fct-skip">block is<br>skipped</div>
+              </div>
+              <div class="fct-branch fct-bt">
+                <span class="fct-blabel fct-blt">True</span>
+                <div class="fct-process fct-pt">block<br>runs</div>
+              </div>
+            </div>
+            <div class="fct-merge"></div>
+          </div>
+          <div class="fct-vc" style="height:20px"></div>
+          <div class="fct-oval fct-end">END</div>
+        </div>
+      </div>
+
+      <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">score</span> = <span class="num">75</span>
+
+<span class="kw">if</span> <span class="var">score</span> >= <span class="num">50</span>:
+    <span class="fn">print</span>(<span class="str">"You passed!"</span>)      <span class="cm"># runs — 75 >= 50 is True</span>
+
+<span class="fn">print</span>(<span class="str">"Thanks for playing"</span>)   <span class="cm"># always runs, no matter what</span></pre>
+      </div>
+
+      <!-- SECTION 2: if-else -->
       <div class="section-heading">2. The if-else Statement</div>
-      <div class="syntax-box">
-        <div class="syntax-box-label">Syntax</div>
-        <pre><!-- syntax goes here --></pre>
-      </div>
-      <div class="diagram-wrap" style="text-align:center;padding:40px 20px;color:var(--text3)">
-        <div style="font-size:13px">🔀 Flowchart: if-else goes here</div>
+      <div class="cbox">
+        <h3>↔️ The if-else Statement</h3>
+        <p>Sometimes you need two paths: something to do when the condition is true, and something different when it's false. That's exactly what <code>if-else</code> gives you. Python always picks exactly one path. Never both. Never neither.</p>
+        <p>Think of it as: <em>"Do A if true, otherwise do B."</em></p>
       </div>
 
-      <!-- PLACEHOLDER: Section 3 — if-elif-else -->
+      <div class="syntax-box">
+        <div class="syntax-box-label">Syntax</div>
+        <pre><span class="syntax-kw">if</span> <span class="syntax-ph">condition</span>:
+    <span class="syntax-ph">code when True</span>
+<span class="syntax-kw">else</span>:
+    <span class="syntax-ph">code when False</span></pre>
+      </div>
+
+      <!-- if-else: flowchart -->
+      <div class="diagram-wrap" style="padding:24px 20px 28px">
+        <p style="text-align:center;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin:0 0 16px">How the if-else statement flows</p>
+        <div class="fct">
+          <div class="fct-oval fct-start">START</div>
+          <div class="fct-vc" style="height:14px"></div>
+          <div class="fct-decision">condition?</div>
+          <div class="fct-vc" style="height:20px"></div>
+          <div class="fct-split">
+            <div class="fct-branches">
+              <div class="fct-branch fct-bf">
+                <span class="fct-blabel fct-blf">False</span>
+                <div class="fct-process fct-pf">else block<br>runs</div>
+              </div>
+              <div class="fct-branch fct-bt">
+                <span class="fct-blabel fct-blt">True</span>
+                <div class="fct-process fct-pt">if block<br>runs</div>
+              </div>
+            </div>
+            <div class="fct-merge"></div>
+          </div>
+          <div class="fct-vc" style="height:20px"></div>
+          <div class="fct-oval fct-end">END</div>
+        </div>
+      </div>
+
+      <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">age</span> = <span class="num">16</span>
+
+<span class="kw">if</span> <span class="var">age</span> >= <span class="num">18</span>:
+    <span class="fn">print</span>(<span class="str">"You can vote!"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"You cannot vote yet."</span>)   <span class="cm"># this runs — 16 >= 18 is False</span></pre>
+      </div>
+
+      <!-- SECTION 3: if-elif-else -->
       <div class="section-heading">3. The if-elif-else Chain</div>
-      <div class="syntax-box">
-        <div class="syntax-box-label">Syntax</div>
-        <pre><!-- syntax goes here --></pre>
-      </div>
-      <div class="diagram-wrap" style="text-align:center;padding:40px 20px;color:var(--text3)">
-        <div style="font-size:13px">🔀 Flowchart: if-elif-else goes here</div>
-      </div>
-
-      <!-- PLACEHOLDER: Section 4 — Nested if -->
-      <div class="section-heading">4. Nested if</div>
-      <div class="syntax-box">
-        <div class="syntax-box-label">Syntax</div>
-        <pre><!-- syntax goes here --></pre>
-      </div>
-
-      <!-- PLACEHOLDER: Section 5 — Ternary -->
-      <div class="section-heading">5. Ternary Expression</div>
-      <div class="syntax-box">
-        <div class="syntax-box-label">Syntax</div>
-        <pre><!-- syntax goes here --></pre>
-      </div>
-
-      <!-- PLACEHOLDER: Section 6 — Truthy/Falsy -->
-      <div class="section-heading">6. Truthy and Falsy Values</div>
       <div class="cbox amber">
-        <h3>Truthy/Falsy table placeholder</h3>
-        <p>Content goes here.</p>
+        <h3>🔗 The if-elif-else Chain</h3>
+        <p>When you have more than two possible outcomes, use <code>elif</code> (short for "else if"). Python checks conditions from top to bottom. The moment one condition is true, it runs that block and completely ignores the rest. Only one block ever runs, even if multiple conditions would be true.</p>
+        <p>Think of it as: <em>"Try option 1. Not that? Try option 2. Still no? Use the default."</em></p>
       </div>
 
-      <!-- PLACEHOLDER: Section 7 — Indentation -->
-      <div class="section-heading">7. Indentation Rules</div>
-      <div class="callout callout-warn" style="margin-bottom:18px">
+      <div class="syntax-box">
+        <div class="syntax-box-label">Syntax</div>
+        <pre><span class="syntax-kw">if</span> <span class="syntax-ph">condition_1</span>:
+    <span class="syntax-ph">code for condition_1</span>
+<span class="syntax-kw">elif</span> <span class="syntax-ph">condition_2</span>:
+    <span class="syntax-ph">code for condition_2</span>
+<span class="syntax-kw">elif</span> <span class="syntax-ph">condition_3</span>:       <span class="syntax-cm"># you can have as many elif as you need</span>
+    <span class="syntax-ph">code for condition_3</span>
+<span class="syntax-kw">else</span>:
+    <span class="syntax-ph">default code</span>          <span class="syntax-cm"># runs only if nothing above was True</span></pre>
+      </div>
+
+      <!-- if-elif-else: flowchart -->
+      <div class="diagram-wrap" style="padding:24px 20px 28px">
+        <p style="text-align:center;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin:0 0 16px">How the if-elif-else chain flows</p>
+        <div class="fct fct-chain">
+          <div class="fct-oval fct-start">START</div>
+          <div class="fct-vc" style="height:16px"></div>
+
+          <div class="fct-drow">
+            <div></div>
+            <div class="fct-decision">condition 1?</div>
+            <div class="fct-arm">
+              <div class="fct-arm-line"></div>
+              <span class="fct-arm-tag">True</span>
+              <div class="fct-arm-sep"></div>
+              <div class="fct-process fct-pt" style="width:auto;padding:7px 10px">if block runs</div>
+            </div>
+          </div>
+
+          <div class="fct-drow">
+            <div></div>
+            <div class="fct-vc fct-vcf" style="height:18px"></div>
+            <div class="fct-drow-label-r">False</div>
+          </div>
+
+          <div class="fct-drow">
+            <div></div>
+            <div class="fct-decision">condition 2?</div>
+            <div class="fct-arm">
+              <div class="fct-arm-line"></div>
+              <span class="fct-arm-tag">True</span>
+              <div class="fct-arm-sep"></div>
+              <div class="fct-process fct-pt" style="width:auto;padding:7px 10px">elif block runs</div>
+            </div>
+          </div>
+
+          <div class="fct-drow">
+            <div></div>
+            <div class="fct-vc fct-vcf" style="height:18px"></div>
+            <div class="fct-drow-label-r">False</div>
+          </div>
+
+          <div class="fct-process fct-pf" style="width:auto;padding:8px 14px">else block runs</div>
+          <div class="fct-vc" style="height:16px"></div>
+          <div class="fct-oval fct-end">END</div>
+        </div>
+      </div>
+
+      <div class="callout callout-tip" style="margin-bottom:14px">
+        <span class="callout-icon">💡</span>
+        <span><strong>First match wins, always.</strong> Python checks from top to bottom and stops the moment one condition is true. Even if a later <code>elif</code> would also be true, Python never looks at it. So put the most specific checks first, and the broadest ones last.</span>
+      </div>
+
+      <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">score</span> = <span class="num">82</span>
+
+<span class="kw">if</span> <span class="var">score</span> >= <span class="num">90</span>:
+    <span class="fn">print</span>(<span class="str">"Grade: A"</span>)
+<span class="kw">elif</span> <span class="var">score</span> >= <span class="num">75</span>:
+    <span class="fn">print</span>(<span class="str">"Grade: B"</span>)    <span class="cm"># this runs — 82 >= 75 is True</span>
+<span class="kw">elif</span> <span class="var">score</span> >= <span class="num">60</span>:
+    <span class="fn">print</span>(<span class="str">"Grade: C"</span>)    <span class="cm"># skipped — Python already found a match</span>
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"Grade: F"</span>)</pre>
+      </div>
+
+      <!-- ELIF ANALOGY -->
+      <div class="callout callout-tip" style="margin-bottom:14px">
+        <span class="callout-icon">🚦</span>
+        <span><strong>Think of it like a traffic light.</strong> Python looks at red first. If red is true, it stops there. If not, it looks at yellow. If not, it goes to green. It never checks the others once it finds a match. That "first match wins, then stop" rule is what makes <code>elif</code> different from writing separate <code>if</code> statements.</span>
+      </div>
+
+      <!-- ELIF VS SEPARATE IF -->
+      <div class="diagram-wrap" style="padding:22px 20px 26px;margin-bottom:18px">
+        <p style="text-align:center;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin:0 0 4px">elif chain vs separate if statements</p>
+        <p style="text-align:center;font-size:13px;color:var(--text2);margin:0 0 16px">These look similar but behave very differently</p>
+        <div class="ternary-grid">
+          <div>
+            <div style="font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--green);margin-bottom:8px;display:flex;align-items:center;gap:6px"><span style="background:color-mix(in srgb,var(--green) 15%,var(--card));border:1px solid var(--green);border-radius:4px;padding:2px 8px">elif chain</span> stops at first match</div>
+            <div class="code-block" style="margin:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">x</span> = <span class="num">10</span>
+
+<span class="kw">if</span> <span class="var">x</span> > <span class="num">5</span>:
+    <span class="fn">print</span>(<span class="str">"greater than 5"</span>)  <span class="cm"># runs</span>
+<span class="kw">elif</span> <span class="var">x</span> > <span class="num">3</span>:
+    <span class="fn">print</span>(<span class="str">"greater than 3"</span>)  <span class="cm"># skipped!</span>
+<span class="kw">elif</span> <span class="var">x</span> > <span class="num">1</span>:
+    <span class="fn">print</span>(<span class="str">"greater than 1"</span>)  <span class="cm"># skipped!</span>
+
+<span class="cm"># Output: greater than 5</span></pre>
+            </div>
+            <div style="margin-top:8px;font-size:13px;color:var(--text2);line-height:1.65">Only <strong>one</strong> block runs. Once the first <code>if</code> matches, Python ignores the rest.</div>
+          </div>
+          <div style="text-align:center;color:var(--border);font-size:22px;font-weight:700;padding-top:28px">vs</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--accent4,#f43f5e);margin-bottom:8px;display:flex;align-items:center;gap:6px"><span style="background:color-mix(in srgb,var(--accent4,#f43f5e) 15%,var(--card));border:1px solid var(--accent4,#f43f5e);border-radius:4px;padding:2px 8px">separate ifs</span> all checked</div>
+            <div class="code-block" style="margin:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">x</span> = <span class="num">10</span>
+
+<span class="kw">if</span> <span class="var">x</span> > <span class="num">5</span>:
+    <span class="fn">print</span>(<span class="str">"greater than 5"</span>)  <span class="cm"># runs</span>
+<span class="kw">if</span> <span class="var">x</span> > <span class="num">3</span>:
+    <span class="fn">print</span>(<span class="str">"greater than 3"</span>)  <span class="cm"># also runs!</span>
+<span class="kw">if</span> <span class="var">x</span> > <span class="num">1</span>:
+    <span class="fn">print</span>(<span class="str">"greater than 1"</span>)  <span class="cm"># also runs!</span>
+
+<span class="cm"># Output: all three lines</span></pre>
+            </div>
+            <div style="margin-top:8px;font-size:13px;color:var(--text2);line-height:1.65"><strong>All three</strong> blocks run because each <code>if</code> is checked independently.</div>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding:12px 16px;background:color-mix(in srgb,var(--amber) 8%,var(--card));border:1px solid color-mix(in srgb,var(--amber) 30%,var(--border));border-radius:8px;font-size:13.5px;color:var(--text2);line-height:1.7">
+          <strong style="color:var(--amber)">Rule of thumb:</strong> If only one outcome should ever happen (grades, status levels, categories), use <code>elif</code>. If multiple things can independently be true at the same time, use separate <code>if</code> statements.
+        </div>
+      </div>
+
+      <!-- SECTION 4: Nested if -->
+      <div class="section-heading">4. Nested if</div>
+      <div class="cbox purple">
+        <h3>📦 Nested if</h3>
+        <p>A nested if is simply an <code>if</code> placed inside another <code>if</code>. The inner <code>if</code> only runs when the outer condition is already true. So both conditions have to hold. This is useful when you need to check one broad condition first, then something more specific within it.</p>
+        <p>Think of it as: <em>"Are you logged in? Yes. Now are you an admin? Yes. Okay, show the admin panel."</em></p>
+      </div>
+
+      <div class="syntax-box">
+        <div class="syntax-box-label">Syntax</div>
+        <pre><span class="syntax-kw">if</span> <span class="syntax-ph">outer_condition</span>:
+    <span class="syntax-cm"># this block only runs when outer is True</span>
+    <span class="syntax-kw">if</span> <span class="syntax-ph">inner_condition</span>:
+        <span class="syntax-cm"># this runs only when BOTH are True</span>
+        <span class="syntax-ph">do something specific</span></pre>
+      </div>
+
+      <div class="diagram-wrap">
+        <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:14px">Interactive: step through a nested if line by line</div>
+        <div class="code-block" style="margin:0 0 10px"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span id="ns-l1" class="code-step-line"><span class="var">logged_in</span> = <span class="kw">True</span></span>
+<span id="ns-l2" class="code-step-line"><span class="var">is_admin</span>  = <span class="kw">True</span></span>
+<span id="ns-l3" class="code-step-line"> </span>
+<span id="ns-l4" class="code-step-line"><span class="kw">if</span> <span class="var">logged_in</span>:</span>
+<span id="ns-l5" class="code-step-line">    <span class="fn">print</span>(<span class="str">"Welcome back!"</span>)</span>
+<span id="ns-l6" class="code-step-line">    <span class="kw">if</span> <span class="var">is_admin</span>:</span>
+<span id="ns-l7" class="code-step-line">        <span class="fn">print</span>(<span class="str">"Loading admin panel..."</span>)</span></pre>
+        </div>
+        <div class="flow-desc-box" id="nested-desc">Click "Next Step" to walk through the code line by line.</div>
+        <div class="flow-controls">
+          <button class="flow-btn" id="nested-back" onclick="nestedStep(-1)" disabled>Back</button>
+          <span class="flow-step-label" id="nested-label">0 / 5</span>
+          <button class="flow-btn" id="nested-next" onclick="nestedStep(1)">Next Step</button>
+          <button class="flow-btn" onclick="nestedReset()" style="margin-left:auto">Reset</button>
+        </div>
+      </div>
+
+      <div class="callout callout-warning" style="margin-bottom:14px">
         <span class="callout-icon">⚠️</span>
-        <span>Indentation content goes here.</span>
+        <span><strong>Watch the indentation carefully.</strong> Each level of nesting adds 4 more spaces. The inner <code>if</code> is indented 4 spaces, and the code inside it is indented 8 spaces. One wrong indent and Python either throws an error or silently runs the wrong code.</span>
+      </div>
+
+      <!-- SECTION 5: Ternary -->
+      <div class="section-heading">5. Ternary Expression</div>
+      <div class="cbox teal">
+        <h3>⚡ Ternary Expression</h3>
+        <p>A ternary is a compact way to write a simple <code>if-else</code> on a single line. It's an expression, meaning it produces a value. So you can use it directly inside assignments, print calls, or anywhere a value is expected.</p>
+        <p>It's great for simple picks. It gets confusing fast when logic gets complex.</p>
+      </div>
+
+      <div class="syntax-box">
+        <div class="syntax-box-label">Syntax</div>
+        <pre><span class="syntax-ph">value_if_true</span> <span class="syntax-kw">if</span> <span class="syntax-ph">condition</span> <span class="syntax-kw">else</span> <span class="syntax-ph">value_if_false</span></pre>
+      </div>
+
+      <div class="diagram-wrap">
+        <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:14px">Before and after: collapsing if-else into a ternary</div>
+        <div class="ternary-grid">
+          <div>
+            <div style="font-size:13.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px">if-else (4 lines)</div>
+            <div class="code-block" style="margin:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="kw">if</span> <span class="var">score</span> >= <span class="num">50</span>:
+    <span class="var">label</span> = <span class="str">"pass"</span>
+<span class="kw">else</span>:
+    <span class="var">label</span> = <span class="str">"fail"</span></pre>
+            </div>
+          </div>
+          <div style="text-align:center;color:var(--accent);font-size:22px;font-weight:700;padding-top:24px">→</div>
+          <div>
+            <div style="font-size:13.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px">ternary (1 line)</div>
+            <div class="code-block" style="margin:0"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="var">label</span> = <span class="str">"pass"</span> <span class="kw">if</span> <span class="var">score</span> >= <span class="num">50</span> <span class="kw">else</span> <span class="str">"fail"</span></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-tip" style="margin-bottom:10px">
+        <span class="callout-icon">💡</span>
+        <span><strong>Good for simple value picks.</strong> Setting a label, picking a greeting, a yes/no result. The moment your condition involves <code>and</code> or <code>or</code>, or the values themselves are long, switch back to a regular <code>if-else</code>. Readable code always beats short code.</span>
+      </div>
+      <div class="callout callout-warning" style="margin-bottom:14px">
+        <span class="callout-icon">⚠️</span>
+        <span><strong>Ternary is for values, not actions.</strong> <code>print("hi") if x else print("bye")</code> technically works, but it's hard to read and unnecessary. Use ternary only when you need a value as a result, not to run side effects.</span>
+      </div>
+
+      <!-- SECTION 6: Truthy/Falsy -->
+      <div class="section-heading">6. Truthy and Falsy Values</div>
+      <div class="cbox dim">
+        <h3>🔍 Truthy and Falsy Values</h3>
+        <p>In Python, you don't have to write <code>if x == True:</code>. Any value can go inside an <code>if</code>, and Python will treat it as either truthy (acts like True) or falsy (acts like False). This is a core Python feature you'll use constantly once you know it.</p>
+        <p><strong>These values are falsy (treated as False inside any if):</strong></p>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Value</th><th>Type</th><th>Why falsy</th></tr></thead>
+            <tbody>
+              <tr><td>False</td><td>bool</td><td>The boolean false</td></tr>
+              <tr><td>0</td><td>int</td><td>Zero integer</td></tr>
+              <tr><td>0.0</td><td>float</td><td>Zero float</td></tr>
+              <tr><td>""</td><td>str</td><td>Empty string (no characters)</td></tr>
+              <tr><td>[]</td><td>list</td><td>Empty list (no items)</td></tr>
+              <tr><td>{}</td><td>dict / set</td><td>Empty collection</td></tr>
+              <tr><td>None</td><td>NoneType</td><td>Represents "no value at all"</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top:14px"><strong>Everything else is truthy</strong>, including <code>"0"</code> (a non-empty string), <code>[0]</code> (a list with one item), and <code>0.1</code> (a non-zero float).</p>
+        <div class="callout callout-tip" style="margin-top:12px">
+          <span class="callout-icon">💡</span>
+          <span><strong>Cleaner code in practice.</strong> Instead of <code>if len(name) > 0:</code>, just write <code>if name:</code>. Instead of <code>if items != []:</code>, write <code>if items:</code>. Python checks truthiness automatically, which makes your code shorter and easier to read.</span>
+        </div>
+        <div class="code-block" style="margin-top:14px"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
+<pre><span class="var">name</span> = <span class="fn">input</span>(<span class="str">"Enter your name: "</span>)
+
+<span class="kw">if</span> <span class="var">name</span>:                      <span class="cm"># True only if name is not empty</span>
+    <span class="fn">print</span>(<span class="str">f"Hello, </span><span class="var">{name}</span><span class="str">!"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"You didn't type anything."</span>)
+
+<span class="var">cart</span> = []
+<span class="kw">if</span> <span class="var">cart</span>:                      <span class="cm"># False — empty list is falsy</span>
+    <span class="fn">print</span>(<span class="str">"Cart has items"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"Your cart is empty"</span>)  <span class="cm"># this runs</span></pre>
+        </div>
+      </div>
+
+      <!-- SECTION 7: Indentation -->
+      <div class="section-heading">7. Indentation Rules</div>
+      <div class="callout callout-warning" style="margin-bottom:14px">
+        <span class="callout-icon">⚠️</span>
+        <span><strong>Indentation is not optional in Python.</strong> In languages like JavaScript, curly braces <code>{}</code> define blocks. Python uses spaces instead. Every line inside an <code>if</code> block must be indented by exactly 4 spaces. Get it wrong and Python either crashes or runs code in the wrong place without warning.</span>
+      </div>
+      <div class="cbox amber">
+        <h3>📐 Three mistakes to know</h3>
+        <p><strong>1. Missing indent entirely (SyntaxError)</strong></p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="kw">if</span> <span class="kw">True</span>:
+<span class="fn">print</span>(<span class="str">"hello"</span>)   <span class="cm"># IndentationError: expected an indented block</span></pre>
+        </div>
+        <p style="margin-top:14px"><strong>2. Inconsistent indent (SyntaxError)</strong></p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="kw">if</span> <span class="kw">True</span>:
+    <span class="fn">print</span>(<span class="str">"line 1"</span>)   <span class="cm"># 4 spaces</span>
+  <span class="fn">print</span>(<span class="str">"line 2"</span>)   <span class="cm"># 2 spaces — IndentationError</span></pre>
+        </div>
+        <p style="margin-top:14px"><strong>3. Correct syntax but wrong logic (no error, but wrong behavior)</strong></p>
+        <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span></div>
+<pre><span class="kw">if</span> <span class="var">score</span> >= <span class="num">50</span>:
+    <span class="fn">print</span>(<span class="str">"You passed!"</span>)
+<span class="fn">print</span>(<span class="str">"Congratulations"</span>)  <span class="cm"># no indent = always runs, even if score is 10</span></pre>
+        </div>
+        <div class="callout callout-tip" style="margin-top:14px">
+          <span class="callout-icon">💡</span>
+          <span><strong>Use a code editor with Python support.</strong> VS Code and PyCharm highlight indent levels visually and underline errors before you even run the code. Never use a plain text editor or Word for Python code.</span>
+        </div>
       </div>
 
       <!-- Personal notes + nav -->
@@ -368,64 +876,155 @@
 
       <div class="section-heading">Real-World Examples</div>
 
-      <!-- PLACEHOLDER: Example 1 -->
-      <div style="margin-bottom:20px">
+      <!-- EXAMPLE 1: Simple if -->
+      <div class="cbox green" style="margin-bottom:18px">
         <div class="example-header">
-          <div class="example-title">Example 1: placeholder title</div>
+          <div class="example-title">Example 1: Exam Pass Checker (if)</div>
           <span class="badge badge-green">Beginner</span>
         </div>
+        <p style="margin-bottom:12px">The simplest use of <code>if</code>: run a block only when a condition is true, then always continue below it.</p>
         <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
-<pre><span class="cm"># Example code goes here</span></pre></div>
+<pre><span class="cm"># Check if a student passed the exam</span>
+<span class="var">marks</span>         = <span class="num">48</span>
+<span class="var">passing_marks</span> = <span class="num">35</span>
+
+<span class="kw">if</span> <span class="var">marks</span> >= <span class="var">passing_marks</span>:
+    <span class="fn">print</span>(<span class="str">"Congratulations! You passed."</span>)   <span class="cm"># runs — 48 >= 35 is True</span>
+
+<span class="fn">print</span>(<span class="str">f"Your marks: <span class="var">{marks}</span>"</span>)   <span class="cm"># always runs regardless</span>
+
+<span class="cm"># Output:</span>
+<span class="cm"># Congratulations! You passed.</span>
+<span class="cm"># Your marks: 48</span></pre></div>
       </div>
 
-      <!-- PLACEHOLDER: Example 2 -->
-      <div style="margin-bottom:20px">
+      <!-- EXAMPLE 2: if-else -->
+      <div class="cbox" style="margin-bottom:18px">
         <div class="example-header">
-          <div class="example-title">Example 2: placeholder title</div>
+          <div class="example-title">Example 2: Day or Night Greeting (if-else)</div>
           <span class="badge badge-green">Beginner</span>
         </div>
+        <p style="margin-bottom:12px">With <code>if-else</code>, Python always picks exactly one of the two blocks. Never both, never neither.</p>
         <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
-<pre><span class="cm"># Example code goes here</span></pre></div>
+<pre><span class="cm"># Display greeting based on the hour (24-hour format)</span>
+<span class="var">hour</span> = <span class="num">14</span>   <span class="cm"># 2 PM</span>
+
+<span class="kw">if</span> <span class="var">hour</span> < <span class="num">12</span>:
+    <span class="fn">print</span>(<span class="str">"Good morning!"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"Good afternoon/evening!"</span>)   <span class="cm"># this runs — 14 is not < 12</span>
+
+<span class="cm"># Try hour = 8  → "Good morning!"</span>
+<span class="cm"># Try hour = 20 → "Good afternoon/evening!"</span></pre></div>
       </div>
 
-      <!-- PLACEHOLDER: Example 3 -->
-      <div style="margin-bottom:20px">
+      <!-- EXAMPLE 3: if-elif-else -->
+      <div class="cbox amber" style="margin-bottom:18px">
         <div class="example-header">
-          <div class="example-title">Example 3: placeholder title</div>
-          <span class="badge badge-amber">Intermediate</span>
+          <div class="example-title">Example 3: Grade Calculator (if-elif-else)</div>
+          <span class="badge" style="background:rgba(245,158,11,.15);color:var(--amber)">if-elif-else</span>
         </div>
+        <p style="margin-bottom:12px">Multiple outcomes handled cleanly. Python stops checking the moment one condition is true, so order matters. Put the strictest condition first.</p>
         <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
-<pre><span class="cm"># Example code goes here</span></pre></div>
+<pre><span class="cm"># Assign a letter grade based on score</span>
+<span class="var">score</span> = <span class="num">72</span>
+
+<span class="kw">if</span> <span class="var">score</span> >= <span class="num">90</span>:
+    <span class="var">grade</span> = <span class="str">"O"</span>    <span class="cm"># Outstanding</span>
+<span class="kw">elif</span> <span class="var">score</span> >= <span class="num">75</span>:
+    <span class="var">grade</span> = <span class="str">"A+"</span>
+<span class="kw">elif</span> <span class="var">score</span> >= <span class="num">60</span>:
+    <span class="var">grade</span> = <span class="str">"A"</span>    <span class="cm"># this runs — 72 >= 60 is True</span>
+<span class="kw">elif</span> <span class="var">score</span> >= <span class="num">50</span>:
+    <span class="var">grade</span> = <span class="str">"B"</span>
+<span class="kw">else</span>:
+    <span class="var">grade</span> = <span class="str">"F"</span>    <span class="cm"># only if nothing above matched</span>
+
+<span class="fn">print</span>(<span class="str">f"Score: <span class="var">{score}</span>  |  Grade: <span class="var">{grade}</span>"</span>)   <span class="cm"># Score: 72  |  Grade: A</span></pre></div>
       </div>
 
-      <!-- PLACEHOLDER: Example 4 -->
-      <div style="margin-bottom:20px">
+      <!-- EXAMPLE 4: Nested if -->
+      <div class="cbox purple" style="margin-bottom:18px">
         <div class="example-header">
-          <div class="example-title">Example 4: placeholder title</div>
-          <span class="badge badge-amber">Intermediate</span>
+          <div class="example-title">Example 4: Online Order Check (Nested if)</div>
+          <span class="badge" style="background:rgba(139,92,246,.15);color:var(--purple)">Nested if</span>
         </div>
+        <p style="margin-bottom:12px">Nested if lets you add a second gate inside the first. The inner check only runs when the outer one is already true, keeping your logic layered and readable.</p>
         <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
-<pre><span class="cm"># Example code goes here</span></pre></div>
+<pre><span class="cm"># Place an online order only if delivery is available and item is in stock</span>
+<span class="var">delivery_available</span> = <span class="kw">True</span>
+<span class="var">in_stock</span>           = <span class="kw">True</span>
+<span class="var">delivery_days</span>      = <span class="num">2</span>
+
+<span class="kw">if</span> <span class="var">delivery_available</span>:
+    <span class="kw">if</span> <span class="var">in_stock</span>:
+        <span class="fn">print</span>(<span class="str">f"Order placed! Delivery in <span class="var">{delivery_days}</span> day(s)."</span>)   <span class="cm"># runs</span>
+    <span class="kw">else</span>:
+        <span class="fn">print</span>(<span class="str">"Item is out of stock. Join the waitlist."</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"Delivery not available in your area."</span>)
+
+<span class="cm"># Output: Order placed! Delivery in 2 day(s).</span>
+<span class="cm"># Try in_stock = False  → "Item is out of stock..."</span>
+<span class="cm"># Try delivery_available = False → "Delivery not available..."</span></pre></div>
       </div>
 
-      <!-- PLACEHOLDER: Example 5 -->
-      <div style="margin-bottom:20px">
+      <!-- EXAMPLE 5: Logical operators in conditions -->
+      <div class="cbox teal" style="margin-bottom:18px">
         <div class="example-header">
-          <div class="example-title">Example 5: placeholder title</div>
-          <span class="badge badge-red">Advanced</span>
+          <div class="example-title">Example 5: Loan Eligibility (Logical Operators)</div>
+          <span class="badge" style="background:rgba(52,211,153,.15);color:var(--accent2)">and / or / not</span>
         </div>
+        <p style="margin-bottom:12px">You can combine multiple conditions in one <code>if</code> using <code>and</code>, <code>or</code>, and <code>not</code>. Python evaluates them left to right and short-circuits early when possible.</p>
         <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
-<pre><span class="cm"># Example code goes here</span></pre></div>
+<pre><span class="cm"># Personal loan eligibility check</span>
+<span class="var">age</span>          = <span class="num">28</span>
+<span class="var">income</span>       = <span class="num">45000</span>   <span class="cm"># monthly (INR)</span>
+<span class="var">credit_score</span> = <span class="num">720</span>
+<span class="var">has_job</span>      = <span class="kw">True</span>
+
+<span class="kw">if</span> <span class="var">age</span> >= <span class="num">21</span> <span class="kw">and</span> <span class="var">income</span> >= <span class="num">25000</span> <span class="kw">and</span> <span class="var">credit_score</span> >= <span class="num">700</span> <span class="kw">and</span> <span class="var">has_job</span>:
+    <span class="fn">print</span>(<span class="str">"Loan approved!"</span>)   <span class="cm"># all four conditions are True</span>
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"Loan rejected. Check eligibility criteria."</span>)
+
+<span class="cm"># Separate feedback for each failed condition</span>
+<span class="kw">if</span> <span class="kw">not</span> <span class="var">has_job</span>:
+    <span class="fn">print</span>(<span class="str">"Employment is required."</span>)
+<span class="kw">if</span> <span class="var">credit_score</span> < <span class="num">700</span>:
+    <span class="fn">print</span>(<span class="str">"Credit score too low. Minimum required: 700."</span>)
+<span class="kw">if</span> <span class="var">income</span> < <span class="num">25000</span>:
+    <span class="fn">print</span>(<span class="str">"Income below minimum threshold."</span>)
+
+<span class="cm"># Output: Loan approved!</span></pre></div>
       </div>
 
-      <!-- PLACEHOLDER: Example 6 -->
-      <div style="margin-bottom:20px">
+      <!-- EXAMPLE 6: Ternary -->
+      <div class="cbox dim" style="margin-bottom:18px">
         <div class="example-header">
-          <div class="example-title">Example 6: placeholder title</div>
-          <span class="badge badge-red">Advanced</span>
+          <div class="example-title">Example 6: Ternary Operator Shortcuts</div>
+          <span class="badge" style="background:var(--bg3);color:var(--text3)">Ternary</span>
         </div>
+        <p style="margin-bottom:12px">When an if-else just assigns a value, the ternary form keeps it to a single clean line. It reads like plain English: "use this value if condition is true, else use that value."</p>
         <div class="code-block"><div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span class="code-lang">python</span><button class="code-copy">Copy</button></div>
-<pre><span class="cm"># Example code goes here</span></pre></div>
+<pre><span class="cm"># Classify temperature</span>
+<span class="var">temperature</span> = <span class="num">38</span>
+<span class="var">weather</span> = <span class="str">"too hot"</span> <span class="kw">if</span> <span class="var">temperature</span> > <span class="num">35</span> <span class="kw">else</span> <span class="str">"comfortable"</span>
+<span class="fn">print</span>(<span class="var">weather</span>)   <span class="cm"># too hot</span>
+
+<span class="cm"># Access level based on role</span>
+<span class="var">role</span>   = <span class="str">"admin"</span>
+<span class="var">access</span> = <span class="str">"full"</span> <span class="kw">if</span> <span class="var">role</span> == <span class="str">"admin"</span> <span class="kw">else</span> <span class="str">"read-only"</span>
+<span class="fn">print</span>(<span class="str">f"Access: <span class="var">{access}</span>"</span>)   <span class="cm"># Access: full</span>
+
+<span class="cm"># Even or odd in one line</span>
+<span class="var">n</span> = <span class="num">17</span>
+<span class="fn">print</span>(<span class="str">"even"</span> <span class="kw">if</span> <span class="var">n</span> % <span class="num">2</span> == <span class="num">0</span> <span class="kw">else</span> <span class="str">"odd"</span>)   <span class="cm"># odd</span>
+
+<span class="cm"># Absolute value without abs()</span>
+<span class="var">x</span>   = <span class="num">-9</span>
+<span class="var">abs_x</span> = <span class="var">x</span> <span class="kw">if</span> <span class="var">x</span> >= <span class="num">0</span> <span class="kw">else</span> -<span class="var">x</span>
+<span class="fn">print</span>(<span class="var">abs_x</span>)   <span class="cm"># 9</span></pre></div>
       </div>
 
     </div><!-- end tab 2: examples -->
@@ -1484,13 +2083,13 @@ SyntaxError: invalid syntax. Maybe you meant '==' ?</pre>
           <div style="margin:14px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px">
             <div style="padding:12px 14px;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);border-radius:8px;text-align:center">
               <div style="font-size:28px;font-family:var(--font-mono);font-weight:800;color:var(--red);margin-bottom:4px">=</div>
-              <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px">ASSIGNMENT</div>
-              <div style="font-size:12.5px;color:var(--text2);line-height:1.5">"Store this value"<br>Used outside conditions</div>
+              <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:4px">ASSIGNMENT</div>
+              <div style="font-size:13.5px;color:var(--text2);line-height:1.5">"Store this value"<br>Used outside conditions</div>
             </div>
             <div style="padding:12px 14px;background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.2);border-radius:8px;text-align:center">
               <div style="font-size:28px;font-family:var(--font-mono);font-weight:800;color:var(--green);margin-bottom:4px;font-variant-ligatures:none">==</div>
-              <div style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:4px">COMPARISON</div>
-              <div style="font-size:12.5px;color:var(--text2);line-height:1.5">"Are these equal?"<br>Used inside conditions</div>
+              <div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:4px">COMPARISON</div>
+              <div style="font-size:13.5px;color:var(--text2);line-height:1.5">"Are these equal?"<br>Used inside conditions</div>
             </div>
           </div>
 
@@ -1554,7 +2153,7 @@ SyntaxError: invalid syntax. Maybe you meant '==' ?</pre>
           </div>
 
           <div style="margin:14px 0;padding:14px 16px;background:var(--bg3);border-radius:8px">
-            <div style="font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px">What is actually falsy in Python?</div>
+            <div style="font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px">What is actually falsy in Python?</div>
             <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px">
               <code style="background:rgba(239,68,68,.12);color:var(--red);padding:3px 10px;border-radius:5px;font-size:13px">0</code>
               <code style="background:rgba(239,68,68,.12);color:var(--red);padding:3px 10px;border-radius:5px;font-size:13px">0.0</code>
@@ -1589,49 +2188,49 @@ SyntaxError: invalid syntax. Maybe you meant '==' ?</pre>
       <div class="section-heading">Key Takeaways</div>
       <div class="summary-grid">
 
-        <div class="summary-point">
+        <div class="summary-card">
           <div class="sp-top"><span class="sp-icon">🔀</span><span class="sp-title">if</span><span class="sp-tag">statement</span></div>
           <div class="sp-desc"><ul><li>Runs only when condition is True</li><li>Skips the block entirely when False</li></ul></div>
           <div class="sp-code">if score >= 50: ...</div>
         </div>
 
-        <div class="summary-point">
+        <div class="summary-card">
           <div class="sp-top"><span class="sp-icon">↔️</span><span class="sp-title">if-else</span><span class="sp-tag">statement</span></div>
           <div class="sp-desc"><ul><li>Always picks exactly one path</li><li>One block runs, the other is skipped</li></ul></div>
           <div class="sp-code">if x > 0: ... else: ...</div>
         </div>
 
-        <div class="summary-point">
+        <div class="summary-card">
           <div class="sp-top"><span class="sp-icon">🔗</span><span class="sp-title">if-elif-else</span><span class="sp-tag">statement</span></div>
           <div class="sp-desc"><ul><li>Checks conditions top to bottom</li><li>Stops at the first True one</li><li>Only one block ever runs</li></ul></div>
           <div class="sp-code">if a: ... elif b: ... else: ...</div>
         </div>
 
-        <div class="summary-point">
+        <div class="summary-card">
           <div class="sp-top"><span class="sp-icon">📦</span><span class="sp-title">Nested if</span><span class="sp-tag">statement</span></div>
           <div class="sp-desc"><ul><li>An if placed inside another if</li><li>Inner check only runs when outer is True</li><li>Both must be True to reach inner block</li></ul></div>
           <div class="sp-code">if logged_in: if is_admin: ...</div>
         </div>
 
-        <div class="summary-point">
+        <div class="summary-card">
           <div class="sp-top"><span class="sp-icon">⚡</span><span class="sp-title">Ternary</span><span class="sp-tag">expression</span></div>
           <div class="sp-desc"><ul><li>One-liner that picks between two values</li><li>Great for simple assignments</li><li>Avoid for complex logic, gets hard to read</li></ul></div>
           <div class="sp-code">label = "pass" if score >= 50 else "fail"</div>
         </div>
 
-        <div class="summary-point">
+        <div class="summary-card">
           <div class="sp-top"><span class="sp-icon">🔍</span><span class="sp-title">Truthy / Falsy</span><span class="sp-tag">concept</span></div>
           <div class="sp-desc"><ul><li>Any value can go inside an if</li><li>Falsy: <code>0, "", [], {}, None, False</code></li><li><code>"0"</code> and <code>"False"</code> are truthy (non-empty strings)</li></ul></div>
           <div class="sp-code">if name:  # True only if name is not empty</div>
         </div>
 
-        <div class="summary-point">
+        <div class="summary-card">
           <div class="sp-top"><span class="sp-icon">📐</span><span class="sp-title">Indentation</span><span class="sp-tag">rule</span></div>
           <div class="sp-desc"><ul><li>Spacing defines blocks, not braces</li><li>Every line inside must be 4 spaces in</li><li>One wrong indent silently breaks logic</li></ul></div>
           <div class="sp-code">if True:&#10;    print("inside")</div>
         </div>
 
-        <div class="summary-point">
+        <div class="summary-card">
           <div class="sp-top"><span class="sp-icon">🏁</span><span class="sp-title">First match wins</span><span class="sp-tag">rule</span></div>
           <div class="sp-desc"><ul><li>Python stops at the first True branch</li><li>Remaining branches are never checked</li><li>Even if later branches would also be True</li></ul></div>
           <div class="sp-code">if score >= 90: ...  # checked first</div>
@@ -1751,32 +2350,130 @@ SyntaxError: invalid syntax. Maybe you meant '==' ?</pre>
 
   </main>
 
-  <footer class="footer">
-    <div class="footer-brand">
-      <span class="footer-logo">🐍</span>
-      <span>PythonbyRohan</span>
-    </div>
-    <div class="footer-links">
-      <a href="https://github.com/RohanPatil01" target="_blank" rel="noopener" class="footer-link">
-        <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub</a>
-      <a href="https://www.linkedin.com/in/rohanpatil01" target="_blank" rel="noopener" class="footer-link">
-        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
-    </div>
-    <div class="footer-copy">© 2025 Rohan Patil · B. N. Bandodkar College of Science</div>
-  </footer>
+          <footer class="footer">
+      <div class="footer-brand">Python<span style="color:var(--purple)">byRohan</span> &copy; 2026 &middot; Rohan Patil</div>
+      <div class="footer-links">
+        <a href="https://github.com/RohanPatil01" target="_blank" rel="noopener" class="footer-link">
+          <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/rohanpatil01" target="_blank" rel="noopener" class="footer-link">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn
+        </a>
+        <a href="https://www.instagram.com/rohanjpatil01/" target="_blank" rel="noopener" class="footer-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.336 3.608 1.311.975.975 1.249 2.242 1.311 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.336 2.633-1.311 3.608-.975.975-2.242 1.249-3.608 1.311-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.336-3.608-1.311-.975-.975-1.249-2.242-1.311-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.336-2.633 1.311-3.608.975-.975 2.242-1.249 3.608-1.311C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>@rohanjpatil01
+        </a>
+      </div>
+    </footer>
 </div><!-- end main -->
 </div><!-- end layout -->
 
 <script src="../assets/app.js"></script>
 <script>
+  /* ── Execution tracers ── */
+  function showTrace(outId, steps) {
+    const out = document.getElementById(outId);
+    out.innerHTML = steps.map((s, i) =>
+      '<div class="tracer-step step-' + s.type + '"><span class="tracer-num">' + (i+1) + '</span><span>' + s.text + '</span></div>'
+    ).join('');
+    out.classList.add('show');
+  }
+
+  function traceIf() {
+    const score = parseFloat(document.getElementById('if-score').value);
+    const cond = score >= 50;
+    const steps = [
+      { type: 'setup', text: 'score = ' + score },
+      { type: 'check', text: 'Python checks: <code>' + score + ' >= 50</code> → <strong>' + (cond ? 'True' : 'False') + '</strong>' }
+    ];
+    if (cond) {
+      steps.push({ type: 'true',  text: 'Condition is True — Python enters the if block' });
+      steps.push({ type: 'run',   text: '<code>print("You passed!")</code> runs' });
+    } else {
+      steps.push({ type: 'false', text: 'Condition is False — Python skips the if block entirely' });
+    }
+    steps.push({ type: 'run',  text: '<code>print("Thanks for playing")</code> runs (this line always runs)' });
+    steps.push({ type: 'done', text: 'Python continues with the rest of the program' });
+    showTrace('if-out', steps);
+  }
+
+  function traceIfelse() {
+    const age = parseFloat(document.getElementById('ie-age').value);
+    const cond = age >= 18;
+    const steps = [
+      { type: 'setup', text: 'age = ' + age },
+      { type: 'check', text: 'Python checks: <code>' + age + ' >= 18</code> → <strong>' + (cond ? 'True' : 'False') + '</strong>' }
+    ];
+    if (cond) {
+      steps.push({ type: 'true',  text: 'Condition is True — Python runs the if block' });
+      steps.push({ type: 'run',   text: '<code>print("You can vote!")</code> runs' });
+      steps.push({ type: 'false', text: 'else block is completely skipped' });
+    } else {
+      steps.push({ type: 'false', text: 'Condition is False — Python skips the if block' });
+      steps.push({ type: 'run',   text: '<code>print("You cannot vote yet.")</code> runs (else block)' });
+    }
+    steps.push({ type: 'done', text: 'Python continues with the rest of the program' });
+    showTrace('ie-out', steps);
+  }
+
+  function traceElif() {
+    const score = parseFloat(document.getElementById('el-score').value);
+    const steps = [{ type: 'setup', text: 'score = ' + score }];
+    steps.push({ type: 'check', text: 'Check 1: <code>' + score + ' >= 90</code> → <strong>' + (score >= 90 ? 'True' : 'False') + '</strong>' });
+    if (score >= 90) {
+      steps.push({ type: 'true',  text: 'First condition is True — Python runs the if block' });
+      steps.push({ type: 'run',   text: '<code>print("Grade: A")</code> runs' });
+      steps.push({ type: 'false', text: 'All elif and else blocks are skipped' });
+    } else {
+      steps.push({ type: 'false', text: 'First condition is False — Python moves to elif' });
+      steps.push({ type: 'check', text: 'Check 2: <code>' + score + ' >= 75</code> → <strong>' + (score >= 75 ? 'True' : 'False') + '</strong>' });
+      if (score >= 75) {
+        steps.push({ type: 'true',  text: 'Second condition is True — Python runs the elif block' });
+        steps.push({ type: 'run',   text: '<code>print("Grade: B")</code> runs' });
+        steps.push({ type: 'false', text: 'Remaining elif and else blocks are skipped' });
+      } else {
+        steps.push({ type: 'false', text: 'Second condition is False — Python checks next elif' });
+        steps.push({ type: 'check', text: 'Check 3: <code>' + score + ' >= 60</code> → <strong>' + (score >= 60 ? 'True' : 'False') + '</strong>' });
+        if (score >= 60) {
+          steps.push({ type: 'true',  text: 'Third condition is True — Python runs the elif block' });
+          steps.push({ type: 'run',   text: '<code>print("Grade: C")</code> runs' });
+          steps.push({ type: 'false', text: 'else block is skipped' });
+        } else {
+          steps.push({ type: 'false', text: 'All conditions were False — Python uses the else block' });
+          steps.push({ type: 'run',   text: '<code>print("Grade: F")</code> runs (else block)' });
+        }
+      }
+    }
+    steps.push({ type: 'done', text: 'Python continues with the rest of the program' });
+    showTrace('el-out', steps);
+  }
+
+  /* ── Nested if line stepper ── */
+  const NS_STEPS = [
+    { lines: [], desc: 'Click "Next Step" to walk through the nested if code line by line. (logged_in = True, is_admin = True)' },
+    { lines: ['ns-l1','ns-l2'], desc: 'Python sets both variables: logged_in = True and is_admin = True.' },
+    { lines: ['ns-l4'], desc: 'Python checks the outer condition: is logged_in True? Yes! Python enters the outer block.' },
+    { lines: ['ns-l5'], desc: 'Python is now inside the outer block. It runs the first line: prints "Welcome back!".' },
+    { lines: ['ns-l6'], desc: 'Python checks the inner condition: is is_admin True? Yes! Python enters the inner block.' },
+    { lines: ['ns-l7'], desc: 'Python runs the inner block: prints "Loading admin panel...". Both conditions were True, so both blocks ran.' }
+  ];
+  let nsCurrent = 0;
+  const allNsLines = ['ns-l1','ns-l2','ns-l3','ns-l4','ns-l5','ns-l6','ns-l7'];
+
+  function nestedApply(idx) {
+    allNsLines.forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('hl'); });
+    NS_STEPS[idx].lines.forEach(id => { const el = document.getElementById(id); if (el) el.classList.add('hl'); });
+    document.getElementById('nested-desc').innerHTML = NS_STEPS[idx].desc;
+    document.getElementById('nested-label').textContent = idx + ' / ' + (NS_STEPS.length - 1);
+    document.getElementById('nested-back').disabled = idx === 0;
+    document.getElementById('nested-next').disabled = idx === NS_STEPS.length - 1;
+  }
+  function nestedStep(dir) {
+    nsCurrent = Math.max(0, Math.min(NS_STEPS.length - 1, nsCurrent + dir));
+    nestedApply(nsCurrent);
+  }
+  function nestedReset() { nsCurrent = 0; nestedApply(0); }
+</script>
+<script>
   const TOPIC_ID = 'conditionals';
   document.addEventListener('DOMContentLoaded', () => {
-    initCompleteBtn(TOPIC_ID);
-    initMCQ(TOPIC_ID);
-    Bookmarks.initBtn(TOPIC_ID);
-    initPersonalNotes(TOPIC_ID);
-    initDifficultyRating(TOPIC_ID);
-  });
-</script>
-</body>
-</html>
+    initComplete

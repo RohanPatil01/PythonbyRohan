@@ -8,16 +8,24 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>" />
   <link rel="stylesheet" href="../assets/style.css" />
   <style>
-    .topic-header{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:28px 32px;margin-bottom:22px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 var(--card-shine)}
-    .topic-header-glow{position:absolute;top:-60px;right:-60px;width:260px;height:260px;background:radial-gradient(circle,rgba(79,127,255,.1) 0%,transparent 70%);pointer-events:none}
-    .topic-header-glow2{position:absolute;bottom:-40px;left:10%;width:160px;height:160px;background:radial-gradient(circle,rgba(52,211,153,.06) 0%,transparent 70%);pointer-events:none}
-    .topic-phase{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:7px}
-    .topic-title{font-family:var(--font-display);font-size:clamp(22px,3vw,34px);font-weight:800;line-height:1.15;color:var(--text);margin-bottom:10px}
-    .topic-desc{font-size:14.5px;color:var(--text2);line-height:1.75;max-width:620px;margin-bottom:18px}
-    .topic-meta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px}
-    .meta-chip{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text3);font-weight:600}
-    .meta-dot{width:7px;height:7px;border-radius:50%}
-    .topic-actions{display:flex;gap:10px;flex-wrap:wrap}
+    /* Topic header */
+    .topic-header{background:var(--card);border:1px solid rgba(79,127,255,.22);border-radius:var(--radius-xl);margin-bottom:22px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 var(--card-shine);display:flex;flex-direction:column}
+    .topic-diff-row{border-top:1px solid var(--border);padding:9px 32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:relative;z-index:2}
+    .topic-bg-num{position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:120px;font-weight:900;color:rgba(79,127,255,.1);line-height:1;font-family:var(--font-mono);pointer-events:none;user-select:none;z-index:1}
+    body.light .topic-bg-num{color:rgba(79,127,255,.13)}
+    .topic-header-body{padding:26px 32px;position:relative;z-index:2;max-width:520px}
+    .topic-phase{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+    .topic-title{font-family:var(--font-display);font-size:clamp(22px,2.8vw,30px);font-weight:800;line-height:1.1;color:var(--text);letter-spacing:-0.025em;margin-bottom:8px}
+    .topic-desc{font-size:13.5px;color:var(--text2);line-height:1.65;margin-bottom:16px}
+    .topic-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+    .meta-chip{display:inline-flex;align-items:center;font-size:13px;font-weight:700;padding:3px 11px;border-radius:20px}
+    .meta-chip.green{color:var(--green);background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2)}
+    .meta-chip.amber{color:var(--amber);background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2)}
+    .meta-chip.purple{color:var(--purple);background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2)}
+    .meta-chip.blue{color:var(--accent);background:rgba(79,127,255,.1);border:1px solid rgba(79,127,255,.2)}
+    .topic-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .topic-footer-btn{font-size:13px;font-weight:700;padding:7px 16px;border-radius:8px;background:var(--accent);color:#fff!important;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;transition:background .15s}
+    .topic-footer-btn:hover{background:var(--accent-hover,#3d6dee)}
     .cbox{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius-lg);padding:22px 24px;margin-bottom:18px;box-shadow:inset 0 1px 0 var(--card-shine)}
     .cbox.green{border-left-color:var(--green)}
     .cbox.amber{border-left-color:var(--amber)}
@@ -38,7 +46,7 @@
     .data-table th{background:var(--bg3);color:var(--text2);font-weight:700;padding:10px 14px;text-align:center;border-bottom:1px solid var(--border);white-space:nowrap}
     .data-table th:first-child{text-align:left}
     .data-table td{padding:9px 14px;text-align:center;border-bottom:1px solid var(--border);color:var(--text2)}
-    .data-table td:first-child{text-align:left;font-weight:600;color:var(--text);font-family:var(--font-mono);font-size:12.5px;font-variant-ligatures:none}
+    .data-table td:first-child{text-align:left;font-weight:600;color:var(--text);font-family:var(--font-mono);font-size:13.5px;font-variant-ligatures:none}
     .data-table tr:last-child td{border-bottom:none}
     .data-table tr:hover td{background:var(--bg3)}
     .yes{color:var(--green);font-weight:700}.no{color:var(--red);font-weight:700}.cond{color:var(--amber);font-weight:700}.na{color:var(--text3)}
@@ -49,16 +57,16 @@
     /* Practice — shared styles in style.css */
     .practice-body{font-size:14px;color:var(--text2);line-height:1.75}
     .practice-hint{margin-top:12px;padding:10px 14px;background:var(--bg3);border-radius:7px;font-size:13px;color:var(--text3);display:none;line-height:1.6}
-    .hint-toggle{font-size:12px;color:var(--accent);background:none;border:none;font-family:var(--font-body);font-weight:700;padding:0;margin-top:10px;cursor:pointer;display:block}
+    .hint-toggle{font-size:13px;color:var(--accent);background:none;border:none;font-family:var(--font-body);font-weight:700;padding:0;margin-top:10px;cursor:pointer;display:block}
     .hint-toggle:hover{color:var(--accent-hover)}
     .gto-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:14px;box-shadow:inset 0 1px 0 var(--card-shine)}
     .gto-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
     .gto-title{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--text)}
-    .gto-reveal-btn{font-size:12px;font-weight:700;font-family:var(--font-body);color:var(--accent);background:rgba(79,127,255,.1);border:1px solid rgba(79,127,255,.25);border-radius:6px;padding:5px 14px;cursor:pointer;transition:background .2s}
+    .gto-reveal-btn{font-size:13px;font-weight:700;font-family:var(--font-body);color:var(--accent);background:rgba(79,127,255,.1);border:1px solid rgba(79,127,255,.25);border-radius:6px;padding:5px 14px;cursor:pointer;transition:background .2s}
     .gto-reveal-btn:hover{background:rgba(79,127,255,.2)}
     .gto-answer{margin-top:12px;padding:12px 16px;background:var(--bg3);border-radius:8px;border-left:3px solid var(--green);display:none}
     .gto-answer.visible{display:block}
-    .gto-answer-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+    .gto-answer-label{font-size:13.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
     .gto-output{font-family:var(--font-mono);font-size:13.5px;color:var(--text);white-space:pre;line-height:1.7}
     .gto-explain{font-size:13px;color:var(--text2);line-height:1.7;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
     .interview-q{font-size:14.5px;font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.5}
@@ -69,6 +77,32 @@
     .example-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
     .example-title{font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--text)}
     @media(max-width:700px){.tf-grid{grid-template-columns:1fr}}
+    /* Overview tree */
+    .ov-tree{text-align:center}
+    .ov-root{display:inline-flex;align-items:center;background:linear-gradient(135deg,#4f7fff,#6366f1);color:#fff;padding:13px 34px;border-radius:16px;font-size:14px;font-weight:800;position:relative;box-shadow:0 6px 24px rgba(79,127,255,.35),0 2px 8px rgba(79,127,255,.2),inset 0 1px 0 rgba(255,255,255,.25);letter-spacing:.01em}
+    .ov-root::after{content:'';position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);width:2px;height:22px;background:linear-gradient(to bottom,#6366f1,transparent)}
+    .ov-branches{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:40px;position:relative}
+    .ov-branch{display:flex;flex-direction:column;align-items:center;position:relative}
+    .ov-branches::before{content:'';position:absolute;top:-18px;left:8%;right:8%;height:2px;background:linear-gradient(to right,var(--green) 0%,var(--accent) 20%,var(--accent3) 40%,var(--accent4) 60%,var(--accent2) 80%,var(--text3) 100%);border-radius:2px;opacity:.9}
+    .ov-branch::before{content:'';position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:2px;height:18px;background:var(--ov-color,var(--border));opacity:.9}
+    .ov-branch::after{content:'';position:absolute;top:-23px;left:50%;transform:translateX(-50%);width:9px;height:9px;border-radius:50%;background:var(--ov-color,var(--border));border:2px solid var(--card);z-index:1;box-shadow:0 0 6px var(--ov-color)}
+    .ov-card{background:color-mix(in srgb,var(--ov-color,var(--accent)) 6%,var(--card));border:1px solid color-mix(in srgb,var(--ov-color,var(--border)) 25%,var(--border));border-top:3px solid var(--ov-color,var(--border));border-radius:14px;padding:16px 12px 14px;text-align:center;width:100%;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 2px 8px rgba(0,0,0,.06);transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+    .ov-card:hover{transform:translateY(-5px);box-shadow:0 10px 28px color-mix(in srgb,var(--ov-color,var(--accent)) 20%,transparent),inset 0 1px 0 rgba(255,255,255,.1);background:color-mix(in srgb,var(--ov-color,var(--accent)) 12%,var(--card))}
+    .ov-kw{font-family:var(--font-display);font-size:13px;font-weight:800;display:block;margin-bottom:4px;color:var(--ov-color)}
+    .ov-type{display:block;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3)}
+    /* Child type boxes — vertical list with left rail */
+    .ov-children{display:flex;flex-direction:column;align-items:flex-start;position:relative;padding-top:10px;padding-left:12px;gap:6px}
+    /* Rail: starts at top, stops just before last child's bottom */
+    .ov-children::after{content:'';position:absolute;top:0;left:12px;transform:translateX(-50%);width:2px;height:calc(100% - 18px);background:color-mix(in srgb,var(--ov-color,var(--border)) 45%,transparent)}
+    .ov-children::before{display:none}
+    /* Each child: horizontal connector from rail to box */
+    .ov-child{position:relative;padding-left:14px;z-index:1}
+    .ov-child::before{content:'';position:absolute;top:50%;left:2px;transform:translateY(-50%);width:12px;height:2px;background:color-mix(in srgb,var(--ov-color,var(--border)) 45%,transparent)}
+    /* Dot at junction of rail and horizontal connector */
+    .ov-child::after{content:'';position:absolute;top:50%;left:0;transform:translate(-50%,-50%);width:7px;height:7px;border-radius:50%;background:var(--ov-color,var(--border));border:2px solid var(--card);z-index:2;box-shadow:0 0 4px var(--ov-color)}
+    .ov-child-box{font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--ov-color);background:color-mix(in srgb,var(--ov-color) 8%,var(--card));border:1px solid color-mix(in srgb,var(--ov-color) 25%,var(--border));padding:5px 10px;border-radius:8px;font-variant-ligatures:none;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+    .ov-desc{font-size:13px;color:var(--text2);line-height:1.65;margin-top:12px;text-align:center;padding:0 2px}
+    @media(max-width:760px){.ov-branches{grid-template-columns:repeat(3,1fr)}.ov-branches::before,.ov-branch::before,.ov-branch::after{display:none}}
   </style>
 </head>
 <body>
@@ -86,9 +120,13 @@
     <div class="progress-meta"><span>Overall Progress</span><span data-progress-count>0/29 topics</span></div>
     <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
   </div>
+      <div class="sidebar-streak">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <span data-streak>0</span>&nbsp;<span class="sb-streak-lbl">day streak</span>
+    </div>
   <div class="sidebar-label">Navigation</div>
   <a href="../index.html" class="nav-item"><span class="nav-num">🏠</span><span class="nav-dot"></span>Home</a>
-  <div class="sidebar-label">Core Python</div>
+  <div class="sidebar-label" data-phase="green">Core Python</div>
   <a href="python-basics.html" class="nav-item"><span class="nav-num">01</span><span class="nav-dot" id="dot-python-basics"></span>Python Basics</a>
   <a href="data-types.html" class="nav-item active"><span class="nav-num">02</span><span class="nav-dot active"></span>Data Types</a>
   <a href="operators.html" class="nav-item"><span class="nav-num">03</span><span class="nav-dot" id="dot-operators"></span>Operators</a>
@@ -103,7 +141,7 @@
   </div>
   <a href="lists.html" class="nav-item"><span class="nav-num">07</span><span class="nav-dot"></span>Lists</a>
   <a href="tuples.html" class="nav-item"><span class="nav-num">08</span><span class="nav-dot"></span>Tuples</a>
-  <div class="sidebar-label">Intermediate</div>
+  <div class="sidebar-label" data-phase="accent">Intermediate</div>
   <a href="dictionaries.html" class="nav-item"><span class="nav-num">09</span><span class="nav-dot"></span>Dictionaries</a>
   <a href="sets.html" class="nav-item"><span class="nav-num">10</span><span class="nav-dot"></span>Sets</a>
   <div class="nav-group" data-group="functions">
@@ -123,7 +161,7 @@
     <div class="nav-group-header"><span class="nav-num">15</span><span class="nav-dot"></span>OOP<span class="nav-group-arrow">›</span></div>
     <div class="nav-sub"><a href="oop-classes.html" class="nav-sub-item">Classes &amp; Objects</a><a href="oop-inheritance.html" class="nav-sub-item">Inheritance</a><a href="oop-advanced.html" class="nav-sub-item">Advanced OOP</a></div>
   </div>
-  <div class="sidebar-label">Advanced</div>
+  <div class="sidebar-label" data-phase="purple">Advanced</div>
   <a href="iterators-generators.html" class="nav-item"><span class="nav-num">16</span><span class="nav-dot"></span>Iterators &amp; Generators</a>
   <a href="decorators.html" class="nav-item"><span class="nav-num">17</span><span class="nav-dot"></span>Decorators</a>
   <div class="nav-group" data-group="numpy">
@@ -166,24 +204,25 @@
 
     <!-- TOPIC HEADER -->
     <div class="topic-header animate-fadeup">
-      <div class="topic-header-glow"></div>
-      <div class="topic-header-glow2"></div>
-      <div class="topic-phase"><span class="badge badge-accent">Module 02</span>Core Python · Phase 1</div>
-      <div class="topic-title">Data Types and Variables</div>
-      <div class="topic-desc">Every value in Python has a type. Understanding data types is like knowing the difference between a number, a word, and a list in real life. Get this right and everything else becomes clearer.</div>
-      <div class="topic-meta">
-        <div class="meta-chip"><div class="meta-dot" style="background:var(--green)"></div>Beginner</div>
-        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent3)"></div>~60 min read</div>
-        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent)"></div>12 practice tasks</div>
-        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent2)"></div>8 MCQs</div>
-        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent4)"></div>10 interview Qs</div>
+      <div class="topic-bg-num">02</div>
+      <div class="topic-header-body">
+        <div class="topic-phase">Core Python · Phase 1</div>
+        <div class="topic-title">Data Types and Variables</div>
+        <div class="topic-desc">Every value in Python has a type. Understanding data types is like knowing the difference between a number, a word, and a list in real life. Get this right and everything else becomes clearer.</div>
+        <div class="topic-meta">
+          <div class="meta-chip green">🟢 Beginner</div>
+          <div class="meta-chip amber">⏱ ~60 min read</div>
+          <div class="meta-chip purple">✏️ 12 practice tasks</div>
+          <div class="meta-chip blue">❓ 8 MCQs</div>
+          <div class="meta-chip blue">🎤 10 interview Qs</div>
+        </div>
+        <div class="topic-actions">
+          <a href="operators.html" class="topic-footer-btn">Next: Operators →</a>
+          <a href="python-basics.html" class="btn">← Prev</a>
+          <button class="btn" data-bookmark="data-types">🔖 Bookmark</button>
+        </div>
       </div>
-      <div class="topic-actions">
-        <button class="btn" data-bookmark="data-types">🔖 Bookmark</button>
-        <a href="python-basics.html" class="btn">Prev: Python Basics</a>
-        <a href="operators.html" class="btn">Next: Operators</a>
-      </div>
-      <div class="diff-rating">
+      <div class="topic-diff-row">
         <span class="diff-rating-label">How was this topic?</span>
         <button class="diff-btn" data-diff="easy">😊 Easy</button>
         <button class="diff-btn" data-diff="medium">🤔 Medium</button>
@@ -219,9 +258,82 @@
         <span>In Python Basics, you learned how to create variables and store values. Now let's go one level deeper and understand <strong>what kinds of values Python can actually store</strong>. Every variable has a type, and that type determines what you can do with it.</span>
       </div>
 
-      <!-- SVG DIAGRAM -->
-      <div class="diagram-wrap">
-        <div class="concept-type-label label-definition" style="margin-bottom:20px">Python Data Types: Complete Map</div>
+      <!-- OVERVIEW TREE -->
+      <div class="diagram-wrap" style="padding-bottom:28px">
+        <div class="ov-tree">
+          <div class="ov-root">Python Data Types</div>
+          <div class="ov-branches">
+            <div class="ov-branch" style="--ov-color:var(--green)">
+              <div class="ov-card">
+                <span class="ov-kw">Numeric</span>
+                <span class="ov-type">numbers</span>
+              </div>
+              <div class="ov-children">
+                <div class="ov-child"><div class="ov-child-box">int</div></div>
+                <div class="ov-child"><div class="ov-child-box">float</div></div>
+                <div class="ov-child"><div class="ov-child-box">complex</div></div>
+              </div>
+              <div class="ov-desc">Whole numbers, decimals, and complex numbers.</div>
+            </div>
+            <div class="ov-branch" style="--ov-color:var(--accent)">
+              <div class="ov-card">
+                <span class="ov-kw">Boolean</span>
+                <span class="ov-type">true / false</span>
+              </div>
+              <div class="ov-children">
+                <div class="ov-child"><div class="ov-child-box">bool</div></div>
+              </div>
+              <div class="ov-desc">Only <code style="font-family:var(--font-mono);font-size:13.5px">True</code> or <code style="font-family:var(--font-mono);font-size:13.5px">False</code>. Used in conditions and comparisons.</div>
+            </div>
+            <div class="ov-branch" style="--ov-color:var(--accent3)">
+              <div class="ov-card">
+                <span class="ov-kw">Sequence</span>
+                <span class="ov-type">ordered</span>
+              </div>
+              <div class="ov-children">
+                <div class="ov-child"><div class="ov-child-box">str</div></div>
+                <div class="ov-child"><div class="ov-child-box">list</div></div>
+                <div class="ov-child"><div class="ov-child-box">tuple</div></div>
+                <div class="ov-child"><div class="ov-child-box">range</div></div>
+              </div>
+              <div class="ov-desc">Ordered collections you can index into. Each item has a position starting at 0.</div>
+            </div>
+            <div class="ov-branch" style="--ov-color:var(--accent4)">
+              <div class="ov-card">
+                <span class="ov-kw">Mapping</span>
+                <span class="ov-type">key-value</span>
+              </div>
+              <div class="ov-children">
+                <div class="ov-child"><div class="ov-child-box">dict</div></div>
+              </div>
+              <div class="ov-desc">Key-value pairs. Look up any value instantly by its key, like a real dictionary.</div>
+            </div>
+            <div class="ov-branch" style="--ov-color:var(--accent2)">
+              <div class="ov-card">
+                <span class="ov-kw">Set</span>
+                <span class="ov-type">unordered</span>
+              </div>
+              <div class="ov-children">
+                <div class="ov-child"><div class="ov-child-box">set</div></div>
+                <div class="ov-child"><div class="ov-child-box">frozenset</div></div>
+              </div>
+              <div class="ov-desc">Unordered collections of unique values. Great for removing duplicates.</div>
+            </div>
+            <div class="ov-branch" style="--ov-color:var(--text3)">
+              <div class="ov-card">
+                <span class="ov-kw" style="color:var(--text2)">NoneType</span>
+                <span class="ov-type">absence</span>
+              </div>
+              <div class="ov-children">
+                <div class="ov-child"><div class="ov-child-box">None</div></div>
+              </div>
+              <div class="ov-desc">Represents "nothing" or "no value". Functions return this by default if they return nothing.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- OLD SVG (removed) -->
+      <div style="display:none">
         <svg viewBox="0 0 860 260" width="100%" style="max-width:860px;display:block;margin:0 auto;min-width:580px" aria-label="Python data types map">
           <rect x="285" y="8" width="250" height="42" rx="10" fill="var(--accent)" opacity=".92"/>
           <text x="410" y="34" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Outfit,sans-serif">Python Data Types</text>
@@ -628,7 +740,7 @@
             </tbody>
           </table>
         </div>
-        <div style="font-size:12px;color:var(--text3);margin-top:6px">
+        <div style="font-size:13px;color:var(--text3);margin-top:6px">
           <span style="color:var(--green);font-weight:700">Yes</span> always works.
           <span style="color:var(--amber);font-weight:700">Only if numeric</span> works for "24" but raises ValueError for "hello".
         </div>
@@ -1295,7 +1407,7 @@ True</div>
                 <li><code>int</code>: no decimal point, <strong>unlimited precision</strong> in Python (no overflow like C). Example: <code>x = 9999999999999999999</code> works fine.</li>
                 <li><code>float</code>: has a decimal point, limited to about 15-17 significant digits, stored in 64-bit IEEE 754 format. This causes the classic:</li>
               </ul>
-              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0;font-variant-ligatures:none">0.1 + 0.2  # gives 0.30000000000000004, not 0.3</pre>
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:13.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0;font-variant-ligatures:none">0.1 + 0.2  # gives 0.30000000000000004, not 0.3</pre>
               <p>When exact decimal precision matters (like money), use the <code>decimal</code> module or <code>round()</code> for display.</p>
             </div>
             <div class="ia-trap">
@@ -1374,10 +1486,10 @@ True</div>
             <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div><code>type()</code> returns the exact type. <code>isinstance()</code> checks the type and all its parent classes. Use <code>isinstance()</code> in real code.</div>
             <div class="ia-body">
               <p>The critical difference shows up with inheritance. Since <code>bool</code> is a subclass of <code>int</code>:</p>
-              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">type(True) == int       # False (exact type is bool)
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:13.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">type(True) == int       # False (exact type is bool)
 isinstance(True, int)   # True  (bool is a subclass of int)</pre>
               <p><code>isinstance()</code> also accepts a tuple of types for checking multiple at once:</p>
-              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">isinstance(x, (int, float))  # True if x is either</pre>
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:13.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">isinstance(x, (int, float))  # True if x is either</pre>
             </div>
             <div class="ia-key">
               <div class="ia-key-label">⚡ Rule</div>
@@ -1459,7 +1571,7 @@ isinstance(True, int)   # True  (bool is a subclass of int)</pre>
             <div class="ia-body">
               <p><strong>Mutable</strong>: list, dict, set. You can add, remove, or update elements and the object's identity (memory address) stays the same.</p>
               <p><strong>Immutable</strong>: int, float, str, tuple, frozenset, bool, NoneType. Any operation that appears to change them actually creates a new object.</p>
-              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">lst = [1, 2]
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:13.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">lst = [1, 2]
 print(id(lst))     # e.g. 140512345
 lst.append(3)
 print(id(lst))     # same id — same object, modified in place
@@ -2034,25 +2146,43 @@ with base 10: '3.14'</pre>
 
   </main>
 
-  <footer class="footer">
-    <div class="footer-brand">Python<span style="color:var(--purple)">byRohan</span> &copy; 2026</div>
-    <div class="footer-links">
-      <a href="https://github.com/RohanPatil01" target="_blank" rel="noopener" class="footer-link">
-        <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub
-      </a>
-      <a href="https://www.linkedin.com/in/rohanpatil01" target="_blank" rel="noopener" class="footer-link">
-        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn
-      </a>
-      <a href="https://www.instagram.com/rohanjpatil01/" target="_blank" rel="noopener" class="footer-link">
-        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>@rohanjpatil01
-      </a>
-    </div>
-  </footer>
+          <footer class="footer">
+      <div class="footer-brand">Python<span style="color:var(--purple)">byRohan</span> &copy; 2026 &middot; Rohan Patil</div>
+      <div class="footer-links">
+        <a href="https://github.com/RohanPatil01" target="_blank" rel="noopener" class="footer-link">
+          <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/rohanpatil01" target="_blank" rel="noopener" class="footer-link">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn
+        </a>
+        <a href="https://www.instagram.com/rohanjpatil01/" target="_blank" rel="noopener" class="footer-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.336 3.608 1.311.975.975 1.249 2.242 1.311 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.336 2.633-1.311 3.608-.975.975-2.242 1.249-3.608 1.311-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.336-3.608-1.311-.975-.975-1.249-2.242-1.311-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.336-2.633 1.311-3.608.975-.975 2.242-1.249 3.608-1.311C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>@rohanjpatil01
+        </a>
+      </div>
+    </footer>
 
 </div><!-- end main -->
 </div><!-- end layout -->
 
 <script src="../assets/app.js"></script>
+<script>
+  // Fix overview tree child bus lines to span exactly first-to-last dot
+  function fixOvBus() {
+    document.querySelectorAll('.ov-children').forEach(function(cont) {
+      var kids = Array.from(cont.querySelectorAll('.ov-child'));
+      if (kids.length < 2) { cont.style.setProperty('--bus-show','none'); return; }
+      var cr = cont.getBoundingClientRect();
+      var fr = kids[0].getBoundingClientRect();
+      var lr = kids[kids.length - 1].getBoundingClientRect();
+      var busLeft  = (fr.left  + fr.width  / 2 - cr.left)  / cr.width * 100;
+      var busRight = (cr.right - (lr.left  + lr.width  / 2)) / cr.width * 100;
+      cont.style.setProperty('--bus-left',  busLeft.toFixed(1)  + '%');
+      cont.style.setProperty('--bus-right', busRight.toFixed(1) + '%');
+    });
+  }
+  window.addEventListener('load', fixOvBus);
+  window.addEventListener('resize', fixOvBus);
+</script>
 <script>
   const TOPIC_ID = 'data-types';
   document.addEventListener('DOMContentLoaded', () => {
@@ -2061,9 +2191,8 @@ with base 10: '3.14'</pre>
     Bookmarks.initBtn(TOPIC_ID);
     initPersonalNotes(TOPIC_ID);
     initDifficultyRating(TOPIC_ID);
-    const scoreEl = document.getElementById('mcqScore');
-    if (scoreEl) scoreEl.style.display = 'none';
-  });
-</script>
-</body>
-</html>
+
+    // [ key toggles sidebar
+    document.addEventListener('keydown', e => {
+      if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return;
+      if (e.k

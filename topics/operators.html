@@ -8,16 +8,24 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>" />
   <link rel="stylesheet" href="../assets/style.css" />
   <style>
-    .topic-header{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:28px 32px;margin-bottom:22px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 var(--card-shine)}
-    .topic-header-glow{position:absolute;top:-60px;right:-60px;width:260px;height:260px;background:radial-gradient(circle,rgba(79,127,255,.1) 0%,transparent 70%);pointer-events:none}
-    .topic-header-glow2{position:absolute;bottom:-40px;left:10%;width:160px;height:160px;background:radial-gradient(circle,rgba(52,211,153,.06) 0%,transparent 70%);pointer-events:none}
-    .topic-phase{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:7px}
-    .topic-title{font-family:var(--font-display);font-size:clamp(22px,3vw,34px);font-weight:800;line-height:1.15;color:var(--text);margin-bottom:10px}
-    .topic-desc{font-size:14.5px;color:var(--text2);line-height:1.75;max-width:620px;margin-bottom:18px}
-    .topic-meta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px}
-    .meta-chip{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text3);font-weight:600}
-    .meta-dot{width:7px;height:7px;border-radius:50%}
-    .topic-actions{display:flex;gap:10px;flex-wrap:wrap}
+    /* Topic header */
+    .topic-header{background:var(--card);border:1px solid rgba(79,127,255,.22);border-radius:var(--radius-xl);margin-bottom:22px;position:relative;overflow:hidden;box-shadow:inset 0 1px 0 var(--card-shine);display:flex;flex-direction:column}
+    .topic-diff-row{border-top:1px solid var(--border);padding:9px 32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:relative;z-index:2}
+    .topic-bg-num{position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:120px;font-weight:900;color:rgba(79,127,255,.1);line-height:1;font-family:var(--font-mono);pointer-events:none;user-select:none;z-index:1}
+    body.light .topic-bg-num{color:rgba(79,127,255,.13)}
+    .topic-header-body{padding:26px 32px;position:relative;z-index:2;max-width:520px}
+    .topic-phase{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+    .topic-title{font-family:var(--font-display);font-size:clamp(22px,2.8vw,30px);font-weight:800;line-height:1.1;color:var(--text);letter-spacing:-0.025em;margin-bottom:8px}
+    .topic-desc{font-size:13.5px;color:var(--text2);line-height:1.65;margin-bottom:16px}
+    .topic-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+    .meta-chip{display:inline-flex;align-items:center;font-size:13px;font-weight:700;padding:3px 11px;border-radius:20px}
+    .meta-chip.green{color:var(--green);background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2)}
+    .meta-chip.amber{color:var(--amber);background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2)}
+    .meta-chip.purple{color:var(--purple);background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2)}
+    .meta-chip.blue{color:var(--accent);background:rgba(79,127,255,.1);border:1px solid rgba(79,127,255,.2)}
+    .topic-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .topic-footer-btn{font-size:13px;font-weight:700;padding:7px 16px;border-radius:8px;background:var(--accent);color:#fff!important;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;transition:background .15s}
+    .topic-footer-btn:hover{background:var(--accent-hover,#3d6dee)}
     .cbox{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius-lg);padding:22px 24px;margin-bottom:18px;box-shadow:inset 0 1px 0 var(--card-shine)}
     .cbox.green{border-left-color:var(--green)}
     .cbox.amber{border-left-color:var(--amber)}
@@ -38,13 +46,13 @@
     .data-table th{background:var(--bg3);color:var(--text2);font-weight:700;padding:10px 14px;text-align:center;border-bottom:1px solid var(--border);white-space:nowrap}
     .data-table th:first-child{text-align:left}
     .data-table td{padding:9px 14px;text-align:center;border-bottom:1px solid var(--border);color:var(--text2)}
-    .data-table td:first-child{text-align:left;font-weight:600;color:var(--text);font-family:var(--font-mono);font-size:12.5px;font-variant-ligatures:none}
+    .data-table td:first-child{text-align:left;font-weight:600;color:var(--text);font-family:var(--font-mono);font-size:13.5px;font-variant-ligatures:none}
     .data-table tr:last-child td{border-bottom:none}
     .data-table tr:hover td{background:var(--bg3)}
     /* Practice — shared styles in style.css */
     .practice-body{font-size:14px;color:var(--text2);line-height:1.75}
     .practice-hint{margin-top:12px;padding:10px 14px;background:var(--bg3);border-radius:7px;font-size:13px;color:var(--text3);display:none;line-height:1.6}
-    .hint-toggle{font-size:12px;color:var(--accent);background:none;border:none;font-family:var(--font-body);font-weight:700;padding:0;margin-top:10px;cursor:pointer;display:block}
+    .hint-toggle{font-size:13px;color:var(--accent);background:none;border:none;font-family:var(--font-body);font-weight:700;padding:0;margin-top:10px;cursor:pointer;display:block}
     .hint-toggle:hover{color:var(--accent-hover)}
     .topic-nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0;margin-top:16px;border-top:1px solid var(--border);flex-wrap:wrap;gap:10px}
     .example-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
@@ -53,10 +61,27 @@
     .callout-sc strong{color:var(--text)}
     .sc-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
     .sc-row:last-child{border-bottom:none}
-    .sc-badge{font-family:var(--font-mono);font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:1px}
+    .sc-badge{font-family:var(--font-mono);font-size:13px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:1px}
     .sc-and{background:rgba(79,127,255,.15);color:var(--accent)}
     .sc-or{background:rgba(245,158,11,.15);color:var(--amber)}
     .sc-not{background:rgba(139,92,246,.15);color:var(--purple)}
+    /* Overview tree */
+    .ov-tree{text-align:center}
+    .ov-root{display:inline-flex;align-items:center;background:linear-gradient(135deg,#4f7fff,#6366f1);color:#fff;padding:13px 34px;border-radius:16px;font-size:14px;font-weight:800;position:relative;box-shadow:0 6px 24px rgba(79,127,255,.35),0 2px 8px rgba(79,127,255,.2),inset 0 1px 0 rgba(255,255,255,.25);letter-spacing:.01em}
+    .ov-root::after{content:'';position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);width:2px;height:22px;background:linear-gradient(to bottom,#6366f1,transparent)}
+    .ov-branches{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:40px;position:relative;align-items:stretch}
+    .ov-branch{display:flex;flex-direction:column;align-items:stretch;position:relative}
+    /* Bus spans exactly first-to-last dot center: 1/(2*7)=7.14% */
+    .ov-branches::before{content:'';position:absolute;top:-18px;left:7.1%;right:7.1%;height:2px;background:linear-gradient(to right,var(--green) 0%,var(--accent) 17%,var(--accent3) 33%,var(--accent4) 50%,var(--accent2) 67%,var(--purple) 83%,var(--amber) 100%);border-radius:2px;opacity:.9}
+    .ov-branch::before{content:'';position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:2px;height:18px;background:var(--ov-color,var(--border));opacity:.9}
+    .ov-branch::after{content:'';position:absolute;top:-23px;left:50%;transform:translateX(-50%);width:9px;height:9px;border-radius:50%;background:var(--ov-color,var(--border));border:2px solid var(--card);z-index:1;box-shadow:0 0 6px var(--ov-color)}
+    .ov-card{background:color-mix(in srgb,var(--ov-color,var(--accent)) 6%,var(--card));border:1px solid color-mix(in srgb,var(--ov-color,var(--border)) 25%,var(--border));border-top:3px solid var(--ov-color,var(--border));border-radius:14px;padding:14px 10px 12px;text-align:center;flex:1;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 2px 8px rgba(0,0,0,.06);transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+    .ov-card:hover{transform:translateY(-5px);box-shadow:0 10px 28px color-mix(in srgb,var(--ov-color,var(--accent)) 20%,transparent),inset 0 1px 0 rgba(255,255,255,.1);background:color-mix(in srgb,var(--ov-color,var(--accent)) 12%,var(--card))}
+    .ov-kw{font-family:var(--font-display);font-size:13.5px;font-weight:800;display:block;margin-bottom:4px;color:var(--ov-color)}
+    .ov-type{display:block;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:8px}
+    .ov-ops{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-top:2px}
+    .ov-op{font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--ov-color);background:color-mix(in srgb,var(--ov-color) 10%,var(--card));border:1px solid color-mix(in srgb,var(--ov-color) 22%,var(--border));padding:3px 6px;border-radius:5px;font-variant-ligatures:none;white-space:nowrap}
+    @media(max-width:800px){.ov-branches{grid-template-columns:repeat(3,1fr)}.ov-branches::before,.ov-branch::before,.ov-branch::after{display:none}}
   </style>
 </head>
 <body>
@@ -74,9 +99,13 @@
     <div class="progress-meta"><span>Overall Progress</span><span data-progress-count>0/29 topics</span></div>
     <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
   </div>
+      <div class="sidebar-streak">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <span data-streak>0</span>&nbsp;<span class="sb-streak-lbl">day streak</span>
+    </div>
   <div class="sidebar-label">Navigation</div>
   <a href="../index.html" class="nav-item"><span class="nav-num">🏠</span><span class="nav-dot"></span>Home</a>
-  <div class="sidebar-label">Core Python</div>
+  <div class="sidebar-label" data-phase="green">Core Python</div>
   <a href="python-basics.html" class="nav-item"><span class="nav-num">01</span><span class="nav-dot" id="dot-python-basics"></span>Python Basics</a>
   <a href="data-types.html" class="nav-item"><span class="nav-num">02</span><span class="nav-dot" id="dot-data-types"></span>Data Types</a>
   <a href="operators.html" class="nav-item active"><span class="nav-num">03</span><span class="nav-dot active"></span>Operators</a>
@@ -91,7 +120,7 @@
   </div>
   <a href="lists.html" class="nav-item"><span class="nav-num">07</span><span class="nav-dot"></span>Lists</a>
   <a href="tuples.html" class="nav-item"><span class="nav-num">08</span><span class="nav-dot"></span>Tuples</a>
-  <div class="sidebar-label">Intermediate</div>
+  <div class="sidebar-label" data-phase="accent">Intermediate</div>
   <a href="dictionaries.html" class="nav-item"><span class="nav-num">09</span><span class="nav-dot"></span>Dictionaries</a>
   <a href="sets.html" class="nav-item"><span class="nav-num">10</span><span class="nav-dot"></span>Sets</a>
   <div class="nav-group" data-group="functions">
@@ -111,7 +140,7 @@
     <div class="nav-group-header"><span class="nav-num">15</span><span class="nav-dot"></span>OOP<span class="nav-group-arrow">›</span></div>
     <div class="nav-sub"><a href="oop-classes.html" class="nav-sub-item">Classes &amp; Objects</a><a href="oop-inheritance.html" class="nav-sub-item">Inheritance</a><a href="oop-advanced.html" class="nav-sub-item">Advanced OOP</a></div>
   </div>
-  <div class="sidebar-label">Advanced</div>
+  <div class="sidebar-label" data-phase="purple">Advanced</div>
   <a href="iterators-generators.html" class="nav-item"><span class="nav-num">16</span><span class="nav-dot"></span>Iterators &amp; Generators</a>
   <a href="decorators.html" class="nav-item"><span class="nav-num">17</span><span class="nav-dot"></span>Decorators</a>
   <div class="nav-group" data-group="numpy">
@@ -154,24 +183,25 @@
 
     <!-- TOPIC HEADER -->
     <div class="topic-header animate-fadeup">
-      <div class="topic-header-glow"></div>
-      <div class="topic-header-glow2"></div>
-      <div class="topic-phase"><span class="badge badge-accent">Module 03</span>Core Python · Phase 1</div>
-      <div class="topic-title">Operators in Python</div>
-      <div class="topic-desc">Operators are the symbols that tell Python what to do with your data. From simple addition to comparing values and combining conditions, operators are everywhere in your code.</div>
-      <div class="topic-meta">
-        <div class="meta-chip"><div class="meta-dot" style="background:var(--green)"></div>Beginner</div>
-        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent3)"></div>~50 min read</div>
-        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent)"></div>10 practice tasks</div>
-        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent2)"></div>8 MCQs</div>
-        <div class="meta-chip"><div class="meta-dot" style="background:var(--accent4)"></div>8 interview Qs</div>
+      <div class="topic-bg-num">03</div>
+      <div class="topic-header-body">
+        <div class="topic-phase">Core Python · Phase 1</div>
+        <div class="topic-title">Operators in Python</div>
+        <div class="topic-desc">Operators are the symbols that tell Python what to do with your data. From simple addition to comparing values and combining conditions, operators are everywhere in your code.</div>
+        <div class="topic-meta">
+          <div class="meta-chip green">🟢 Beginner</div>
+          <div class="meta-chip amber">⏱ ~50 min read</div>
+          <div class="meta-chip purple">✏️ 10 practice tasks</div>
+          <div class="meta-chip blue">❓ 8 MCQs</div>
+          <div class="meta-chip blue">🎤 8 interview Qs</div>
+        </div>
+        <div class="topic-actions">
+          <a href="conditionals.html" class="topic-footer-btn" id="nextTopicBtn">Next: Conditionals →</a>
+          <a href="data-types.html" class="btn" id="prevTopicBtn">← Prev</a>
+          <button class="btn" data-bookmark="operators">🔖 Bookmark</button>
+        </div>
       </div>
-      <div class="topic-actions">
-        <button class="btn" data-bookmark="operators">🔖 Bookmark</button>
-        <a href="data-types.html" class="btn" id="prevTopicBtn">Prev: Data Types</a>
-        <a href="conditionals.html" class="btn" id="nextTopicBtn">Next: Conditionals</a>
-      </div>
-      <div class="diff-rating">
+      <div class="topic-diff-row">
         <span class="diff-rating-label">How was this topic?</span>
         <button class="diff-btn" data-diff="easy">😊 Easy</button>
         <button class="diff-btn" data-diff="medium">🤔 Medium</button>
@@ -207,43 +237,76 @@
         <span>You know variables store data. Now let's actually <strong>do stuff</strong> with that data. Operators are just symbols that tell Python what to do: add these two numbers, check if this value is bigger, see if this item is in that list. You use them in literally every program you write.</span>
       </div>
 
-      <!-- SVG DIAGRAM -->
-      <div class="diagram-wrap">
-        <div class="concept-type-label label-definition" style="margin-bottom:20px">Python Operators: Overview</div>
-        <svg viewBox="0 0 860 200" width="100%" style="max-width:860px;display:block;margin:0 auto;min-width:580px" aria-label="Python operators overview">
-          <rect x="305" y="8" width="210" height="38" rx="10" fill="var(--accent)" opacity=".92"/>
-          <text x="410" y="32" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Outfit,sans-serif">Python Operators</text>
-          <line x1="410" y1="46" x2="410" y2="68" stroke="var(--text3)" stroke-width="1.5"/>
-          <line x1="60" y1="68" x2="790" y2="68" stroke="var(--text3)" stroke-width="1.5"/>
-          <line x1="60"  y1="68" x2="60"  y2="86" stroke="var(--text3)" stroke-width="1.5"/>
-          <line x1="175" y1="68" x2="175" y2="86" stroke="var(--text3)" stroke-width="1.5"/>
-          <line x1="295" y1="68" x2="295" y2="86" stroke="var(--text3)" stroke-width="1.5"/>
-          <line x1="410" y1="68" x2="410" y2="86" stroke="var(--text3)" stroke-width="1.5"/>
-          <line x1="530" y1="68" x2="530" y2="86" stroke="var(--text3)" stroke-width="1.5"/>
-          <line x1="645" y1="68" x2="645" y2="86" stroke="var(--text3)" stroke-width="1.5"/>
-          <line x1="760" y1="68" x2="760" y2="86" stroke="var(--text3)" stroke-width="1.5"/>
-          <rect x="8"   y="86" width="104" height="36" rx="8" fill="var(--bg3)" stroke="var(--green)"   stroke-width="1.5"/>
-          <text x="60"  y="109" text-anchor="middle" fill="var(--green)"   font-size="11" font-weight="700" font-family="Outfit,sans-serif">Arithmetic</text>
-          <rect x="122" y="86" width="106" height="36" rx="8" fill="var(--bg3)" stroke="var(--accent)"  stroke-width="1.5"/>
-          <text x="175" y="109" text-anchor="middle" fill="var(--accent)"  font-size="11" font-weight="700" font-family="Outfit,sans-serif">Comparison</text>
-          <rect x="237" y="86" width="116" height="36" rx="8" fill="var(--bg3)" stroke="var(--accent3)" stroke-width="1.5"/>
-          <text x="295" y="109" text-anchor="middle" fill="var(--accent3)" font-size="11" font-weight="700" font-family="Outfit,sans-serif">Logical</text>
-          <rect x="355" y="86" width="110" height="36" rx="8" fill="var(--bg3)" stroke="var(--accent4)" stroke-width="1.5"/>
-          <text x="410" y="109" text-anchor="middle" fill="var(--accent4)" font-size="11" font-weight="700" font-family="Outfit,sans-serif">Assignment</text>
-          <rect x="472" y="86" width="116" height="36" rx="8" fill="var(--bg3)" stroke="var(--accent2)" stroke-width="1.5"/>
-          <text x="530" y="109" text-anchor="middle" fill="var(--accent2)" font-size="11" font-weight="700" font-family="Outfit,sans-serif">Identity</text>
-          <rect x="592" y="86" width="106" height="36" rx="8" fill="var(--bg3)" stroke="var(--purple)"  stroke-width="1.5"/>
-          <text x="645" y="109" text-anchor="middle" fill="var(--purple)"  font-size="11" font-weight="700" font-family="Outfit,sans-serif">Membership</text>
-          <rect x="706" y="86" width="108" height="36" rx="8" fill="var(--bg3)" stroke="var(--amber)"   stroke-width="1.5"/>
-          <text x="760" y="109" text-anchor="middle" fill="var(--amber)"   font-size="11" font-weight="700" font-family="Outfit,sans-serif">Bitwise</text>
-          <text x="60"  y="142" text-anchor="middle" fill="var(--text3)" font-size="10" font-family="Outfit,sans-serif">+ - * / // % **</text>
-          <text x="175" y="142" text-anchor="middle" fill="var(--text3)" font-size="10" font-family="Outfit,sans-serif">== != &gt; &lt; &gt;= &lt;=</text>
-          <text x="295" y="142" text-anchor="middle" fill="var(--text3)" font-size="10" font-family="Outfit,sans-serif">and  or  not</text>
-          <text x="410" y="142" text-anchor="middle" fill="var(--text3)" font-size="10" font-family="Outfit,sans-serif">= += -= *=  ...</text>
-          <text x="530" y="142" text-anchor="middle" fill="var(--text3)" font-size="10" font-family="Outfit,sans-serif">is   is not</text>
-          <text x="645" y="142" text-anchor="middle" fill="var(--text3)" font-size="10" font-family="Outfit,sans-serif">in   not in</text>
-          <text x="760" y="142" text-anchor="middle" fill="var(--text3)" font-size="10" font-family="Outfit,sans-serif">&amp; | ^ ~ &lt;&lt; &gt;&gt;</text>
-        </svg>
+      <!-- OVERVIEW TREE -->
+      <div class="diagram-wrap" style="padding-bottom:28px">
+        <div class="ov-tree">
+          <div class="ov-root">Python Operators</div>
+          <div class="ov-branches">
+            <div class="ov-branch" style="--ov-color:var(--green)">
+              <div class="ov-card">
+                <span class="ov-kw">Arithmetic</span>
+                <span class="ov-type">math ops</span>
+                <div class="ov-ops">
+                  <span class="ov-op">+</span><span class="ov-op">-</span><span class="ov-op">*</span><span class="ov-op">/</span><span class="ov-op">//</span><span class="ov-op">%</span><span class="ov-op">**</span>
+                </div>
+              </div>
+            </div>
+            <div class="ov-branch" style="--ov-color:var(--accent)">
+              <div class="ov-card">
+                <span class="ov-kw">Comparison</span>
+                <span class="ov-type">compare</span>
+                <div class="ov-ops">
+                  <span class="ov-op">==</span><span class="ov-op">!=</span><span class="ov-op">&gt;</span><span class="ov-op">&lt;</span><span class="ov-op">&gt;=</span><span class="ov-op">&lt;=</span>
+                </div>
+              </div>
+            </div>
+            <div class="ov-branch" style="--ov-color:var(--accent3)">
+              <div class="ov-card">
+                <span class="ov-kw">Logical</span>
+                <span class="ov-type">boolean</span>
+                <div class="ov-ops">
+                  <span class="ov-op">and</span><span class="ov-op">or</span><span class="ov-op">not</span>
+                </div>
+              </div>
+            </div>
+            <div class="ov-branch" style="--ov-color:var(--accent4)">
+              <div class="ov-card">
+                <span class="ov-kw">Assignment</span>
+                <span class="ov-type">store</span>
+                <div class="ov-ops">
+                  <span class="ov-op">=</span><span class="ov-op">+=</span><span class="ov-op">-=</span><span class="ov-op">*=</span><span class="ov-op">/=</span><span class="ov-op">//=</span>
+                </div>
+              </div>
+            </div>
+            <div class="ov-branch" style="--ov-color:var(--accent2)">
+              <div class="ov-card">
+                <span class="ov-kw">Identity</span>
+                <span class="ov-type">same object</span>
+                <div class="ov-ops">
+                  <span class="ov-op">is</span><span class="ov-op">is not</span>
+                </div>
+              </div>
+            </div>
+            <div class="ov-branch" style="--ov-color:var(--purple)">
+              <div class="ov-card">
+                <span class="ov-kw">Membership</span>
+                <span class="ov-type">contains</span>
+                <div class="ov-ops">
+                  <span class="ov-op">in</span><span class="ov-op">not in</span>
+                </div>
+              </div>
+            </div>
+            <div class="ov-branch" style="--ov-color:var(--amber)">
+              <div class="ov-card">
+                <span class="ov-kw">Bitwise</span>
+                <span class="ov-type">bits</span>
+                <div class="ov-ops">
+                  <span class="ov-op">&amp;</span><span class="ov-op">|</span><span class="ov-op">^</span><span class="ov-op">~</span><span class="ov-op">&lt;&lt;</span><span class="ov-op">&gt;&gt;</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- 1. ARITHMETIC -->
@@ -911,14 +974,14 @@
         .gto-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:14px;box-shadow:inset 0 1px 0 var(--card-shine)}
         .gto-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
         .gto-title{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--text)}
-        .gto-reveal-btn{font-size:12px;font-weight:700;font-family:var(--font-body);color:var(--accent);background:rgba(79,127,255,.1);border:1px solid rgba(79,127,255,.25);border-radius:6px;padding:5px 14px;cursor:pointer;transition:background .2s}
+        .gto-reveal-btn{font-size:13px;font-weight:700;font-family:var(--font-body);color:var(--accent);background:rgba(79,127,255,.1);border:1px solid rgba(79,127,255,.25);border-radius:6px;padding:5px 14px;cursor:pointer;transition:background .2s}
         .gto-reveal-btn:hover{background:rgba(79,127,255,.2)}
         .gto-answer{margin-top:12px;padding:12px 16px;background:var(--bg3);border-radius:8px;border-left:3px solid var(--green);display:none}
         .gto-answer.visible{display:block}
-        .gto-answer-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+        .gto-answer-label{font-size:13.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
         .gto-output{font-family:var(--font-mono);font-size:13.5px;color:var(--text);white-space:pre;line-height:1.7}
         .gto-explain{font-size:13px;color:var(--text2);line-height:1.7;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
-      </style>
+  </style>
 
       <!-- Q1 -->
       <div class="gto-card">
@@ -1086,7 +1149,7 @@ False</div>
         <span>These questions are commonly asked in Python interviews, especially in the first round. Click each question to expand the answer.</span>
       </div>
 
-      <div class="section-heading" style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:0 0 10px">Beginner Level</div>
+      <div class="section-heading" style="font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:0 0 10px">Beginner Level</div>
 
       <!-- Q1 -->
       <div class="interview-accordion">
@@ -1104,7 +1167,7 @@ False</div>
                 <li><code>10 // 3</code> gives <code>3</code>. The decimal is dropped and the result rounds down.</li>
               </ul>
               <p>The "rounds down" part catches people off guard with negative numbers:</p>
-              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0;font-variant-ligatures:none">-7 // 2   # gives -4, not -3
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:13.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0;font-variant-ligatures:none">-7 // 2   # gives -4, not -3
 # because -3.5 rounded DOWN is -4 (toward negative infinity)</pre>
             </div>
             <div class="ia-trap">
@@ -1186,7 +1249,7 @@ False</div>
             <div class="ia-body">
               <p>Step by step: <code>not not True</code> = <code>not False</code> = <code>True</code>.</p>
               <p>This pattern is occasionally used to convert any truthy/falsy value to a strict boolean:</p>
-              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">not not []      # False  (empty list is falsy)
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:13.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">not not []      # False  (empty list is falsy)
 not not [1, 2]  # True   (non-empty is truthy)</pre>
               <p>That said, <code>bool(x)</code> is the cleaner way to do the same thing and is much easier to read.</p>
             </div>
@@ -1198,7 +1261,7 @@ not not [1, 2]  # True   (non-empty is truthy)</pre>
         </div>
       </div>
 
-      <div class="section-heading" style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:14px 0 10px">Intermediate Level</div>
+      <div class="section-heading" style="font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:14px 0 10px">Intermediate Level</div>
 
       <!-- Q5 -->
       <div class="interview-accordion">
@@ -1211,7 +1274,7 @@ not not [1, 2]  # True   (non-empty is truthy)</pre>
           <div class="interview-acc-answer">
             <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div><code>==</code> checks if two values are equal. <code>is</code> checks if two variables point to the exact same object in memory. They are not the same thing.</div>
             <div class="ia-body">
-              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">a = [1, 2, 3]
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:13.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">a = [1, 2, 3]
 b = [1, 2, 3]
 
 a == b   # True  — same contents
@@ -1245,7 +1308,7 @@ a is c   # True  — c points to the exact same object as a</pre>
                 <li><code>True or (any expression)</code>: the right side is never evaluated because the result is already True.</li>
               </ul>
               <p>This is used as a safety guard in real code:</p>
-              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">if user is not None and user.name == "Rohan":
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:13.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">if user is not None and user.name == "Rohan":
     # If user is None, the second check is never reached
     # so no AttributeError is raised</pre>
             </div>
@@ -1269,7 +1332,7 @@ a is c   # True  — c points to the exact same object as a</pre>
             <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Operator precedence defines which operator runs first when multiple operators appear in one expression. Python follows BODMAS/PEMDAS, plus a defined order for logical operators.</div>
             <div class="ia-body">
               <p>Priority order (high to low): <code>**</code>, then unary <code>-</code>/<code>+</code>/<code>not</code>, then <code>* / // %</code>, then <code>+ -</code>, then comparison operators, then <code>not</code>, then <code>and</code>, then <code>or</code>.</p>
-              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0;font-variant-ligatures:none">2 + 3 * 4       # 14, not 20 (* runs before +)
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:13.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0;font-variant-ligatures:none">2 + 3 * 4       # 14, not 20 (* runs before +)
 not False or True   # True, not False
 # because not binds tighter than or:
 # = (not False) or True = True or True = True</pre>
@@ -1282,7 +1345,7 @@ not False or True   # True, not False
         </div>
       </div>
 
-      <div class="section-heading" style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:14px 0 10px">Advanced Level</div>
+      <div class="section-heading" style="font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin:14px 0 10px">Advanced Level</div>
 
       <!-- Q8 -->
       <div class="interview-accordion">
@@ -1300,7 +1363,7 @@ not False or True   # True, not False
                 <li><strong>set / dict</strong>: uses a hash table. Computes the hash, goes directly to the right bucket. O(1) average. Fast regardless of size.</li>
                 <li><strong>str</strong>: checks for a substring match, not a character. <code>"ell" in "hello"</code> is True. Time complexity is O(n*m) in the worst case.</li>
               </ul>
-              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">items_list = list(range(1_000_000))
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:13.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">items_list = list(range(1_000_000))
 items_set  = set(range(1_000_000))
 
 999999 in items_list  # slow — scans up to 1 million elements
@@ -1326,7 +1389,7 @@ items_set  = set(range(1_000_000))
             <div class="ia-tldr"><div class="ia-tldr-label">One-line answer</div>Because of short-circuit evaluation. <code>0</code> is falsy, so Python already knows the <code>and</code> expression is False and never evaluates the right side at all.</div>
             <div class="ia-body">
               <p>With <code>and</code>: if the left operand is falsy, the result is definitely falsy. Python returns the left operand immediately and never touches the right side.</p>
-              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">0 and (1/0)   # returns 0, no error raised
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:13.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0">0 and (1/0)   # returns 0, no error raised
 # (1/0) is never evaluated</pre>
               <p>This is exactly why short-circuit evaluation is used as a safety guard. The dangerous or expensive operation on the right only runs when needed.</p>
             </div>
@@ -1351,7 +1414,7 @@ items_set  = set(range(1_000_000))
             <div class="ia-body">
               <p>Python's rule: the result of <code>a % b</code> always has the same sign as the <strong>divisor</strong> (b, the right-hand number).</p>
               <p>C/Java rule: the result has the same sign as the <strong>dividend</strong> (a, the left-hand number).</p>
-              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:12.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0;font-variant-ligatures:none">-7 % 3 in Python:
+              <pre style="background:var(--bg3);padding:10px 14px;border-radius:7px;font-size:13.5px;font-family:var(--font-mono);color:var(--text2);margin:8px 0;font-variant-ligatures:none">-7 % 3 in Python:
   -7 = (3 * -3) + 2   → remainder is 2  (positive, sign of divisor 3)
 
 -7 % 3 in C/Java:
@@ -1842,23 +1905,20 @@ with more than one element is ambiguous.</pre>
 
   </main>
 
-  <footer class="footer">
-    <div class="footer-brand">
-      <span class="footer-logo">🐍</span>
-      <span>PythonbyRohan</span>
-    </div>
-    <div class="footer-links">
-      <a href="https://github.com/RohanPatil01" target="_blank" rel="noopener" class="footer-link">
-        <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub
-      </a>
-      <a href="https://www.linkedin.com/in/rohanpatil01" target="_blank" rel="noopener" class="footer-link">
-        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn
-      </a>
-      <a href="https://www.instagram.com/rohanjpatil01/" target="_blank" rel="noopener" class="footer-link">
-        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>@rohanjpatil01
-      </a>
-    </div>
-  </footer>
+          <footer class="footer">
+      <div class="footer-brand">Python<span style="color:var(--purple)">byRohan</span> &copy; 2026 &middot; Rohan Patil</div>
+      <div class="footer-links">
+        <a href="https://github.com/RohanPatil01" target="_blank" rel="noopener" class="footer-link">
+          <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/rohanpatil01" target="_blank" rel="noopener" class="footer-link">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn
+        </a>
+        <a href="https://www.instagram.com/rohanjpatil01/" target="_blank" rel="noopener" class="footer-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.336 3.608 1.311.975.975 1.249 2.242 1.311 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.336 2.633-1.311 3.608-.975.975-2.242 1.249-3.608 1.311-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.336-3.608-1.311-.975-.975-1.249-2.242-1.311-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.336-2.633 1.311-3.608.975-.975 2.242-1.249 3.608-1.311C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>@rohanjpatil01
+        </a>
+      </div>
+    </footer>
 
 </div><!-- end .main -->
 </div><!-- end .layout -->
@@ -1867,12 +1927,4 @@ with more than one element is ambiguous.</pre>
 <script>
   const TOPIC_ID = 'operators';
   document.addEventListener('DOMContentLoaded', () => {
-    initCompleteBtn(TOPIC_ID);
-    initMCQ(TOPIC_ID);
-    Bookmarks.initBtn(TOPIC_ID);
-    initPersonalNotes(TOPIC_ID);
-    initDifficultyRating(TOPIC_ID);
-  });
-</script>
-</body>
-</html>
+    initC

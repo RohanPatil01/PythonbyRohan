@@ -361,8 +361,25 @@ function initMCQ(topicId) {
   const total      = questions.length;
   if (!submitBtn) return;
 
+  // Inject answered counter above submit row
+  let counterEl = null;
+  const submitRow = submitBtn.closest('.mcq-submit-row');
+  if (submitRow && total > 0) {
+    counterEl = document.createElement('span');
+    counterEl.className = 'mcq-counter';
+    counterEl.textContent = `0 / ${total} answered`;
+    submitRow.prepend(counterEl);
+  }
+
   // Track selections per question index
   const selections = {};
+
+  const updateCounter = () => {
+    if (!counterEl) return;
+    const n = Object.keys(selections).length;
+    counterEl.textContent = `${n} / ${total} answered`;
+    counterEl.classList.toggle('mcq-counter-done', n === total);
+  };
 
   questions.forEach((qBlock, qi) => {
     qBlock.querySelectorAll('.mcq-option').forEach(opt => {
@@ -374,6 +391,7 @@ function initMCQ(topicId) {
         // Remove unanswered highlight when student selects an answer
         qBlock.classList.remove('mcq-unanswered');
         if (warning) warning.style.display = 'none';
+        updateCounter();
       });
     });
   });
@@ -609,8 +627,12 @@ function initCompleteBtn(topicId) {
     };
     refresh();
     btn.addEventListener('click', () => {
-      if (Progress.isCompleted(topicId)) Progress.markIncomplete(topicId);
-      else Progress.markComplete(topicId);
+      if (Progress.isCompleted(topicId)) {
+        Progress.markIncomplete(topicId);
+      } else {
+        Progress.markComplete(topicId);
+        launchConfetti();
+      }
       refresh();
     });
   });
@@ -775,6 +797,37 @@ function initComingSoonLinks() {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   SCROLL PROGRESS + BACK TO TOP
+═══════════════════════════════════════════════════════════ */
+function initScrollProgress() {
+  const topbar = document.querySelector('.topbar');
+  if (!topbar) return;
+
+  // Thin progress bar at bottom of topbar
+  const bar  = document.createElement('div');
+  bar.className = 'topic-scroll-bar';
+  const fill = document.createElement('div');
+  fill.className = 'topic-scroll-fill';
+  bar.appendChild(fill);
+  topbar.appendChild(bar);
+
+  // Back-to-top button
+  const btt = document.createElement('button');
+  btt.className = 'back-to-top';
+  btt.setAttribute('aria-label', 'Back to top');
+  btt.innerHTML = '&#8593;';
+  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  document.body.appendChild(btt);
+
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total    = document.documentElement.scrollHeight - window.innerHeight;
+    if (total > 0) fill.style.width = (scrolled / total * 100) + '%';
+    btt.classList.toggle('visible', scrolled > 320);
+  }, { passive: true });
+}
+
+/* ═══════════════════════════════════════════════════════════
    INIT (runs on every page)
 ═══════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
@@ -789,6 +842,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSearch();
   initTabs();
   initKeyboardShortcuts();
+  initScrollProgress();
 
   document.getElementById('themeToggle')?.addEventListener('click', () => Theme.toggle());
   document.getElementById('sidebarToggle')?.addEventListener('click', () => Sidebar.toggle());
